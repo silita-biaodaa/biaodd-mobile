@@ -1,27 +1,15 @@
-# biaodd_mobile
+npm run dev  //启动本地，可以本地调试
+npm run build //将vue文件打包成html至dist文件夹
 
-> A Vue.js project
+文件结构
 
-## Build Setup
+src/assets   //放置图片，本地文件
+src/base     //公用文件夹  放置公共JS，公共CSS等
+src/components   //组件文件夹   放置自定义组件
+src/page      //放置页面
+src/router    //路由
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+src/base/base.js    //公用方法放置在内
+src/base/base.css   //公共CSS放置在内
+src/base/http.js    //配置请求接口放置在内
+src/router/router.js  //配置路由以及路由钩子放置在内
