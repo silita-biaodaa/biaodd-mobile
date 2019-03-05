@@ -5,12 +5,12 @@
             <p class="icon">
                 <img src="../assets/icon-zhong.png"/>
             </p>
-            <p class="tit">湖南省长沙市岳麓区金凤小学基础建设帮扶建设建设速度还是开发</p>
+            <p class="tit">{{obj.title}}</p>
         </div>
-        <div class="center">第一候选人：湖南省耀邦建设有限公司</div>
+        <div class="center">{{obj.oneName ? obj.oneName : '详见原文' }}</div>
         <div class="bottom">
-            <p>中标金额：123万</p>
-            <p>公示时间：2019年1月20日</p>
+            <p>{{obj.oneOffer ? obj.oneOffer + '万' : '详见原文' }}</p>
+            <p>{{obj.opendate ? obj.opendate : '详见原文' }}</p>
         </div>
     </div>
 </template>
@@ -34,6 +34,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.conver()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -58,6 +59,11 @@ export default {
     },
     methods: {
         // 方法 集合
+        conver() {
+             this.obj.opendate =  this.obj.opendate.replace('-','年')
+             this.obj.opendate =  this.obj.opendate.replace('-','月')
+             this.obj.opendate = this.obj.opendate +  '日'             
+        }
     }
 
 }

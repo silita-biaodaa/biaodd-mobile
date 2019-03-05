@@ -112,6 +112,7 @@ export default {
                 type: "2"
             }
         }).then(function(res){
+            console.log(res.data.data)
             that.zhongbList=res.data.data;
         })
         //企业
