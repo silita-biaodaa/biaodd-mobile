@@ -11,7 +11,7 @@
             </ul>
         </div>
         <!-- 招标 -->
-        <div class="zb">
+        <div class="zhaob">
             <div class="title">
                 <h5>最新招标</h5>
                 <span>查看更多</span>
@@ -20,10 +20,32 @@
                 <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
             </ul>
         </div>
+        <!-- 中标 -->
+        <div class="zhongb">
+            <div class="title">
+                <h5>最新中标</h5>
+                <span>查看更多</span>
+            </div>
+            <ul class="box">
+                <v-zhongb v-for="(o,i) of zhongbList" :key="i" :obj="o"></v-zhongb>
+            </ul>
+        </div>
+        <!-- 中标 -->
+        <div class="qy">
+            <div class="title">
+                <h5>热门企业</h5>
+                <span>查看更多</span>
+            </div>
+            <ul class="box">
+                <v-qy v-for="(o,i) of qyList" :key="i" :obj="o"></v-qy>
+            </ul>
+        </div>
     </div>
 </template>
 <script>
 import zbCon from '@/components/zbContent'
+import zhongbCon from '@/components/zhongbCon'
+import qy from '@/components/qy'
 export default {
     name: 'index', // 结构名称
     data() {
@@ -44,14 +66,18 @@ export default {
                     txt:'诚信信息'
                 }
             ],
-            zbList:[]
+            zbList:[],
+            zhongbList:[],
+            qyList:[]
         }
     },
     watch: {
         // 监控集合
     },
     components:{
-        'v-zb':zbCon
+        'v-zb':zbCon,
+        'v-zhongb':zhongbCon,
+        'v-qy':qy
     },
     props: {
         // 集成父级参数
@@ -61,7 +87,21 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        //招标
         let that=this;
+        this.$http({
+            method:'post',
+            url: '/notice/queryList',
+            data:{
+                pageNo:1,
+                pageSize:3,
+                regions: "湖南",
+                type: "0"
+            }
+        }).then(function(res){
+            that.zbList=res.data.data;
+        })
+        //中标
         this.$http({
             method:'post',
             url: '/notice/queryList',
@@ -72,7 +112,18 @@ export default {
                 type: "2"
             }
         }).then(function(res){
-            that.zbList=res.data.data;
+            that.zhongbList=res.data.data;
+        })
+        //企业
+        this.$http({
+            method:'post',
+            url: '/company/host',
+            data:{
+                regisAddress: "湖南",
+                limit: 3
+            }
+        }).then(function(res){
+            that.qyList=res.data.data;
         })
     },
     beforeMount() {
@@ -138,6 +189,9 @@ export default {
         }
     }
 }
+.zhaob,.zhongb{
+    margin-bottom: 20px
+}
 .title{
     display: flex;
     justify-content: space-between;
@@ -148,7 +202,7 @@ export default {
     h5{
         font-size: 32px;
         padding-left: 20px;
-        border-left: 6px solid #E17226;
+        border-left: 6px solid #FE6603;
     }
     span{
         font-size: 28px;

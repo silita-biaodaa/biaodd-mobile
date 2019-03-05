@@ -4,24 +4,29 @@
     <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
     <img src="../assets/icon-chaz.png.png" alt="">
   </div>
-
+  <div>
+    <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
+  </div>
 </div>
 </template>
 <script>
+import zbCon from '@/components/zbContent'
 export default {
-  data () {
-    return {
-      search:'',
-    }
-  },
-  methods: {
+    data () {
+      return {
+        search:'',
+        zbList:[]
+      }
+    },
+    methods: {
 
-  },
-  components: {
-  }
+    },
+    components:{
+        'v-zb':zbCon
+    },
 }
 </script>
-<style lang="less" >
+<style lang="less" scoped>
 .bid {
   .b-search {
     height: 153px;
