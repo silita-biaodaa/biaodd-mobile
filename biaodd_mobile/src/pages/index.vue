@@ -123,7 +123,7 @@ export default {
                 limit: 3
             }
         }).then(function(res){
-            that.qyList=res.data.data;
+            that.qyList=res.data.data.slice(0,3);
         })
     },
     beforeMount() {

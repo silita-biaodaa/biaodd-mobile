@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zbContent">
+    <div class="zbContent newNotice">
         <div class="top">
             <p class="icon">
                 <img src="../assets/icon-zhao.png"/>
@@ -72,37 +72,5 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-.zbContent{
-    border-bottom: 1PX solid #f2f2f2;
-    padding: 28px 30px 28px 50px;
-    .top{
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 60px;
-        .icon{
-            margin-right: 20px;
-        }
-        .tit{
-            color: #666;
-        }
-    }
-    .center{
-        color: #999;
-        font-size: 26px;
-        margin-bottom: 20px;
-        max-width: 550px;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap
-    }
-    .bottom{
-        display: flex;
-        justify-content:space-between;
-        p{
-            color: #999;
-            font-size: 26px;
-        }
-    }
-}
+
 </style>
