@@ -1,23 +1,22 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zbContent newNotice">
+    <div class="zhongbCon newNotice">
         <div class="top">
             <p class="icon">
-                <img src="../assets/icon-zhao.png"/>
+                <img src="../assets/icon-zhong.png"/>
             </p>
-            <p class="tit">{{obj.title}}</p>
+            <p class="tit">湖南省长沙市岳麓区金凤小学基础建设帮扶建设建设速度还是开发</p>
         </div>
-        <div class="center">{{obj.certificate ? obj.certificate : '详见原文'}}</div>
+        <div class="center">第一候选人：湖南省耀邦建设有限公司</div>
         <div class="bottom">
-            <p>{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-            <p>{{obj.opendate ? obj.opendate : '详见原文'}}</p>
+            <p>中标金额：123万</p>
+            <p>公示时间：2019年1月20日</p>
         </div>
     </div>
 </template>
 <script>
-// let moment = require("moment");
 export default {
-    name: 'zbContent', // 结构名称
+    name: 'zhongbCon', // 结构名称
     data() {
         return {
             // 数据模型
@@ -34,7 +33,6 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
-        this.conver()
         // console.group('创建完毕状态===============》created');
     },
     beforeMount() {
@@ -60,12 +58,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        // 时间转换
-        conver() {
-             this.obj.opendate =  this.obj.opendate.replace('-','年')
-             this.obj.opendate =  this.obj.opendate.replace('-','月')
-             this.obj.opendate = this.obj.opendate +  '日'             
-        }
     }
 
 }
@@ -73,5 +65,4 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-
 </style>
