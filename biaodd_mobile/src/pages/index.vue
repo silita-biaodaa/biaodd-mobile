@@ -16,10 +16,15 @@
                 <h5>最新招标</h5>
                 <span>查看更多</span>
             </div>
+            <ul class="box">
+                <!--  v-for="(o,i) of zbList" :key="i" -->
+                <v-zb></v-zb>
+            </ul>
         </div>
     </div>
 </template>
 <script>
+import zbCon from '@/components/zbContent'
 export default {
     name: 'index', // 结构名称
     data() {
@@ -35,11 +40,15 @@ export default {
                 },{
                     txt:'招标公告'
                 }
-            ]
+            ],
+            zbList:[]
         }
     },
     watch: {
         // 监控集合
+    },
+    components:{
+        'v-zb':zbCon
     },
     props: {
         // 集成父级参数
@@ -113,7 +122,6 @@ export default {
         }
     }
 }
-
 .title{
     display: flex;
     justify-content: space-between;
@@ -130,5 +138,44 @@ export default {
         font-size: 28px;
         color: #FE6603;
     }
+}
+.box{
+    li:last-child{
+        border-bottom: none
+    }
+    li{
+        border-bottom: 1PX solid #f2f2f2;
+        padding: 28px 30px 28px 50px;
+        .top{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+            .icon{
+                margin-right: 20px;
+            }
+            .tit{
+                color: #666;
+            }
+        }
+        .center{
+            color: #999;
+            font-size: 26px;
+            margin-bottom: 20px;
+            max-width: 550px;
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap
+        }
+        .bottom{
+            display: flex;
+            justify-content:space-between;
+            p{
+                color: #999;
+                font-size: 26px;
+            }
+        }
+    }
+    
 }
 </style>
