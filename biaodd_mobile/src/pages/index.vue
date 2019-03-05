@@ -2,7 +2,10 @@
 <template>
     <div class="index">
         <div class="banner">
-            <div class="search"  >
+            <div class="tabBox">
+                <span v-for="(o,i) of tabList" :key="i">{{o}}</span>
+            </div>
+            <div class="search">
                 <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
                 <img src="../assets/icon-chaz.png.png" alt="">
             </div>
@@ -56,6 +59,7 @@ export default {
     data() {
         return {
             // 数据模型
+            search:'',
             navList:[
                 {
                     img:require('../assets/icon-zhaob.png'),
@@ -73,7 +77,9 @@ export default {
             ],
             zbList:[],
             zhongbList:[],
-            qyList:[]
+            qyList:[],
+            tabList:['查招标','查中标','查企业'],
+            tabNum:0
         }
     },
     watch: {
@@ -168,7 +174,8 @@ export default {
         background: #fff
     }
     .banner{
-        padding: 0 32px;
+        box-sizing: border-box;
+        padding: 174px 32px 0;
         width: 100%;
         height:450px;
         background: url(../assets/banner.png) no-repeat;
@@ -191,6 +198,13 @@ export default {
             input{
                 border: none;
                 width: 100%;
+            }
+        }
+        .tabBox{
+            padding: 0 25px;
+            background: none;
+            span{
+                color: #fff;
             }
         }
     }
