@@ -1,7 +1,12 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
-        <div class="banner"></div>
+        <div class="banner">
+            <div class="search"  >
+                <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
+                <img src="../assets/icon-chaz.png.png" alt="">
+            </div>
+        </div>
         <div class="nav">
             <ul>
                 <li v-for="(x,y) of navList" :key="y">
@@ -30,7 +35,7 @@
                 <v-zhongb v-for="(o,i) of zhongbList" :key="i" :obj="o"></v-zhongb>
             </ul>
         </div>
-        <!-- 中标 -->
+        <!-- 企业 -->
         <div class="qy">
             <div class="title">
                 <h5>热门企业</h5>
@@ -162,10 +167,31 @@ export default {
         background: #fff
     }
     .banner{
+        padding: 0 32px;
         width: 100%;
         height:450px;
         background: url(../assets/banner.png) no-repeat;
-        background-size: cover
+        background-size: cover;
+        .search{
+            width: 100%;
+            height: 96px;
+            padding: 25px 24px;
+            box-sizing: border-box;
+            padding-right: 65px;
+            border-radius: 5px;
+            position: relative;
+            img{
+                position: absolute;
+                right: 24px;
+                width: 40px;
+                transform: translateY(-50%);
+                top: 50%
+            }
+            input{
+                border: none;
+                width: 100%;
+            }
+        }
     }
 }
 
