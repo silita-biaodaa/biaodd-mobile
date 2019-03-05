@@ -9,6 +9,8 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 
+import base from '@/base/base'
+import http from '@/base/http'
 function setHtmlFontSize(){
   let baseSize=32;
   const sw=document.documentElement.clientWidth / 750;
