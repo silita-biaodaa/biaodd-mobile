@@ -5,16 +5,17 @@
             <p class="icon">
                 <img src="../assets/icon-zhao.png"/>
             </p>
-            <p class="tit">湖南省长沙市岳麓区金凤小学基础建设帮扶建设建设速度还是开发</p>
+            <p class="tit">{{obj.title}}</p>
         </div>
-        <div class="center">资质要求：店里承包三级以上呜啦啦的成分打的角度骄傲i的角度讲啊送i多久啊死哦</div>
+        <div class="center">{{obj.certificate ? obj.certificate : '详见原文'}}</div>
         <div class="bottom">
-            <p>评标办法：123万</p>
-            <p>发布时间：2019年1月20日</p>
+            <p>{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
+            <p>{{obj.date ? obj.date : '详见原文'}}</p>
         </div>
     </div>
 </template>
 <script>
+let moment = require("moment");
 export default {
     name: 'zbContent', // 结构名称
     data() {
@@ -33,6 +34,7 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
+        this.conver()
         // console.group('创建完毕状态===============》created');
     },
     beforeMount() {
@@ -58,6 +60,11 @@ export default {
     },
     methods: {
         // 方法 集合
+        // 时间转换
+        conver() {
+            var date = new Date(this.obj.opendate.replace(/-/g, '/'));
+             this.obj.date = moment(date).format('YYYY年MM月DD日')
+        }
     }
 
 }
