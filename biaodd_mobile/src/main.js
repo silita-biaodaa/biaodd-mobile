@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import base from '@/base/base'
+import http from '@/base/http'
 function setHtmlFontSize(){
   let baseSize=32;
   const sw=document.documentElement.clientWidth / 750;

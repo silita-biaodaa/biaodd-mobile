@@ -5,7 +5,7 @@
         <div class="nav">
             <ul>
                 <li v-for="(x,y) of navList" :key="y">
-                    <img src="../assets/icon-zhaob.png"/>
+                    <img :src="x.img"/>
                     <p>{{x.txt}}</p>
                 </li>
             </ul>
@@ -17,8 +17,7 @@
                 <span>查看更多</span>
             </div>
             <ul class="box">
-                <!--  v-for="(o,i) of zbList" :key="i" -->
-                <v-zb></v-zb>
+                <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
             </ul>
         </div>
     </div>
@@ -32,13 +31,17 @@ export default {
             // 数据模型
             navList:[
                 {
+                    img:require('../assets/icon-zhaob.png'),
                     txt:'招标公告'
                 },{
-                    txt:'招标公告'
+                    img:require('../assets/icon-zhongb.png'),
+                    txt:'中标公告'
                 },{
-                    txt:'招标公告'
+                    img:require('../assets/icon-qiy.png'),
+                    txt:'企业信息'
                 },{
-                    txt:'招标公告'
+                    img:require('../assets/icon-chengx.png'),
+                    txt:'诚信信息'
                 }
             ],
             zbList:[]
@@ -58,6 +61,19 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        let that=this;
+        this.$http({
+            method:'post',
+            url: '/notice/queryList',
+            data:{
+                pageNo:1,
+                pageSize:3,
+                regions: "湖南",
+                type: "2"
+            }
+        }).then(function(res){
+            that.zbList=res.data.data;
+        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -143,39 +159,5 @@ export default {
     li:last-child{
         border-bottom: none
     }
-    li{
-        border-bottom: 1PX solid #f2f2f2;
-        padding: 28px 30px 28px 50px;
-        .top{
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 60px;
-            .icon{
-                margin-right: 20px;
-            }
-            .tit{
-                color: #666;
-            }
-        }
-        .center{
-            color: #999;
-            font-size: 26px;
-            margin-bottom: 20px;
-            max-width: 550px;
-            overflow: hidden;
-            text-overflow:ellipsis;
-            white-space:nowrap
-        }
-        .bottom{
-            display: flex;
-            justify-content:space-between;
-            p{
-                color: #999;
-                font-size: 26px;
-            }
-        }
-    }
-    
 }
 </style>
