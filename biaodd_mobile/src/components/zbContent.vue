@@ -10,12 +10,12 @@
         <div class="center">{{obj.certificate ? obj.certificate : '详见原文'}}</div>
         <div class="bottom">
             <p>{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-            <p>{{obj.date ? obj.date : '详见原文'}}</p>
+            <p>{{obj.opendate ? obj.opendate : '详见原文'}}</p>
         </div>
     </div>
 </template>
 <script>
-let moment = require("moment");
+// let moment = require("moment");
 export default {
     name: 'zbContent', // 结构名称
     data() {
@@ -62,8 +62,9 @@ export default {
         // 方法 集合
         // 时间转换
         conver() {
-            var date = new Date(this.obj.opendate.replace(/-/g, '/'));
-             this.obj.date = moment(date).format('YYYY年MM月DD日')
+             this.obj.opendate =  this.obj.opendate.replace('-','年')
+             this.obj.opendate =  this.obj.opendate.replace('-','月')
+             this.obj.opendate = this.obj.opendate +  '日'             
         }
     }
 
