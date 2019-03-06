@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
-        <v-fix></v-fix>
+        <v-fix ref="fixObj"></v-fix>
         <div class="banner">
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
@@ -101,45 +101,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        //招标
-        let that=this;
-        this.$http({
-            method:'post',
-            url: '/notice/queryList',
-            data:{
-                pageNo:1,
-                pageSize:3,
-                regions: "湖南",
-                type: "0"
-            }
-        }).then(function(res){
-            that.zbList=res.data.data;
-        })
-        //中标
-        this.$http({
-            method:'post',
-            url: '/notice/queryList',
-            data:{
-                pageNo:1,
-                pageSize:3,
-                regions: "湖南",
-                type: "2"
-            }
-        }).then(function(res){
-            console.log(res.data.data)
-            that.zhongbList=res.data.data;
-        })
-        //企业
-        this.$http({
-            method:'post',
-            url: '/company/host',
-            data:{
-                regisAddress: "湖南",
-                limit: 3
-            }
-        }).then(function(res){
-            that.qyList=res.data.data.slice(0,3);
-        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -148,6 +109,46 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            let address=this.$refs.fixObj.address;
+            //招标
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/notice/queryList',
+                data:{
+                    pageNo:1,
+                    pageSize:3,
+                    regions:address,
+                    type: "0"
+                }
+            }).then(function(res){
+                that.zbList=res.data.data;
+            })
+            //中标
+            this.$http({
+                method:'post',
+                url: '/notice/queryList',
+                data:{
+                    pageNo:1,
+                    pageSize:3,
+                    regions:address,
+                    type: "2"
+                }
+            }).then(function(res){
+                console.log(res.data.data)
+                that.zhongbList=res.data.data;
+            })
+            //企业
+            this.$http({
+                method:'post',
+                url: '/company/host',
+                data:{
+                    regisAddress:address,
+                    limit: 3
+                }
+            }).then(function(res){
+                that.qyList=res.data.data.slice(0,3);
+            })
         });
     },
     beforeUpdate() {
@@ -185,7 +186,7 @@ export default {
         padding: 174px 32px 0;
         width: 100%;
         height:450px;
-        background: url(../assets/banner.png) no-repeat;
+        background: url('../assets/banner.png') no-repeat;
         background-size: cover;
         .search{
             width: 100%;
