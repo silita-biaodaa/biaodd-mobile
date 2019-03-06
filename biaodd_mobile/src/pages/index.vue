@@ -4,7 +4,7 @@
         <v-fix></v-fix>
         <div class="banner">
             <div class="tabBox">
-                <span v-for="(o,i) of tabList" :key="i">{{o}}</span>
+                <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
             </div>
             <div class="search">
                 <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
@@ -164,6 +164,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        tabChange(i){
+            this.tabNum=i
+        }
     }
 
 }
@@ -208,7 +211,31 @@ export default {
             padding: 0 25px;
             background: none;
             span{
+                display: inline-block;
                 color: #fff;
+                width: 152px;
+                height: 77px;
+                line-height: 77px;
+                text-align: center;
+                margin-bottom: 36px;
+                margin-right: 20px;
+            }
+            .active{
+                background: #fff;
+                color: #666;
+                position: relative;
+            }
+            .active::before{
+                content:'';
+                width: 0;
+                height: 0;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 16px solid #fff;
+                position: absolute;
+                bottom: -15px;
+                transform: translateX(-50%);
+                left: 50%;
             }
         }
     }

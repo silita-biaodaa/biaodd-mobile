@@ -4,7 +4,7 @@
         <div class="left">
             <img src="../assets/logo.png"/>
             <span>
-                湖南
+                {{address}}
                 <van-icon name="arrow-down"/>
             </span>
         </div>
@@ -19,6 +19,7 @@ export default {
     data() {
         return {
             // 数据模型
+            address:'湖南'
         }
     },
     watch: {
@@ -57,16 +58,17 @@ export default {
     methods: {
         // 方法 集合
         upload(){
-            var u = navigator.userAgent;
-            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-            var isAndroid = u.indexOf('Android') > -1; /*android终端或者uc浏览器*/
-            if (isIOS) {
-                window.location.href = 'https://itunes.apple.com/cn/app/标大大/id1278802484?mt=8'
-            } else if (isAndroid) {
-                window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk'
-            } else {
-                window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk';
-            }
+            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+            // var u = navigator.userAgent;
+            // var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+            // var isAndroid = u.indexOf('Android') > -1; /*android终端或者uc浏览器*/
+            // if (isIOS) {
+            //     window.location.href = 'https://itunes.apple.com/cn/app/标大大/id1278802484?mt=8'
+            // } else if (isAndroid) {
+            //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk'
+            // } else {
+            //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk';
+            // }
         }
     }
 
@@ -84,6 +86,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 999;
     box-sizing: border-box;
     .left{
         display: flex;
