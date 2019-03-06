@@ -33,7 +33,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.getAddress();
+        this.getLocation();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -71,38 +71,16 @@ export default {
             //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk';
             // }
         },
-        getAddress(){//获取地址
-            if (navigator.geolocation){ 
-                navigator.geolocation.getCurrentPosition(this.getLocation,this.showError); 
-            }else{ 
-                alert("浏览器不支持地理定位。"); 
-            } 
-        },
         getLocation(position){//获取经纬度
-            let latlon = position.coords.latitude+','+position.coords.longitude;
-            let url = 'http://maps.google.cn/maps/api/geocode/json?latlng='+latlon+'&language=CN';
+            let url = 'http://api.map.baidu.com/location/ip?ak=Hq1RdFiKNav2XzncPFV5QYphDOlaTV29';
+            let that=this;
             this.$http({
                 method:'get',
                 url:url,
             }).then(function(res){
                 console.log(res);
+                that.address=res.data.content.address_detail.province
             })
-        },
-        showError(error){ 
-            switch(error.code) { 
-                case error.PERMISSION_DENIED: 
-                alert("定位失败,用户拒绝请求地理定位"); 
-                break; 
-                case error.POSITION_UNAVAILABLE: 
-                alert("定位失败,位置信息是不可用"); 
-                break; 
-                case error.TIMEOUT: 
-                alert("定位失败,请求获取用户位置超时"); 
-                break; 
-                case error.UNKNOWN_ERROR: 
-                alert("定位失败,定位系统失效"); 
-                break; 
-            } 
         },
 
     }
