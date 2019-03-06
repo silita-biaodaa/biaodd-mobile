@@ -1,7 +1,16 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
-        <div class="banner"></div>
+        <v-fix ref="fixObj"></v-fix>
+        <div class="banner">
+            <div class="tabBox">
+                <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
+            </div>
+            <div class="search">
+                <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
+                <img src="../assets/icon-chaz.png.png" alt="">
+            </div>
+        </div>
         <div class="nav">
             <ul>
                 <li v-for="(x,y) of navList" :key="y">
@@ -30,7 +39,7 @@
                 <v-zhongb v-for="(o,i) of zhongbList" :key="i" :obj="o"></v-zhongb>
             </ul>
         </div>
-        <!-- 中标 -->
+        <!-- 企业 -->
         <div class="qy">
             <div class="title">
                 <h5>热门企业</h5>
@@ -46,11 +55,13 @@
 import zbCon from '@/components/zbContent'
 import zhongbCon from '@/components/zhongbCon'
 import qy from '@/components/qy'
+import fixHead from '@/components/fixHead'
 export default {
     name: 'index', // 结构名称
     data() {
         return {
             // 数据模型
+            search:'',
             navList:[
                 {
                     img:require('../assets/icon-zhaob.png'),
@@ -68,7 +79,9 @@ export default {
             ],
             zbList:[],
             zhongbList:[],
-            qyList:[]
+            qyList:[],
+            tabList:['查招标','查中标','查企业'],
+            tabNum:0
         }
     },
     watch: {
@@ -77,7 +90,8 @@ export default {
     components:{
         'v-zb':zbCon,
         'v-zhongb':zhongbCon,
-        'v-qy':qy
+        'v-qy':qy,
+        'v-fix':fixHead,
     },
     props: {
         // 集成父级参数
@@ -87,45 +101,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        //招标
-        let that=this;
-        this.$http({
-            method:'post',
-            url: '/notice/queryList',
-            data:{
-                pageNo:1,
-                pageSize:3,
-                regions: "湖南",
-                type: "0"
-            }
-        }).then(function(res){
-            that.zbList=res.data.data;
-        })
-        //中标
-        this.$http({
-            method:'post',
-            url: '/notice/queryList',
-            data:{
-                pageNo:1,
-                pageSize:3,
-                regions: "湖南",
-                type: "2"
-            }
-        }).then(function(res){
-            console.log(res.data.data)
-            that.zhongbList=res.data.data;
-        })
-        //企业
-        this.$http({
-            method:'post',
-            url: '/company/host',
-            data:{
-                regisAddress: "湖南",
-                limit: 3
-            }
-        }).then(function(res){
-            that.qyList=res.data.data.slice(0,3);
-        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -134,6 +109,46 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            let address=this.$refs.fixObj.address;
+            //招标
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/notice/queryList',
+                data:{
+                    pageNo:1,
+                    pageSize:3,
+                    regions:address,
+                    type: "0"
+                }
+            }).then(function(res){
+                that.zbList=res.data.data;
+            })
+            //中标
+            this.$http({
+                method:'post',
+                url: '/notice/queryList',
+                data:{
+                    pageNo:1,
+                    pageSize:3,
+                    regions:address,
+                    type: "2"
+                }
+            }).then(function(res){
+                console.log(res.data.data)
+                that.zhongbList=res.data.data;
+            })
+            //企业
+            this.$http({
+                method:'post',
+                url: '/company/host',
+                data:{
+                    regisAddress:address,
+                    limit: 3
+                }
+            }).then(function(res){
+                that.qyList=res.data.data.slice(0,3);
+            })
         });
     },
     beforeUpdate() {
@@ -150,6 +165,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        tabChange(i){
+            this.tabNum=i
+        }
     }
 
 }
@@ -158,15 +176,69 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 .index{
+    padding-top: 112px;
     background: #f5f5f5;
     div{
         background: #fff
     }
     .banner{
+        box-sizing: border-box;
+        padding: 174px 32px 0;
         width: 100%;
         height:450px;
-        background: url(../assets/banner.png) no-repeat;
-        background-size: cover
+        background: url('../assets/banner.png') no-repeat;
+        background-size: cover;
+        .search{
+            width: 100%;
+            height: 96px;
+            padding: 25px 24px;
+            box-sizing: border-box;
+            padding-right: 65px;
+            border-radius: 5px;
+            position: relative;
+            img{
+                position: absolute;
+                right: 24px;
+                width: 40px;
+                transform: translateY(-50%);
+                top: 50%
+            }
+            input{
+                border: none;
+                width: 100%;
+            }
+        }
+        .tabBox{
+            padding: 0 25px;
+            background: none;
+            span{
+                display: inline-block;
+                color: #fff;
+                width: 152px;
+                height: 77px;
+                line-height: 77px;
+                text-align: center;
+                margin-bottom: 36px;
+                margin-right: 20px;
+            }
+            .active{
+                background: #fff;
+                color: #666;
+                position: relative;
+            }
+            .active::before{
+                content:'';
+                width: 0;
+                height: 0;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 16px solid #fff;
+                position: absolute;
+                bottom: -15px;
+                transform: translateX(-50%);
+                left: 50%;
+            }
+        }
     }
 }
 
