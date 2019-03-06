@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zbContent newNotice">
+    <div class="zbContent newNotice" @click="topush(obj)" >
         <div class="top">
             <p class="icon">
                 <img src="../assets/icon-zhao.png"/>
@@ -65,6 +65,9 @@ export default {
              this.obj.opendate =  this.obj.opendate.replace('-','年')
              this.obj.opendate =  this.obj.opendate.replace('-','月')
              this.obj.opendate = this.obj.opendate +  '日'             
+        },
+        topush(o) {
+            this.$router.push({path:'/detail',query:{id:o.id,source:o.source}})
         }
     }
 
