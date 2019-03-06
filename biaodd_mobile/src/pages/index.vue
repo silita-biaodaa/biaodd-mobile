@@ -1,6 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
+        <v-fix></v-fix>
         <div class="banner">
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i">{{o}}</span>
@@ -54,6 +55,7 @@
 import zbCon from '@/components/zbContent'
 import zhongbCon from '@/components/zhongbCon'
 import qy from '@/components/qy'
+import fixHead from '@/components/fixHead'
 export default {
     name: 'index', // 结构名称
     data() {
@@ -88,7 +90,8 @@ export default {
     components:{
         'v-zb':zbCon,
         'v-zhongb':zhongbCon,
-        'v-qy':qy
+        'v-qy':qy,
+        'v-fix':fixHead,
     },
     props: {
         // 集成父级参数
@@ -169,6 +172,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 .index{
+    padding-top: 112px;
     background: #f5f5f5;
     div{
         background: #fff
