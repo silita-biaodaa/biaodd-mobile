@@ -15,7 +15,7 @@
              </div>
              <div class="detail-time" >
                    <div class="det-size" >
-                        项目地区：湖南
+                        项目地区：{{detail.projDq}}
                     </div>
                     <div class="det-size">
                         评标办法：{{detail.pbMode}}
@@ -87,7 +87,7 @@ export default {
             }
         }).then(function(res){
            that.detail = res.data.data[0]
-           console.log(res.data)
+         that.detail.projDq = that.detail.projDq.substring(0,2)
            that.relNoticeCount = res.data.relNoticeCount
         })
     },

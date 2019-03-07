@@ -5,6 +5,8 @@ import Bid from '@/pages/bid'
 import Detail from '@/pages/detail'
 import Conform from '@/pages/conform'
 import testZs from '@/pages/testZs'
+import Winning from '@/pages/winning'
+
 
 
 Vue.use(Router)
@@ -32,6 +34,10 @@ export default new Router({
       path: '/testZs', 
       name: 'testZs',
       component: testZs
+    },
+    { 
+      path: '/winning', 
+      component: Winning 
     }
   ]
 })
