@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
-        <v-fix ref="fixObj" :isshow="true"></v-fix>
+        <v-fix ref="fixObj" :isshow="true" @address="getAddress"></v-fix>
         <div class="banner">
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
@@ -23,7 +23,7 @@
         <div class="zhaob">
             <div class="title">
                 <h5>最新招标</h5>
-                <span>查看更多</span>
+                <span @click="$router.push('/bid')">查看更多</span>
             </div>
             <ul class="box">
                 <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
@@ -109,6 +109,30 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            this.ready();
+        });
+    },
+    beforeUpdate() {
+        // console.group('更新前状态  ===============》beforeUpdate');
+    },
+    updated() {
+        // console.group('更新完成状态===============》updated');
+    },
+    beforeDestroy() {
+        // console.group('销毁前状态  ===============》beforeDestroy');
+    },
+    destroyed() {
+        // console.group('销毁完成状态===============》destroyed');
+    },
+    methods: {
+        // 方法 集合
+        tabChange(i){
+            this.tabNum=i
+        },
+        getAddress(option){
+            this.ready()
+        },
+        ready(){
             let address=this.$refs.fixObj.address;
             //招标
             let that=this;
@@ -149,24 +173,6 @@ export default {
             }).then(function(res){
                 that.qyList=res.data.data.slice(0,3);
             })
-        });
-    },
-    beforeUpdate() {
-        // console.group('更新前状态  ===============》beforeUpdate');
-    },
-    updated() {
-        // console.group('更新完成状态===============》updated');
-    },
-    beforeDestroy() {
-        // console.group('销毁前状态  ===============》beforeDestroy');
-    },
-    destroyed() {
-        // console.group('销毁完成状态===============》destroyed');
-    },
-    methods: {
-        // 方法 集合
-        tabChange(i){
-            this.tabNum=i
         }
     }
 

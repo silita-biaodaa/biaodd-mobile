@@ -24,13 +24,16 @@ export default {
     },
     props: {
         // 集成父级参数
+        add:{
+            default:'湖南'
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        let addr=sessionStorage.getItem('address');
+        let addr=this.add;
         let arr=this.addList;
         let that=this;
         for(let x=0;x<arr.length;x++){
