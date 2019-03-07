@@ -3,15 +3,15 @@
     <div class="fixHead">
         <div class="left">
             <img src="../assets/logo.png"/>
-            <span v-if="isshow" @click="mask=true">
+            <span v-if="isshow" @click="addTap">
                 {{address}}
-                <van-icon name="arrow-down"/>
+                <van-icon :name="iconName"/>
             </span>
         </div>
         <div class="right">
             <div class="btn" @click="upload">下载APP</div>
         </div>
-        <v-addr @addObj="returnAddress" v-if="mask"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="mask" :add="address"></v-addr>
     </div>
 </template>
 <script>
@@ -22,7 +22,8 @@ export default {
         return {
             // 数据模型
             address:'',
-            mask:false
+            mask:false,
+            iconName:'arrow-down'
         }
     },
     watch: {
@@ -69,21 +70,20 @@ export default {
         // 方法 集合
         upload(){//点击下载APP
             window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
-            // var u = navigator.userAgent;
-            // var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-            // var isAndroid = u.indexOf('Android') > -1; /*android终端或者uc浏览器*/
-            // if (isIOS) {
-            //     window.location.href = 'https://itunes.apple.com/cn/app/标大大/id1278802484?mt=8'
-            // } else if (isAndroid) {
-            //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk'
-            // } else {
-            //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk';
-            // }
         },
         returnAddress(option){
-            console.log(option);
+            this.iconName='arrow-down'
             this.address=option;
+            this.$emit('address',option);
         },
+        addTap(){
+            this.mask=!this.mask
+            if(this.iconName=='arrow-down'){
+                this.iconName='arrow-up'
+            }else{
+                this.iconName='arrow-down'
+            }
+        }
 
     }
 
