@@ -21,8 +21,8 @@
                         评标办法：{{detail.pbMode}}
                     </div>      
              </div>
-             <div class="dett-size m-15">
-                        资质要求：{{detail.zzRank}}
+             <div class="m-15">
+                    资质要求：{{detail.zzRank}}
              </div>
           </div>
           <div class="detail-cli">
@@ -127,7 +127,6 @@ export default {
  left: 0;
  right: 0;
  bottom: 0;
-
  .detail-text {
    margin-top: 91px;
    height: calc(~"100% - 101px");
@@ -150,13 +149,15 @@ export default {
           font-size: 20px;
           color:#999;
         }
+        .det-size{
+          font-size: 24px;
+          color:#999;
+        }
      }
-        .det-size {
-         font-size: 24px ;
-         color:#666; 
-        }  
       .m-15 {
-          margin-top: 15px;
+        margin-top: 15px;
+        font-size: 10px;
+        color:#999;
       }
      
    }
@@ -172,8 +173,6 @@ export default {
    }
    .detail-contant {
      padding: 35px;
-     color:#999;
-     font-size: 16px !important;
    }
  }
 }

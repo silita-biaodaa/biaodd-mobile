@@ -25,7 +25,6 @@ export default {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
-        this.conver()
         // console.group('创建完毕状态===============》created');
     },
     beforeMount() {
