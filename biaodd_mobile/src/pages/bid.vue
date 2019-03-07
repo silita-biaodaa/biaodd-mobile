@@ -34,10 +34,11 @@ export default {
         loading:false,//是否加载完，false为加载完
         data:{
           pageNo:1,
-          pageSize:10,
+          pageSize:'10',
           regions:'湖南',
           type: "0",
-          projectType:''
+          projectType:'',
+          title: "",
         },
         total:0,
         screenList:[
@@ -67,11 +68,11 @@ export default {
       ajax(){
         //招标
         let that=this;
-        for(let x in that.data){
-          if(that.data[x]===''){
-            delete that.data[x]
-          }
-        }
+        // for(let x in that.data){
+        //   if(that.data[x]===''){
+        //     delete that.data[x]
+        //   }
+        // }
         this.$http({
             method:'post',
             url: '/notice/queryList',

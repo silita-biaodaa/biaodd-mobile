@@ -24,7 +24,7 @@ export default {
                     return:'',
                     name:'全部',
                 },{
-                    return:0,
+                    return:'0',
                     name:'施工',
                 },{
                     return:1,
