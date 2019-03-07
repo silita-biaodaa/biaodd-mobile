@@ -159,7 +159,7 @@ export default {
      }
       .m-15 {
         margin-top: 15px;
-        font-size: 10px;
+        font-size: 24px;
         color:#999;
       }
      
