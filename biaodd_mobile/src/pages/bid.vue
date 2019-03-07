@@ -4,9 +4,6 @@
     <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
     <img src="../assets/icon-chaz.png.png" alt="">
   </div>
-  <div class="total">
-      为您搜索到<span class="base-col">1200</span>条招标信息
-  </div>
   <div>
     <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
   </div>
@@ -23,25 +20,6 @@ export default {
     },
     methods: {
 
-    },
-    created () {
-      let that=this;
-        this.$http({
-            method:'post',
-            url: '/notice/queryList',
-            data:{
-                pageNo:1,
-                pageSize:3,
-                regions: "湖南",
-                type: "0",
-                title:that.search,  // 标题
-                projectType:'',  // 类型
-                pbModes:'',   // 评标办法
-                zzType:''
-            }
-        }).then(function(res){
-            that.zbList=res.data.data;
-        })  
     },
     components:{
         'v-zb':zbCon
