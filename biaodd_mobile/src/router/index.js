@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import index from '@/pages/index'
 import Bid from '@/pages/bid'
 import Detail from '@/pages/detail'
-
+import testZs from '@/pages/testZs'
 
 Vue.use(Router)
 
@@ -21,6 +21,11 @@ export default new Router({
     { 
       path: '/detail', 
       component: Detail
+    },
+    { 
+      path: '/testZs', 
+      name: 'testZs',
+      component: testZs
     }
   ]
 })
