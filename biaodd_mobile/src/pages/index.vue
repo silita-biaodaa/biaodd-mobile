@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="index">
-        <v-fix ref="fixObj"></v-fix>
+        <v-fix ref="fixObj" :isshow="true"></v-fix>
         <div class="banner">
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>

@@ -3,7 +3,7 @@
     <div class="fixHead">
         <div class="left">
             <img src="../assets/logo.png"/>
-            <span>
+            <span v-if="isshow" @click="mask=true">
                 {{address}}
                 <van-icon name="arrow-down"/>
             </span>
@@ -11,15 +11,18 @@
         <div class="right">
             <div class="btn" @click="upload">下载APP</div>
         </div>
+        <v-addr @addObj="returnAddress" v-if="mask"></v-addr>
     </div>
 </template>
 <script>
+import addr from '@/components/address'
 export default {
     name: 'fixHead', // 结构名称
     data() {
         return {
             // 数据模型
-            address:'湖南'
+            address:'',
+            mask:false
         }
     },
     watch: {
@@ -27,13 +30,19 @@ export default {
     },
     props: {
         // 集成父级参数
+        isshow:{
+            default:false,
+        },
+    },
+    components:{
+        'v-addr':addr
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.getLocation();
+        this.address=sessionStorage.getItem('address');
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -71,16 +80,9 @@ export default {
             //     window.location.href = 'http://www.biaodaa.com/file/biaodaa.apk';
             // }
         },
-        getLocation(position){//获取经纬度
-            let url = 'http://api.map.baidu.com/location/ip?ak=Hq1RdFiKNav2XzncPFV5QYphDOlaTV29';
-            let that=this;
-            this.$http({
-                method:'get',
-                url:url,
-            }).then(function(res){
-                console.log(res);
-                that.address=res.data.content.address_detail.province
-            })
+        returnAddress(option){
+            console.log(option);
+            this.address=option;
         },
 
     }
