@@ -25,7 +25,7 @@
                     资质要求：{{detail.zzRank}}
              </div>
           </div>
-          <div class="detail-cli">
+          <div class="detail-cli" @click="topush(detail)" >
              <div>
                 符合资质企业
              </div>
@@ -114,6 +114,9 @@ export default {
     },
     methods: {
         // 方法 集合
+         topush(o) {
+            this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
+        }
     }
 
 }
