@@ -1,23 +1,14 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zbContent newNotice" @click="topush(obj)" >
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-zhao.png"/>
-            </p>
-            <p class="tit">{{obj.title}}</p>
-        </div>
-        <div class="center">{{obj.certificate ? obj.certificate : '详见原文'}}</div>
-        <div class="bottom">
-            <p>{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-            <p>{{obj.opendate ? obj.opendate : '详见原文'}}</p>
-        </div>
-    </div>
+  <div class="top-nav">
+      <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
+          {{title}}
+   </div>
 </template>
 <script>
 // let moment = require("moment");
 export default {
-    name: 'zbContent', // 结构名称
+    name: 'topBack', // 结构名称
     data() {
         return {
             // 数据模型
@@ -28,13 +19,12 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+        title:''
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
-        this.conver()
         // console.group('创建完毕状态===============》created');
     },
     beforeMount() {
@@ -60,15 +50,7 @@ export default {
     },
     methods: {
         // 方法 集合
-        // 时间转换
-        conver() {
-             this.obj.opendate =  this.obj.opendate.replace('-','年')
-             this.obj.opendate =  this.obj.opendate.replace('-','月')
-             this.obj.opendate = this.obj.opendate +  '日'             
-        },
-        topush(o) {
-            this.$router.push({path:'/detail',query:{id:o.id,source:o.source}})
-        }
+   
     }
 
 }
@@ -76,5 +58,24 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-
+ .top-nav {
+   height: 90px;
+   width: 100%;
+   background-color: #FE6603;
+   line-height: 90px;
+   text-align: center;
+   color:#fff;
+   font-size: 36px;
+   position: fixed;
+   top: 0;
+   left: 0;
+   .top-left {
+       font-size: 50px;
+       color:#fff;
+       position: absolute;
+       left: 20px;
+       top: 50%;
+       transform: translateY(-50%);
+   }
+ }
 </style>
