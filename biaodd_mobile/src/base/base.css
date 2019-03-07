@@ -46,18 +46,5 @@ li{
 .newNotice .bottom p{
     color: #999;
     font-size: 26px;
-}
-.total {
-    width: 100%;
-    height: 72px;
-    line-height: 72px;
-    color:#999;
-    font-size: 24px;
-    padding-left: 31px;
-    background-color: #f5f5f5;
-    box-sizing: border-box;
-}
-.base-col {
-    color:#FE6603;
-    font-size: 24px;
+    width: 50%
 }

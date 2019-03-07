@@ -5,6 +5,7 @@ import Bid from '@/pages/bid'
 import Detail from '@/pages/detail'
 
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -18,8 +19,8 @@ export default new Router({
       path: '/bid',
       component: Bid 
     },
-    { 
-      path: '/detail', 
+    {
+      path: '/detail',
       component: Detail
     }
   ]
