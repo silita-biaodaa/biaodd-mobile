@@ -10,7 +10,7 @@
                     发布时间：{{detail.opendate}}
                 </div>
                 <div class="de-size" >
-                    点击次数：{{relNoticeCount}}
+                    点击次数：{{clickCount}}
                 </div>
              </div>
              <div class="detail-time" >
@@ -57,7 +57,7 @@ export default {
             id:'',
             source:'',
             detail:{},
-            relNoticeCount:0,
+            clickCount:0,
             name:'招标详情'
         }
     },
@@ -87,8 +87,10 @@ export default {
             }
         }).then(function(res){
            that.detail = res.data.data[0]
-         that.detail.projDq = that.detail.projDq.substring(0,2)
-           that.relNoticeCount = res.data.relNoticeCount
+           console.log(res.data);
+           
+           that.detail.projDq = that.detail.projDq.substring(0,2)
+           that.clickCount = res.data.clickCount
         })
     },
     beforeMount() {
