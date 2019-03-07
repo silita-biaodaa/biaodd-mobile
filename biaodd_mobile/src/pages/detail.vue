@@ -86,11 +86,9 @@ export default {
                 type: "0"
             }
         }).then(function(res){
-           that.detail = res.data.data[0]
-           console.log(res.data);
-           
+           that.detail = res.data.data[0]  
            that.detail.projDq = that.detail.projDq.substring(0,2)
-           that.clickCount = res.data.clickCount
+           that.clickCount = res.data.clickCount       
         })
     },
     beforeMount() {
