@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="index">
-        <v-fix ref="fixObj" :isshow="true" @address="getAddress"></v-fix>
+    <div class="index" :class="{'scroll':isScroll}">
+        <v-fix ref="fixObj" :isshow="true" :is-show="isScroll" @address="getAddress"></v-fix>
         <div class="banner">
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
@@ -11,9 +11,9 @@
                 <img src="../assets/icon-chaz.png.png" alt="">
             </div>
         </div>
-        <div class="nav">
+        <div class="nav" v-if="!isScroll">
             <ul>
-                <li v-for="(x,y) of navList" :key="y">
+                <li v-for="(x,y) of navList" :key="y" @click="$router.push(x.path)">
                     <img :src="x.img"/>
                     <p>{{x.txt}}</p>
                 </li>
@@ -65,23 +65,29 @@ export default {
             navList:[
                 {
                     img:require('../assets/icon-zhaob.png'),
-                    txt:'招标公告'
+                    txt:'招标公告',
+                    path:'/bid'
                 },{
                     img:require('../assets/icon-zhongb.png'),
-                    txt:'中标公告'
+                    txt:'中标公告',
+                    path:'/bid'
                 },{
                     img:require('../assets/icon-qiy.png'),
-                    txt:'企业信息'
+                    txt:'企业信息',
+                    path:'/bid'
                 },{
                     img:require('../assets/icon-chengx.png'),
-                    txt:'诚信信息'
+                    txt:'诚信信息',
+                    path:'/bid'
                 }
             ],
+            
             zbList:[],
             zhongbList:[],
             qyList:[],
             tabList:['查招标','查中标','查企业'],
-            tabNum:0
+            tabNum:0,
+            isScroll:false,
         }
     },
     watch: {
@@ -101,6 +107,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        window.addEventListener('scroll',this.scrollgun,true);
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -123,6 +130,7 @@ export default {
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
+        window.removeEventListener('scroll',this.scrollgun,true);
     },
     methods: {
         // 方法 集合
@@ -173,6 +181,14 @@ export default {
             }).then(function(res){
                 that.qyList=res.data.data.slice(0,3);
             })
+        },
+        scrollgun(){
+            let getSt=document.documentElement.scrollTop || document.body.scrollTop;
+            if(getSt>=750){
+                this.isScroll=true;
+            }else{
+                this.isScroll=false;
+            }
         }
     }
 
@@ -181,6 +197,9 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.scroll.index{
+    padding-top: 200px
+}
 .index{
     padding-top: 112px;
     background: #f5f5f5;
@@ -220,7 +239,7 @@ export default {
             span{
                 display: inline-block;
                 color: #fff;
-                width: 152px;
+                width: 120px;
                 height: 77px;
                 line-height: 77px;
                 text-align: center;
@@ -268,6 +287,7 @@ export default {
         }
     }
 }
+
 .zhaob,.zhongb{
     margin-bottom: 20px
 }
