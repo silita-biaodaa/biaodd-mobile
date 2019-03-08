@@ -71,11 +71,6 @@ export default {
       ajax(){
         //招标
         let that=this;
-        // for(let x in that.data){
-        //   if(that.data[x]===''){
-        //     delete that.data[x]
-        //   }
-        // }
         this.$http({
             method:'post',
             url: '/notice/queryList',

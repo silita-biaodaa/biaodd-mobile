@@ -6,10 +6,7 @@
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
             </div>
-            <div class="search">
-                <input type="text" placeholder="请输入关键字进行搜索" v-model="search" >
-                <img src="../assets/icon-chaz.png.png" alt="">
-            </div>
+            <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
         </div>
         <div class="nav" v-if="!isScroll">
             <ul>
@@ -189,6 +186,9 @@ export default {
             }else{
                 this.isScroll=false;
             }
+        },
+        searchFn(){//搜索
+
         }
     }
 
@@ -213,12 +213,11 @@ export default {
         height:450px;
         background: url('../assets/banner.png') no-repeat;
         background-size: cover;
-        .search{
+        .van-search{
             width: 100%;
             height: 96px;
             padding: 25px 24px;
             box-sizing: border-box;
-            padding-right: 65px;
             border-radius: 5px;
             position: relative;
             img{
