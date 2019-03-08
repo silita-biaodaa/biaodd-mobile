@@ -130,7 +130,7 @@ export default {
         'v-assess':assess
     },
     created(){
-      
+      this.data.title = this.$route.query.search ?  this.$route.query.search : ''
     }
 }
 </script>
