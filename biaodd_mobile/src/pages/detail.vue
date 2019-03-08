@@ -10,12 +10,12 @@
                     发布时间：{{detail.opendate}}
                 </div>
                 <div class="de-size" >
-                    点击次数：{{relNoticeCount}}
+                    点击次数：{{clickCount}}
                 </div>
              </div>
              <div class="detail-time" >
                    <div class="det-size" >
-                        项目地区：湖南
+                        项目地区：{{detail.projDq}}
                     </div>
                     <div class="det-size">
                         评标办法：{{detail.pbMode}}
@@ -25,7 +25,7 @@
                     资质要求：{{detail.zzRank}}
              </div>
           </div>
-          <div class="detail-cli">
+          <div class="detail-cli" @click="topush(detail)" >
              <div>
                 符合资质企业
              </div>
@@ -57,7 +57,7 @@ export default {
             id:'',
             source:'',
             detail:{},
-            relNoticeCount:0,
+            clickCount:0,
             name:'招标详情'
         }
     },
@@ -86,9 +86,9 @@ export default {
                 type: "0"
             }
         }).then(function(res){
-           that.detail = res.data.data[0]
-           console.log(res.data)
-           that.relNoticeCount = res.data.relNoticeCount
+           that.detail = res.data.data[0]  
+           that.detail.projDq = that.detail.projDq.substring(0,2)
+           that.clickCount = res.data.clickCount       
         })
     },
     beforeMount() {
@@ -114,6 +114,9 @@ export default {
     },
     methods: {
         // 方法 集合
+         topush(o) {
+            this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
+        }
     }
 
 }
@@ -156,7 +159,7 @@ export default {
      }
       .m-15 {
         margin-top: 15px;
-        font-size: 10px;
+        font-size: 24px;
         color:#999;
       }
      

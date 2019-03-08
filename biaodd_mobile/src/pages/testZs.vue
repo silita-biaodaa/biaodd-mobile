@@ -31,7 +31,7 @@ export default {
             // 数据模型
             list:[],
             currentPage:1,
-            total:'',
+            total:1,
         }
     },
     watch: {

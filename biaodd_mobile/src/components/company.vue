@@ -4,17 +4,17 @@
        <div class="c-title">
          <img src="../assets/company.png" alt="">
          <p>
-           湖南耀邦建设有限公司
+           {{obj.comName}}
          </p>
        </div>
        <p class="c-pl">
-         法定代表：张三
+         法定代表： {{obj.legalPerson}}
        </p>
        <p class="c-pl">
-         联系电话：0731-01234567
+         联系电话： {{obj.phone}}
        </p>
        <p class="c-pl c-b">
-         企业地址：湖南省株洲市芦淞区建设中路28号
+         企业地址： {{obj.comAddress}}
        </p>
     </div>
 </template>
@@ -31,12 +31,14 @@ export default {
     },
     props: {
         // 集成父级参数
+        obj:{}
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

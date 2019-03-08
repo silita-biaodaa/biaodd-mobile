@@ -1,23 +1,19 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice">
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-qi.png"/>
-            </p>
-            <p class="tit">{{obj.comName}}</p>
-        </div>
-        <div class="center">法定代表：{{obj.legalPerson}}</div>
-        <div class="center">联系方式：{{obj.phone}}</div>
-        <div class="center">企业地址：{{obj.comAddress}}</div>
+    <div class="search"  >
+        <input type="search" placeholder="请输入关键字进行搜索" v-model="search" >
+        <img src="../assets/icon-chaz.png.png" alt="">
     </div>
+    
 </template>
 <script>
+import addr from '@/components/address'
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'search', // 结构名称
     data() {
         return {
             // 数据模型
+            search:''
         }
     },
     watch: {
@@ -25,7 +21,9 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+    },
+    components:{
+
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -56,6 +54,7 @@ export default {
     },
     methods: {
         // 方法 集合
+
     }
 
 }
@@ -63,4 +62,30 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.search {
+    height: 153px;
+    width: 100%;
+    padding: 28px 34px;
+    background-color: #f5f5f5;
+    box-sizing: border-box; 
+    position: relative;
+    input {
+      outline:  none;
+      height: 97px;
+      line-height: 97px;
+      width: 100%;
+      border: 0;
+      padding: 0 65px 0 25px;
+      font-size: 28px;
+      box-sizing: border-box;
+      -webkit-appearance: none; 
+    }
+    input::-webkit-search-cancel-button { display: none; }
+    img {
+      position: absolute;
+      right: 54px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+}
 </style>
