@@ -123,7 +123,7 @@ export default {
     background: #f5f5f5;
     bottom: -705px;
     left: 0;
-    z-index: 9999;
+    z-index: 9;
     width: 100%;
     padding:50px 0;
     box-sizing: border-box;

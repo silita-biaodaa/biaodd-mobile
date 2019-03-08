@@ -11,6 +11,7 @@
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
     <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type>
     <v-assess @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
+    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条招标信息</div>
@@ -29,6 +30,7 @@ import search from '@/components/search'
 import addr from '@/components/address'
 import getType from '@/components/getType'
 import assess from '@/components/assess'
+import aptitude from '@/components/aptitude'
 export default {
     data () {
       return {
@@ -42,6 +44,7 @@ export default {
           projectType:'',
           title: "",
           pbModes:'',
+          zzType:''
         },
         total:0,
         screenList:[
@@ -119,6 +122,14 @@ export default {
       typeCanle(){
         this.screenList[1].active=false;
         this.screenList[2].active=false;
+        this.screenList[3].active=false;
+      },
+      aptSure(option){
+        // console.log(option);
+        this.screenList[3].active=false;
+        this.data.zzType=option;
+        this.data.pageNo=1;
+        this.ajax();
       }
     },
     components:{
@@ -127,7 +138,8 @@ export default {
         'v-search':search,
         'v-addr':addr,
         'v-type':getType,
-        'v-assess':assess
+        'v-assess':assess,
+        'v-apt':aptitude
     },
     created(){
       
