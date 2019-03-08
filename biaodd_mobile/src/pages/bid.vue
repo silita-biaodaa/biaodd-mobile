@@ -142,7 +142,7 @@ export default {
         'v-apt':aptitude
     },
     created(){
-      
+      this.data.title = this.$route.query.search ?  this.$route.query.search : ''
     }
 }
 </script>

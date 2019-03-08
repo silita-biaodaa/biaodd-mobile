@@ -4,7 +4,7 @@
         <v-fix ref="fixObj" :isshow="true" :is-show="isScroll" @address="getAddress"></v-fix>
         <div class="banner">
             <div class="tabBox">
-                <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(i)">{{o}}</span>
+                <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(o)">{{o.name}}</span>
             </div>
             <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
         </div>
@@ -82,9 +82,10 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:['查招标','查中标','查企业'],
+            tabList:[ {name:'查招标',to:'/bid',i:0},{name:'查中标',i:1},{name:'查企业',i:2}],
             tabNum:0,
             isScroll:false,
+            topath:'/bid'
         }
     },
     watch: {
@@ -132,7 +133,8 @@ export default {
     methods: {
         // 方法 集合
         tabChange(i){
-            this.tabNum=i
+            this.tabNum=i.i
+            // this.topath = i.to
         },
         getAddress(option){
             this.ready()
@@ -188,7 +190,9 @@ export default {
             }
         },
         searchFn(){//搜索
-
+          if(this.tabNum == 0) {
+             this.$router.push({ path: '/bid',query:{search:this.search}})
+          }
         }
     }
 
