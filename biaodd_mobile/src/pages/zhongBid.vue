@@ -10,9 +10,31 @@
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
     <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type>
+    <div class="money" v-if="screenList[2].active">
+        <div class="box">
+            <div class="top-box">
+                <p>
+                    <input type="number" placeholder="最低价" v-model="data.projSumStart"/>
+                </p>
+                <p class="line"></p>
+                <p>
+                    <input type="number" placeholder="最高价" v-model="data.projSumEnd"/>
+                </p>
+            </div>
+            <ul>
+                <li v-for="(o,i) of moneyList" :key="i">
+                    <span :class="moneyNum==i?'active':''" @click="moneyNum=i;">{{o}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="btn">
+            <button class="canle" @click="typeCanle">取消</button>
+            <button class="sure" @click="sureFn">确定</button>
+        </div>
+    </div>
   </div>
   <!-- 总条数 -->
-  <div class="total">为您搜索到{{total}}条招标信息</div>
+  <div class="total">为您搜索到{{total}}条中标信息</div>
   <!-- 列表 -->
   <van-pull-refresh v-model="loading" @refresh="onRefresh">
     <van-list finished-text="没有更多了" @load="onLoad">
@@ -39,8 +61,9 @@ export default {
           type: "2",
           projectType:'',
           title: "",
-          pbModes:'',
-          zzType:''
+          projSumStart:'',//中标开始金额
+          projSumEnd:'',//中标结束金额
+          sumType:"zhongbiao"
         },
         total:0,
         screenList:[
@@ -55,6 +78,8 @@ export default {
             active:false
           },
         ],
+        moneyList:['全部','500万以下','500-1000万','1000-2000万','2000万以上'],
+        moneyNum:0
       }
     },
     methods: {
@@ -73,6 +98,8 @@ export default {
             data:that.data
         }).then(function(res){
             that.loading = false;
+            that.data.projSumStart='';
+            that.data.projSumEnd='';
             that.total=res.data.total;
             if(that.zbList==0||that.data.pageNo==1){
               that.zbList=res.data.data;
@@ -109,8 +136,24 @@ export default {
       typeCanle(){
         this.screenList[1].active=false;
         this.screenList[2].active=false;
-        this.screenList[3].active=false;
       },
+      sureFn(){
+          if(this.moneyNum==1){
+                this.data.projSumEnd='500'
+          }else if(this.moneyNum==2){
+              this.data.projSumStart='500';
+              this.data.projSumEnd='1000';
+          }else if(this.moneyNum==3){
+              this.data.projSumStart='1000';
+              this.data.projSumEnd='2000';
+          }else if(this.moneyNum==4){
+              this.data.projSumStart='2000';
+          }
+          this.screenList[2].active=false;
+          this.data.pageNo=1;
+          this.moneyNum=0;
+          this.ajax();
+      }
     },
     components:{
         'v-zb':zbCon,
@@ -173,6 +216,87 @@ export default {
     color: #999;
     padding: 24px 32px;
     background: #f5f5f5
+  }
+
+  .money{
+    position: absolute;
+    height: 566px;
+    background: #f5f5f5;
+    bottom: -566px;
+    left: 0;
+    z-index: 9;
+    width: 100%;
+    padding:50px 0;
+    box-sizing: border-box;
+    .btn{
+        display: flex;
+        button{
+            height: 84px;
+            flex-grow:1;
+        }
+        .sure{
+            background: #FE6603;
+            border: 1PX solid #FE6603;
+            color: #fff;
+        }
+        .canle{
+            border: 1PX solid #CCBEBE;
+            color: #333;
+            background: #fff;
+        }
+    }
+    .box{
+        .top-box{
+            padding: 8px 32px 0;
+            display: flex;
+            align-items: center;
+            margin-bottom: 32px;
+            .line{
+                width: 35px;
+                height: 1PX;
+                background: #CCBEBE;
+                margin:0 21px;
+            }
+            p{
+                width: 210px;
+                height: 56px;
+                border-radius: 56px;
+                border: 1PX solid #CCBEBE;
+                text-align: center;
+                input{
+                    background: none;
+                    width: 44%;
+                    height: 100%;
+                    border: none
+                }
+            }
+        }
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 32px;
+            margin-bottom: 100px;
+            li{
+                text-align: center;
+                margin-bottom: 32px;
+                // width: 50%;
+                span{
+                    margin-right: 40px;
+                    padding: 15px 40px;
+                    display: inline-block;
+                    border-radius:10px;
+                    text-align: center;
+                    color: #999;
+                    border: 1PX solid #CCBEBE
+                }
+                .active{
+                    border-color: #FE6603;
+                    background: #FE6603;
+                    color: #fff;
+                }
+            }
+        }
+    }
   }
 }
 </style>

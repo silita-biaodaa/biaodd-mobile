@@ -30,7 +30,7 @@
         <div class="zhongb">
             <div class="title">
                 <h5>最新中标</h5>
-                <span>查看更多</span>
+                <span @click="$router.push('/zhongBid')">查看更多</span>
             </div>
             <ul class="box">
                 <v-zhongb v-for="(o,i) of zhongbList" :key="i" :obj="o"></v-zhongb>
