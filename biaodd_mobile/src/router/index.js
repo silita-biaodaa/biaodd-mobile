@@ -9,6 +9,8 @@ import Winning from '@/pages/winning'
 import zhongBid from '@/pages/zhongBid'
 import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
+import commerce from '@/components/commerce'
+
 
 Vue.use(Router)
 
@@ -52,6 +54,10 @@ export default new Router({
     { //企业详情页
       path: '/letter', 
       component: Letter 
+    },
+    { 
+      path: '/commerce', 
+      component: commerce 
     }
   ]
 })
