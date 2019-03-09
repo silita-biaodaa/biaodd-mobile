@@ -117,7 +117,14 @@ export default {
         this.ajax();
       },
       showMask(i){//
-        this.screenList[i].active=!this.screenList[i].active;
+        if(this.screenList[i].active){
+          this.screenList[i].active=false
+        }else{
+          for(let x of this.screenList){
+            x.active=false
+          }
+          this.screenList[i].active=true;
+        }
       },
       typeCanle(){
         this.screenList[1].active=false;

@@ -143,7 +143,8 @@ export default {
                 border-radius:10px;
                 text-align: center;
                 color: #999;
-                border: 1PX solid #CCBEBE
+                border: 1PX solid #CCBEBE;
+                background: #fff;
             }
             .active{
                 border-color: #FE6603;

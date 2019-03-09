@@ -43,10 +43,10 @@ export default {
                     path:'/bid'
                 },{
                     txt:'中标',
-                    path:'/'
+                    path:'/zhongBid'
                 },{
                     txt:'企业',
-                    path:'/'
+                    path:'/companyList'
                 },{
                     txt:'诚信',
                     path:'/'

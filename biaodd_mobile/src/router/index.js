@@ -7,7 +7,7 @@ import Conform from '@/pages/conform'
 import testZs from '@/pages/testZs'
 import Winning from '@/pages/winning'
 import zhongBid from '@/pages/zhongBid'
-
+import companyList from '@/pages/companyList'
 
 Vue.use(Router)
 
@@ -24,7 +24,12 @@ export default new Router({
       name:'zhongBid'
     },{ //招标列表
       path: '/bid',
-      component: Bid 
+      component: Bid,
+      name:'bid' 
+    },{ //企业列表
+      path: '/companyList',
+      component: companyList,
+      name:'companyList' 
     },
     {
       path: '/detail',
