@@ -38,10 +38,35 @@
          </div>
 
         <div class="letter-nav">
+          <div>
+              <span v-for="(o,i) of navList" :key="i" :class="navNum==i?'active':''" @click="navNum=i">{{o}}</span>
+          </div>
         </div>
-
         <div class="letter-detail">
-
+            <template v-if="navNum==0">
+              <!-- 工商 -->
+              <v-gs></v-gs>
+            </template>
+            <template v-else-if="navNum==1">
+              <!-- 法务 -->
+              <v-fw></v-fw>
+            </template>
+            <template v-else-if="navNum==2">
+              <!-- 资质 -->
+              <v-zz></v-zz>
+            </template>
+            <template v-else-if="navNum==3">
+              <!-- 人员 -->
+              <v-ry></v-ry>
+            </template>
+            <template v-else-if="navNum==4">
+              <!-- 业绩 -->
+              <v-yj></v-yj>
+            </template>
+            <template v-else-if="navNum==5">
+              <!-- 业绩 -->
+              <v-zb></v-zb>
+            </template>
         </div>
 
       </div>
@@ -49,20 +74,35 @@
 </template>
 <script>
 import topBack from '@/components/topback'
+import commerce from '@/components/commerce'
+import affairs from '@/components/enterprise/affairs'
+import qual from '@/components/enterprise/qual'
+import people from '@/components/enterprise/people'
+import achievement from '@/components/enterprise/achievement'
+import bid from '@/components/enterprise/bid'
 export default {
     name: 'letter', // 结构名称
     data() {
         return {
             // 数据模型
              name:'企业详情',
-             detail:{}
+             detail:{},
+             navList:['工商','法务','资质','人员','业绩','中标','诚信'],
+             navNum:0,
+            //  path:'/commerc'
         }
     },
     watch: {
         // 监控集合
     },
     components: {
-       'top-back':topBack  
+       'top-back':topBack,
+       'v-fw':  affairs,
+       'v-gs':commerce,
+       'v-zz':qual,
+       'v-ry':people,
+       'v-yj':achievement,
+       'v-zb':bid
     },
     props: {
         // 集成父级参数
@@ -205,7 +245,21 @@ export default {
  .letter-nav {
    height: 96px;
    background-color: #fff;
-   margin-bottom: 15px;
+  //  padding: 0 32px;
+   overflow-x:scroll;
+   line-height: 96px;
+   border-bottom: 1PX solid #F2F2F2;
+    div{
+      width: 126%;
+      span{
+        width: 14%;
+        display: inline-block;
+        text-align: center;
+      }
+      .active{
+        color: #FE6603
+      }
+    }
    
  }
 }

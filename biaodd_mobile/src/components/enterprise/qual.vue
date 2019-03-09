@@ -1,28 +1,25 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <!-- 搜索 -->
-    <div class="search-box">
-        <template  v-if="!iszb">
-            <div class="left" @click="leftTap">
-                {{selecTxt}}
-                <van-icon name="arrow-down"></van-icon>
-            </div>
-            <div class="right">
-                <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
-            </div>
-        </template>
-        <template v-else>
-            <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
-        </template>
+    <div class="qual">
+        <!-- tab -->
+        <div class="tab"></div>
+        <div class="box">
+            <!-- total -->
+            <!-- list -->
+            <van-list>
+                <v-con :type="'zz'"></v-con>
+            </van-list>
+        </div>
+        
     </div>
 </template>
 <script>
+import listCon from '@/components/enterprise/listCon'
 export default {
-    name: 'affairs', // 结构名称
+    name: 'qual', // 结构名称
     data() {
         return {
             // 数据模型
-            search:''
         }
     },
     watch: {
@@ -30,15 +27,9 @@ export default {
     },
     props: {
         // 集成父级参数
-        selecTxt:{
-            default:'年份'
-        },
-        iszb:{
-            default:false
-        }
     },
     components:{
-
+        'v-con':listCon,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -69,12 +60,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        searchFn(){//搜索
-            this.$emit('searchFn',this.search);
-        },
-        leftTap(){
-            this.$parent.mask=true;
-        }
     }
 
 }
@@ -82,23 +67,12 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-.search-box{
-    height: 138px;
+.tab{
     background: #fff;
-    display: flex;
-    padding: 20px 30px;
-    justify-content: space-between;
-    box-sizing: border-box;
-    align-items: center;
-    .right{
-        width: 72%;
-    }
-    .van-search{
-            background: #f5f5f5 !important;
-            border-radius: 5px
-        }
-    .van-search__content{
-        background: #f5f5f5;
-    }
+    height: 80px;
+}
+.box{
+    background: #f5f5f5;
+    padding: 18px 32px;
 }
 </style>
