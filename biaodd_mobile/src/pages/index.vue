@@ -40,7 +40,7 @@
         <div class="qy">
             <div class="title">
                 <h5>热门企业</h5>
-                <span>查看更多</span>
+                <span @click="$router.push('/companyList')">查看更多</span>
             </div>
             <ul class="box">
                 <v-qy v-for="(o,i) of qyList" :key="i" :obj="o"></v-qy>
@@ -67,11 +67,11 @@ export default {
                 },{
                     img:require('../assets/icon-zhongb.png'),
                     txt:'中标公告',
-                    path:'/bid'
+                    path:'/zhongBid'
                 },{
                     img:require('../assets/icon-qiy.png'),
                     txt:'企业信息',
-                    path:'/bid'
+                    path:'/companyList'
                 },{
                     img:require('../assets/icon-chengx.png'),
                     txt:'诚信信息',
