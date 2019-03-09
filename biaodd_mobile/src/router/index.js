@@ -7,6 +7,7 @@ import Conform from '@/pages/conform'
 import testZs from '@/pages/testZs'
 import Winning from '@/pages/winning'
 import zhongBid from '@/pages/zhongBid'
+import Letter from '@/pages/letter'
 
 
 Vue.use(Router)
@@ -42,6 +43,10 @@ export default new Router({
     { 
       path: '/winning', 
       component: Winning 
+    },
+    { //企业详情页
+      path: '/letter', 
+      component: Letter 
     }
   ]
 })
