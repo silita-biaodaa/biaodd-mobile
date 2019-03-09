@@ -6,15 +6,15 @@
          <div class="letter-title">
             <div class="letter-name">
               <p>
-                湖南耀邦建设有限公司
+               {{detail.comName}}
               </p>
               <div class="letter-save">
-                  存续
+                  {{detail.subsist}}
               </div>
             </div>
             <div class="letter-lead">
               <span  >
-                陈波
+                {{detail.legalPerson}}
               </span>
               <span class="person">
                  法人代表
@@ -23,7 +23,7 @@
             <div class="letter-iphone">
               <van-icon name="phone-o" />
               <span class="iphone">
-                0731-88251133
+                 {{detail.phone}}
               </span>
               <span class="le-col">
                 更多号码请查看APP
@@ -32,7 +32,7 @@
             <div class="letter-url">
                <van-icon name="location-o" />
                <p>
-                  湖南省长沙市岳麓区杜鹃路768号金峰壹号院
+                  {{detail.comAddress}}
                </p>               
             </div>
          </div>
@@ -54,7 +54,8 @@ export default {
     data() {
         return {
             // 数据模型
-             name:'企业详情'
+             name:'企业详情',
+             detail:{}
         }
     },
     watch: {
@@ -80,9 +81,11 @@ export default {
                    
                 }
             }).then(function(res){
-                console.log(res);
-                
-            })
+                that.detail = res.data.data
+                var arr = []
+                arr = that.detail.phone.split(';')
+                that.detail.phone = arr[0]
+             })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
