@@ -10,7 +10,7 @@ import zhongBid from '@/pages/zhongBid'
 import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
 import commerce from '@/components/commerce'
-
+import affairs from '@/components/enterprise/affairs'
 
 Vue.use(Router)
 
@@ -55,9 +55,13 @@ export default new Router({
       path: '/letter', 
       component: Letter 
     },
-    { 
+    { //企信——工商
       path: '/commerce', 
       component: commerce 
+    },{//企信——法务
+      path:'/affairs',
+      component:affairs,
+      name:'affairs'
     }
   ]
 })
