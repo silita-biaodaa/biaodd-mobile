@@ -59,7 +59,7 @@ export default {
     methods: {
         // 方法 集合.
          topush(o) {
-            this.$router.push({path:'/letter',query:{id:o.id,name:o.regisAddress,name:o.comName}})
+            this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
         }
     }
 
