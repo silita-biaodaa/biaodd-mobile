@@ -3,6 +3,9 @@
     <div class="commerce">
         <div class="com-basic">
           <div class="ba-title">
+             基本信息
+          </div>
+          <div class="bas-test">
 
           </div>
         </div>
@@ -61,6 +64,17 @@ export default {
 .commerce {
   .com-basic {
     background-color: #fff;
+    .ba-title {
+      height: 88px;
+      line-height: 88px;
+      font-size: 28px;
+      color:#333;
+      padding-left: 35px;
+      border-bottom: 1PX solid #f2f2f2;
+    }
+    .bas-test {
+      padding: 35px 35px 0;
+    }
   }
 }
 </style>
