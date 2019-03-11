@@ -99,6 +99,7 @@ export default {
     methods: {
         // 方法 集合
         searchFn(option){//搜索
+            this.lawLsit=[];
             this.isSearch=true;
             this.ajaxData.keyWord=option;
             this.ajax();
@@ -108,6 +109,7 @@ export default {
             this.ajax();
         },
         onRefresh(){
+            this.lawLsit=[];
             setTimeout(() => {
                 this.isSearch=true;
                 this.ajaxData.pageNo=1;

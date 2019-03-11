@@ -74,7 +74,7 @@
 </template>
 <script>
 import topBack from '@/components/topback'
-import commerce from '@/components/commerce'
+import commerce from '@/components/enterprise/commerce'
 import affairs from '@/components/enterprise/affairs'
 import qual from '@/components/enterprise/qual'
 import people from '@/components/enterprise/people'

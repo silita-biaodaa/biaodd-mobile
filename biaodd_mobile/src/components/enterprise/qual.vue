@@ -8,11 +8,9 @@
         <div class="box">
             <!-- total -->
             <!-- list -->
-            <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" @load="onLoad">
-                    <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
-                </van-list>
-            </van-pull-refresh>
+            <van-list>
+                <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
+            </van-list>
         </div>
         
     </div>
@@ -32,7 +30,6 @@ export default {
                     qualType:'全部'
                 }
             ],
-            loading:false,
             tabNum:0
         }
     },
@@ -76,12 +73,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        onRefresh(){
-
-        },
-        onLoad(){
-
-        },
         ajax(){
             let that=this;
             this.$http({
