@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             // 数据模型
-            id:'5d86f82e66452e2db067e42ca327c629',
+            id:'',
             list:[],
             data:{},
             navList:[
@@ -50,7 +50,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        //   this.id = this.$route.query.id
+          this.id = this.$route.query.id
           this.ajax();
     },
     beforeMount() {

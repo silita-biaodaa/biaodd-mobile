@@ -44,7 +44,7 @@ export default {
                 keyWord:'',
                 start:null,
                 end:null,  // 年份只有2016一年的话，开始和结束都穿2016
-                comName:'湖南省第五工程有限公司' // 企业名称
+                comName:'' // 企业名称
             },
             mask:false,
             companyLaw:{
