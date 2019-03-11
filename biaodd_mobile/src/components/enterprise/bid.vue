@@ -6,7 +6,7 @@
         <div class="box">
             <!-- list -->
             <van-list>
-                <v-con :type="'zb'"></v-con>
+                <v-con :type="'zb'" v-for="(el,i) in bidList" :key="i" :obj='el' ></v-con>
             </van-list>
         </div>
         
@@ -20,7 +20,10 @@ export default {
     data() {
         return {
             // 数据模型
-            search:''
+            search:'',
+            source:'湖南省', //
+            bidList:[],
+            name:'湖南省第五工程有限公司',
         }
     },
     watch: {
@@ -38,6 +41,24 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        // this.source = this.$route.query.name
+        let that=this;
+            this.$http({
+                method:'post',
+                url: '/notice/queryList',
+                data:{
+                  pageNo:1,
+                  pageSize:3,  //每页条数
+                  type:2,
+                  regions:that.source,  //省份吧
+                  com_name:that.name,  //公司名
+                  title:that.search,
+                  sumType:'zhongbiao'
+                 }
+            }).then(function(res){
+                console.log(res.data)
+                that.bidList = res.data.data
+            })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

@@ -6,7 +6,7 @@
         <div class="box">
             <!-- list -->
             <van-list>
-                <v-con :type="'ry'"></v-con>
+                <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
             </van-list>
         </div>
         
@@ -20,7 +20,10 @@ export default {
     data() {
         return {
             // 数据模型
-            search:''
+            search:'',
+            id:'5d86f82e66452e2db067e42ca327c629',
+            source:'湖南省',
+            peoList:[]
         }
     },
     watch: {
@@ -38,6 +41,25 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        // this.id = this.$route.query.id
+        // this.source = this.$route.query.source
+
+          let that=this;
+            this.$http({
+                method:'post',
+                url: '/company/person',
+                data:{
+                  keyWord:'', //关键字
+                  comId:that.id, // 企业ID
+                  category:'', //注册类别
+                  pageNo:1,
+                  pageSize: 3,
+                  province: that.source //省份
+                 }
+            }).then(function(res){
+                console.log(res.data)
+                that.peoList = res.data.data
+            })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

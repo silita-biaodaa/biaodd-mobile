@@ -8,7 +8,7 @@
             <div class="title">疑似行贿信息xx条，司法信息XX条，总计法务信息XX条</div>
             <!-- list -->
             <van-list>
-                <v-con></v-con>
+                <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
             </van-list>
         </div>
         
@@ -22,7 +22,9 @@ export default {
     data() {
         return {
             // 数据模型
-            search:''
+            search:'',
+            name:'湖南省第五工程有限公司',
+            lawLsit:[]
         }
     },
     watch: {
@@ -40,6 +42,22 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+         let that=this;
+            this.$http({
+                method:'post',
+                url: '/law/list',
+                data:{
+                    pageNo:1,
+                    pageSize:3,
+                    keyWord:'',
+                    start:null,
+                    end:null,  // 年份只有2016一年的话，开始和结束都穿2016
+                    comName:that.name // 企业名称
+                }
+            }).then(function(res){
+                console.log(res.data.data)
+                that.lawLsit = res.data.data
+            })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

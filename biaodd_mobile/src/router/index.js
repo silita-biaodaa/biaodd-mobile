@@ -10,7 +10,15 @@ import zhongBid from '@/pages/zhongBid'
 import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
 // import commerce from '@/components/commerce'
-// import affairs from '@/components/enterprise/affairs'
+import affairs from '@/components/enterprise/affairs'
+import qual from '@/components/enterprise/qual'
+import people from '@/components/enterprise/people'
+import achievement from '@/components/enterprise/achievement'
+import letBid from '@/components/enterprise/bid'
+
+
+
+
 
 Vue.use(Router)
 
@@ -58,10 +66,32 @@ export default new Router({
     // { //企信——工商
     //   path: '/commerce', 
     //   component: commerce 
-    // },{//企信——法务
-    //   path:'/affairs',
-    //   component:affairs,
-    //   name:'affairs'
-    // }
+    // },
+    {//企信——法务
+      path:'/affairs',
+      component:affairs,
+      name:'affairs'
+    },
+    {  // 资质-企信
+      path: '/qual',
+      component: qual,
+      name: 'qual'
+    },
+    {   // 人员
+      path: '/people',
+      component: people,
+      name: 'people'
+    },
+    {   // 人员
+      path: '/achievement',
+      component: achievement,
+      name: 'achievement'
+    },
+    {   // 中标
+      path: '/letbid',
+      component: letBid,
+      name: 'letbid'
+    }
+
   ]
 })

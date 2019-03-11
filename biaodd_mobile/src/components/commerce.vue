@@ -6,7 +6,9 @@
              基本信息
           </div>
           <div class="bas-test">
+             <div class="bas-line">
 
+             </div>
           </div>
         </div>
     </div>
@@ -20,7 +22,7 @@ export default {
         }
     },
     watch: {
-        // 监控集合
+        // 监控集合 
     },
     props: {
         // 集成父级参数
@@ -74,6 +76,9 @@ export default {
     }
     .bas-test {
       padding: 35px 35px 0;
+      .bas-line {
+        
+      }
     }
   }
 }

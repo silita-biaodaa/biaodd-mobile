@@ -20,7 +20,8 @@ export default {
     data() {
         return {
             // 数据模型
-            search:''
+            search:'',
+            id:'5d86f82e66452e2db067e42ca327c629'
         }
     },
     watch: {
@@ -38,6 +39,17 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        //   this.id = this.$route.query.id
+          let that=this;
+            this.$http({
+                method:'post',
+                url: '/project/company/list',
+                data:{
+                  comId:that.id, // 企业ID
+                 }
+            }).then(function(res){
+                console.log(res.data)
+            })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
