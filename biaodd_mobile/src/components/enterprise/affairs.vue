@@ -2,16 +2,28 @@
 <template>
     <div class="affairs">
         <!-- 搜索 -->
-        <v-ser></v-ser>
+        <!-- <v-ser @searchFn="searchFn"></v-ser> -->
         <div class="box">
-            <!-- total -->
-            <div class="title">疑似行贿信息xx条，司法信息XX条，总计法务信息XX条</div>
+            <!-- total-->
+            <div class="title">{{companyLaw.lawBri+companyLaw.briCount}}条，{{companyLaw.lawJud+companyLaw.judCount}}条,{{companyLaw.lawTotal+companyLaw.total}}条</div>
             <!-- list -->
-            <van-list>
-                <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
-            </van-list>
+            <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                <van-list finished-text="没有更多了" @load="onLoad">
+                    <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
+                </van-list>
+            </van-pull-refresh>
         </div>
-        
+        <van-popup v-model="mask"  position="bottom" :overlay="true">
+            <van-datetime-picker
+            type="year"
+            :formatter="dateConfirm"
+            v-model="date"
+            @confirm="confirm"
+            @cancel="mask=false"
+            ></van-datetime-picker>
+            <!-- :min-date="dateObj.minDate"
+            :max-date="dateObj.maxDate" -->
+        </van-popup>
     </div>
 </template>
 <script>
@@ -22,9 +34,27 @@ export default {
     data() {
         return {
             // 数据模型
-            search:'',
-            name:'湖南省第五工程有限公司',
-            lawLsit:[]
+            loading:false,
+            lawLsit:[],
+            date:'',
+            isSearch:true,
+            ajaxData:{
+                pageNo:1,
+                pageSize:5,
+                keyWord:'',
+                start:null,
+                end:null,  // 年份只有2016一年的话，开始和结束都穿2016
+                comName:'湖南省第五工程有限公司' // 企业名称
+            },
+            mask:false,
+            companyLaw:{
+                briCount:0,
+                judCount:0,
+                lawBri: "疑似行贿信息",
+                lawJud: "司法信息",
+                lawTotal: "总计法务信息",
+                total: 0
+            }
         }
     },
     watch: {
@@ -42,22 +72,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-         let that=this;
-            this.$http({
-                method:'post',
-                url: '/law/list',
-                data:{
-                    pageNo:1,
-                    pageSize:3,
-                    keyWord:'',
-                    start:null,
-                    end:null,  // 年份只有2016一年的话，开始和结束都穿2016
-                    comName:that.name // 企业名称
-                }
-            }).then(function(res){
-                console.log(res.data.data)
-                that.lawLsit = res.data.data
-            })
+        this.ajaxData.comName=this.$router.query.name
+         this.ajax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -82,8 +98,57 @@ export default {
     },
     methods: {
         // 方法 集合
-        searchFn(){//搜索
-
+        searchFn(option){//搜索
+            this.isSearch=true;
+            this.ajaxData.keyWord=option;
+            this.ajax();
+        },
+        onLoad(){
+            this.ajaxData.pageNo++;
+            this.ajax();
+        },
+        onRefresh(){
+            setTimeout(() => {
+                this.isSearch=true;
+                this.ajaxData.pageNo=1;
+                this.ajax();
+            }, 500);
+        },
+        ajax(){
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/law/list',
+                data:that.ajaxData
+            }).then(function(res){
+                if(that.lawLsit.length==0||that.ajaxData.pageNo==1){
+                    that.lawLsit=res.data.data;
+                }else{
+                    that.lawLsit=that.lawLsit.concat(res.data.data)
+                }
+            })
+            if(!that.isSearch){
+                return false
+            }
+            this.$http({
+                method:'post',
+                url:'/law/companyLaw',
+                data:{
+                    comName:that.ajaxData.comName
+                }
+            }).then(function(res){
+                that.companyLaw=res.data.data;
+                that.isSearch=false;
+            })
+        },
+        dateConfirm(type,value){
+          if (type === 'year') {
+            return `${value}年`;
+          }
+          return value;
+        },
+        confirm(){
+            
         }
     }
 

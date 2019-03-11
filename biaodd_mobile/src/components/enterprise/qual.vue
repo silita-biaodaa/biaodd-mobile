@@ -2,13 +2,17 @@
 <template>
     <div class="qual">
         <!-- tab -->
-        <div class="tab"></div>
+        <div class="tab">
+            <span :class="tabNum==i?'active':''"  v-for="(o,i) of navList" :key="i" @click="tabTap(o.qualType,i)">{{o.qualType}}</span>
+        </div>
         <div class="box">
             <!-- total -->
             <!-- list -->
-            <van-list>
-                <v-con :type="'zz'"></v-con>
-            </van-list>
+            <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                <van-list finished-text="没有更多了" @load="onLoad">
+                    <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
+                </van-list>
+            </van-pull-refresh>
         </div>
         
     </div>
@@ -20,7 +24,16 @@ export default {
     data() {
         return {
             // 数据模型
-            id:'5d86f82e66452e2db067e42ca327c629'
+            id:'5d86f82e66452e2db067e42ca327c629',
+            list:[],
+            data:{},
+            navList:[
+                {
+                    qualType:'全部'
+                }
+            ],
+            loading:false,
+            tabNum:0
         }
     },
     watch: {
@@ -38,15 +51,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         //   this.id = this.$route.query.id
-          let that=this;
-            this.$http({
-                method:'post',
-                url: '/company/qual/' + that.id,
-                data:{
-                }
-            }).then(function(res){
-                console.log(res.data)
-            })
+          this.ajax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -71,6 +76,42 @@ export default {
     },
     methods: {
         // 方法 集合
+        onRefresh(){
+
+        },
+        onLoad(){
+
+        },
+        ajax(){
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/company/qual/' + that.id,
+                data:{
+                }
+            }).then(function(res){
+                that.data=res.data.data;
+                for(let x of that.data){
+                    that.navList.push(x);
+                    that.list=that.list.concat(x.list)
+                }
+            })
+        },
+        tabTap(type,i){
+            let that=this;
+            that.list=[];
+            that.tabNum=i;
+            for(let x of that.data){
+                if(type=='全部'){
+                    that.list=that.list.concat(x.list)
+                }else{
+                    if(x.qualType==type){
+                        that.list=x.list;
+                        return false
+                    }
+                }
+            }
+        }
     }
 
 }
@@ -81,6 +122,19 @@ export default {
 .tab{
     background: #fff;
     height: 80px;
+    padding: 0 32px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    flex-wrap:wrap
+    span{
+        border-bottom:4px solid transparent;
+        padding-bottom: 9px
+    }
+    .active{
+        border-bottom:4px solid #FE6603;
+        color: #FE6603
+    }
 }
 .box{
     background: #f5f5f5;
