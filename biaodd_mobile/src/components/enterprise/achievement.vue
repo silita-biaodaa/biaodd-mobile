@@ -5,11 +5,16 @@
         <!-- <v-ser :selecTxt="'项目类别'"></v-ser> -->
         <div class="box">
             <!-- list -->
-            <van-list>
+
+            <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
                 <v-con :type="'yj'" v-for="(el,i) in list" :key="i" :obj='el'></v-con>
-            </van-list>
+                </van-list>
+            </van-pull-refresh>
         </div>
-        
+        <div class="load" v-if="showLoad">
+            <van-loading size="50px"></van-loading>
+        </div>
     </div>
 </template>
 <script>
@@ -20,9 +25,17 @@ export default {
     data() {
         return {
             // 数据模型
-            search:'',
-            id:'',
+            loading:false,
+            // search:'',
+            data:{
+                comId:'', // 企业ID
+                type:'page',
+                pageNo:1,
+                pageSize:5
+            },
             list:[],
+            showLoad:true,
+            isScroll:true,
         }
     },
     watch: {
@@ -40,17 +53,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-          this.id = this.$route.query.id
-            let that=this;
-            this.$http({
-                method:'post',
-                url: '/project/company/list',
-                data:{
-                  comId:that.id, // 企业ID
-                 }
-            }).then(function(res){
-                that.list=res.data.data;
-            })
+          this.data.comId = this.$route.query.id
+            this.ajax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -75,8 +79,39 @@ export default {
     },
     methods: {
         // 方法 集合
-        searchFn(){//搜索
+        // searchFn(){//搜索
 
+        // },
+        onRefresh(){
+            this.list=[];
+            setTimeout(() => {
+                this.data.pageNo=1;
+                this.ajax();
+            }, 500);
+        },
+        onLoad(){
+            this.data.pageNo++;
+            this.ajax();
+        },
+        ajax(){
+            if(!this.isScroll){
+                return false
+            }
+            this.isScroll=false;
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/project/company/list',
+                data:that.data
+            }).then(function(res){
+                that.showLoad=false;
+                if(that.list.length==0||that.data.pageNo==1){
+                    that.list=res.data.data;
+                }else{
+                    that.list=that.list.concat(res.data.data)
+                }
+                that.isScroll=true;
+            })
         }
     }
 

@@ -6,7 +6,7 @@
         <div class="box">
             <!-- list -->
             <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" @load="onLoad">
+                <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
                     <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
                 </van-list>
             </van-pull-refresh>
@@ -14,6 +14,10 @@
         <van-popup v-model="mask"  position="bottom" :overlay="true">
             <van-picker :columns="personCategory" value-key="category" :loading="categoryLoad" show-toolbar @confirm="confirmFn" @cancel="mask=false" ref="picker"/>
         </van-popup>
+
+        <div class="load" v-if="showLoad">
+            <van-loading size="50px"></van-loading>
+        </div>
     </div>
 </template>
 <script>
@@ -24,6 +28,7 @@ export default {
     data() {
         return {
             // 数据模型
+            showLoad:true,
             mask:false,
             loading:false,
             personCategory:[],//注册类别
@@ -36,7 +41,8 @@ export default {
                 pageSize: 3,
                 province: '湖南' //省份
             },
-            peoList:[]
+            peoList:[],
+            isScroll:true,
         }
     },
     watch: {
@@ -62,7 +68,7 @@ export default {
             method:'post',
             url:'/company/personCategory/'+this.data.comId
         }).then(function(res){
-            console.log(res)
+            that.showLoad=false;
             that.personCategory=res.data.data;
             that.categoryLoad=false
         })
@@ -92,6 +98,7 @@ export default {
         // 方法 集合
         searchFn(option){//搜索
             this.peoList=[];
+            this.showLoad=true;
             this.data.keyWord=option;
             this.ajax();
         },
@@ -107,6 +114,10 @@ export default {
             this.ajax();
         },
         ajax(){
+            if(!this.isScroll){
+                return false
+            }
+            this.isScroll=false;
             let that=this;
             this.$http({
                 method:'post',
@@ -118,6 +129,7 @@ export default {
                 }else{
                     that.peoList=that.peoList.concat(res.data.data)
                 }
+                that.isScroll=true;
             })
         },
         confirmFn(){

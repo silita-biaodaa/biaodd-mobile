@@ -8,7 +8,7 @@
             <div class="title">{{companyLaw.lawBri+companyLaw.briCount}}条，{{companyLaw.lawJud+companyLaw.judCount}}条,{{companyLaw.lawTotal+companyLaw.total}}条</div>
             <!-- list -->
             <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" @load="onLoad">
+                <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
                     <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
                 </van-list>
             </van-pull-refresh>
@@ -24,6 +24,9 @@
             <!-- :min-date="dateObj.minDate"
             :max-date="dateObj.maxDate" -->
         </van-popup>
+        <div class="load" v-if="showLoad">
+            <van-loading size="50px"></van-loading>
+        </div>
     </div>
 </template>
 <script>
@@ -34,6 +37,7 @@ export default {
     data() {
         return {
             // 数据模型
+            showLoad:true,
             loading:false,
             lawLsit:[],
             date:'',
@@ -54,7 +58,8 @@ export default {
                 lawJud: "司法信息",
                 lawTotal: "总计法务信息",
                 total: 0
-            }
+            },
+            isScroll:true,
         }
     },
     watch: {
@@ -100,6 +105,7 @@ export default {
         // 方法 集合
         searchFn(option){//搜索
             this.lawLsit=[];
+            this.showLoad=true;
             this.isSearch=true;
             this.ajaxData.keyWord=option;
             this.ajax();
@@ -117,17 +123,23 @@ export default {
             }, 500);
         },
         ajax(){
+            if(!this.isScroll){
+                return false
+            }
+            this.isScroll=false;
             let that=this;
             this.$http({
                 method:'post',
                 url: '/law/list',
                 data:that.ajaxData
             }).then(function(res){
+                that.showLoad=false;
                 if(that.lawLsit.length==0||that.ajaxData.pageNo==1){
                     that.lawLsit=res.data.data;
                 }else{
                     that.lawLsit=that.lawLsit.concat(res.data.data)
                 }
+                that.isScroll=true;
             })
             if(!that.isSearch){
                 return false
@@ -170,4 +182,5 @@ export default {
         line-height: 80px
     }
 }
+
 </style>

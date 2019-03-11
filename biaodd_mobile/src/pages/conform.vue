@@ -8,6 +8,8 @@
                  :finished="finished"
                  finished-text="没有更多了"
                  @load="onLoad"
+                  :offset="100"
+                   :immediate-check="false"
               >
                 <com-pany v-for="(el,i) in list" :key="i" :obj='el'></com-pany>
               </van-list>

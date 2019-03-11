@@ -16,7 +16,7 @@
   <div class="total">为您搜索到{{total}}条企业信息</div>
   <!-- 列表 -->
   <van-pull-refresh v-model="loading" @refresh="onRefresh">
-    <van-list finished-text="没有更多了" @load="onLoad">
+    <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
       <v-qy v-for="(o,i) of zbList" :key="i" :obj="o"></v-qy>
     </van-list>
   </van-pull-refresh>  
@@ -32,6 +32,7 @@ import money from '@/components/money'
 export default {
     data () {
       return {
+        isScroll:true,
         zbList:[],
         loading:false,//是否加载完，false为加载完
         data:{
@@ -69,6 +70,10 @@ export default {
         }, 500);
       },
       ajax(){
+        if(!this.isScroll){
+            return false
+        }
+        this.isScroll=false;
         let that=this;
         //企业
         this.$http({
@@ -83,7 +88,7 @@ export default {
             }else{
               that.zbList=that.zbList.concat(res.data.data)
             }
-            
+            that.isScroll=true;
         })
       },
       onLoad(){//下滚加载
@@ -152,7 +157,8 @@ export default {
         'v-money':money,
     },
     created(){
-      this.data.title = this.$route.query.search ?  this.$route.query.search : ''
+      this.data.title = this.$route.query.search ?  this.$route.query.search : '';
+      this.ajax();
     }
 }
 </script>

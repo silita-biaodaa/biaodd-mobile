@@ -17,7 +17,7 @@
   <div class="total">为您搜索到{{total}}条招标信息</div>
   <!-- 列表 -->
   <van-pull-refresh v-model="loading" @refresh="onRefresh">
-    <van-list finished-text="没有更多了" @load="onLoad">
+    <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
       <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
     </van-list>
   </van-pull-refresh>  
@@ -34,6 +34,7 @@ import aptitude from '@/components/aptitude'
 export default {
     data () {
       return {
+        isScroll:true,
         zbList:[],
         loading:false,//是否加载完，false为加载完
         data:{
@@ -74,6 +75,10 @@ export default {
       },
       ajax(){
         //招标
+        if(!this.isScroll){
+            return false
+        }
+        this.isScroll=false;
         let that=this;
         this.$http({
             method:'post',
@@ -87,7 +92,7 @@ export default {
             }else{
               that.zbList=that.zbList.concat(res.data.data)
             }
-            
+            that.isScroll=true;
         })
       },
       onLoad(){//下滚加载
@@ -155,7 +160,8 @@ export default {
         'v-apt':aptitude
     },
     created(){
-      this.data.title = this.$route.query.search ?  this.$route.query.search : ''
+      this.data.title = this.$route.query.search ?  this.$route.query.search : '';
+      this.ajax();
     }
 }
 </script>
