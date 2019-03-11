@@ -2,11 +2,11 @@
 <template>
     <div class="affairs">
         <!-- 搜索 -->
-        <v-ser :selecTxt="'项目类别'"></v-ser>
+        <!-- <v-ser :selecTxt="'项目类别'"></v-ser> -->
         <div class="box">
             <!-- list -->
             <van-list>
-                <v-con :type="'yj'"></v-con>
+                <v-con :type="'yj'" v-for="(el,i) in list" :key="i" :obj='el'></v-con>
             </van-list>
         </div>
         
@@ -21,7 +21,8 @@ export default {
         return {
             // 数据模型
             search:'',
-            id:'5d86f82e66452e2db067e42ca327c629'
+            id:'',
+            list:[],
         }
     },
     watch: {
@@ -39,8 +40,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        //   this.id = this.$route.query.id
-          let that=this;
+          this.id = this.$route.query.id
+            let that=this;
             this.$http({
                 method:'post',
                 url: '/project/company/list',
@@ -48,7 +49,7 @@ export default {
                   comId:that.id, // 企业ID
                  }
             }).then(function(res){
-                console.log(res.data)
+                that.list=res.data.data;
             })
     },
     beforeMount() {

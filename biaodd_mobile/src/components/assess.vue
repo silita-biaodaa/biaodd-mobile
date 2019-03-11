@@ -131,7 +131,7 @@ export default {
         display: flex;
         flex-wrap: wrap;
         padding: 0 32px;
-        margin-bottom: 150px;
+        margin-bottom: 130px;
         li{
             text-align: center;
             margin-bottom: 32px;

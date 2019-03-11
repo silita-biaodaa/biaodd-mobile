@@ -72,7 +72,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.ajaxData.comName=this.$router.query.name
+        this.ajaxData.comName=this.$route.query.name
          this.ajax();
     },
     beforeMount() {
