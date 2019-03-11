@@ -1,36 +1,34 @@
 <template>
-<div class="bid">
-  <v-fix :nav="1"></v-fix>
+<div class="companyList">
+  <v-fix :nav="3"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入搜索关键词" v-model="data.title" @search="searchFn"></van-search>
+    <van-search placeholder="请输入搜索关键词" v-model="data.keyWord" @search="searchFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
-    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type>
-    <v-assess @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
-    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
+    <v-apt v-if="screenList[2].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
+    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active"></v-money>
   </div>
   <!-- 总条数 -->
-  <div class="total">为您搜索到{{total}}条招标信息</div>
+  <div class="total">为您搜索到{{total}}条企业信息</div>
   <!-- 列表 -->
   <van-pull-refresh v-model="loading" @refresh="onRefresh">
     <van-list finished-text="没有更多了" @load="onLoad">
-      <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
+      <v-qy v-for="(o,i) of zbList" :key="i" :obj="o"></v-qy>
     </van-list>
   </van-pull-refresh>  
 </div>
 </template>
 <script>
-import zbCon from '@/components/zbContent'
+import qy from '@/components/qy'
 import fixHead from '@/components/fixHead'
 import search from '@/components/search'
 import addr from '@/components/address'
-import getType from '@/components/getType'
-import assess from '@/components/assess'
 import aptitude from '@/components/aptitude'
+import money from '@/components/money'
 export default {
     data () {
       return {
@@ -38,13 +36,14 @@ export default {
         loading:false,//是否加载完，false为加载完
         data:{
           pageNo:1,
-          pageSize:'10',
-          regions:'湖南',
-          type: "0",
-          projectType:'',
-          title: "",
-          pbModes:'',
-          zzType:''
+          pageSize:10,
+          regisAddress:'湖南',
+          minCapital: "0",
+          maxCapital:'',
+          keyWord: "",
+          // levelRank: "",
+          // qualCode:'',
+          // rangeType: "and"
         },
         total:0,
         screenList:[
@@ -52,10 +51,7 @@ export default {
             txt:'地区',
             active:false,
           },{
-            txt:'类型',
-            active:false
-          },{
-            txt:'评标办法',
+            txt:'注册资金',
             active:false
           },{
             txt:'资质要求',
@@ -72,11 +68,11 @@ export default {
         }, 500);
       },
       ajax(){
-        //招标
         let that=this;
+        //企业
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/company/query/filter',
             data:that.data
         }).then(function(res){
             that.loading = false;
@@ -100,19 +96,7 @@ export default {
       returnAddress(option){//选择地址
         this.screenList[0].active=false;
         this.screenList[0].txt=option;
-        this.data.regions=option;
-        this.data.pageNo=1;
-        this.ajax();
-      },
-      typeSure(option){//类型选择
-        this.screenList[1].active=false;
-        this.data.projectType=option;
-        this.data.pageNo=1;
-        this.ajax();
-      },
-      assessSure(option){
-        this.screenList[2].active=false;
-        this.data.pbModes=option;
+        this.data.regisAddress=option;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -129,24 +113,38 @@ export default {
       typeCanle(){
         this.screenList[1].active=false;
         this.screenList[2].active=false;
-        this.screenList[3].active=false;
       },
       aptSure(option){
         // console.log(option);
-        this.screenList[3].active=false;
-        this.data.zzType=option;
+        this.screenList[2].active=false;
+        this.data.qualCode=option;
+        this.data.pageNo=1;
+        this.ajax();
+      },
+      moneySure(option){
+        if(option==1){
+              this.data.maxCapital='500'
+        }else if(option==2){
+            this.data.minCapital='500';
+            this.data.maxCapital='1000';
+        }else if(option==3){
+            this.data.minCapital='1000';
+            this.data.maxCapital='5000';
+        }else if(option==4){
+            this.data.minCapital='5000';
+        }
+        this.screenList[1].active=false;
         this.data.pageNo=1;
         this.ajax();
       }
     },
     components:{
-        'v-zb':zbCon,
+        'v-qy':qy,
         'v-fix':fixHead,
         'v-search':search,
         'v-addr':addr,
-        'v-type':getType,
-        'v-assess':assess,
-        'v-apt':aptitude
+        'v-apt':aptitude,
+        'v-money':money,
     },
     created(){
       this.data.title = this.$route.query.search ?  this.$route.query.search : ''
@@ -154,7 +152,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.bid {
+.companyList {
   padding-top: 200px;
   /*筛选*/
   .screen-box{

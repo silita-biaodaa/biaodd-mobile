@@ -1,20 +1,19 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)">
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-qi.png"/>
-            </p>
-            <p class="tit">{{obj.comName}}</p>
+    <div class="commerce">
+        <div class="com-basic">
+          <div class="ba-title">
+             基本信息
+          </div>
+          <div class="bas-test">
+
+          </div>
         </div>
-        <div class="center">法定代表：{{obj.legalPerson}}</div>
-        <div class="center">联系方式：{{obj.phone}}</div>
-        <div class="center">企业地址：{{obj.comAddress}}</div>
     </div>
 </template>
 <script>
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'commerce', // 结构名称
     data() {
         return {
             // 数据模型
@@ -25,15 +24,12 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        console.log(this.obj);
-        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -57,15 +53,28 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     methods: {
-        // 方法 集合.
-         topush(o) {
-            this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
-        }
+        // 方法 集合
     }
 
 }
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style scoped lang="less">
+<style scoped lang='less'>
+.commerce {
+  .com-basic {
+    background-color: #fff;
+    .ba-title {
+      height: 88px;
+      line-height: 88px;
+      font-size: 28px;
+      color:#333;
+      padding-left: 35px;
+      border-bottom: 1PX solid #f2f2f2;
+    }
+    .bas-test {
+      padding: 35px 35px 0;
+    }
+  }
+}
 </style>

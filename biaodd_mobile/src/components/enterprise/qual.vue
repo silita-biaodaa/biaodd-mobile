@@ -1,20 +1,22 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)">
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-qi.png"/>
-            </p>
-            <p class="tit">{{obj.comName}}</p>
+    <div class="qual">
+        <!-- tab -->
+        <div class="tab"></div>
+        <div class="box">
+            <!-- total -->
+            <!-- list -->
+            <van-list>
+                <v-con :type="'zz'"></v-con>
+            </van-list>
         </div>
-        <div class="center">法定代表：{{obj.legalPerson}}</div>
-        <div class="center">联系方式：{{obj.phone}}</div>
-        <div class="center">企业地址：{{obj.comAddress}}</div>
+        
     </div>
 </template>
 <script>
+import listCon from '@/components/enterprise/listCon'
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'qual', // 结构名称
     data() {
         return {
             // 数据模型
@@ -25,15 +27,15 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+    },
+    components:{
+        'v-con':listCon,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        console.log(this.obj);
-        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -57,10 +59,7 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     methods: {
-        // 方法 集合.
-         topush(o) {
-            this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
-        }
+        // 方法 集合
     }
 
 }
@@ -68,4 +67,12 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.tab{
+    background: #fff;
+    height: 80px;
+}
+.box{
+    background: #f5f5f5;
+    padding: 18px 32px;
+}
 </style>

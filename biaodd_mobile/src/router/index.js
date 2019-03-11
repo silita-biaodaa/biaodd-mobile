@@ -6,21 +6,33 @@ import Detail from '@/pages/detail'
 import Conform from '@/pages/conform'
 import testZs from '@/pages/testZs'
 import Winning from '@/pages/winning'
-
-
+import zhongBid from '@/pages/zhongBid'
+import Letter from '@/pages/letter'
+import companyList from '@/pages/companyList'
+// import commerce from '@/components/commerce'
+// import affairs from '@/components/enterprise/affairs'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
+    {//首页
       path: '/',
       name: 'index',
       component: index
     }, 
-    { 
+    { //中标列表
+      path: '/zhongBid',
+      component: zhongBid,
+      name:'zhongBid'
+    },{ //招标列表
       path: '/bid',
-      component: Bid 
+      component: Bid,
+      name:'bid' 
+    },{ //企业列表
+      path: '/companyList',
+      component: companyList,
+      name:'companyList' 
     },
     {
       path: '/detail',
@@ -38,6 +50,18 @@ export default new Router({
     { 
       path: '/winning', 
       component: Winning 
-    }
+    },
+    { //企业详情页
+      path: '/letter', 
+      component: Letter 
+    },
+    // { //企信——工商
+    //   path: '/commerce', 
+    //   component: commerce 
+    // },{//企信——法务
+    //   path:'/affairs',
+    //   component:affairs,
+    //   name:'affairs'
+    // }
   ]
 })

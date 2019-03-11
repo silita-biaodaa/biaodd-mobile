@@ -126,7 +126,8 @@ export default {
                 height: 56px;
                 line-height: 56px;
                 color: #999;
-                border: 1PX solid #CCBEBE
+                border: 1PX solid #CCBEBE;
+                background: #fff;
             }
             .active{
                 border-color: #FE6603;
