@@ -11,7 +11,9 @@
                 </van-list>
             </van-pull-refresh>
         </div>
-        
+        <van-popup v-model="mask"  position="bottom" :overlay="true">
+            <van-picker :columns="personCategory" value-key="category" :loading="categoryLoad" show-toolbar @confirm="confirmFn" @cancel="mask=false" ref="picker"/>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -22,7 +24,10 @@ export default {
     data() {
         return {
             // 数据模型
+            mask:false,
             loading:false,
+            personCategory:[],//注册类别
+            categoryLoad:true,
             data:{
                 keyWord:'', //关键字
                 comId:'5d86f82e66452e2db067e42ca327c629', // 企业ID
@@ -49,9 +54,18 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.id = this.$route.query.id
-        // this.source = this.$route.query.source
+        this.data.comId = this.$route.query.id
+        this.data.province = this.$route.query.source
+        let that=this;
         this.ajax();
+        this.$http({
+            method:'post',
+            url:'/company/personCategory/'+this.data.comId
+        }).then(function(res){
+            console.log(res)
+            that.personCategory=res.data.data;
+            that.categoryLoad=false
+        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -105,6 +119,12 @@ export default {
                     that.peoList=that.peoList.concat(res.data.data)
                 }
             })
+        },
+        confirmFn(){
+            this.mask=false;
+            this.peoList=[];
+            this.data.category=this.$refs.picker.getValues()[0].category;
+            this.ajax();
         }
     }
 

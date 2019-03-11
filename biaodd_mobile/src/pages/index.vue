@@ -72,10 +72,11 @@ export default {
                     img:require('../assets/icon-qiy.png'),
                     txt:'企业信息',
                     path:'/companyList'
-                },{
+                }
+                ,{
                     img:require('../assets/icon-chengx.png'),
-                    txt:'诚信信息',
-                    path:'/bid'
+                    txt:'敬请期待',
+                    path:''
                 }
             ],
             
@@ -183,7 +184,7 @@ export default {
         },
         scrollgun(){
             let getSt=document.documentElement.scrollTop || document.body.scrollTop;
-            if(getSt>=750){
+            if(getSt>=300){
                 this.isScroll=true;
             }else{
                 this.isScroll=false;

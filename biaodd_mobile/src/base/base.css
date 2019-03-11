@@ -21,8 +21,14 @@ li{
 }
 .newNotice .top .icon{
     margin-right: 20px;
+    width: 38px;
+    height: 38px;
+}
+.newNotice .top .icon img{
+    width: 100%;
 }
 .newNotice .top .tit{
+    max-width: calc(100% - 60px);
     color: #666;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,6 +99,11 @@ li{
     width: 30px;
     height: 30px;
 }
+.van-picker__cancel, .van-picker__confirm{
+    color: #FE6603;
+}
+
+
 .color {
     color:#FE6603;
 }

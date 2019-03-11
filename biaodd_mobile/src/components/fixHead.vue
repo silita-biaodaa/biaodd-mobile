@@ -47,10 +47,11 @@ export default {
                 },{
                     txt:'企业',
                     path:'/companyList'
-                },{
-                    txt:'诚信',
-                    path:'/'
-                },
+                }
+                // ,{
+                //     txt:'诚信',
+                //     path:'/'
+                // },
             ],
         }
     },

@@ -126,7 +126,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        //  this.id = this.$route.query.id
+         this.id = this.$route.query.id
          let that=this;
             this.$http({
                 method:'post',
