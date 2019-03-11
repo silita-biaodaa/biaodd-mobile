@@ -93,10 +93,12 @@ export default {
         this.ajax();
       },
       searchFn(){//搜索
+        this.zbList=[];
         this.data.pageNo=1;
         this.ajax();
       },
       returnAddress(option){//选择地址
+        this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option;
         this.data.regions=option;
@@ -104,6 +106,7 @@ export default {
         this.ajax();
       },
       typeSure(option){//类型选择
+        this.zbList=[];
         this.screenList[1].active=false;
         this.data.projectType=option;
         this.data.pageNo=1;
@@ -124,6 +127,7 @@ export default {
         this.screenList[2].active=false;
       },
       moneySure(option){
+          this.zbList=[];
           if(option.num==1){
                 this.data.projSumEnd='500'
           }else if(option.num==2){

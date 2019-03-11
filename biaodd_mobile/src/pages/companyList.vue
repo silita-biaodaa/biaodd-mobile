@@ -62,6 +62,7 @@ export default {
     },
     methods: {
       onRefresh(){//下拉刷新
+        this.zbList=[];
         setTimeout(() => {
           this.data.pageNo=1;
           this.ajax();
@@ -90,10 +91,12 @@ export default {
         this.ajax();
       },
       searchFn(){//搜索
+        this.zbList=[];
         this.data.pageNo=1;
         this.ajax();
       },
       returnAddress(option){//选择地址
+        this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option;
         this.data.regisAddress=option;
@@ -116,12 +119,14 @@ export default {
       },
       aptSure(option){
         // console.log(option);
+        this.zbList=[];
         this.screenList[2].active=false;
         this.data.qualCode=option;
         this.data.pageNo=1;
         this.ajax();
       },
       moneySure(option){
+        this.zbList=[];
         if(option==1){
               this.data.maxCapital='500'
         }else if(option==2){

@@ -67,6 +67,7 @@ export default {
    color:#fff;
    font-size: 36px;
    position: fixed;
+   z-index: 99;
    top: 0;
    left: 0;
    .top-left {

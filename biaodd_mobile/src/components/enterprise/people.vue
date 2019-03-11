@@ -2,12 +2,14 @@
 <template>
     <div class="affairs">
         <!-- 搜索 -->
-        <v-ser :selecTxt="'注册类别'"></v-ser>
+        <v-ser :selecTxt="'注册类别'" @searchFn="searchFn"></v-ser>
         <div class="box">
             <!-- list -->
-            <van-list>
-                <v-con :type="'ry'"></v-con>
-            </van-list>
+            <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                <van-list finished-text="没有更多了" @load="onLoad">
+                    <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
+                </van-list>
+            </van-pull-refresh>
         </div>
         
     </div>
@@ -20,7 +22,16 @@ export default {
     data() {
         return {
             // 数据模型
-            search:''
+            loading:false,
+            data:{
+                keyWord:'', //关键字
+                comId:'5d86f82e66452e2db067e42ca327c629', // 企业ID
+                category:'', //注册类别
+                pageNo:1,
+                pageSize: 3,
+                province: '湖南' //省份
+            },
+            peoList:[]
         }
     },
     watch: {
@@ -38,6 +49,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        // this.id = this.$route.query.id
+        // this.source = this.$route.query.source
+        this.ajax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -62,8 +76,35 @@ export default {
     },
     methods: {
         // 方法 集合
-        searchFn(){//搜索
-
+        searchFn(option){//搜索
+            this.peoList=[];
+            this.data.keyWord=option;
+            this.ajax();
+        },
+        onRefresh(){
+            this.peoList=[];
+            setTimeout(() => {
+                this.data.pageNo=1;
+                this.ajax();
+            }, 500);
+        },
+        onLoad(){
+            this.data.pageNo++;
+            this.ajax();
+        },
+        ajax(){
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/company/person',
+                data:that.data
+            }).then(function(res){
+                if(that.peoList.length==0||that.data.pageNo==1){
+                    that.peoList=res.data.data;
+                }else{
+                    that.peoList=that.peoList.concat(res.data.data)
+                }
+            })
         }
     }
 

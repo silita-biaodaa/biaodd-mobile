@@ -3,38 +3,38 @@
     <div class="listCon">
         <!-- 法务 -->
         <template v-if="type=='fw'">
-            <h5>湖南省沙坪建设有限公司一审民事裁定书</h5>
-            <p>法院：湖南省长沙市中级人民法院</p>
-            <p>案号：（2018）湘01民初585号</p>
-            <p>时间：2019-02-01</p>
+            <h5>{{obj.title}}</h5>
+            <p>法院：{{obj.court}}</p>
+            <p>案号：{{obj.caseNo}}</p>
+            <p>时间：{{obj.dateStr}}</p>
         </template>
         <!-- 资质 -->
         <template v-else-if="type=='zz'">
-            <h5>建筑工程施工总承包三级</h5>
-            <p>发证机关：长沙市住房和城乡建设委员会</p>
-            <p>资质证书号：D343018876</p>
-            <p>有效日期：2039-02-01</p>
+            <h5>{{obj.qualName}}</h5>
+            <p>发证机关：{{obj.certOrg}}</p>
+            <p>资质证书号：{{obj.certNo}}</p>
+            <p>有效日期：{{obj.certDate}}</p>
         </template>
         <!-- 人员 -->
         <template v-else-if="type=='ry'">
-            <h5>xxx</h5>
-            <p>注册类别：二级注册建造师</p>
-            <p>专  业：建筑工程</p>
-            <p>有效日期：2039-02-01</p>
+            <h5>{{obj.name}}</h5>
+            <p>注册类别：{{obj.category}}</p>
+            <p>专  业：{{obj.major}}</p>
+            <p>有效日期：{{obj.validDate}}</p>
         </template>
         <!-- 业绩 -->
         <template v-else-if="type=='yj'">
-            <h5>xxx</h5>
-            <p>建设单位：洪江市龙标发展有限责任公司</p>
-            <p>项目地区：湖南省</p>
-            <p>项目类别：房屋建设工程</p>
+            <h5>{{obj.proName}}</h5>
+            <p>建设单位：{{obj.proOrg}}</p>
+            <p>项目地区：{{obj.province}}</p>
+            <p>项目类别：{{obj.proType}}</p>
         </template>
         <!-- 中标 -->
         <template v-else-if="type=='zb'">
-            <h5>xxx</h5>
-            <p>第一候选人：湖南耀邦建设有限公司</p>
-            <p>中标金额：449.9446万元</p>
-            <p>发布日期：2019-01-02</p>
+            <h5>{{obj.title}}</h5>
+            <p>第一候选人：{{obj.oneName}}</p>
+            <p>中标金额：{{obj.oneOffer}}万元</p>
+            <p>发布日期：{{obj.opendate}}</p>
         </template>
     </div>
 </template>

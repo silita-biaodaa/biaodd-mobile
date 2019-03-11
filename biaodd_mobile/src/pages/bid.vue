@@ -66,6 +66,7 @@ export default {
     },
     methods: {
       onRefresh(){//下拉刷新
+        this.zbList=[];
         setTimeout(() => {
           this.data.pageNo=1;
           this.ajax();
@@ -94,10 +95,12 @@ export default {
         this.ajax();
       },
       searchFn(){//搜索
+        this.zbList=[];
         this.data.pageNo=1;
         this.ajax();
       },
       returnAddress(option){//选择地址
+        this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option;
         this.data.regions=option;
@@ -105,12 +108,14 @@ export default {
         this.ajax();
       },
       typeSure(option){//类型选择
+        this.zbList=[];
         this.screenList[1].active=false;
         this.data.projectType=option;
         this.data.pageNo=1;
         this.ajax();
       },
       assessSure(option){
+        this.zbList=[];
         this.screenList[2].active=false;
         this.data.pbModes=option;
         this.data.pageNo=1;
@@ -132,6 +137,7 @@ export default {
         this.screenList[3].active=false;
       },
       aptSure(option){
+        this.zbList=[];
         // console.log(option);
         this.screenList[3].active=false;
         this.data.zzType=option;
