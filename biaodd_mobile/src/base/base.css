@@ -62,14 +62,14 @@ li{
     box-sizing: border-box; 
 }
 /* vant  搜索框 */
-.van-search{
+body .van-search{
     height: 100%;
     width: 100%;
     font-size: 28px;
     padding:35px 25px;
     box-sizing: border-box;
 }
-.van-search .van-cell,.van-cell__value{
+body .van-search .van-cell,body .van-cell__value{
     overflow: auto;
     padding: 0;
     flex-direction: row-reverse;
@@ -78,13 +78,13 @@ li{
 .search>.van-search .van-cell,.van-cell__value{
     background: #fff
 }
-.van-field__left-icon{
+body .van-field__left-icon{
     margin-right: 0;
 }
-.van-field__left-icon .van-icon{
+body .van-field__left-icon .van-icon{
     font-size: 36px
 }
-.van-search__content{
+body .van-search__content{
     background: #fff;
     padding-left: 0
 }
@@ -94,14 +94,14 @@ li{
 .search-box .van-field__control{
     background: #f5f5f5;
 }
-.van-field__control{
+body .van-field__control{
     font-size: 28px;
 }
 
-.van-pull-refresh__head{
+body .van-pull-refresh__head{
     font-size: 28px
 }
-.van-pull-refresh__loading .van-loading{
+body .van-pull-refresh__loading .van-loading{
     width: 30px;
     height: 30px;
 }
@@ -111,7 +111,7 @@ body .van-picker__cancel,body .van-picker__confirm{
 .load .van-loading{
     margin: 80px auto 0;
 }
-.van-loading{
+body .van-loading{
     margin: 80px auto 0;
 }
 .color {

@@ -8,7 +8,7 @@
             <template v-if="isajax">
                 <template v-if="bidList.length>0">
                     <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                        <van-list finished-text="没有更多了" :offset="100" :immediate-check="false">
+                        <van-list finished-text="没有更多了" :offset="100"  @load="onLoad" :immediate-check="false">
                             <v-con :type="'zb'" v-for="(el,i) in bidList" :key="i" :obj='el' ></v-con>
                         </van-list>
                     </van-pull-refresh>

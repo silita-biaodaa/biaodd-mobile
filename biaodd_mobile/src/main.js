@@ -27,7 +27,7 @@ function setHtmlFontSize(){
   htmlDom.style.fontSize = htmlWidth / 10 + 'px';
   let u = navigator.userAgent;
   let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-  if(isiOS){
+  // if(isiOS){
     let beforeMeta=document.querySelector('meta[name="viewport"]');
     // 
     // if(beforeMeta.content.indexOf('0.5')!=-1){
@@ -42,7 +42,7 @@ function setHtmlFontSize(){
       oMeta.content = 'initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no';
       oMeta.name = 'viewport';
       document.getElementsByTagName('head')[0].appendChild(oMeta);
-  }
+  // }
 };
 setHtmlFontSize();
 /* eslint-disable no-new */

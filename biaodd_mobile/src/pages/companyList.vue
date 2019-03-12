@@ -153,16 +153,19 @@ export default {
       moneySure(option){
         this.isajax=false;
         this.zbList=[];
-        if(option==1){
+        if(option.num==1){
               this.data.maxCapital='500'
-        }else if(option==2){
+        }else if(option.num==2){
             this.data.minCapital='500';
             this.data.maxCapital='1000';
-        }else if(option==3){
+        }else if(option.num==3){
             this.data.minCapital='1000';
             this.data.maxCapital='5000';
-        }else if(option==4){
+        }else if(option.num==4){
             this.data.minCapital='5000';
+        }else{
+            this.data.minCapital=option.projSumStart;
+            this.data.maxCapital=option.projSumEnd;
         }
         this.screenList[1].active=false;
         this.data.pageNo=1;

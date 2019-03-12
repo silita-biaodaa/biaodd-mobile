@@ -1,15 +1,19 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="money" :class="{'isshow':isShow}">
+    <div class="money">
         <div class="box">
-            <div class="top-box" v-if="isShow">
-                <p>
-                    <input type="number" placeholder="最低价" v-model="projSumStart"/>
-                </p>
-                <p class="line"></p>
-                <p>
-                    <input type="number" placeholder="最高价" v-model="projSumEnd"/>
-                </p>
+            <div class="top-box">
+                <div>
+                    <p>
+                        <input type="number" placeholder="最低价" v-model="projSumStart"/>
+                    </p>
+                    <p class="line"></p>
+                    <p>
+                        <input type="number" placeholder="最高价" v-model="projSumEnd"/>
+                    </p>
+                </div>
+                
+                <span>单位/万</span>
             </div>
             <ul>
                 <li v-for="(o,i) of moneyList" :key="i">
@@ -40,9 +44,6 @@ export default {
     },
     props: {
         // 集成父级参数
-        isShow:{
-            default:false
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -79,9 +80,6 @@ export default {
                 projSumStart:this.projSumStart,
                 projSumEnd:this.projSumEnd
             }
-            if(!this.isShow){//如果没有最低最高价则返回num
-                data=this.moneyNum;
-            }
             this.$emit('sureFn',data);
         },
         canleFn(){
@@ -95,15 +93,11 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-.isshow.money{
-   height: 480px; 
-   bottom: -480px;
-}
 .money{
     position: absolute;
-    height: 460px;
+    height: 600px;
     background: #f5f5f5;
-    bottom: -460px;
+    bottom: -600px;
     left: 0;
     z-index: 9;
     width: 100%;
@@ -131,26 +125,36 @@ export default {
             padding: 8px 32px 0;
             display: flex;
             align-items: center;
+            justify-content:space-between;
             margin-bottom: 32px;
-            .line{
-                width: 35px;
-                height: 1PX;
-                background: #CCBEBE;
-                margin:0 21px;
+            span{
+                color: #999;
+                font-size: 24px
             }
-            p{
-                width: 210px;
-                height: 56px;
-                border-radius: 56px;
-                border: 1PX solid #CCBEBE;
-                text-align: center;
-                input{
-                    background: none;
-                    width: 44%;
-                    height: 100%;
-                    border: none
+            div{
+                display: flex;
+                align-items: center;
+                .line{
+                    width: 35px;
+                    height: 1PX;
+                    background: #CCBEBE;
+                    margin:0 21px;
                 }
-            }
+                p{
+                    width: 210px;
+                    height: 56px;
+                    border-radius: 56px;
+                    border: 1PX solid #CCBEBE;
+                    text-align: center;
+                    input{
+                        background: none;
+                        width: 44%;
+                        height: 100%;
+                        border: none
+                    }
+                }
+            }   
+            
         }
         ul{
             display: flex;
