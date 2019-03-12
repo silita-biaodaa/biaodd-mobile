@@ -91,7 +91,7 @@ export default {
         },
         canleFn(){
             this.$parent.mask=false;
-            this.$emit('canleFn',str);
+            this.$emit('canleFn');
         }
     }
 

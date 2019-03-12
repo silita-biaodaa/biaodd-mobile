@@ -108,7 +108,7 @@ export default {
         },
         canleFn(){
             this.$parent.mask=false;
-            this.$emit('canleFn',str);
+            this.$emit('canleFn');
         }
     }
 
@@ -119,9 +119,9 @@ export default {
 <style scoped lang="less">
 .assess{
     position: absolute;
-    height: 705px;
+    height: 830px;
     background: #f5f5f5;
-    bottom: -705px;
+    bottom: -830px;
     left: 0;
     z-index: 9;
     width: 100%;

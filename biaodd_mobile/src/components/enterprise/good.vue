@@ -1,28 +1,34 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="good">
-      <div class="bear">
-        <div class="good-top">
-          获奖信息
-          <van-icon name="arrow" @click="jumpto" />
-        </div>
-        <div class="good-list">
-          <v-con :type="'gb'"  v-for="(el,i) in goodList" :key="i" :obj='el' ></v-con>
-        </div>         
-        <div class="gpp">
-          <n-not v-if="!goodList.length"  ></n-not>
-        </div>
-      </div>
-      <div class="bear">
-        <div class="good-top">
-          不良记录
-          <van-icon name="arrow" />
-        </div>
-        <div class="good-list">
-          <v-con :type="'bl'"  v-for="(el,i) in blList" :key="i" :obj='el' v-if="!show" ></v-con>
-          <n-not v-if="show"  ></n-not>
-        </div>         
-      </div>
+      <template v-if="isajax1&&isajax2">
+        <template v-if="goodList.length>0||blList.length>0">
+          <div class="bear" v-if="goodList.length>0">
+            <div class="good-top">
+              获奖信息
+              <van-icon name="arrow" @click="jumpto" />
+            </div>
+            <div class="good-list">
+              <v-con :type="'gb'"  v-for="(el,i) in goodList" :key="i" :obj='el'></v-con>
+            </div>         
+          </div>
+          <div class="bear" v-if="blList.length>0">
+            <div class="good-top">
+              不良记录
+              <van-icon name="arrow" />
+            </div>
+            <div class="good-list">
+              <v-con :type="'bl'"  v-for="(el,i) in blList" :key="i" :obj='el'></v-con>
+            </div>         
+          </div>
+        </template>
+        <template v-else>
+          <n-not :isError="isError"></n-not>
+        </template>
+      </template>
+      <template v-else>
+        <van-loading size="50px"></van-loading>
+      </template>
     </div>
 </template>
 <script>
@@ -35,7 +41,10 @@ export default {
             // 数据模型
             id:'',
             goodList:[],
-            blList:[]
+            blList:[],
+            isajax1:false,//获奖是否加载完
+            isajax2:false,//不良是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -85,7 +94,7 @@ export default {
             this.$http({
                 method:'post',
                 url: '/company/reputation/' + that.id ,
-                data:that.data
+                // data:that.data
             }).then(function(res){
                 if(res.data.data.allNum > 0 ) {
                   res.data.data.reputation.forEach(el => {
@@ -99,8 +108,11 @@ export default {
                 } else {
                   that.goodList.length = 0
                 }
+                that.isajax1=true
                 
-                
+            }).catch(function(res){
+                that.isajax1=true;
+                that.isError=true;
             })
         },
         gainBl() {
@@ -108,23 +120,20 @@ export default {
             this.$http({
                 method:'post',
                 url: '/company/undesirable/' + that.id ,
-                data:that.data
+                // data:that.data
             }).then(function(res){
               //  console.log(res.data.data.undesirable.list,1)
                if(res.data.data.undesirable) {
-                 that.blList = res.data.data.undesirable.list
-               } else {
-                 that.blList = []
-                //  that.blList.length
+                 if(res.data.data.undesirable.length>0){
+                   that.blList = res.data.data.undesirable[0].list
+                 }
+                 
                }
+               that.isajax2=true
+            }).catch(function(res){
+                that.isajax2=true;
+                that.isError=true;
             })
-        },
-        show() {
-          if(this.blList.length == 0) {
-            return false
-          } else {
-            return true
-          }
         },
         jumpto() {
           if(that.blList.length == 0) {

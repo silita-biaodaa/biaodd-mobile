@@ -1,7 +1,12 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="commerce">
-        <div class="com-basic">
+      <template v-if="isajax">
+        <template v-if="isError">
+          <v-not :isError="isError"></v-not>
+        </template>
+        <template v-else>
+          <div class="com-basic">
           <div class="ba-title">
              基本信息
           </div>
@@ -101,18 +106,28 @@
            </div>
 
         </div>
+        </template>
+        
+      </template>
+      <template v-else>
+        <van-loading size="50px"></van-loading>
+      </template>
+        
     </div>
 </template>
 <script>
+import not from '@/components/not'
 export default {
     name: 'commerce', // 结构名称
     data() {
         return {
             // 数据模型
             detail:{},
-            id:'5d86f82e66452e2db067e42ca327c629',
+            id:'',
             lists:[],
-            total:0
+            total:0,
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -120,6 +135,9 @@ export default {
     },
     props: {
         // 集成父级参数
+    },
+    components:{
+      'v-not':not
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -138,8 +156,12 @@ export default {
                 that.detail = res.data.data
                 var arr = []
                 arr = that.detail.phone.split(';')
-                that.detail.phone = arr[0]
-             })
+                that.detail.phone = arr[0];
+                that.isajax=true;
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
            this.$http({
                 method:'post',
                 url: '/company/branchCompany',
@@ -159,7 +181,10 @@ export default {
                     }
                 })
                
-             })   
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })   
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

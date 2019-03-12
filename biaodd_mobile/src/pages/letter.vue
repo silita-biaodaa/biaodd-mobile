@@ -74,6 +74,7 @@
         </div>
 
       </div>
+      <v-load v-if="isload"></v-load>
     </div>
 </template>
 <script>
@@ -85,6 +86,7 @@ import people from '@/components/enterprise/people'
 import achievement from '@/components/enterprise/achievement'
 import bid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
+import loading from '@/components/loading'
 export default {
     name: 'letter', // 结构名称
     data() {
@@ -94,6 +96,7 @@ export default {
              detail:{},
              navList:['工商','法务','资质','人员','业绩','中标','诚信'],
              navNum:0,
+             isload:true,
             //  path:'/commerc'
         }
     },
@@ -108,7 +111,8 @@ export default {
        'v-ry':people,
        'v-yj':achievement,
        'v-zb':bid,
-       'v-gl':good
+       'v-gl':good,
+       'v-load':loading
     },
     props: {
         // 集成父级参数
@@ -127,10 +131,11 @@ export default {
                    
                 }
             }).then(function(res){
-                that.detail = res.data.data
+                that.detail = res.data.data;
                 var arr = []
                 arr = that.detail.phone.split(';')
                 that.detail.phone = arr[0]
+                that.isload=false
              })
     },
     beforeMount() {
