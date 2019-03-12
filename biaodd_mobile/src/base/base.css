@@ -75,6 +75,9 @@ li{
     flex-direction: row-reverse;
     align-items: center;
 }
+.search>.van-search .van-cell,.van-cell__value{
+    background: #fff
+}
 .van-field__left-icon{
     margin-right: 0;
 }
@@ -88,6 +91,9 @@ li{
 .search-box .van-search__content{
     background: #f5f5f5;
 }
+.search-box .van-field__control{
+    background: #f5f5f5;
+}
 .van-field__control{
     font-size: 28px;
 }
@@ -99,10 +105,12 @@ li{
     width: 30px;
     height: 30px;
 }
-.van-picker__cancel, .van-picker__confirm{
+body .van-picker__cancel,body .van-picker__confirm{
     color: #FE6603;
 }
-
+.load .van-loading{
+    margin: 80px auto 0;
+}
 
 .color {
     color:#FE6603;

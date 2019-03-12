@@ -12,7 +12,9 @@
                 <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
             </van-list>
         </div>
-        
+        <div class="load" v-if="showLoad">
+            <van-loading size="50px"></van-loading>
+        </div>
     </div>
 </template>
 <script>
@@ -22,6 +24,7 @@ export default {
     data() {
         return {
             // 数据模型
+            showLoad:true,
             id:'',
             list:[],
             data:{},
@@ -82,6 +85,7 @@ export default {
                 }
             }).then(function(res){
                 that.data=res.data.data;
+                that.showLoad=false;
                 for(let x of that.data){
                     that.navList.push(x);
                     that.list=that.list.concat(x.list)
