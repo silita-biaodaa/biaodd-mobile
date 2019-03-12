@@ -1,30 +1,36 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="qual">
-        <!-- tab -->
-        <div class="tab">
-            <span :class="tabNum==i?'active':''"  v-for="(o,i) of navList" :key="i" @click="tabTap(o.qualType,i)">{{o.qualType}}</span>
-        </div>
-        <div class="box">
-            <!-- total -->
-            <!-- list -->
-            <van-list>
-                <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
-            </van-list>
-        </div>
-        <div class="load" v-if="showLoad">
+        <template v-if="isajax">
+            <template v-if="list.length>0">
+                <!-- tab -->
+                <div class="tab">
+                    <span :class="tabNum==i?'active':''"  v-for="(o,i) of navList" :key="i" @click="tabTap(o.qualType,i)">{{o.qualType}}</span>
+                </div>
+                <div class="box">
+                    <!-- list -->
+                    <van-list>
+                        <v-con :type="'zz'" v-for="(o,i) of list" :key="i" :obj="o"></v-con>
+                    </van-list>
+                </div>
+            </template>
+            <template v-else>
+                <v-not :isError="isError"></v-not>
+            </template>
+        </template>
+        <template v-else>
             <van-loading size="50px"></van-loading>
-        </div>
+        </template>
     </div>
 </template>
 <script>
 import listCon from '@/components/enterprise/listCon'
+import not from '@/components/not'
 export default {
     name: 'qual', // 结构名称
     data() {
         return {
             // 数据模型
-            showLoad:true,
             id:'',
             list:[],
             data:{},
@@ -33,7 +39,9 @@ export default {
                     qualType:'全部'
                 }
             ],
-            tabNum:0
+            tabNum:0,
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -44,6 +52,7 @@ export default {
     },
     components:{
         'v-con':listCon,
+        'v-not':not,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -85,11 +94,14 @@ export default {
                 }
             }).then(function(res){
                 that.data=res.data.data;
-                that.showLoad=false;
                 for(let x of that.data){
                     that.navList.push(x);
                     that.list=that.list.concat(x.list)
                 }
+                that.isajax=true;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         },
         tabTap(type,i){

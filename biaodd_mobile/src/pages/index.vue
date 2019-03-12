@@ -191,9 +191,13 @@ export default {
             }
         },
         searchFn(){//搜索
-          if(this.tabNum == 0) {
-             this.$router.push({ path: '/bid',query:{search:this.search}})
-          }
+            if(this.tabNum == 0) {
+                this.$router.push({ path: '/bid',query:{search:this.search}})
+            }else if(this.tabNum == 1){
+                this.$router.push({ path: '/zhongBid',query:{search:this.search}})
+            }else if(this.tabNum == 2){
+                this.$router.push({ path: '/companyList',query:{search:this.search}})
+            }
         }
     }
 

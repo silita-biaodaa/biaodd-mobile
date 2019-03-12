@@ -5,30 +5,36 @@
         <v-ser :selecTxt="'注册类别'" @searchFn="searchFn"></v-ser>
         <div class="box">
             <!-- list -->
-            <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
-                    <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
-                </van-list>
-            </van-pull-refresh>
+            <template v-if="isajax">
+                <template v-if="peoList.length>0">
+                    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+                            <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
+                        </van-list>
+                    </van-pull-refresh>
+                </template>
+                <template v-else>
+                    <v-not :isError="isError"></v-not>
+                </template>
+            </template>
+            <template v-else>
+                <van-loading size="50px"></van-loading>
+            </template>
         </div>
         <van-popup v-model="mask"  position="bottom" :overlay="true">
             <van-picker :columns="personCategory" value-key="category" :loading="categoryLoad" show-toolbar @confirm="confirmFn" @cancel="mask=false" ref="picker"/>
         </van-popup>
-
-        <div class="load" v-if="showLoad">
-            <van-loading size="50px"></van-loading>
-        </div>
     </div>
 </template>
 <script>
 import listCon from '@/components/enterprise/listCon'
 import search from '@/components/enterprise/search'
+import not from '@/components/not'
 export default {
     name: 'affairs', // 结构名称
     data() {
         return {
             // 数据模型
-            showLoad:true,
             mask:false,
             loading:false,
             personCategory:[],//注册类别
@@ -43,6 +49,8 @@ export default {
             },
             peoList:[],
             isScroll:true,
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -53,7 +61,8 @@ export default {
     },
     components:{
         'v-con':listCon,
-        'v-ser':search
+        'v-ser':search,
+        'v-not':not
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -68,7 +77,6 @@ export default {
             method:'post',
             url:'/company/personCategory/'+this.data.comId
         }).then(function(res){
-            that.showLoad=false;
             that.personCategory=res.data.data;
             that.categoryLoad=false
         })
@@ -97,8 +105,8 @@ export default {
     methods: {
         // 方法 集合
         searchFn(option){//搜索
+            this.isajax=false;
             this.peoList=[];
-            this.showLoad=true;
             this.data.keyWord=option;
             this.ajax();
         },
@@ -126,10 +134,14 @@ export default {
             }).then(function(res){
                 if(that.peoList.length==0||that.data.pageNo==1){
                     that.peoList=res.data.data;
+                    that.isajax=true;
                 }else{
                     that.peoList=that.peoList.concat(res.data.data)
                 }
                 that.isScroll=true;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         },
         confirmFn(){

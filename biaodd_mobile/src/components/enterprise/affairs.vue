@@ -7,11 +7,21 @@
             <!-- total-->
             <div class="title">{{companyLaw.lawBri+companyLaw.briCount}}条，{{companyLaw.lawJud+companyLaw.judCount}}条,{{companyLaw.lawTotal+companyLaw.total}}条</div>
             <!-- list -->
-            <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
-                    <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
-                </van-list>
-            </van-pull-refresh>
+            <template v-if="isajax">
+                <template v-if="lawLsit.length>0">
+                    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+                            <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
+                        </van-list>
+                    </van-pull-refresh>
+                </template>
+                <template v-else>
+                    <v-not :isError="isError"></v-not>
+                </template>
+            </template>
+            <template v-else>
+                <van-loading size="50px"></van-loading>
+            </template>
         </div>
         <van-popup v-model="mask"  position="bottom" :overlay="true">
             <van-datetime-picker
@@ -24,20 +34,17 @@
             <!-- :min-date="dateObj.minDate"
             :max-date="dateObj.maxDate" -->
         </van-popup>
-        <div class="load" v-if="showLoad">
-            <van-loading size="50px"></van-loading>
-        </div>
     </div>
 </template>
 <script>
 import listCon from '@/components/enterprise/listCon'
 import search from '@/components/enterprise/search'
+import not from '@/components/not'
 export default {
     name: 'affairs', // 结构名称
     data() {
         return {
             // 数据模型
-            showLoad:true,
             loading:false,
             lawLsit:[],
             date:'',
@@ -60,6 +67,8 @@ export default {
                 total: 0
             },
             isScroll:true,
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -70,7 +79,8 @@ export default {
     },
     components:{
         'v-con':listCon,
-        'v-ser':search
+        'v-ser':search,
+        'v-not':not
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -104,6 +114,7 @@ export default {
     methods: {
         // 方法 集合
         searchFn(option){//搜索
+            this.isajax=false;
             this.lawLsit=[];
             this.showLoad=true;
             this.isSearch=true;
@@ -136,10 +147,14 @@ export default {
                 that.showLoad=false;
                 if(that.lawLsit.length==0||that.ajaxData.pageNo==1){
                     that.lawLsit=res.data.data;
+                    that.isajax=true;
                 }else{
                     that.lawLsit=that.lawLsit.concat(res.data.data)
                 }
                 that.isScroll=true;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
             if(!that.isSearch){
                 return false

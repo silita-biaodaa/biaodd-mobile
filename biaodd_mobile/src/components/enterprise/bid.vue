@@ -5,20 +5,28 @@
         <v-ser :iszb="true" @searchFn="searchFn"></v-ser>
         <div class="box">
             <!-- list -->
-            <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                <van-list finished-text="没有更多了" :offset="100" :immediate-check="false">
-                    <v-con :type="'zb'" v-for="(el,i) in bidList" :key="i" :obj='el' ></v-con>
-                </van-list>
-            </van-pull-refresh>
-        </div>
-        <div class="load" v-if="showLoad">
-            <van-loading size="50px"></van-loading>
+            <template v-if="isajax">
+                <template v-if="bidList.length>0">
+                    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                        <van-list finished-text="没有更多了" :offset="100" :immediate-check="false">
+                            <v-con :type="'zb'" v-for="(el,i) in bidList" :key="i" :obj='el' ></v-con>
+                        </van-list>
+                    </van-pull-refresh>
+                </template>
+                <template v-else>
+                    <v-not :isError="isError"></v-not>
+                </template>
+            </template>
+            <template v-else>
+                <van-loading size="50px"></van-loading>
+            </template>
         </div>
     </div>
 </template>
 <script>
 import listCon from '@/components/enterprise/listCon'
 import search from '@/components/enterprise/search'
+import not from '@/components/not'
 export default {
     name: 'affairs', // 结构名称
     data() {
@@ -37,6 +45,8 @@ export default {
                 sumType:'zhongbiao'
             },
             isScroll:true,
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -47,7 +57,8 @@ export default {
     },
     components:{
         'v-con':listCon,
-        'v-ser':search
+        'v-ser':search,
+        'v-not':not
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -82,6 +93,7 @@ export default {
     methods: {
         // 方法 集合
         searchFn(option){//搜索
+            this.isajax=false;
             this.bidList=[];
             this.showLoad=true;
             this.data.title=option;
@@ -112,10 +124,14 @@ export default {
                 that.showLoad=false;
                 if(that.bidList.length==0||that.data.pageNo==1){
                     that.bidList=res.data.data;
+                    that.isajax=true;
                 }else{
                     that.bidList=that.bidList.concat(res.data.data)
                 }
                 that.isScroll=true;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         }
     }

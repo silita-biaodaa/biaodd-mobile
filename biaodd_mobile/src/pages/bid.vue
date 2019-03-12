@@ -16,11 +16,21 @@
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条招标信息</div>
   <!-- 列表 -->
-  <van-pull-refresh v-model="loading" @refresh="onRefresh">
-    <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
-      <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
-    </van-list>
-  </van-pull-refresh>  
+  <template v-if="isajax">
+    <template v-if="zbList.length>0">
+      <van-pull-refresh v-model="loading" @refresh="onRefresh">
+        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+          <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
+        </van-list>
+      </van-pull-refresh>  
+    </template>
+    <template v-else>
+        <v-not :isError="isError"></v-not>
+    </template>
+  </template>
+  <template v-else>
+    <van-loading size="50px"></van-loading>
+  </template>
 </div>
 </template>
 <script>
@@ -31,6 +41,7 @@ import addr from '@/components/address'
 import getType from '@/components/getType'
 import assess from '@/components/assess'
 import aptitude from '@/components/aptitude'
+import not from '@/components/not'
 export default {
     data () {
       return {
@@ -63,6 +74,8 @@ export default {
             active:false
           },
         ],
+        isajax:false,//是否加载完
+        isError:false,//是否加载失败
       }
     },
     methods: {
@@ -89,10 +102,14 @@ export default {
             that.total=res.data.total;
             if(that.zbList==0||that.data.pageNo==1){
               that.zbList=res.data.data;
+              that.isajax=true;
             }else{
               that.zbList=that.zbList.concat(res.data.data)
             }
             that.isScroll=true;
+        }).catch(function(res){
+            that.isajax=true;
+            that.isError=true;
         })
       },
       onLoad(){//下滚加载
@@ -100,11 +117,13 @@ export default {
         this.ajax();
       },
       searchFn(){//搜索
+        this.isajax=false;
         this.zbList=[];
         this.data.pageNo=1;
         this.ajax();
       },
       returnAddress(option){//选择地址
+        this.isajax=false;
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option;
@@ -113,6 +132,7 @@ export default {
         this.ajax();
       },
       typeSure(option){//类型选择
+        this.isajax=false;
         this.zbList=[];
         this.screenList[1].active=false;
         this.data.projectType=option;
@@ -120,6 +140,7 @@ export default {
         this.ajax();
       },
       assessSure(option){
+        this.isajax=false;
         this.zbList=[];
         this.screenList[2].active=false;
         this.data.pbModes=option;
@@ -142,6 +163,7 @@ export default {
         this.screenList[3].active=false;
       },
       aptSure(option){
+        this.isajax=false;
         this.zbList=[];
         // console.log(option);
         this.screenList[3].active=false;
@@ -157,7 +179,8 @@ export default {
         'v-addr':addr,
         'v-type':getType,
         'v-assess':assess,
-        'v-apt':aptitude
+        'v-apt':aptitude,
+        'v-not':not
     },
     created(){
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';

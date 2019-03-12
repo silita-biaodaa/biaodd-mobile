@@ -1,12 +1,30 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view v-if="isRouter"/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data(){
+    return{
+      isRouter:true
+    }
+  },
+  provide(){
+    return{
+      reload:this.reload
+    }
+  },
+  methods:{
+    reload(){
+      this.isRouter=false
+      this.$nextTick(function(){
+        this.isRouter=true
+      })
+    }
+  }
 }
 </script>
 
