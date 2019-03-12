@@ -4,9 +4,9 @@
       <template v-if="isajax1&&isajax2">
         <template v-if="goodList.length>0||blList.length>0">
           <div class="bear" v-if="goodList.length>0">
-            <div class="good-top">
+            <div class="good-top"  @click="jumpGood" >
               获奖信息
-              <van-icon name="arrow" @click="jumpto" />
+              <van-icon name="arrow"/>
             </div>
             <div class="good-list">
               <v-con :type="'gb'"  v-for="(el,i) in goodList" :key="i" :obj='el'></v-con>
@@ -135,8 +135,9 @@ export default {
                 that.isError=true;
             })
         },
-        jumpto() {
-          if(that.blList.length == 0) {
+        jumpGood() {
+          let that=this
+          if(that.goodList.length == 0) {
             return
           }
           this.$router.push({path:'/award',query:{id:this.id}})
