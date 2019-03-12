@@ -1,23 +1,28 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)">
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-qi.png"/>
-            </p>
-            <p class="tit">{{obj.comName}}</p>
-        </div>
-        <div class="center">法定代表：{{obj.legalPerson}}</div>
-        <div class="center">联系方式：{{obj.phone}}</div>
-        <div class="center">企业地址：{{obj.comAddress}}</div>
+    <!-- 搜索 -->
+    <div class="search-box">
+        <template  v-if="!iszb">
+            <div class="left" @click="leftTap">
+                {{selecTxt}}
+                <van-icon name="arrow-down"></van-icon>
+            </div>
+            <div class="right">
+                <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
+            </div>
+        </template>
+        <template v-else>
+            <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn"></van-search>
+        </template>
     </div>
 </template>
 <script>
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'affairs', // 结构名称
     data() {
         return {
             // 数据模型
+            search:''
         }
     },
     watch: {
@@ -25,15 +30,21 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+        selecTxt:{
+            default:'年份'
+        },
+        iszb:{
+            default:false
+        }
+    },
+    components:{
+
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        console.log(this.obj);
-        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -57,9 +68,12 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     methods: {
-        // 方法 集合.
-         topush(o) {
-            this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
+        // 方法 集合
+        searchFn(){//搜索
+            this.$emit('searchFn',this.search);
+        },
+        leftTap(){
+            this.$parent.mask=true;
         }
     }
 
@@ -68,4 +82,23 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.search-box{
+    height: 138px;
+    background: #fff;
+    display: flex;
+    padding: 20px 30px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+    .right{
+        width: 72%;
+    }
+    .van-search{
+            background: #f5f5f5 !important;
+            border-radius: 5px
+        }
+    .van-search__content{
+        background: #f5f5f5;
+    }
+}
 </style>

@@ -6,6 +6,21 @@ import Detail from '@/pages/detail'
 import Conform from '@/pages/conform'
 import testZs from '@/pages/testZs'
 import Winning from '@/pages/winning'
+import zhongBid from '@/pages/zhongBid'
+import Letter from '@/pages/letter'
+import companyList from '@/pages/companyList'
+import commerce from '@/components/enterprise/commerce'
+import affairs from '@/components/enterprise/affairs'
+import qual from '@/components/enterprise/qual'
+import people from '@/components/enterprise/people'
+import achievement from '@/components/enterprise/achievement'
+import letBid from '@/components/enterprise/bid'
+import good from '@/components/enterprise/good'
+// import not from '@/components/not'
+import award from '@/pages/award'
+
+
+
 
 
 
@@ -13,14 +28,23 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
+    {//首页
       path: '/',
       name: 'index',
       component: index
     }, 
-    { 
+    { //中标列表
+      path: '/zhongBid',
+      component: zhongBid,
+      name:'zhongBid'
+    },{ //招标列表
       path: '/bid',
-      component: Bid 
+      component: Bid,
+      name:'bid' 
+    },{ //企业列表
+      path: '/companyList',
+      component: companyList,
+      name:'companyList' 
     },
     {
       path: '/detail',
@@ -38,6 +62,50 @@ export default new Router({
     { 
       path: '/winning', 
       component: Winning 
+    },
+    { //企业详情页
+      path: '/letter', 
+      component: Letter 
+    },
+    { //企信——工商
+      path: '/commerce', 
+      component: commerce 
+    },
+    {//企信——法务
+      path:'/affairs',
+      component:affairs,
+      name:'affairs'
+    },
+    {  // 资质-企信
+      path: '/qual',
+      component: qual,
+      name: 'qual'
+    },
+    {   // 人员
+      path: '/people',
+      component: people,
+      name: 'people'
+    },
+    {   // 人员
+      path: '/achievement',
+      component: achievement,
+      name: 'achievement'
+    },
+    {   // 中标
+      path: '/letbid',
+      component: letBid,
+      name: 'letbid'
+    },
+    {   // 诚信
+      path: '/good',
+      component: good,
+      name: 'good'
+    },
+    {   // 奖项详情
+      path: '/award',
+      component: award,
+      name: 'award'
     }
+
   ]
 })

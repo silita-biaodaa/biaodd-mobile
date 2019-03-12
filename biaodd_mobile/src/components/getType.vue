@@ -1,22 +1,49 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="addr">
+    <div class="getType">
         <ul>
             <li v-for="(o,i) of addList" :key="i">
-                <span :class="tabNum==i?'active':''" @click="tapFn(i)">{{o}}</span>
+                <span :class="tabNum==i?'active':''" @click="tapFn(i)">{{o.name}}</span>
             </li>
         </ul>
-        <button @click="sureFn">确定</button>
+        <div class="btn">
+            <button class="canle" @click="canleFn">取消</button>
+            <button class="sure" @click="sureFn">确定</button>
+        </div>
+        
     </div>
 </template>
 <script>
 export default {
-    name: 'addr', // 结构名称
+    name: 'getType', // 结构名称
     data() {
         return {
             // 数据模型
-            addList:["北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","内蒙古","广西","西藏","宁夏","新疆"],
-            tabNum:'',
+            addList:[
+                {
+                    return:'',
+                    name:'全部',
+                },{
+                    return:'0',
+                    name:'施工',
+                },{
+                    return:1,
+                    name:'设计',
+                },{
+                    return:2,
+                    name:'监理',
+                },{
+                    return:3,
+                    name:'采购',
+                },{
+                    return:4,
+                    name:'勘察',
+                },{
+                    return:5,
+                    name:'其他',
+                }
+            ],
+            tabNum:0,
         }
     },
     watch: {
@@ -24,23 +51,12 @@ export default {
     },
     props: {
         // 集成父级参数
-        add:{
-            default:'湖南'
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        let addr=this.add;
-        let arr=this.addList;
-        let that=this;
-        for(let x=0;x<arr.length;x++){
-            if(arr[x]==addr){
-                that.tabNum=x
-            }
-        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -69,9 +85,13 @@ export default {
             this.tabNum=i;
         },
         sureFn(){
-            let str=this.addList[this.tabNum];
+            let str=this.addList[this.tabNum].return;
             this.$parent.mask=false;
-            this.$emit('addObj',str);
+            this.$emit('sureFn',str);
+        },
+        canleFn(){
+            this.$parent.mask=false;
+            this.$emit('canleFn',str);
         }
     }
 
@@ -80,11 +100,11 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-.addr{
+.getType{
     position: absolute;
-    height: 750px;
+    height: 520px;
     background: #f5f5f5;
-    bottom: -750px;
+    bottom: -520px;
     left: 0;
     z-index: 9;
     width: 100%;
@@ -93,29 +113,46 @@ export default {
     ul{
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 70px;
+        margin-bottom: 150px;
         li{
-            width:20%;
+            width:33%;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 32px;
             span{
-                padding:5px 10px;
                 display: inline-block;
-                border-radius: 8px;
+                border-radius:10px;
                 text-align: center;
+                width: 176px;
+                height: 56px;
+                line-height: 56px;
+                color: #999;
+                border: 1PX solid #CCBEBE;
+                background: #fff;
             }
             .active{
+                border-color: #FE6603;
                 background: #FE6603;
                 color: #fff;
             }
         }
     }
-    button{
-        width: 100%;
-        height: 84px;
-        background: #FE6603;
-        color: #fff;
-        border: none;
+    .btn{
+        display: flex;
+        button{
+            height: 84px;
+            flex-grow:1;
+        }
+        .sure{
+            background: #FE6603;
+            border: 1PX solid #FE6603;
+            color: #fff;
+        }
+        .canle{
+            border: 1PX solid #CCBEBE;
+            color: #333;
+            background: #fff;
+        }
     }
+    
 }
 </style>

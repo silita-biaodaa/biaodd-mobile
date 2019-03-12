@@ -1,6 +1,6 @@
 <template>
-<div class="bid">
-  <v-fix :nav="1"></v-fix>
+<div class="zhongBid">
+  <v-fix :nav="2"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
     <van-search placeholder="请输入搜索关键词" v-model="data.title" @search="searchFn"></van-search>
@@ -10,11 +10,10 @@
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
     <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type>
-    <v-assess @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
-    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
+    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[2].active" :isShow="true"></v-money>
   </div>
   <!-- 总条数 -->
-  <div class="total">为您搜索到{{total}}条招标信息</div>
+  <div class="total">为您搜索到{{total}}条中标信息</div>
   <!-- 列表 -->
   <van-pull-refresh v-model="loading" @refresh="onRefresh">
     <van-list finished-text="没有更多了" @load="onLoad">
@@ -24,13 +23,12 @@
 </div>
 </template>
 <script>
-import zbCon from '@/components/zbContent'
+import zbCon from '@/components/zhongbCon'
 import fixHead from '@/components/fixHead'
 import search from '@/components/search'
 import addr from '@/components/address'
 import getType from '@/components/getType'
-import assess from '@/components/assess'
-import aptitude from '@/components/aptitude'
+import money from '@/components/money'
 export default {
     data () {
       return {
@@ -40,11 +38,12 @@ export default {
           pageNo:1,
           pageSize:'10',
           regions:'湖南',
-          type: "0",
+          type: "2",
           projectType:'',
           title: "",
-          pbModes:'',
-          zzType:''
+          projSumStart:'',//中标开始金额
+          projSumEnd:'',//中标结束金额
+          sumType:"zhongbiao"
         },
         total:0,
         screenList:[
@@ -55,25 +54,22 @@ export default {
             txt:'类型',
             active:false
           },{
-            txt:'评标办法',
-            active:false
-          },{
-            txt:'资质要求',
+            txt:'中标金额',
             active:false
           },
         ],
+        moneyNum:0
       }
     },
     methods: {
       onRefresh(){//下拉刷新
-        this.zbList=[];
         setTimeout(() => {
           this.data.pageNo=1;
           this.ajax();
         }, 500);
       },
       ajax(){
-        //招标
+        //中标
         let that=this;
         this.$http({
             method:'post',
@@ -81,6 +77,8 @@ export default {
             data:that.data
         }).then(function(res){
             that.loading = false;
+            that.data.projSumStart='';
+            that.data.projSumEnd='';
             that.total=res.data.total;
             if(that.zbList==0||that.data.pageNo==1){
               that.zbList=res.data.data;
@@ -114,13 +112,6 @@ export default {
         this.data.pageNo=1;
         this.ajax();
       },
-      assessSure(option){
-        this.zbList=[];
-        this.screenList[2].active=false;
-        this.data.pbModes=option;
-        this.data.pageNo=1;
-        this.ajax();
-      },
       showMask(i){//
         if(this.screenList[i].active){
           this.screenList[i].active=false
@@ -134,15 +125,26 @@ export default {
       typeCanle(){
         this.screenList[1].active=false;
         this.screenList[2].active=false;
-        this.screenList[3].active=false;
       },
-      aptSure(option){
-        this.zbList=[];
-        // console.log(option);
-        this.screenList[3].active=false;
-        this.data.zzType=option;
-        this.data.pageNo=1;
-        this.ajax();
+      moneySure(option){
+          this.zbList=[];
+          if(option.num==1){
+                this.data.projSumEnd='500'
+          }else if(option.num==2){
+              this.data.projSumStart='500';
+              this.data.projSumEnd='1000';
+          }else if(option.num==3){
+              this.data.projSumStart='1000';
+              this.data.projSumEnd='5000';
+          }else if(option.num==4){
+              this.data.projSumStart='5000';
+          }else{
+              this.data.projSumStart=option.projSumStart;
+              this.data.projSumEnd=option.projSumEnd;
+          }
+          this.screenList[2].active=false;
+          this.data.pageNo=1;
+          this.ajax();
       }
     },
     components:{
@@ -151,8 +153,7 @@ export default {
         'v-search':search,
         'v-addr':addr,
         'v-type':getType,
-        'v-assess':assess,
-        'v-apt':aptitude
+        'v-money':money,
     },
     created(){
       this.data.title = this.$route.query.search ?  this.$route.query.search : ''
@@ -160,7 +161,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.bid {
+.zhongBid {
   padding-top: 200px;
   /*筛选*/
   .screen-box{

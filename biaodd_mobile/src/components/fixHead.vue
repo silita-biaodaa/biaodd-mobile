@@ -1,18 +1,28 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="fixHead">
-        <div class="left">
-            <img src="../assets/logo.png"/>
-            <span v-if="isshow" @click="addTap">
-                {{address}}
-                <van-icon :name="iconName"/>
-            </span>
+    <div class="fixbox">
+        <div class="fixHead">
+            <div class="left">
+                <img src="../assets/logo.png"/>
+                <span v-if="isshow" @click="addTap">
+                    {{address}}
+                    <van-icon :name="iconName"/>
+                </span>
+            </div>
+            <div class="right">
+                <div class="btn" @click="upload">下载APP</div>
+            </div>
         </div>
-        <div class="right">
-            <div class="btn" @click="upload">下载APP</div>
+        <div class="nav" v-if="isShow">
+            <ul>
+                <li v-for="(x,y) of scrNav" :class="nav==y?'active':''" :key="y" @click="$router.push(x.path)">
+                    <p>{{x.txt}}</p>
+                </li>
+            </ul>
         </div>
         <v-addr @addObj="returnAddress" v-if="mask" :add="address"></v-addr>
     </div>
+    
 </template>
 <script>
 import addr from '@/components/address'
@@ -23,7 +33,26 @@ export default {
             // 数据模型
             address:'',
             mask:false,
-            iconName:'arrow-down'
+            iconName:'arrow-down',
+            scrNav:[
+                {
+                    txt:'首页',
+                    path:'/'
+                },{
+                    txt:'招标',
+                    path:'/bid'
+                },{
+                    txt:'中标',
+                    path:'/zhongBid'
+                },{
+                    txt:'企业',
+                    path:'/companyList'
+                }
+                // ,{
+                //     txt:'诚信',
+                //     path:'/'
+                // },
+            ],
         }
     },
     watch: {
@@ -34,6 +63,12 @@ export default {
         isshow:{
             default:false,
         },
+        isShow:{
+            default:true
+        },
+        nav:{
+            default:0
+        }
     },
     components:{
         'v-addr':addr
@@ -92,16 +127,19 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.fixbox{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background: #fff
+}
 .fixHead{
     padding: 0 32px;
     height: 112px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 999;
     box-sizing: border-box;
     .left{
         display: flex;
@@ -131,6 +169,32 @@ export default {
             color: #fff;
             font-size: 28px
         }
+    }
+}
+.nav{
+    height: 88px;
+    border-top: 1PX solid #f2f2f2;
+    ul{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        li{
+            text-align: center;
+            padding: 20px 32px 0;
+            p{
+                border-bottom: 4px solid transparent;
+            }
+        }
+        .active{
+            
+            p{
+                color: #FE6603;
+                border-color: #FE6603;
+                padding-bottom: 20px
+            }
+        }
+
     }
 }
 </style>
