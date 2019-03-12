@@ -83,9 +83,6 @@ export default {
         }, 500);
       },
       ajax(){
-        if(!this.isScroll){
-            return false
-        }
         this.isScroll=false;
         let that=this;
         //企业
@@ -109,6 +106,9 @@ export default {
         })
       },
       onLoad(){//下滚加载
+        if(!this.isScroll){
+            return false
+        }
         this.data.pageNo++;
         this.ajax();
       },

@@ -287,5 +287,6 @@ export default {
 }
 .isShow{
     right: 0;
+    -webkit-overflow-scrolling:touch
 }
 </style>

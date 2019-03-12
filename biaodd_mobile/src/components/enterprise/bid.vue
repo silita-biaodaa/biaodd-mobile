@@ -100,6 +100,9 @@ export default {
             this.ajax();
         },
         onLoad(){
+            if(!this.isScroll){
+                return false
+            }
             this.data.pageNo++;
             this.ajax();
         },
@@ -111,9 +114,6 @@ export default {
             }, 500);
         },
         ajax(){
-            if(!this.isScroll){
-                return false
-            }
             this.isScroll=false;
             let that=this;
             this.$http({

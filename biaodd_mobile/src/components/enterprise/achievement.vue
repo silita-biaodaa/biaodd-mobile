@@ -99,13 +99,13 @@ export default {
             }, 500);
         },
         onLoad(){
+            if(!this.isScroll){
+                return false
+            }
             this.data.pageNo++;
             this.ajax();
         },
         ajax(){
-            if(!this.isScroll){
-                return false
-            }
             this.isScroll=false;
             let that=this;
             this.$http({

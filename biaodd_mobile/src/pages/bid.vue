@@ -88,9 +88,6 @@ export default {
       },
       ajax(){
         //招标
-        if(!this.isScroll){
-            return false
-        }
         this.isScroll=false;
         let that=this;
         this.$http({
@@ -113,6 +110,9 @@ export default {
         })
       },
       onLoad(){//下滚加载
+        if(!this.isScroll){
+            return false
+        }
         this.data.pageNo++;
         this.ajax();
       },

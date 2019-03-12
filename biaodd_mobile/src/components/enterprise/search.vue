@@ -92,6 +92,7 @@ export default {
     align-items: center;
     .right{
         width: 72%;
+        height: 100%;
     }
     .van-search{
             background: #f5f5f5 !important;

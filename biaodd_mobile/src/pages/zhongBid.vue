@@ -83,9 +83,6 @@ export default {
         }, 500);
       },
       ajax(){
-        if(!this.isScroll){
-            return false
-        }
         this.isScroll=false;
         //中标
         let that=this;
@@ -111,6 +108,9 @@ export default {
         })
       },
       onLoad(){//下滚加载
+        if(!this.isScroll){
+            return false
+        }
         this.data.pageNo++;
         this.ajax();
       },
