@@ -18,7 +18,7 @@ import letBid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
 // import not from '@/components/not'
 import award from '@/pages/award'
-
+import badness from '@/pages/badness'
 
 
 
@@ -105,7 +105,11 @@ export default new Router({
       path: '/award',
       component: award,
       name: 'award'
+    },
+    {   // 奖项详情
+      path: '/badness',
+      component: badness,
+      name: 'badness'
     }
-
   ]
 })

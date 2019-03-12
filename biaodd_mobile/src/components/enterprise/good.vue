@@ -13,7 +13,7 @@
             </div>         
           </div>
           <div class="bear" v-if="blList.length>0">
-            <div class="good-top">
+            <div class="good-top" @click="jumpDad" >
               不良记录
               <van-icon name="arrow" />
             </div>
@@ -141,6 +141,12 @@ export default {
             return
           }
           this.$router.push({path:'/award',query:{id:this.id}})
+        },
+        jumpDad() {
+            if(this.blList.length == 0) {
+              return
+            }
+          this.$router.push({path:'/badness',query:{id:this.id}})
         }
     }
 
