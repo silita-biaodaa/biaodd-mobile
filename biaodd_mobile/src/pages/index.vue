@@ -225,7 +225,7 @@ export default {
         .van-search{
             width: 100%;
             height: 96px;
-            padding: 25px 24px;
+            padding: 0 24px;
             box-sizing: border-box;
             border-radius: 5px;
             position: relative;

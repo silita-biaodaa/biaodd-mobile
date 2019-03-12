@@ -24,7 +24,7 @@
                      注册号
                  </div>
                  <div class="left">
-                     {{detail.creditCode}}
+                     {{detail.businessNum}}
                  </div>
              </div>
               <div class="bas-line">

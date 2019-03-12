@@ -66,8 +66,10 @@ body .van-search{
     height: 100%;
     width: 100%;
     font-size: 28px;
-    padding:35px 25px;
+    padding:0 25px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 body .van-search .van-cell,body .van-cell__value{
     overflow: auto;

@@ -25,7 +25,7 @@
               <span class="iphone">
                  {{detail.phone}}
               </span>
-              <span class="le-col">
+              <span class="le-col" @click="JumpFn">
                 更多号码请查看APP
               </span>
             </div>
@@ -161,6 +161,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        JumpFn(){
+           window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        }
     }
 
 }

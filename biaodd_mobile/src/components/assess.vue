@@ -56,12 +56,24 @@ export default {
     },
     props: {
         // 集成父级参数
+        // selectArr:{
+        //     default:[]
+        // }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        // if(this.selectArr.length>0){
+        //     for(let x of this.assessList){
+        //         for(let y of this.selectArr){
+        //             if(x.name==y){
+        //                 x.class=true
+        //             }
+        //         }
+        //     }
+        // }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

@@ -8,7 +8,7 @@
             <template v-if="isajax">
                 <template v-if="bidList.length>0">
                     <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                        <van-list finished-text="没有更多了" :offset="100"  @load="onLoad" :immediate-check="false">
+                        <van-list finished-text="没有更多了" :offset="200"  @load="onLoad" :immediate-check="false">
                             <v-con :type="'zb'" v-for="(el,i) in bidList" :key="i" :obj='el' ></v-con>
                         </van-list>
                     </van-pull-refresh>
@@ -37,7 +37,7 @@ export default {
             bidList:[],
             data:{
                 pageNo:1,
-                pageSize:5,  //每页条数
+                pageSize:10,  //每页条数
                 type:2,
                 regions:'湖南省',  //省份吧
                 com_name:'湖南省第五工程有限公司',  //公司名
