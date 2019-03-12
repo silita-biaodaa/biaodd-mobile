@@ -67,6 +67,10 @@
               <!-- 业绩 -->
               <v-zb></v-zb>
             </template>
+             <template v-else-if="navNum==6">
+              <!-- 业绩 -->
+              <v-gl></v-gl>
+            </template>
         </div>
 
       </div>
@@ -80,6 +84,7 @@ import qual from '@/components/enterprise/qual'
 import people from '@/components/enterprise/people'
 import achievement from '@/components/enterprise/achievement'
 import bid from '@/components/enterprise/bid'
+import good from '@/components/enterprise/good'
 export default {
     name: 'letter', // 结构名称
     data() {
@@ -102,7 +107,8 @@ export default {
        'v-zz':qual,
        'v-ry':people,
        'v-yj':achievement,
-       'v-zb':bid
+       'v-zb':bid,
+       'v-gl':good
     },
     props: {
         // 集成父级参数

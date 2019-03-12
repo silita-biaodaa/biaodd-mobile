@@ -36,6 +36,20 @@
             <p>中标金额：{{obj.oneOffer}}万元</p>
             <p>发布日期：{{obj.opendate}}</p>
         </template>
+        <!-- 获奖 -->
+        <template v-else-if="type=='gb'">
+            <h5>{{obj.mateName}}</h5>
+            <p>项目名称：{{obj.projName}}</p>
+            <p>获奖日期：{{obj.years}}</p>
+        </template>
+        <!-- 不良记录 -->
+          <template v-else-if="type=='bl'">
+            <h5>{{obj.nature}}</h5>
+            <p>项目名称：{{obj.projectName}}</p>
+            <p>发布部门：{{obj.publishSite}}</p>
+            <p>发布日期：{{obj.publishDate}}</p>
+            <p>发布内容：{{obj.badBehaviorContent}}</p>
+        </template>
     </div>
 </template>
 <script>

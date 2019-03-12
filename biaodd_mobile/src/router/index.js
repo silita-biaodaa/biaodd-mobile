@@ -15,6 +15,10 @@ import qual from '@/components/enterprise/qual'
 import people from '@/components/enterprise/people'
 import achievement from '@/components/enterprise/achievement'
 import letBid from '@/components/enterprise/bid'
+import good from '@/components/enterprise/good'
+// import not from '@/components/not'
+import award from '@/pages/award'
+
 
 
 
@@ -91,6 +95,16 @@ export default new Router({
       path: '/letbid',
       component: letBid,
       name: 'letbid'
+    },
+    {   // 诚信
+      path: '/good',
+      component: good,
+      name: 'good'
+    },
+    {   // 奖项详情
+      path: '/award',
+      component: award,
+      name: 'award'
     }
 
   ]
