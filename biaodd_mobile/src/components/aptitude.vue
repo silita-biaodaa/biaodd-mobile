@@ -49,7 +49,7 @@ export default {
             showArr:[],//用于显示
             data:[],//获取的数据
             num:0,
-            navTxt:['请选择','请选择','请选择'],
+            navTxt:['请选择'],
             storageArr:[],//存
             boxArr:[],//用于显示在筛选区
         }
@@ -120,7 +120,7 @@ export default {
             }
             this.storageArr.push(obj);
             this.navTxt[that.num]=that.showArr[i].name;
-            if(this.num==2){
+            if(that.showArr[i].list==null){
                 this.hideFix();
                 let name=[],code=[];
                 for(let x of that.storageArr){
@@ -133,13 +133,13 @@ export default {
                     code:code.join('||')
                 }
                 this.boxArr.push(boxData);
-                this.navTxt=['请选择','请选择','请选择'];
+                this.navTxt=[];
                 this.sureTxt='确定';
                 this.showArr=this.data;
             }
             this.showArr=this.showArr[i].list;
             this.num++;
-            
+            this.navTxt.push('请选择')
         },
         delteFn(i){
             this.boxArr.splice(i,1);
