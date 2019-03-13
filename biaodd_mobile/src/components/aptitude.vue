@@ -263,7 +263,6 @@ export default {
     padding-right: 0;
     overflow-y: scroll;
     box-sizing: border-box;
-    -webkit-overflow-scrolling:touch
     li{
         padding:30px 0;
         font-size: 28px;
@@ -288,5 +287,6 @@ export default {
 }
 .isShow{
     right: 0;
+    -webkit-overflow-scrolling:touch
 }
 </style>
