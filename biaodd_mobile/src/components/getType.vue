@@ -51,12 +51,16 @@ export default {
     },
     props: {
         // 集成父级参数
+        num:{
+            default:0
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.tabNum=this.num
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -87,7 +91,7 @@ export default {
         sureFn(){
             let str=this.addList[this.tabNum].return;
             this.$parent.mask=false;
-            this.$emit('sureFn',str);
+            this.$emit('sureFn',{str:str,index:this.tabNum});
         },
         canleFn(){
             this.$parent.mask=false;

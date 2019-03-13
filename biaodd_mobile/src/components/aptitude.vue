@@ -7,14 +7,14 @@
             </template>
             <template v-else>
                 <div class="content-box">
-                    <div class="tit">最多可选3条资质</div>
+                    <div class="tit" v-if="type==1">最多可选3条资质</div>
                     <ul>
                         <li  v-for="(o,i) of boxArr" :key="i">
                             <span>{{o.name}}</span>
                             <van-icon name="cross" @click="delteFn(i)"></van-icon>
                         </li>
                     </ul>
-                    <div class="addBtn" @click="addFn" v-if="boxArr.length<3">继续添加</div>
+                    <div class="addBtn" @click="addFn" v-if="boxArr.length<3&&type==1">继续添加</div>
                 </div>
                 
             </template>
@@ -60,7 +60,10 @@ export default {
     props: {
         // 集成父级参数
         type:{
-            default:1
+            default:1//1为企业
+        },
+        arr:{
+            default:[]
         }
     },
     beforeCreate() {
@@ -69,7 +72,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         let that=this;
-        //企业
+        //资质
         this.$http({
             method:'post',
             url: '/grade/filter',
@@ -80,6 +83,11 @@ export default {
             that.data=res.data.data;
             that.showArr=res.data.data;
         })
+
+        that.boxArr=that.arr;
+        if(that.boxArr.length>0){
+            this.sureTxt='确定';
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -154,7 +162,7 @@ export default {
                 }
                 str=str.substring(0,str.length-2);
                 // console.log(str)
-                this.$emit('sureFn',str);
+                this.$emit('sureFn',{str:str,list:this.boxArr});
             }
             
         },

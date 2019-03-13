@@ -85,7 +85,8 @@ body .van-field__left-icon{
     margin-right: 0;
 }
 body .van-field__left-icon .van-icon{
-    font-size: 36px
+    font-size: 40px;
+    color: #ccc;
 }
 body .van-search__content{
     background: #fff;

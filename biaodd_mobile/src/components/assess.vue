@@ -56,24 +56,28 @@ export default {
     },
     props: {
         // 集成父级参数
-        // selectArr:{
-        //     default:[]
-        // }
+        selectArr:{
+
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // if(this.selectArr.length>0){
-        //     for(let x of this.assessList){
-        //         for(let y of this.selectArr){
-        //             if(x.name==y){
-        //                 x.class=true
-        //             }
-        //         }
-        //     }
-        // }
+        // console.log(this.selectArr);
+        if(this.selectArr.length>0){
+            for(let x of this.assessList){
+                for(let y of this.selectArr){
+                    if(x.name==y){
+                        x.class=true
+                    }
+                }
+            }
+            for(let y of this.selectArr){
+                this.selectPush.push(y);
+            }
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -116,7 +120,7 @@ export default {
         sureFn(){
             let str=this.selectPush.join('||');
             this.$parent.mask=false;
-            this.$emit('sureFn',str);
+            this.$emit('sureFn',{str:str,select:this.selectPush});
         },
         canleFn(){
             this.$parent.mask=false;

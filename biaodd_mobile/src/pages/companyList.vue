@@ -3,14 +3,14 @@
   <v-fix :nav="3"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入搜索关键词" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入关键字进行搜索" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
-    <v-apt v-if="screenList[2].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
-    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active"></v-money>
+    <v-apt v-if="screenList[2].active" @sureFn='aptSure' @canleFn="typeCanle" :arr="screenNum.arr"></v-apt>
+    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条企业信息</div>
@@ -70,6 +70,14 @@ export default {
             active:false
           },
         ],
+        screenNum:{
+          arr:[],
+          data:{
+            num:0,
+            projSumStart:'',
+            projSumEnd:''
+          }
+        },
         isajax:false,//是否加载完
         isError:false,//是否加载失败
         finished:false,//是否加载完
@@ -154,7 +162,8 @@ export default {
         // console.log(option);
         this.zbList=[];
         this.screenList[2].active=false;
-        this.data.qualCode=option;
+        this.data.qualCode=option.str;
+        this.screenNum.arr=option.list;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -162,19 +171,21 @@ export default {
         this.isajax=false;
         this.zbList=[];
         if(option.num==1){
-              this.data.maxCapital='500'
-        }else if(option.num==2){
             this.data.minCapital='500';
             this.data.maxCapital='1000';
-        }else if(option.num==3){
+        }else if(option.num==2){
             this.data.minCapital='1000';
             this.data.maxCapital='5000';
-        }else if(option.num==4){
+        }else if(option.num==3){
             this.data.minCapital='5000';
+            this.data.maxCapital='10000';
+        }else if(option.num==4){
+            this.data.minCapital='10000';
         }else{
             this.data.minCapital=option.projSumStart;
             this.data.maxCapital=option.projSumEnd;
         }
+        this.screenNum.data=option;
         this.screenList[1].active=false;
         this.data.pageNo=1;
         this.ajax();

@@ -3,15 +3,15 @@
   <v-fix :nav="1"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入搜索关键词" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入关键字进行搜索" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
-    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type>
-    <v-assess @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
-    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @canleFn="typeCanle"></v-apt>
+    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="screenNum.typeNum"></v-type>
+    <v-assess :selectArr="screenNum.select" @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
+    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @canleFn="typeCanle" :type="0" :arr="screenNum.arr"></v-apt>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条招标信息</div>
@@ -74,6 +74,11 @@ export default {
             active:false
           },
         ],
+        screenNum:{
+          typeNum:0,
+          select:[],
+          arr:[],
+        },
         isajax:false,//是否加载完
         isError:false,//是否加载失败
         finished:false,//是否加载完
@@ -143,7 +148,8 @@ export default {
         this.isajax=false;
         this.zbList=[];
         this.screenList[1].active=false;
-        this.data.projectType=option;
+        this.data.projectType=option.str;
+        this.screenNum.typeNum=option.index;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -151,7 +157,8 @@ export default {
         this.isajax=false;
         this.zbList=[];
         this.screenList[2].active=false;
-        this.data.pbModes=option;
+        this.data.pbModes=option.str;
+        this.screenNum.select=option.select;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -175,7 +182,8 @@ export default {
         this.zbList=[];
         // console.log(option);
         this.screenList[3].active=false;
-        this.data.zzType=option;
+        this.data.zzType=option.str;
+        this.screenNum.arr=option.list;
         this.data.pageNo=1;
         this.ajax();
       },

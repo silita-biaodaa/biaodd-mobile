@@ -6,7 +6,7 @@
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(o)">{{o.name}}</span>
             </div>
-            <van-search placeholder="请输入搜索关键词" v-model="search" @search="searchFn" @clear="clearFn"></van-search>
+            <van-search placeholder="请输入关键字进行搜索" v-model="search" @search="searchFn" @clear="clearFn"></van-search>
         </div>
         <div class="nav" v-if="!isScroll">
             <ul>

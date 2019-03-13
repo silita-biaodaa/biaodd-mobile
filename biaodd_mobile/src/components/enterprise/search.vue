@@ -8,11 +8,11 @@
                 <van-icon name="arrow-down"></van-icon>
             </div>
             <div class="right">
-                <van-search placeholder="请输入搜索关键词" v-model="search" @clear="clearFn" @search="searchFn"></van-search>
+                <van-search placeholder="请输入关键字进行搜索" v-model="search" @clear="clearFn" @search="searchFn"></van-search>
             </div>
         </template>
         <template v-else>
-            <van-search placeholder="请输入搜索关键词" v-model="search" @clear="clearFn" @search="searchFn"></van-search>
+            <van-search placeholder="请输入关键字进行搜索" v-model="search" @clear="clearFn" @search="searchFn"></van-search>
         </template>
     </div>
 </template>

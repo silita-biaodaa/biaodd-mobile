@@ -3,7 +3,7 @@
     <div class="money">
         <div class="box">
             <div class="top-box">
-                <div>
+                <div v-if="moneyNum==0">
                     <p>
                         <input type="number" placeholder="最低价" v-model="projSumStart"/>
                     </p>
@@ -33,7 +33,7 @@ export default {
     data() {
         return {
             // 数据模型
-            moneyList:['全部','500万以下','500-1000万','1000-5000万','5000万以上'],
+            moneyList:['全部','500-1000万','1000-5000万','5000-10000万','10000万以上'],
             moneyNum:0,
             projSumStart:'',
             projSumEnd:''
@@ -44,12 +44,21 @@ export default {
     },
     props: {
         // 集成父级参数
+        data:{
+            default:{}
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        let obj=this.data;
+        if(JSON.stringify(obj)!='{}'){
+            this.moneyNum=this.data.num;
+            this.projSumStart=this.data.projSumStart;
+            this.projSumEnd=this.data.projSumEnd;
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -75,6 +84,10 @@ export default {
     methods: {
         // 方法 集合
         sureFn(){
+            // if(this.moneyNum!=0){
+            //     this.projSumStart='';
+            //     this.projSumEnd=''
+            // }
             let data={
                 num:this.moneyNum,
                 projSumStart:this.projSumStart,

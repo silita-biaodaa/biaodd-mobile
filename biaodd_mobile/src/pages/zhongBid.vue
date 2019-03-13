@@ -3,14 +3,14 @@
   <v-fix :nav="2"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入搜索关键词" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入关键字进行搜索" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
     <!-- <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type> -->
-    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :isShow="true"></v-money>
+    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenData"></v-money>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条中标信息</div>
@@ -72,6 +72,11 @@ export default {
             active:false
           },
         ],
+        screenData:{
+          num:0,
+          projSumStart:'',
+          projSumEnd:''
+        },
         moneyNum:0,
         isajax:false,//是否加载完
         isError:false,//是否加载失败
@@ -165,20 +170,22 @@ export default {
           this.isajax=false;
           this.zbList=[];
           if(option.num==1){
-                this.data.projSumEnd='500'
-          }else if(option.num==2){
               this.data.projSumStart='500';
               this.data.projSumEnd='1000';
-          }else if(option.num==3){
+          }else if(option.num==2){
               this.data.projSumStart='1000';
               this.data.projSumEnd='5000';
-          }else if(option.num==4){
+          }else if(option.num==3){
               this.data.projSumStart='5000';
+              this.data.projSumEnd='10000';
+          }else if(option.num==4){
+              this.data.projSumStart='10000';
           }else{
               this.data.projSumStart=option.projSumStart;
               this.data.projSumEnd=option.projSumEnd;
           }
           this.screenList[1].active=false;
+          this.screenData=option;
           this.data.pageNo=1;
           this.ajax();
       },
