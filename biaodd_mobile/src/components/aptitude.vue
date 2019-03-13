@@ -74,14 +74,14 @@ export default {
         let that=this;
         //资质
         this.$http({
-            method:'post',
-            url: '/grade/filter',
-            data:{
-                type:that.type
-            }
+            method:'get',
+            url: '/company/filter',
+            // data:{
+            //     type:that.type
+            // }
         }).then(function(res){
-            that.data=res.data.data;
-            that.showArr=res.data.data;
+            that.data=res.data.data.companyQual;
+            that.showArr=res.data.data.companyQual;
         })
 
         that.boxArr=that.arr;
@@ -188,6 +188,7 @@ export default {
 <style scoped lang="less">
 .aptitude.zIndex{
     z-index: 1000;
+    transform:initial;
 }
 .aptitude{
     position: absolute;
