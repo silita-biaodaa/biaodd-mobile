@@ -4,7 +4,7 @@
         <div class="fixHead">
             <div class="left">
                 <img src="../assets/logo.png"/>
-                <span v-if="isshow" @click="addTap">
+                <span @click="addTap">
                     {{address}}
                     <van-icon :name="iconName"/>
                 </span>
@@ -112,6 +112,9 @@ export default {
             this.$emit('address',option);
         },
         addTap(){
+            if(!this.isshow){
+                return false
+            }
             this.mask=!this.mask
             if(this.iconName=='arrow-down'){
                 this.iconName='arrow-up'

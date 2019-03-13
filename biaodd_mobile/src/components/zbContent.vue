@@ -7,10 +7,10 @@
             </p>
             <p class="tit">{{obj.title}}</p>
         </div>
-        <div class="center">{{obj.certificate ? obj.certificate : '详见原文'}}</div>
+        <div class="center">资质要求：{{obj.certificate ? obj.certificate : '详见原文'}}</div>
         <div class="bottom">
-            <p>{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-            <p>{{obj.opendate ? obj.opendate : '详见原文'}}</p>
+            <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
+            <p>发布时间：{{obj.opendate ? obj.opendate : '详见原文'}}</p>
         </div>
     </div>
 </template>

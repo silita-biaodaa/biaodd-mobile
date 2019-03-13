@@ -3,7 +3,7 @@
     <div class="aptitude" :class="{'zIndex':isFix}">
         <div class="box">
             <template v-if="boxArr.length==0">
-                <p>暂无资质赶紧去添加吧</p>
+                <p>暂无资质，赶紧去添加吧</p>
             </template>
             <template v-else>
                 <div class="content-box">

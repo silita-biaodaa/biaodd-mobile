@@ -20,10 +20,10 @@ export default {
             // 数据模型
             assessList:[
                 {
-                    name:'综合评估法2',
+                    name:'综合评估法Ⅱ',
                     class:false,
                 },{
-                    name:'综合评估法1',
+                    name:'综合评估法Ⅰ',
                     class:false,
                 },{
                     name:'固定标价评分法',
