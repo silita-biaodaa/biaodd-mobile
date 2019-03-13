@@ -205,13 +205,14 @@ export default {
      .letter-save {
        height: 39px;
        width: 70px;
-       border: 1px solid #CF6D2B;
-       color:#CF6D2B;
+       border: 1PX solid #FE6603;
+       color:#FE6603;
        border-radius: 8px;
        text-align: center;
        line-height: 39px;
        box-sizing: border-box;
        margin-left: 29px;
+       font-size:24px;
      }
    }
    .letter-lead {
