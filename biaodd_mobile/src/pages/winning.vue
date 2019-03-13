@@ -19,16 +19,16 @@
                 第一候选人：{{detail.oneName}}
               </div>
               <div class="win-one" >
-                中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文' }} 
+                中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文'}} 
               </div>
           </div>
-          <div class="win-to">
+          <div class="win-to" @click="jump" >
             <div>
               访问原文出处
             </div>
-            <a  :href="detail.url" target="_blank" >
+            <div >
                  <van-icon name="arrow" />
-             </a>
+             </div>
           </div>
           <div class="win-contant" v-html="detail.content"  >
 
@@ -103,6 +103,9 @@ export default {
     },
     methods: {
         // 方法 集合
+        jump() {
+             window.open(this.detail.url)
+        }
     }
 
 }

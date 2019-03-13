@@ -33,13 +33,13 @@
                 <van-icon name="arrow" />
              </div>
           </div>
-          <div class="detail-cli">
+          <div class="detail-cli" @click="jump" >
              <div>
                 访问原文出处
              </div>
-            <a :href="detail.url" target="_blank" >
+            <div >
                  <van-icon name="arrow" />
-             </a>
+             </div>
           </div>
           <div class="detail-contant" v-html="detail.content"  >
              
@@ -122,6 +122,9 @@ export default {
                  return 
              }
             this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
+        },
+        jump() {
+            window.open(this.detail.url)
         }
     }
 
