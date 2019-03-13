@@ -19,7 +19,7 @@
                 第一候选人：{{detail.oneName}}
               </div>
               <div class="win-one" >
-                中标金额：{{detail.oneOffer}}
+                中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文' }} 
               </div>
           </div>
           <div class="win-to">
