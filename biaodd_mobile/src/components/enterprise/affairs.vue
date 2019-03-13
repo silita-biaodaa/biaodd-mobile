@@ -9,11 +9,11 @@
             <!-- list -->
             <template v-if="isajax">
                 <template v-if="lawLsit.length>0">
-                    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                    <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
                         <van-list finished-text="没有更多了"  :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" @load="onLoad" :immediate-check="false">
                             <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
                         </van-list>
-                    </van-pull-refresh>
+                    <!-- </van-pull-refresh> -->
                 </template>
                 <template v-else>
                     <v-not :isError="isError"></v-not>

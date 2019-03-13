@@ -8,8 +8,8 @@
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
-    <v-apt v-if="screenList[2].active" @sureFn='aptSure' @canleFn="typeCanle" :arr="screenNum.arr"></v-apt>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress"></v-addr>
+    <v-apt v-if="screenList[2].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
   <!-- 总条数 -->
@@ -17,11 +17,11 @@
   <!-- 列表 -->
   <template v-if="isajax">
     <template v-if="zbList.length>0">
-      <van-pull-refresh v-model="loading" @refresh="onRefresh">
-        <van-list finished-text="没有更多了" @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
+      <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
+        <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
           <v-qy v-for="(o,i) of zbList" :key="i" :obj="o"></v-qy>
         </van-list>
-      </van-pull-refresh>  
+      <!-- </van-pull-refresh>   -->
     </template>
     <template v-else>
         <v-not :isError="isError"></v-not>
@@ -192,7 +192,16 @@ export default {
       },
       clearFn(){
         this.data.keyWord=''
-      }
+      },
+      recordFn(){
+        this.data.qualCode='';
+        this.isajax=false;
+        this.zbList=[];
+        this.screenList[2].active=false;
+        this.screenNum.arr=[];
+        this.data.pageNo=1;
+        this.ajax();
+      },
     },
     components:{
         'v-qy':qy,
@@ -205,6 +214,7 @@ export default {
     },
     created(){
       this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
+      this.data.regisAddress = sessionStorage.getItem('address');
       this.ajax();
     }
 }

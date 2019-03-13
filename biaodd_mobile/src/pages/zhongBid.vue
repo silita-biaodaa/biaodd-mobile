@@ -17,11 +17,11 @@
   <!-- 列表 -->
   <template v-if="isajax">
     <template v-if="zbList.length>0">
-      <van-pull-refresh v-model="loading" @refresh="onRefresh">
-        <van-list finished-text="没有更多了" @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
+      <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
+        <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
           <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
         </van-list>
-      </van-pull-refresh>  
+      <!-- </van-pull-refresh>   -->
     </template>
     <template v-else>
         <v-not :isError="isError"></v-not>
@@ -204,6 +204,7 @@ export default {
     },
     created(){
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
+      this.data.regions = sessionStorage.getItem('address');
       this.ajax();
     }
 }

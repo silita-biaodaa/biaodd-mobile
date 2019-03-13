@@ -46,6 +46,9 @@ export default {
                 },{
                     name:'百分制综合评分法',
                     class:false,
+                },{
+                    name:'全部',
+                    class:false,
                 }
             ],
             selectPush:[],
@@ -104,6 +107,17 @@ export default {
         // 方法 集合
         tapFn(i){
             let that=this;
+            if(i==9){
+                for(let x of that.assessList){
+                    x.class=false
+                }
+                that.assessList[i].class=true;
+                that.selectPush=[];
+                return false
+            }else{
+                that.assessList[9].class=false;
+            }
+
             if(!that.assessList[i].class){
                 that.selectPush.push(that.assessList[i].name);
                 that.assessList[i].class=true;

@@ -20,7 +20,7 @@
             </template>
         </div>
         <div class="btn">
-            <button class="canle" @click="canleFn">取消</button>
+            <button class="canle" @click="recordFn">重置</button>
             <button class="sure" @click="sureFn">{{sureTxt}}</button>
         </div>
         <div class="fix" :class="{'isShow':isFix}">
@@ -166,9 +166,6 @@ export default {
             }
             
         },
-        canleFn(){
-            this.$emit('canleFn');
-        },
         addFn(){
             this.isFix=true;
             this.num=0;
@@ -178,6 +175,9 @@ export default {
         hideFix(){
             this.isFix=false;
             this.modalHelper.beforeClose();
+        },
+        recordFn(){
+            this.$emit('recordFn');
         }
     }
 

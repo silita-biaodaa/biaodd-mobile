@@ -7,11 +7,11 @@
             <!-- list -->
             <template v-if="isajax">
                 <template v-if="peoList.length>0">
-                    <van-pull-refresh v-model="loading" @refresh="onRefresh">
+                    <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
                         <van-list finished-text="没有更多了" @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                             <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
                         </van-list>
-                    </van-pull-refresh>
+                    <!-- </van-pull-refresh> -->
                 </template>
                 <template v-else>
                     <v-not :isError="isError"></v-not>
