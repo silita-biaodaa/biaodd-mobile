@@ -107,7 +107,7 @@ export default {
         // 方法 集合
         tapFn(i){
             let that=this;
-            if(i==9){
+            if(i==0){
                 for(let x of that.assessList){
                     x.class=false
                 }
@@ -115,7 +115,7 @@ export default {
                 that.selectPush=[];
                 return false
             }else{
-                that.assessList[9].class=false;
+                that.assessList[0].class=false;
             }
 
             if(!that.assessList[i].class){

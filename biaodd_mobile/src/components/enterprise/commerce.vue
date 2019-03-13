@@ -264,9 +264,9 @@ export default {
         // max-width: 550px;
         overflow: hidden;
         text-overflow:ellipsis;
-        white-space: nowrap;
-        // display: -webkit-box;
-        // -webkit-line-clamp: 2;
+        // white-space: nowrap;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
       }
     }
      .letter-save {
@@ -320,5 +320,6 @@ export default {
        white-space: nowrap;
      }
    }
+   
 }
 </style>

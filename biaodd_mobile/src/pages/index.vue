@@ -75,7 +75,7 @@ export default {
                 }
                 ,{
                     img:require('../assets/icon-chengx.png'),
-                    txt:'敬请期待',
+                    txt:'旧版本',
                     path:''
                 }
             ],
