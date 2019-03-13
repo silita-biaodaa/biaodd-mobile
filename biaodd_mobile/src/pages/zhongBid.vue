@@ -62,7 +62,7 @@ export default {
           {
             txt:'地区',
             active:false,
-          },
+          }
           // {
           //   txt:'类型',
           //   active:false

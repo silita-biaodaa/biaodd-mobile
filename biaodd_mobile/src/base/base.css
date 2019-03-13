@@ -100,8 +100,12 @@ body .van-search__content{
 }
 body .van-field__control{
     font-size: 28px;
-    /* height: 100%; */
+    height: 100%;
     border-radius: 0;
+    -webkit-appearance:none;
+}
+input::-webkit-input-placeholder{
+    line-height: 1.4;
 }
 
 body .van-pull-refresh__head{

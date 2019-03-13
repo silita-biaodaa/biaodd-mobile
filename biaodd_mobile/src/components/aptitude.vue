@@ -24,15 +24,17 @@
             <button class="sure" @click="sureFn">{{sureTxt}}</button>
         </div>
         <div class="fix" :class="{'isShow':isFix}">
-            <div>
-                <van-icon name="cross" @click="hideFix"></van-icon>
+            <div class="fix-box-con">
+                <div>
+                    <van-icon name="cross" @click="hideFix"></van-icon>
+                </div>
+                <div class="nav">
+                    <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i">{{o}}</span>
+                </div>
+                <ul>
+                    <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
+                </ul>
             </div>
-            <div class="nav">
-                <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i">{{o}}</span>
-            </div>
-            <ul>
-                <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
-            </ul>
         </div>
     </div>
 </template>
@@ -264,6 +266,9 @@ export default {
     overflow-y: scroll;
     box-sizing: border-box;
     -webkit-overflow-scrolling:touch;
+    .fix-box-con{
+        min-height:calc(100% + 1px);
+    }
     li{
         padding:30px 0;
         font-size: 28px;
@@ -288,6 +293,6 @@ export default {
 }
 .isShow{
     right: 0;
-    min-height: 100vh;
+    // min-height: 100vh;
 }
 </style>
