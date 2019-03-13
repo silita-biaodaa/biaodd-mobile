@@ -3,7 +3,7 @@
   <v-fix :nav="3"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入搜索关键词" v-model="data.keyWord" @search="searchFn"></van-search>
+    <van-search placeholder="请输入搜索关键词" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
@@ -178,6 +178,9 @@ export default {
         this.screenList[1].active=false;
         this.data.pageNo=1;
         this.ajax();
+      },
+      clearFn(){
+        this.data.keyWord=''
       }
     },
     components:{
