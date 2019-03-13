@@ -8,7 +8,7 @@
             <template v-if="isajax">
                 <template v-if="list.length>0">
                     <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+                        <van-list finished-text="没有更多了" @load="onLoad"  :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                             <v-con :type="'yj'" v-for="(el,i) in list" :key="i" :obj='el'></v-con>
                         </van-list>
                     </van-pull-refresh>
@@ -42,8 +42,10 @@ export default {
             },
             list:[],
             isScroll:true,
-            isajax:false,//是否加载完
+            isajax:false,//是否在加载过程中
             isError:false,//是否加载失败
+            finished:false,//是否加载完
+            error:false,
         }
     },
     watch: {
@@ -120,10 +122,16 @@ export default {
                 }else{
                     that.list=that.list.concat(res.data.data)
                 }
+                if(res.data.total==that.list.length||that.list.length<that.data.pageSize){
+                    that.finished=true;//如果返回总条数等于当前list长度
+                }
                 that.isScroll=true;
             }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
+                if(that.list.length>0){
+                    that.error = true;
+                }
             })
         }
     }

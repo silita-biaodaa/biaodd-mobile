@@ -10,7 +10,7 @@
             <template v-if="isajax">
                 <template v-if="lawLsit.length>0">
                     <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+                        <van-list finished-text="没有更多了"  :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" @load="onLoad" :immediate-check="false">
                             <v-con v-for="(el,i) in lawLsit" :key="i" :obj='el'></v-con>
                         </van-list>
                     </van-pull-refresh>
@@ -69,6 +69,8 @@ export default {
             isScroll:true,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
+            finished:false,//是否加载完
+            error:false,
         }
     },
     watch: {
@@ -151,10 +153,16 @@ export default {
                 }else{
                     that.lawLsit=that.lawLsit.concat(res.data.data)
                 }
+                if(res.data.data.total==that.lawLsit.length||that.lawLsit.length<that.ajaxData.pageSize){
+                    that.finished=true;//如果返回总条数等于当前list长度
+                }
                 that.isScroll=true;
             }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
+                if(that.lawLsit.length>0){
+                    that.error = true;
+                }
             })
             if(!that.isSearch){
                 return false

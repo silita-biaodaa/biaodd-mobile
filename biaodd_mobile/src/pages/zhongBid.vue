@@ -18,7 +18,7 @@
   <template v-if="isajax">
     <template v-if="zbList.length>0">
       <van-pull-refresh v-model="loading" @refresh="onRefresh">
-        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+        <van-list finished-text="没有更多了" @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
           <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
         </van-list>
       </van-pull-refresh>  
@@ -73,6 +73,8 @@ export default {
         moneyNum:0,
         isajax:false,//是否加载完
         isError:false,//是否加载失败
+        finished:false,//是否加载完
+        error:false,
       }
     },
     methods: {
@@ -101,10 +103,16 @@ export default {
             }else{
               that.zbList=that.zbList.concat(res.data.data)
             }
+            if(res.data.total==that.zbList.length||that.zbList.length<that.data.pageSize){
+                that.finished=true;//如果返回总条数等于当前list长度
+            }
             that.isScroll=true;
         }).catch(function(res){
             that.isajax=true;
             that.isError=true;
+            if(that.zbList.length>0){
+                that.error = true;
+            }
         })
       },
       onLoad(){//下滚加载

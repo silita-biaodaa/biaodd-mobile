@@ -8,7 +8,7 @@
             <template v-if="isajax">
                 <template v-if="peoList.length>0">
                     <van-pull-refresh v-model="loading" @refresh="onRefresh">
-                        <van-list finished-text="没有更多了" @load="onLoad" :offset="100" :immediate-check="false">
+                        <van-list finished-text="没有更多了" @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                             <v-con :type="'ry'" v-for="(el,i) in peoList" :key="i" :obj='el' ></v-con>
                         </van-list>
                     </van-pull-refresh>
@@ -44,13 +44,15 @@ export default {
                 comId:'5d86f82e66452e2db067e42ca327c629', // 企业ID
                 category:'', //注册类别
                 pageNo:1,
-                pageSize: 3,
+                pageSize: 10,
                 province: '湖南' //省份
             },
             peoList:[],
             isScroll:true,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
+            finished:false,//是否加载完
+            error:false,
         }
     },
     watch: {
@@ -138,10 +140,16 @@ export default {
                 }else{
                     that.peoList=that.peoList.concat(res.data.data)
                 }
+                if(res.data.total==that.peoList.length||that.peoList.length<that.data.pageSize){
+                    that.finished=true;//如果返回总条数等于当前list长度
+                }
                 that.isScroll=true;
             }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
+                if(that.peoList.length>0){
+                    that.error = true;
+                }
             })
         },
         confirmFn(){

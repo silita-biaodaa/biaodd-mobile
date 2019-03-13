@@ -101,6 +101,7 @@ body .van-search__content{
 body .van-field__control{
     font-size: 28px;
     height: 100%;
+    border-radius: none;
 }
 
 body .van-pull-refresh__head{
