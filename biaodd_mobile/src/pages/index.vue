@@ -10,7 +10,7 @@
         </div>
         <div class="nav" v-if="!isScroll">
             <ul>
-                <li v-for="(x,y) of navList" :key="y" @click="$router.push(x.path)">
+                <li v-for="(x,y) of navList" :key="y" @click="tapFn(x,y)">
                     <img :src="x.img"/>
                     <p>{{x.txt}}</p>
                 </li>
@@ -201,6 +201,13 @@ export default {
         },
         clearFn(){
             this.search=''
+        },
+        tapFn(x,y){
+            if(y==3){
+                window.location.href='http://www.biaodaa.com';
+                return false
+            }
+            this.$router.push(x.path);
         }
     }
 

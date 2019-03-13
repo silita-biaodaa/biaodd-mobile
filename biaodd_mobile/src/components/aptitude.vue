@@ -191,9 +191,10 @@ export default {
 }
 .aptitude{
     position: absolute;
-    height: 568px;
+    // height: 568px;
+    transform: translateY(100%);
     background: #f5f5f5;
-    bottom: -568px;
+    bottom: 0;
     left: 0;
     z-index: 9;
     width: 100%;

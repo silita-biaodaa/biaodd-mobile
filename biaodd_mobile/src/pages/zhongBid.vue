@@ -205,6 +205,7 @@ export default {
     created(){
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regions = sessionStorage.getItem('address');
+      this.screenList[0].txt=sessionStorage.getItem('address');
       this.ajax();
     }
 }

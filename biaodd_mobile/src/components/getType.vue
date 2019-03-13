@@ -106,13 +106,13 @@ export default {
 <style scoped lang="less">
 .getType{
     position: absolute;
-    height: 520px;
     background: #f5f5f5;
-    bottom: -520px;
+    bottom:0;
+    transform: translateY(100%);
     left: 0;
     z-index: 9;
     width: 100%;
-    padding:50px 0;
+    padding:50px 0 0;
     box-sizing: border-box;
     ul{
         display: flex;

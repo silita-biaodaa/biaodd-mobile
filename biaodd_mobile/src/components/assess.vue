@@ -20,25 +20,25 @@ export default {
             // 数据模型
             assessList:[
                 {
-                    name:'综合评估法Ⅱ',
+                    name:'全部',
+                    class:false,
+                },{
+                    name:'经评审最低报价法',
                     class:false,
                 },{
                     name:'综合评估法Ⅰ',
                     class:false,
                 },{
-                    name:'固定标价评分法',
-                    class:false,
-                },{
-                    name:'合理定价抽取法',
-                    class:false,
-                },{
-                    name:'技术评分最低标价法',
-                    class:false,
-                },{
                     name:'合理低价法',
                     class:false,
                 },{
-                    name:'经评审最低报价法',
+                    name:'固定标价评分法',
+                    class:false,
+                },{
+                    name:'综合评估法Ⅱ',
+                    class:false,
+                },{
+                    name:'技术评分最低标价法',
                     class:false,
                 },{
                     name:'其他',
@@ -47,7 +47,7 @@ export default {
                     name:'百分制综合评分法',
                     class:false,
                 },{
-                    name:'全部',
+                    name:'合理定价抽取法',
                     class:false,
                 }
             ],
@@ -149,13 +149,13 @@ export default {
 <style scoped lang="less">
 .assess{
     position: absolute;
-    height: 830px;
     background: #f5f5f5;
-    bottom: -830px;
+    bottom:0;
+    transform: translateY(100%);
     left: 0;
     z-index: 9;
     width: 100%;
-    padding:50px 0;
+    padding:50px 0 0;
     box-sizing: border-box;
     ul{
         display: flex;
@@ -167,7 +167,7 @@ export default {
             margin-bottom: 32px;
             // width: 50%;
             span{
-                margin-right: 60px;
+                margin-right: 40px;
                 padding: 15px 40px;
                 display: inline-block;
                 border-radius:10px;
@@ -201,5 +201,15 @@ export default {
         }
     }
     
+}
+@media screen and (max-width: 321px) {
+    .assess ul li span{
+        margin-right: 10px;
+    }
+}
+@media screen and (min-width:376px){
+    .assess ul li span{
+        margin-right: 60px;
+    }
 }
 </style>
