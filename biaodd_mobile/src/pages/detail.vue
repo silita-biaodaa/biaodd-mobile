@@ -25,8 +25,8 @@
                     资质要求：{{detail.zzRank}}
              </div>
           </div>
-          <div class="detail-cli" @click="topush(detail)" >
-             <div>
+          <div class="detail-cli" @click="topush(detail)"  >
+             <div :class="this.total == null ? 'current' : ''" >
                 符合资质企业
              </div>
              <div>
@@ -136,6 +136,9 @@ export default {
  left: 0;
  right: 0;
  bottom: 0;
+ .current {
+    color:#999;
+ }
  .detail-text {
    margin-top: 91px;
    height: calc(~"100% - 101px");
