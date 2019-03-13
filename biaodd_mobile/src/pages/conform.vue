@@ -30,7 +30,8 @@ export default {
            loading:false, 
            finished:false,
            current:1,
-           total:0
+           total:0,
+           source:''
         }
     },
     watch: {
@@ -60,8 +61,9 @@ export default {
                     pageSize:5
                 }
             }).then(function(res){
-            that.list = res.data.data
-            that.total = res.data.total
+                console.log(res);
+                that.list = res.data.data
+                that.total = res.data.total
             })
     },
     beforeMount() {

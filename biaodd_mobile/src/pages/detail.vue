@@ -58,7 +58,8 @@ export default {
             source:'',
             detail:{},
             clickCount:0,
-            name:'招标详情'
+            name:'招标详情',
+            total:0
         }
     },
     watch: {
@@ -86,6 +87,8 @@ export default {
                 type: "0"
             }
         }).then(function(res){
+           that.total = res.data.relCompanySize 
+           
            that.detail = res.data.data[0]  
            that.detail.projDq = that.detail.projDq.substring(0,2)
            that.clickCount = res.data.clickCount       
@@ -115,6 +118,9 @@ export default {
     methods: {
         // 方法 集合
          topush(o) {
+             if(this.total == null) {
+                 return 
+             }
             this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
         }
     }

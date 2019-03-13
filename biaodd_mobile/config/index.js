@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/proxy': {
+      //   target: 'http://api.biaodaa.com/',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/proxy': ''
+      //   }
+      // }
+    },
 
     // Various Dev Server settings
     host:'0.0.0.0',
