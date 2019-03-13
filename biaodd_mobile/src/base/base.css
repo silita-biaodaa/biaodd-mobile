@@ -117,6 +117,9 @@ body .van-picker__cancel,body .van-picker__confirm{
 body .van-field__body{
     height: 100%;
 }
+.search-box .van-field__body{
+    background: #f5f5f5
+}
 .load .van-loading{
     margin: 80px auto 0;
 }
