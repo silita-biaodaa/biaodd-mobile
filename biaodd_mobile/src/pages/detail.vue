@@ -22,11 +22,11 @@
                     </div>      
              </div>
              <div class="m-15">
-                    资质要求：{{detail.zzRank}}
+                    资质要求：{{detail.zzRank ? detail.zzRank : '详见原文'}}
              </div>
           </div>
-          <div class="detail-cli" @click="topush(detail)"  >
-             <div :class="this.total == null ? 'current' : ''" >
+          <div class="detail-cli" @click="topush(detail)" :class="this.total == null ? 'current' : ''" >
+             <div  >
                 符合资质企业
              </div>
              <div>
@@ -136,9 +136,7 @@ export default {
  left: 0;
  right: 0;
  bottom: 0;
- .current {
-    color:#999;
- }
+
  .detail-text {
    margin-top: 91px;
    height: calc(~"100% - 101px");
@@ -187,5 +185,8 @@ export default {
      padding: 35px;
    }
  }
+}
+#app .detail .current {
+    opacity: 0.3;
 }
 </style>
