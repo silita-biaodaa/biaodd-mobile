@@ -53,6 +53,9 @@ li{
     font-size: 26px;
     /* width: 50% */
 }
+body .van-picker-column__item{
+    font-size: 32px
+}
 @media screen and (max-width: 321px) {
     .newNotice .bottom{
         display: block;

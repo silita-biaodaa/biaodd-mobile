@@ -159,6 +159,7 @@ export default {
                     border-radius: 56px;
                     border: 1PX solid #CCBEBE;
                     text-align: center;
+                    background: #fff;
                     input{
                         background: none;
                         width: 44%;
