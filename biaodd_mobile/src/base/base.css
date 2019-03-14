@@ -131,6 +131,7 @@ body .van-pull-refresh__loading .van-loading{
 }
 body .van-picker__cancel,body .van-picker__confirm{
     color: #FE6603;
+    font-size:28px;
 }
 body .van-field__body{
     height: 100%;
