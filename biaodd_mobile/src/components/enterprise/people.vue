@@ -80,6 +80,7 @@ export default {
             url:'/company/personCategory/'+this.data.comId
         }).then(function(res){
             that.personCategory=res.data.data;
+            that.personCategory.unshift({category:'全部'});
             that.categoryLoad=false
         })
     },
@@ -156,6 +157,9 @@ export default {
             this.mask=false;
             this.peoList=[];
             this.data.category=this.$refs.picker.getValues()[0].category;
+            if(this.data.category=='全部'){
+                this.data.category=''
+            }
             this.ajax();
         }
     }

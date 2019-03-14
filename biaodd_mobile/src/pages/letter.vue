@@ -13,7 +13,7 @@
               </div>
             </div>
             <div class="letter-lead">
-              <span  >
+              <span  style="color:#FE6603">
                 {{detail.legalPerson}}
               </span>
               <span class="person">
@@ -26,12 +26,12 @@
                  {{detail.phone}}
               </span>
               <span class="le-col" @click="JumpFn">
-                更多号码请查看APP
+                更多号码请下载APP
               </span>
             </div>
             <div class="letter-url">
                <van-icon name="location-o" />
-               <p>
+               <p style="color:#666666">
                   {{detail.comAddress}}
                </p>               
             </div>

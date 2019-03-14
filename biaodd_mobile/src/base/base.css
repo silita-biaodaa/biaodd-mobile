@@ -129,9 +129,13 @@ body .van-pull-refresh__loading .van-loading{
     width: 30px;
     height: 30px;
 }
-body .van-picker__cancel,body .van-picker__confirm{
+body .van-picker__confirm{
     color: #FE6603;
-    font-size:28px;
+    font-size:32px;
+}
+body .van-picker__cancel{
+    color: #666;
+    font-size:32px;
 }
 body .van-field__body{
     height: 100%;
@@ -147,6 +151,10 @@ body .van-loading{
 }
 body .van-list__error-text,body .van-list__finished-text,body .van-list__loading-text{
     font-size: 28px
+}
+body .van-picker__toolbar{
+    height: 88px;
+    line-height: 88px
 }
 body .van-icon{
     font-size: 28px
