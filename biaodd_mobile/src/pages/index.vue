@@ -204,7 +204,7 @@ export default {
         },
         tapFn(x,y){
             if(y==3){
-                window.location.href='http://www.biaodaa.com';
+                window.location.href='http://old.biaodaa.com/';
                 return false
             }
             this.$router.push(x.path);
