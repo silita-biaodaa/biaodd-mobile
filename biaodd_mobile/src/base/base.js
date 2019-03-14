@@ -6,7 +6,7 @@ Vue.prototype.modalHelper = (function() {
 	return {
 		afterOpen: function(){
 		    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-		    document.body.style.cssText += 'position:fixed;top:-'+scrollTop+'px;';
+		    document.body.style.cssText += 'position:fixed;width:100%;top:-'+scrollTop+'px;';
 		},
 		beforeClose: function() {
 		    var body = document.body;

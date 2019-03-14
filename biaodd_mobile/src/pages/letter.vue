@@ -25,8 +25,8 @@
               <span class="iphone">
                  {{detail.phone}}
               </span>
-              <span class="le-col" @click="JumpFn">
-                更多号码请下载APP
+              <span class="le-col" @click="more">
+                更多
               </span>
             </div>
             <div class="letter-url">
@@ -74,6 +74,17 @@
         </div>
 
       </div>
+      <div class="popup-box" v-if="mask">
+        <div class="box-con">
+            <div class="top-box">
+              <span>查看企业更多电话号码，请下载标大大APP</span>
+            </div>
+            <div class="bom-box">
+              <span class="canel" @click="canelFn">取消下载</span>
+              <span class="sure" @click="sureFn">下载APP</span>
+            </div>
+        </div>
+      </div>
       <v-load v-if="isload"></v-load>
     </div>
 </template>
@@ -97,6 +108,7 @@ export default {
              navList:['工商','法务','资质','人员','业绩','中标','诚信'],
              navNum:0,
              isload:true,
+             mask:false,
             //  path:'/commerc'
         }
     },
@@ -161,9 +173,20 @@ export default {
     },
     methods: {
         // 方法 集合
-        JumpFn(){
+        more(){
+          this.mask=true;
+          this.modalHelper.afterOpen();
+        },
+        canelFn(){
+          this.mask=false;
+          this.modalHelper.beforeClose();
+        },
+        sureFn(){
+          this.mask=false;
+          this.modalHelper.beforeClose();
            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         }
+
     }
 
 }
@@ -172,18 +195,18 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
 .letter {
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  right: 0;
+//  bottom: 0;
  
  .le-col{
    color:#FE6603;
  }
  .letter-de {
    margin-top: 100px;
-   height: calc(~"100% - 101px");
+   height: calc(100% - 101px);
    background-color: #f5f5f5;
    .letter-title {
      padding: 49px 35px 31px;
@@ -235,7 +258,8 @@ export default {
        color:#FE6603;
      }
      .iphone {
-       margin: 0 15px;
+       margin-left: 16px;
+       margin-right: 36px;
        color:#FE6603;
      }
    }
@@ -277,5 +301,52 @@ export default {
     }
    
  }
+}
+.popup-box{
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0,0,0,.5);
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  .box-con{
+    width: 548px;
+    height: 291px;
+    border-radius: 10px;
+    background: #fff;
+  }
+  .top-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 196px;
+    span{
+      width: 360px;
+      display: inline-block;
+      color: #999;
+    }
+  }
+  .bom-box{
+    border-top: 1PX solid #F2F2F2;
+    height: 90px;
+    line-height: 90px;
+    display: flex;
+    span{
+      display: inline-block;
+      width: calc((100% - 1PX)/2);
+      text-align: center;
+    }
+    .canel{
+      border-right: 1PX solid #F2F2F2;
+      color: #333;
+    }
+    .sure{
+      color: #FE6603
+    }
+  }
 }
 </style>
