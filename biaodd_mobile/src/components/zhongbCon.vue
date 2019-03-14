@@ -34,7 +34,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.conver()
+        // this.conver()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
