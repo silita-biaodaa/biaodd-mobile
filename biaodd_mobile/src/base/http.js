@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 Vue.prototype.$http = axios
-let baseURL='http://api.biaodaa.com'
+// let baseURL='http://api.biaodaa.com'
+let baseURL = 'http://pre.biaodaa.com'
 
 axios.defaults.baseURL = baseURL
 
