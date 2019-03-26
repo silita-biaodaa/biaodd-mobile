@@ -40,11 +40,13 @@ export default new Router({
       path: '/tender',
       component: zhongBid,
       name:'zhongBid'
-    },{ //招标列表
+    },
+    { //招标列表
       path: '/bid',
       component: Bid,
       name:'bid' 
-    },{ //企业列表
+    },
+    { //企业列表
       path: '/company',
       component: companyList,
       name:'companyList' 
