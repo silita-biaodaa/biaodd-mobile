@@ -4,7 +4,6 @@ import index from '@/pages/index'
 import Bid from '@/pages/bid'
 import Detail from '@/pages/detail'
 import Conform from '@/pages/conform'
-import testZs from '@/pages/testZs'
 import Winning from '@/pages/winning'
 import zhongBid from '@/pages/zhongBid'
 import Letter from '@/pages/letter'
@@ -16,7 +15,7 @@ import people from '@/components/enterprise/people'
 import achievement from '@/components/enterprise/achievement'
 import letBid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
-// import not from '@/components/not'
+
 import award from '@/pages/award'
 import badness from '@/pages/badness'
 
@@ -28,13 +27,17 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    {//首页
+    {
       path: '/',
+      redirect: '/home'
+    },
+    {//首页
+      path: '/home',
       name: 'index',
       component: index
-    }, 
+    },
     { //中标列表
-      path: '/zhongBid',
+      path: '/tender',
       component: zhongBid,
       name:'zhongBid'
     },{ //招标列表
@@ -42,25 +45,20 @@ export default new Router({
       component: Bid,
       name:'bid' 
     },{ //企业列表
-      path: '/companyList',
+      path: '/company',
       component: companyList,
       name:'companyList' 
     },
-    {
-      path: '/detail',
+    {  // 招标详情
+      path: '/article',
       component: Detail
     },
     { 
       path: '/conform',
       component: Conform 
     },
-	  {
-      path: '/testZs', 
-      name: 'testZs',
-      component: testZs
-    },
-    { 
-      path: '/winning', 
+    {  // 中标详情
+      path: '/notice', 
       component: Winning 
     },
     { //企业详情页

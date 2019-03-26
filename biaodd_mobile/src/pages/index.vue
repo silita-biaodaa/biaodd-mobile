@@ -67,11 +67,11 @@ export default {
                 },{
                     img:require('../assets/icon-zhongb.png'),
                     txt:'中标公告',
-                    path:'/zhongBid'
+                    path:'/tender'
                 },{
                     img:require('../assets/icon-qiy.png'),
                     txt:'企业信息',
-                    path:'/companyList'
+                    path:'/company'
                 }
                 ,{
                     img:require('../assets/icon-chengx.png'),
@@ -83,7 +83,7 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[ {name:'查招标',to:'/bid',i:0},{name:'查中标',i:1},{name:'查企业',i:2}],
+            tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2}],
             tabNum:0,
             isScroll:false,
             topath:'/bid'

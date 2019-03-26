@@ -65,7 +65,7 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            this.$router.push({path:'/winning',query:{id:o.id,source:o.source}})
+            this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
         }
     }
 
