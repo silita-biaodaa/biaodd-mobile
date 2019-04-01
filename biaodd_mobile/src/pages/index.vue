@@ -135,7 +135,7 @@ export default {
         // 方法 集合
         tabChange(i){
             this.tabNum=i.i
-            // this.topath = i.to
+            this.topath = i.to
         },
         getAddress(option){
             this.ready()
@@ -194,9 +194,9 @@ export default {
             if(this.tabNum == 0) {
                 this.$router.push({ path: '/bid',query:{search:this.search}})
             }else if(this.tabNum == 1){
-                this.$router.push({ path: '/zhongBid',query:{search:this.search}})
+                this.$router.push({ path: '/tender',query:{search:this.search}})
             }else if(this.tabNum == 2){
-                this.$router.push({ path: '/companyList',query:{search:this.search}})
+                this.$router.push({ path: '/company',query:{search:this.search}})
             }
         },
         clearFn(){
