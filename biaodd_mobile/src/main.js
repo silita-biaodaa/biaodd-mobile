@@ -11,6 +11,8 @@ Vue.use(Vant);
 
 import moment from 'moment'
 Vue.prototype.$moment = moment;
+import sha1 from 'sha1'
+Vue.prototype.$sha1 = sha1;
 
 import base from '@/base/base'
 import http from '@/base/http'

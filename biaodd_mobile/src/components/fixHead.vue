@@ -10,7 +10,14 @@
                 </span>
             </div>
             <div class="right">
-                <div class="btn" @click="upload">下载APP</div>
+               
+                <div class="btn " @click="upload">下载APP</div>
+                <div class="fix-line">
+
+                </div>
+                 <div class="left fix-logo color">
+                    登录或注册
+                </div>
             </div>
         </div>
         <div class="nav" v-if="isShow">
@@ -165,10 +172,23 @@ export default {
             width: 164px;
             height: 64px;
             border-radius: 8px;
-            text-align: center;
             line-height: 64px;
             color: #fff;
-            font-size: 28px
+            font-size: 28px;
+           text-align: center;
+           float: left;
+        }
+        .fix-logo {
+             height: 64px;
+             line-height: 64px;
+             font-size: 28px;
+        }
+        .fix-line {
+            width: 2px;
+            height: 64px;
+            background-color:#e5e5e5;
+            margin: 0 18px;
+            float: left;
         }
     }
 }

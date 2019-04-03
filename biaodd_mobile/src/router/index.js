@@ -15,9 +15,16 @@ import people from '@/components/enterprise/people'
 import achievement from '@/components/enterprise/achievement'
 import letBid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
-
 import award from '@/pages/award'
 import badness from '@/pages/badness'
+import logo from '@/pages/user/logo'
+import enroll from '@/pages/user/enroll'
+import find from '@/pages/user/find'
+import centre from '@/pages/user/centre'
+import install from '@/pages/user/install'
+
+
+
 
 
 
@@ -110,6 +117,31 @@ export default new Router({
       path: '/badness',
       component: badness,
       name: 'badness'
-    }
+    },
+    {
+      path: '/logo',
+      component: logo,
+      name: 'logo'
+    },
+    {
+      path: '/enroll',
+      component: enroll,
+      name: 'enroll'
+    },
+    {
+      path: '/find',
+      component: find,
+      name: 'find'
+    },
+    {
+      path: '/centre',
+      component: centre,
+      name: 'centre'
+    },
+    {
+      path: '/install',
+      component: install,
+      name: 'install'
+    }    
   ]
 })

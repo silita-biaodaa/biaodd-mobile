@@ -2,7 +2,7 @@
 *{
     margin: 0;
     padding: 0;
-    color: #333
+    color: #333;
 }
 li{
     list-style: none;
@@ -161,8 +161,82 @@ body .van-icon{
 }
 
 .color {
-    color:#FE6603;
+    color:#FE6603 !important;
 }
 .left {
     float: left;
 }
+.right {
+    float: right;
+}
+body .logo  .van-cell {
+    padding: 18px 0;
+    font-size: 28px;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 5px;
+}
+body .enroll  .van-cell {
+    padding: 18px 0;
+    font-size: 28px;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 5px;
+}
+body .find  .van-cell {
+    padding: 18px 0;
+    font-size: 28px;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 5px;
+}
+body .toast {
+    position: fixed;
+    left: 50%;
+    top: 50%; 
+    transform: translateX(-50%);
+    /* width: 100%; */
+    text-align: center;
+    color:#fff !important;
+    background-color: #000;
+    opacity: 0.5;
+    padding: 10px 20px;
+    font-size: 30px;
+}
+  .prompt {
+    width: 100%;
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+  .prompt span {
+      color: red
+  }
+ .enroll .van-button--primary {
+    color: #FE6603;
+    background-color: #fff;
+    border:1px solid #fff;
+  }
+ .enroll .van-button__text {
+      color: #FE6603;
+  }
+   .find .van-button--primary {
+    color: #FE6603;
+    background-color: #fff;
+    border:1px solid #fff;
+  }
+ .find .van-button__text {
+      color: #FE6603;
+  }
+  .logo-btn {
+    width: 100%;
+    height: 88px;
+    border-radius: 44px;
+    background-color: #FE6603;
+    color: #fff;
+    font-size: 32px;
+    line-height: 88px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+   .reg {
+    background-color: #fff;
+    border: 1px solid #FE6603;
+    color:#FE6603;
+  }
