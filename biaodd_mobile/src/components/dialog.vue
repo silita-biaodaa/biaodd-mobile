@@ -1,28 +1,31 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="install">
-       <top-back :title='name'></top-back>
-       <div class="in-nav"  @click="jump" >
-         <div>
-           修改密码
+    <div class="dia"  >
+       <div class="d-hint">
+         <h3>提示</h3>
+         <p class="d-hi">
+           暂无权限,请先登录
+         </p>
+         <div class="btn">
+            <!-- <div class="d-btn left" @click="cancel" >
+              取消
+            </div> -->
+            <div class="d-btn left"  @click="jump" >
+              确定
+            </div>
          </div>
-         <van-icon name="arrow" class="in-i" />
        </div>
-       <div class="in-b">
-         <div class="in-btn" @click="quit" >
-           退出登录
-         </div>
-       </div>
+      <v-load  ></v-load>
     </div>
 </template>
 <script>
-import topBack from '@/components/topback'
+import loading from '@/components/loading'
 export default {
-    name: 'install', // 结构名称
+    name: 'dia', // 结构名称
     data() {
         return {
             // 数据模型
-            name:'设置'
+          
         }
     },
     watch: {
@@ -32,7 +35,7 @@ export default {
         // 集成父级参数
     },
     components: {
-       'top-back':topBack,
+       'v-load':loading
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -63,13 +66,11 @@ export default {
     },
     methods: {
         // 方法 集合
-        jump() {
-            this.$router.push('/enroll')
+        cancel() {
+          this.isall = false
         },
-        quit() {
-            localStorage.removeItem('xtoken')
-            localStorage.removeItem('Bname')
-            this.$router.push('/')
+        jump() {
+          this.$router.push('/logo')
         }
     }
 
@@ -78,43 +79,46 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.install {
+.dia {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #F5F5F5;
-  padding-top: 92px;
-  .in-nav {
-     font-size: 32px;
-     height: 112px;
-     color:#333;
-     padding: 0 35px ;
-     background-color: #fff;
-     font-weight: 550;
-     box-sizing: border-box;
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     margin: 16px 0;
-     .in-i {
-       font-size: 50px;
-     }
-  }
-  .in-b {
-    height: 100%;
-    background-color: #fff;
-    padding-top: 450px;
-    .in-btn {
-      width: 80%;
-      height: 88px;
-      border-radius: 44px;
-      background-color: #FE6603;
-      margin: 0 auto;
-      color:#fff;
-      line-height: 88px;
-      text-align: center;
+  .d-hint {
+    width: 80%;
+    position: fixed;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 300px;
+    background-color: #fff;    
+    z-index: 9999999;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    .d-hi {
+      margin-top: 50px;
+      color: #999;
+    }
+    .btn {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 80px;
+      width: 100%;
+      border-top: 1px solid #f5f5f5;
+      .d-btn {
+        line-height: 80px;
+        text-align: center;
+        font-size: 32px;
+        width: 100%;
+        color: #FE6603;
+        border-left: 1px solid #f5f5f5;
+      }
     }
   }
 }

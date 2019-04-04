@@ -12,14 +12,18 @@
             <p>中标金额：{{obj.oneOffer ? obj.oneOffer + '万' : '详见原文' }}</p>
             <p>公示时间：{{obj.opendate ? obj.opendate : '详见原文' }}</p>
         </div>
+        <v-dia v-if="isload"></v-dia>
     </div>
 </template>
 <script>
+
+import dialog from '@/components/dialog'
 export default {
     name: 'zhongbCon', // 结构名称
     data() {
         return {
             // 数据模型
+            isload:false
         }
     },
     watch: {
@@ -35,6 +39,9 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         // this.conver()
+    },
+    components: {
+        'v-dia':dialog
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -68,7 +75,7 @@ export default {
             if(localStorage.getItem('xtoken')) {
                 this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
             } else {
-                
+                this.isload = true 
             }
             
         }

@@ -10,14 +10,17 @@
         <div class="center">法定代表：{{obj.legalPerson}}</div>
         <div class="center">联系方式：{{obj.phone}}</div>
         <div class="center">企业地址：{{obj.comAddress}}</div>
+        <v-dia v-if="isload"></v-dia>
     </div>
 </template>
 <script>
+import dialog from '@/components/dialog'
 export default {
     name: 'zhongbCon', // 结构名称
     data() {
         return {
             // 数据模型
+              isload:false
         }
     },
     watch: {
@@ -55,10 +58,18 @@ export default {
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
     },
+    components: {
+        'v-dia':dialog
+    },
     methods: {
         // 方法 集合.
          topush(o) {
-            this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
+             if(localStorage.getItem('xtoken')) {
+                this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
+            } else {
+                this.isload = true 
+            }
+            
         }
     }
 

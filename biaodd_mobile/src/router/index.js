@@ -23,8 +23,7 @@ import find from '@/pages/user/find'
 import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
 import deal from '@/pages/user/deal'
-
-
+import dialog from '@/components/dialog'
 
 
 
@@ -149,6 +148,11 @@ export default new Router({
       path: '/deal',
       component: deal,
       name: 'deal'
-    }    
+    },
+    {  // 协议文本
+      path: '/dialog',
+      component: dialog,
+      name: 'dialog'
+    }       
   ]
 })

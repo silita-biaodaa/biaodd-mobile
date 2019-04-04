@@ -12,15 +12,18 @@
             <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
             <p>发布时间：{{obj.opendate ? obj.opendate : '详见原文'}}</p>
         </div>
+         <v-dia v-if="isload"></v-dia>
     </div>
 </template>
 <script>
 // let moment = require("moment");
+import dialog from '@/components/dialog'
 export default {
     name: 'zbContent', // 结构名称
     data() {
         return {
             // 数据模型
+             isload:false
         }
     },
     watch: {
@@ -39,6 +42,9 @@ export default {
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
+    },
+    components: {
+        'v-dia':dialog
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
@@ -67,7 +73,12 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            this.$router.push({path:'/article',query:{id:o.id,source:o.source}})
+             if(localStorage.getItem('xtoken')) {
+                 this.$router.push({path:'/article',query:{id:o.id,source:o.source}})
+            } else {
+                this.isload = true 
+            }
+           
         }
     }
 
