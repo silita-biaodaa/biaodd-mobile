@@ -22,6 +22,8 @@ import enroll from '@/pages/user/enroll'
 import find from '@/pages/user/find'
 import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
+import deal from '@/pages/user/deal'
+
 
 
 
@@ -142,6 +144,11 @@ export default new Router({
       path: '/install',
       component: install,
       name: 'install'
+    },
+    {
+      path: '/deal',
+      component: deal,
+      name: 'deal'
     }    
   ]
 })

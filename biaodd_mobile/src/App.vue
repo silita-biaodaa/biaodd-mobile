@@ -2,7 +2,7 @@
   <div id="app">
     <router-view v-if="isRouter" class="app-boby" />
     <div class="app-bto"  >
-       <div class="app-nav">
+       <div class="app-nav" @click="jump" >
          <!-- 红 -->
          <img src="./assets/nav-icon-biaodd.png.png" alt="" v-if="fisrt" >  
          <!-- 灰 -->
@@ -11,7 +11,7 @@
            标大大
          </div>
        </div>
-        <div class="app-nav">
+        <div class="app-nav" @click="jumpto" >
           <!-- 灰 -->
           <img src="./assets/nav-icon-yonghzhx.png.png" alt="" v-if="per" >
           <!-- 红 -->
@@ -48,13 +48,19 @@ export default {
       })
     },
     judge() {
-       if(this.$route.path == '/user' ||  this.$route.path == '/logo' ) {
+       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install' ) {
             this.fisrt = false 
             this.per  = false
         } else {
             this.fisrt = true  
             this.per  = true 
         }
+    },
+    jump() {
+      this.$router.push('/')
+    },
+     jumpto() {
+      this.$router.push('/centre')
     }
   },
   created () {
@@ -63,7 +69,7 @@ export default {
   watch: {
    $route: {
       handler: function(val, oldVal){
-        if(val.path == '/user' || val.path == '/logo' ) {
+        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install') {
             this.fisrt = false 
             this.per  = false
         } else {
@@ -97,6 +103,7 @@ export default {
   height: 101px;
   display: flex;
   justify-content: space-between;
+  border-top: 1px solid #F2F2F2;
   background-color: #fff;
 }
 .app-nav {
