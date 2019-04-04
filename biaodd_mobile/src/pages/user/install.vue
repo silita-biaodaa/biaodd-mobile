@@ -2,11 +2,11 @@
 <template>
     <div class="install">
        <top-back :title='name'></top-back>
-       <div class="in-nav">
+       <div class="in-nav"  @click="jump" >
          <div>
            修改密码
          </div>
-         <van-icon name="arrow" class="in-i" @click="jump" />
+         <van-icon name="arrow" class="in-i" />
        </div>
        <div class="in-b">
          <div class="in-btn" @click="quit" >

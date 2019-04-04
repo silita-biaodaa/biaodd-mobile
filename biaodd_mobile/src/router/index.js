@@ -120,32 +120,32 @@ export default new Router({
       component: badness,
       name: 'badness'
     },
-    {
+    {  //登录
       path: '/logo',
       component: logo,
       name: 'logo'
     },
-    {
+    {  // 注册
       path: '/enroll',
       component: enroll,
       name: 'enroll'
     },
-    {
+    {  // 找回
       path: '/find',
       component: find,
       name: 'find'
     },
-    {
+    {  // 个人中心
       path: '/centre',
       component: centre,
       name: 'centre'
     },
-    {
+    {  // 设置
       path: '/install',
       component: install,
       name: 'install'
     },
-    {
+    {  // 协议文本
       path: '/deal',
       component: deal,
       name: 'deal'

@@ -6,7 +6,6 @@ import router from './router'
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
-
 Vue.use(Vant);
 
 import moment from 'moment'

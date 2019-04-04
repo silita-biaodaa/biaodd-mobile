@@ -215,6 +215,7 @@ body .toast {
   }
  .enroll .van-button__text {
       color: #FE6603;
+      font-size: 24px;
   }
    .find .van-button--primary {
     color: #FE6603;
@@ -223,6 +224,7 @@ body .toast {
   }
  .find .van-button__text {
       color: #FE6603;
+      font-size: 24px;
   }
   .logo-btn {
     width: 100%;

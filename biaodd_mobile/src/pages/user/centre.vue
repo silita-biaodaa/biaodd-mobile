@@ -6,12 +6,12 @@
                <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
                    个人中心
           </div>
-          <div class="cen-per">
+          <div class="cen-per"  @click="jump" >
             <div class="cen-img">
               <img :src="userinfo.imageUrl " alt="" v-show="userinfo.imageUrl">
               <img src="../../assets/icon-tpux.png.png" alt="" v-show="!userinfo.imageUrl">
             </div>
-            <div class="cen-logo" v-show="decision"  @click="jump" >
+            <div class="cen-logo" v-show="decision"  >
               立即登录
             </div>
             <div  v-show="!decision" >
@@ -33,15 +33,15 @@
         </div>
       </div>
       <div class="cen-nav">
-        <div class="attention"> 
+        <!-- <div class="attention"> 
           <img src="../../assets/icon-guanzhu.png.png" alt="">
           <span>关注</span>
             <van-icon name="arrow" class="nav-i"  />
-        </div>
-         <div class="attention cen-at"> 
+        </div> -->
+         <div class="attention cen-at" @click="jumpto" > 
           <img src="../../assets/icon-shezhi.png.png" alt="">
           <span>设置</span>
-            <van-icon name="arrow" class="nav-i"  @click="jumpto" />
+            <van-icon name="arrow" class="nav-i"   />
         </div>
       </div>
        <div class="attention cen-ip"> 
@@ -112,7 +112,12 @@ export default {
     methods: {
         // 方法 集合
         jump() {
-          this.$router.push('/logo')
+          if(localStorage.getItem('xtoken')) {
+
+          } else {
+             this.$router.push('/logo')
+          }
+         
         },
         jumpto() {
            this.$router.push('/install')

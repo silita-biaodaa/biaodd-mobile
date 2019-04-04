@@ -135,9 +135,11 @@ export default {
                     invitationPhone:that.username
                   }
               }).then(function(res){
+                  console.log(res);
+                  
                   that.Message = 60
                   if(res.data.code == 1 ) {
-
+                     
                   } else {
                     that.isShow = true
                     that.hint = res.data.msg
@@ -161,10 +163,10 @@ export default {
               return this.enname = true
            }
             if(this.note.trim() == '') {
-              return this.enword = true
+              return this.encode = true
            } 
              if(this.password.trim() == '' || this.password1.trim() == '' || this.password1.trim() != this.password.trim() ) {
-              return this.enword = true
+              return this.fiword = true
            }
             let that=this;
               this.$http({
@@ -177,13 +179,15 @@ export default {
                      channel:'1003'
                   }
               }).then(function(res){
+                  console.log(res.data);
+                  
                 if(res.data.code == 1) {
-                    localStorage.setItem('xtoken',res.data.data.xtoken)
                     that.isShow = true
                     that.hint = res.data.msg
                      setTimeout(() => {
                        that.isShow = false;
                      }, 2000); 
+                     that.$router.push('/logo')
                 } else {
                     that.isShow = true
                     that.hint = res.data.msg
