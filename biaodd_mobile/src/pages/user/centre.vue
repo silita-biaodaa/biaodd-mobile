@@ -113,7 +113,7 @@ export default {
         // 方法 集合
         jump() {
           if(localStorage.getItem('xtoken')) {
-
+            this.$router.push('/user')
           } else {
              this.$router.push('/logo')
           }

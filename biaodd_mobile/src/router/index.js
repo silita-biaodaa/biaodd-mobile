@@ -25,7 +25,7 @@ import install from '@/pages/user/install'
 import deal from '@/pages/user/deal'
 import dialog from '@/components/dialog'
 
-
+import user from '@/pages/user/user'
 
 
 
@@ -153,6 +153,11 @@ export default new Router({
       path: '/dialog',
       component: dialog,
       name: 'dialog'
-    }       
+    },
+    {  // 个人信息
+      path: '/user',
+      component: user,
+      name: 'user'
+    }         
   ]
 })
