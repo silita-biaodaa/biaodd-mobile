@@ -157,6 +157,7 @@ export default {
      color:#333;
      padding: 0 35px;
      border-bottom: 1PX solid #f5f5f5;
+     cursor: pointer;
    }
    .win-contant {
      padding: 35px;

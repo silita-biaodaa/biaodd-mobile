@@ -181,6 +181,7 @@ export default {
       display: flex;
       justify-content: space-between;
       border-bottom: 1PX solid #F2F2F2;
+      cursor: pointer;
    }
    .detail-contant {
      padding: 35px;
