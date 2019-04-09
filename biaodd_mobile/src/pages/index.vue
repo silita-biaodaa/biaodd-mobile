@@ -73,11 +73,7 @@ export default {
                     txt:'企业信息',
                     path:'/company'
                 }
-                ,{
-                    img:require('../assets/icon-chengx.png'),
-                    txt:'旧版本',
-                    path:''
-                }
+                
             ],
             
             zbList:[],
