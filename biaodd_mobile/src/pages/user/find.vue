@@ -34,7 +34,7 @@
         />
         <div class="prompt fi-mb"  >
            <span v-show="fiword">
-              请确保两次密码的输入一致，或密码格式正确
+              请确保两次密码一致或密码格式正确
            </span>
         </div>
          <van-field

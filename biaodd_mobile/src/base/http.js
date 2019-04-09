@@ -22,7 +22,7 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
   if (response.data.code == 401 ) {
       localStorage.removeItem('xtoken')
        alert('用户信息失效，请重新登录')
-       window.location.href = "http://pre-mobile.biaodaa.com/#/logo";
+       return  window.location.href = "http://pre-mobile.biaodaa.com/#/logo";
   }
   return response
 }, function (error) {
