@@ -24,13 +24,13 @@
          </van-field>
          <div class="prompt en-mb"  >
            <span v-show="enword">
-              请输入短信验证码或密码
+             {{msg}}
            </span>
          </div>
          <van-field
           v-model="password"
           type='password'
-          placeholder="请输入密码(8-20位字母数字组合密码)"
+          placeholder="请输入新密码(不低于8位)"
           @blur.prevent="inputLoseFocus"
         />
        <div class="en-hint">
@@ -60,7 +60,8 @@ export default {
             password:'',
             isShow:false,
             hint:'请输入正确的账号和密码',
-            note:''
+            note:'',
+            msg:'请输入正确的短信验证码'
         }
     },
     watch: {
@@ -152,9 +153,11 @@ export default {
               return this.enname = true
            }
             if(this.note.trim() == '') {
+              this.msg = '请输入正确的短信验证码'
               return this.enword = true
            }
-            if(this.password.trim() == '') {
+            if(this.password.trim() == '' ||  !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
+              this.msg = '请输入8到16位得密码格式'
               return this.enword = true
            }
              let that=this;

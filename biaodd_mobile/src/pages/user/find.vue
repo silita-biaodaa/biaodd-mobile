@@ -28,13 +28,13 @@
         </div>
          <van-field
           v-model="password"
-          placeholder="设置新密码(8-20位字母数字组合密码)"
+          placeholder="请输入新密码(不低于8位)"
           type='password'
           @blur.prevent="inputLoseFocus"
         />
         <div class="prompt fi-mb"  >
            <span v-show="fiword">
-              请确保两次密码的输入一致
+              请确保两次密码的输入一致，或密码格式正确
            </span>
         </div>
          <van-field
@@ -165,7 +165,7 @@ export default {
             if(this.note.trim() == '') {
               return this.encode = true
            } 
-             if(this.password.trim() == '' || this.password1.trim() == '' || this.password1.trim() != this.password.trim() ) {
+             if(this.password.trim() == '' || this.password1.trim() == '' || this.password1.trim() != this.password.trim() || !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
               return this.fiword = true
            }
             let that=this;
@@ -179,15 +179,14 @@ export default {
                      channel:'1003'
                   }
               }).then(function(res){
-                  console.log(res.data);
-                  
                 if(res.data.code == 1) {
                     that.isShow = true
                     that.hint = res.data.msg
                      setTimeout(() => {
                        that.isShow = false;
-                     }, 2000); 
-                     that.$router.push('/logo')
+                     }, 2000);
+                     console.log(res.data);
+                     that.$router.push('/')
                 } else {
                     that.isShow = true
                     that.hint = res.data.msg

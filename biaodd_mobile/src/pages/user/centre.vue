@@ -28,9 +28,6 @@
       </div>
       <div class="buy-vip">
         <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
-        <!-- <div  >
-
-        </div> -->
       </div>
       <div class="cen-nav">
         <!-- <div class="attention"> 

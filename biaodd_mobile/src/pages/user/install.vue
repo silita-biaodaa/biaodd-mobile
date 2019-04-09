@@ -64,7 +64,7 @@ export default {
     methods: {
         // 方法 集合
         jump() {
-            this.$router.push('/enroll')
+            this.$router.push('/find')
         },
         quit() {
             localStorage.removeItem('xtoken')
