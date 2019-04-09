@@ -157,7 +157,7 @@ export default {
               return this.enword = true
            }
             if(this.password.trim() == '' ||  !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
-              this.msg = '请输入8到16位得密码格式'
+              this.msg = '请输入8到16位的密码格式'
               return this.enword = true
            }
              let that=this;

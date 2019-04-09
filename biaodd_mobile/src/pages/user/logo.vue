@@ -17,13 +17,13 @@
          <van-field
           v-model="password"
           type='password'
-          placeholder="请输入密码(不低于8位)"
+          placeholder="请输入密码"
           @blur.prevent="inputLoseFocus"
         />
          <div class="pr-forget"  >
           <div>
            <span v-show="enword">
-            请输入新密码(不低于8位)
+            请输入新密码
            </span>
           </div>
           <div class="color" @click="jump" >

@@ -192,7 +192,7 @@ section{
     padding-left: 34px;
     li{
         border-top: 1PX solid #F2F2F2;
-        padding-right: 34px;
+        padding-right: 38px;
         height: 104px;
         display: flex;
         align-items: center;
