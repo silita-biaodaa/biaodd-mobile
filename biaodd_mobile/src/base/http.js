@@ -19,11 +19,10 @@ if (token&&token!='undefined') {
 })
 
 axios.interceptors.response.use(function (response) { // ①10010 token过期（30天） ②10011 token无效
-  if (response.data.code === 401 ) {
+  if (response.data.code == 401 ) {
       localStorage.removeItem('xtoken')
-    this.$router.replace({
-      path: '/logo' // 到登录页重新获取token
-    })
+       alert('用户信息失效，请重新登录')
+       window.location.href = "http://pre-mobile.biaodaa.com/#/logo";
   }
   return response
 }, function (error) {
