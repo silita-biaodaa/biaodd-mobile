@@ -30,7 +30,7 @@
          <van-field
           v-model="password"
           type='password'
-          placeholder="请输入新密码(不低于8位)"
+          placeholder="请输入密码(不低于8位)"
           @blur.prevent="inputLoseFocus"
         />
        <div class="en-hint">

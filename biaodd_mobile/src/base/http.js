@@ -17,3 +17,15 @@ if (token&&token!='undefined') {
 }, function (error) {
     return Promise.reject(error)
 })
+
+axios.interceptors.response.use(function (response) { // ①10010 token过期（30天） ②10011 token无效
+  if (response.data.code === 401 ) {
+      localStorage.removeItem('xtoken')
+    this.$router.replace({
+      path: '/logo' // 到登录页重新获取token
+    })
+  }
+  return response
+}, function (error) {
+  return Promise.reject(error)
+})

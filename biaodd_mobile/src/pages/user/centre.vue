@@ -117,7 +117,9 @@ export default {
          
         },
         jumpto() {
-           this.$router.push('/install')
+            if(localStorage.getItem('xtoken')) {
+                this.$router.push('/install')
+            }
         },
          upload(){//点击下载APP
             window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
@@ -132,7 +134,7 @@ export default {
                   }).then(function(res){
                       that.userinfo = res.data.data
                        let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
-                       that.day = Math.ceil(gap/3600/24/1000);
+                       that.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0; 
                        if( that.userinfo.roleName == '会员用户') {
                          that.state = '会员'
                        } else {
@@ -194,7 +196,6 @@ export default {
       border-radius:8px;
       display: flex;
       align-items: center;
-      // justify-content: space-between;
       padding: 0 35px;
       .cen-img {
         width: 139px;
