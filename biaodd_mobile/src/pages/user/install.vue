@@ -69,6 +69,7 @@ export default {
         quit() {
             localStorage.removeItem('xtoken')
             localStorage.removeItem('Bname')
+            sessionStorage.removeItem('permissions')
             this.$router.push('/')
         }
     }

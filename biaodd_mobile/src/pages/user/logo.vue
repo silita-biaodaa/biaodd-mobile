@@ -118,6 +118,7 @@ export default {
             if(res.data.code == '1' ) {
                 localStorage.setItem('xtoken',res.data.data.xtoken)
                 localStorage.setItem('Bname',res.data.data.nikeName)
+                sessionStorage.setItem('permissions',res.data.data.permissions);
                 that.$router.push('/')
             } else {
                 that.isShow = true;

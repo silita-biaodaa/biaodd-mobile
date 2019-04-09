@@ -15,6 +15,10 @@ Vue.prototype.$sha1 = sha1;
 
 import base from '@/base/base'
 import http from '@/base/http'
+
+/*全局引用会员组件*/
+import isvip from '@/components/isVip'
+Vue.component('v-vip', isvip)
 // function HtmlFontSize(){
 //   let baseSize=32;
 //   const sw=document.documentElement.clientWidth / 750;

@@ -27,10 +27,10 @@
           </div>
       </div>
       <div class="buy-vip">
-        <img src="../../assets/pic-huiyuan.png.png" alt="">
-        <div @click="upload" >
+        <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
+        <!-- <div  >
 
-        </div>
+        </div> -->
       </div>
       <div class="cen-nav">
         <!-- <div class="attention"> 
@@ -115,7 +115,7 @@ export default {
           if(localStorage.getItem('xtoken')) {
             this.$router.push('/user')
           } else {
-             this.$router.push('/user')
+             this.$router.push('/logo')
           }
          
         },
