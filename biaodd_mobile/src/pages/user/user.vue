@@ -128,7 +128,6 @@ export default {
                    url: '/userCenter/refreshUserInfo',
                    data:{}
                }).then(function(res){
-                   console.log(res.data.data.nikeName);
                    that.data.nickname = res.data.data.nikeName
                    that.data.name = res.data.data.userName ? res.data.data.userName : ''
                    that.data.company = res.data.data.inCompany ? res.data.data.inCompany : ''
@@ -156,7 +155,8 @@ export default {
                       localStorage.setItem('xtoken',res.data.data.xtoken)
                       setTimeout(() => {
                         that.isShow = false;
-                      }, 2000);
+                      },1500);
+                      that.$router.push('/centre')
                   }
                })
          }

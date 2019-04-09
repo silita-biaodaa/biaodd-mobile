@@ -133,7 +133,6 @@ export default {
                       url: '/userCenter/refreshUserInfo',
                       data:{}
                   }).then(function(res){
-                      console.log(res.data.data);
                       that.userinfo = res.data.data
                        let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
                        that.day = Math.ceil(gap/3600/24/1000);

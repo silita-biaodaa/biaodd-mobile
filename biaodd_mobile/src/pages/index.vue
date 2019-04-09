@@ -107,6 +107,21 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         window.addEventListener('scroll',this.scrollgun,true);
+        if(!localStorage.getItem('filter')){
+            //资质
+            this.$http({
+                method:'get',
+                url: '/company/filter',
+                // data:{
+                //     type:that.type
+                // }
+            }).then(function(res){
+                let obj='';
+                obj=res.data.data.companyQual;
+                localStorage.setItem('filter',JSON.stringify(obj));
+            })
+        }
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -167,7 +182,6 @@ export default {
                     type: "2"
                 }
             }).then(function(res){
-                console.log(res.data.data)
                 that.zhongbList=res.data.data;
             })
             //企业

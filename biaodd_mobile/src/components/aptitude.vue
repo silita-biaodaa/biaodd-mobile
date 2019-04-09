@@ -72,18 +72,22 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         let that=this;
-        //资质
-        this.$http({
-            method:'get',
-            url: '/company/filter',
-            // data:{
-            //     type:that.type
-            // }
-        }).then(function(res){
-            that.data=res.data.data.companyQual;
-            that.showArr=res.data.data.companyQual;
-        })
-
+        // //资质
+        if(!localStorage.getItem('filter')){
+            //资质
+            this.$http({
+                method:'get',
+                url: '/company/filter',
+            }).then(function(res){
+                that.data=res.data.data.companyQual;
+                that.showArr=res.data.data.companyQual;
+            })
+        }else{
+            let obj=localStorage.getItem('filter');
+            obj=JSON.parse(obj);
+            that.data=obj;
+            that.showArr=obj;
+        }
         that.boxArr=that.arr;
         if(that.boxArr.length>0){
             this.sureTxt='确定';
