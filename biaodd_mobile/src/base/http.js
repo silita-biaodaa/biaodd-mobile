@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 Vue.prototype.$http = axios
-// let baseURL='http://api.biaodaa.com'
-let baseURL = 'http://pre.biaodaa.com'
+let baseURL='http://api.biaodaa.com'
+// let baseURL = 'http://pre.biaodaa.com'
 // let baseURL = '/'
 
 
@@ -22,7 +22,7 @@ axios.interceptors.response.use(function (response) { // ①10010 token过期（
   if (response.data.code == 401 ) {
       localStorage.removeItem('xtoken')
        alert('用户信息失效，请重新登录')
-       return  window.location.href = "http://pre-mobile.biaodaa.com/#/logo";
+    return window.location.href = "http://mobile.biaodaa.com/#/logo";
   }
   return response
 }, function (error) {
