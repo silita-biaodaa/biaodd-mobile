@@ -4,7 +4,7 @@
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
             <img src="../../assets/icon-tpux.png.png"/>
-            <span>12322113366</span>
+            <span>{{data.nickname}}</span>
         </div>
         <section>
             <ul>
@@ -40,6 +40,12 @@
                 </li>
             </ul>
         </section>
+        <div class="u-btn" @click="changeNew" >  
+            确定
+        </div>
+         <div class="toast"  v-if="isShow" >
+           {{hint}}
+        </div>
     </div>
 </template>
 <script>
@@ -49,6 +55,8 @@ export default {
     data() {
         return {
             // 数据模型
+            hint:'',
+            isShow:false,
             sexList:[
                 {
                     name:'女',
@@ -59,13 +67,14 @@ export default {
                     class:'boy'
                 },
             ],
-            sexNum:0,
+            sexNum:2,
             data:{
                 nickname:'',
                 name:'',
                 sex:0,
                 company:'',
                 title:'',
+                img:''
             }
         }
     },
@@ -83,6 +92,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.gainNew()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -110,7 +120,46 @@ export default {
         selectSex(i){
             this.sexNum=i;
             this.data.sex=i;
-        }
+        },
+        gainNew() {
+             let that=this;
+               this.$http({
+                   method:'post',
+                   url: '/userCenter/refreshUserInfo',
+                   data:{}
+               }).then(function(res){
+                   console.log(res.data.data.nikeName);
+                   that.data.nickname = res.data.data.nikeName
+                   that.data.name = res.data.data.userName ? res.data.data.userName : ''
+                   that.data.company = res.data.data.inCompany ? res.data.data.inCompany : ''
+                   that.data.title = res.data.data.position ? res.data.data.position : ''
+                   that.data.sex = res.data.data.sex
+                   that.sexNum = res.data.data.sex
+               })
+         },
+         changeNew() {
+              let that=this;
+               this.$http({
+                   method:'post',
+                   url: '/userCenter/updateUserInfo',
+                   data:{
+                      nikeName:that.data.nickname,
+                      sex:that.data.sex,
+                      inCompany:that.data.company,
+                      position:that.data.title,
+                      userName:that.data.name
+                   }
+               }).then(function(res){
+                  if(res.data.code == 1) {
+                      that.hint = '信息更新成功',
+                      that.isShow = true
+                      localStorage.setItem('xtoken',res.data.data.xtoken)
+                      setTimeout(() => {
+                        that.isShow = false;
+                      }, 2000);
+                  }
+               })
+         }
     }
 
 }
@@ -190,5 +239,15 @@ section{
     li:last-child{
         border-bottom: 1PX solid #f2f2f2;
     }
+}
+.u-btn {
+   width: 77%;
+   margin: 100px auto 0;
+   background-color: #FE6603;
+   height: 88px;
+   border-radius: 44px;
+   line-height: 88px;
+   text-align: center;
+   color:#fff;
 }
 </style>
