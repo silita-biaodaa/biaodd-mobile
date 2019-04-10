@@ -49,7 +49,7 @@
             </template>
             <template v-else-if="navNum==1">
               <!-- 法务 -->
-              <v-fw></v-fw>
+              <v-fw :more="fwIsVip"></v-fw>
             </template>
             <template v-else-if="navNum==2">
               <!-- 资质 -->
@@ -61,7 +61,7 @@
             </template>
             <template v-else-if="navNum==4">
               <!-- 业绩 -->
-              <v-yj></v-yj>
+              <v-yj :more="yjIsVip"></v-yj>
             </template>
             <template v-else-if="navNum==5">
               <!-- 业绩 -->
@@ -74,17 +74,7 @@
         </div>
 
       </div>
-      <div class="popup-box" v-if="mask">
-        <div class="box-con">
-            <div class="top-box">
-              <span>查看企业更多电话号码，请下载标大大APP</span>
-            </div>
-            <div class="bom-box">
-              <span class="canel" @click="canelFn">取消下载</span>
-              <span class="sure" @click="sureFn">下载APP</span>
-            </div>
-        </div>
-      </div>
+      <v-vip :mask="isvip" :txt="'查看企业更多电话号码，请下载标大大APP'"></v-vip>
       
       <v-load v-if="isload"></v-load>
     </div>
@@ -110,8 +100,10 @@ export default {
              navNum:0,
              isload:true,
              mask:false,
-            //  vipStr:'',
-            //  isvip:false,
+             vipStr:'',
+             isvip:false,
+             fwIsVip:false,
+             yjIsVip:false
             //  path:'/commerc'
         }
     },
@@ -137,9 +129,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // if(sessionStorage.getItem('permissions')){
-        //   this.vipStr=sessionStorage.getItem('permissions');
-        // }
+        if(sessionStorage.getItem('permissions')){
+          this.vipStr=sessionStorage.getItem('permissions');
+        }
         this.id = this.$route.query.id
          let that=this;
             this.$http({
@@ -152,11 +144,11 @@ export default {
                 that.detail = res.data.data;
                 var arr = []
                 arr = that.detail.phone.split(';')
-                // if(that.vipStr.indexOf('comPhone')==-1){
-                  // that.detail.phone =that.resetPhone(arr[0]) 
-                // }else{
+                if(that.vipStr.indexOf('comPhone')==-1){
+                  that.detail.phone =that.resetPhone(arr[0]) 
+                }else{
                   that.detail.phone=arr[0]
-                // } 
+                } 
                 
                 that.isload=false
              })
@@ -185,18 +177,18 @@ export default {
     methods: {
         // 方法 集合
         more(){
-          this.mask=true;
+          this.isvip=true;
           this.modalHelper.afterOpen();
         },
-        canelFn(){
-          this.mask=false;
-          this.modalHelper.beforeClose();
-        },
-        sureFn(){
-          this.mask=false;
-          this.modalHelper.beforeClose();
-           window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
-        },
+        // canelFn(){
+        //   this.mask=false;
+        //   this.modalHelper.beforeClose();
+        // },
+        // sureFn(){
+        //   this.mask=false;
+          
+        //    window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        // },
         resetPhone(phone) {
           var str = String(phone)
           var len = str.length;
@@ -210,14 +202,12 @@ export default {
           }
         },
         jump(i){
-          // if(i==1&&this.vipStr.indexOf('comLaw')==-1){
-          //   this.isvip=true;
-          //   return false
-          // }
-          // if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
-          //   this.isvip=true;
-          //   return false
-          // }
+          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
+            this.fwIsVip=true
+          }
+          if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
+            this.yjIsVip=true;
+          }
           this.navNum=i
         }
 
@@ -336,51 +326,5 @@ export default {
    
  }
 }
-.popup-box{
-  position: fixed;
-  z-index: 999;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0,0,0,.5);
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  .box-con{
-    width: 548px;
-    height: 291px;
-    border-radius: 10px;
-    background: #fff;
-  }
-  .top-box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 196px;
-    span{
-      width: 360px;
-      display: inline-block;
-      color: #999;
-    }
-  }
-  .bom-box{
-    border-top: 1PX solid #F2F2F2;
-    height: 90px;
-    line-height: 90px;
-    display: flex;
-    span{
-      display: inline-block;
-      width: calc((100% - 1PX)/2);
-      text-align: center;
-    }
-    .canel{
-      border-right: 1PX solid #F2F2F2;
-      color: #333;
-    }
-    .sure{
-      color: #FE6603
-    }
-  }
-}
+  
 </style>

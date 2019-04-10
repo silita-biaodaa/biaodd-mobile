@@ -1,15 +1,15 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="isvip">
-        <!-- <template v-if="isTrue">
-            <slot></slot>
-        </template> -->
-        <!-- <template v-else> -->
-            <div class="tipBoxs">
-                <p>该功能需要会员权限</p>
-                <img src="../assets/pic-huiyuan.png.png" @click="jumpApp">
+    <div class="popup-box isvip" v-if="mask">
+        <div class="box-con">
+            <div class="top-box">
+                <span>{{txt}}</span>
             </div>
-        <!-- </template> -->
+            <div class="bom-box">
+                <span class="canel" @click="canelFn">取消下载</span>
+                <span class="sure" @click="sureFn">下载APP</span>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -18,8 +18,6 @@ export default {
     data() {
         return {
             // 数据模型
-            // dataArr:'',//承载已拥有权限的数组
-            // isTrue:false,
         }
     },
     watch: {
@@ -29,7 +27,14 @@ export default {
         // 集成父级参数
         val:{
             default:''
+        },
+        mask:{
+            default:false
+        },
+        txt:{
+            default:'查看更多资讯，请下载标大大APP'
         }
+
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -65,9 +70,14 @@ export default {
     },
     methods: {
         // 方法 集合
-        jumpApp(){//点击下载APP
+        sureFn(){//点击下载APP
+            this.modalHelper.beforeClose();
             window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         },
+        canelFn(){
+            this.modalHelper.beforeClose();
+            this.$parent.isvip=false;
+        }
     }
 
 }
@@ -76,23 +86,50 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .isvip{
-    background: rgba(0,0,0,.8);
-    height: 100vh;
     position: fixed;
-    top: 0;
+    z-index: 999;
     width: 100%;
-    left: 0;
+    height: 100vh;
+    background: rgba(0,0,0,.5);
+    top: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
-}
-.tipBoxs{
-    background: #fff;
-    width: 80%;
-    padding: 0 35px;
-    img{
-        max-width:100% ;
+    left: 0;
+    .box-con{
+        width: 548px;
+        height: 291px;
+        border-radius: 10px;
+        background: #fff;
+    }
+    .top-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 196px;
+        span{
+        width: 360px;
+        display: inline-block;
+        color: #999;
+        }
+    }
+    .bom-box{
+        border-top: 1PX solid #F2F2F2;
+        height: 90px;
+        line-height: 90px;
+        display: flex;
+        span{
+        display: inline-block;
+        width: calc((100% - 1PX)/2);
+        text-align: center;
+        }
+        .canel{
+        border-right: 1PX solid #F2F2F2;
+        color: #333;
+        }
+        .sure{
+        color: #FE6603
+        }
     }
 }
 </style>
