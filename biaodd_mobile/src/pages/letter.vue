@@ -110,8 +110,8 @@ export default {
              navNum:0,
              isload:true,
              mask:false,
-             vipStr:'',
-             isvip:false,
+            //  vipStr:'',
+            //  isvip:false,
             //  path:'/commerc'
         }
     },
@@ -137,9 +137,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if(sessionStorage.getItem('permissions')){
-          this.vipStr=sessionStorage.getItem('permissions');
-        }
+        // if(sessionStorage.getItem('permissions')){
+        //   this.vipStr=sessionStorage.getItem('permissions');
+        // }
         this.id = this.$route.query.id
          let that=this;
             this.$http({
@@ -152,11 +152,11 @@ export default {
                 that.detail = res.data.data;
                 var arr = []
                 arr = that.detail.phone.split(';')
-                if(that.vipStr.indexOf('comPhone')==-1){
-                  that.detail.phone =that.resetPhone(arr[0]) 
-                }else{
+                // if(that.vipStr.indexOf('comPhone')==-1){
+                  // that.detail.phone =that.resetPhone(arr[0]) 
+                // }else{
                   that.detail.phone=arr[0]
-                } 
+                // } 
                 
                 that.isload=false
              })
@@ -210,14 +210,14 @@ export default {
           }
         },
         jump(i){
-          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
-            this.isvip=true;
-            return false
-          }
-          if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
-            this.isvip=true;
-            return false
-          }
+          // if(i==1&&this.vipStr.indexOf('comLaw')==-1){
+          //   this.isvip=true;
+          //   return false
+          // }
+          // if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
+          //   this.isvip=true;
+          //   return false
+          // }
           this.navNum=i
         }
 

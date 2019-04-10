@@ -64,7 +64,16 @@ export default {
     }
   },
   created () {
-    this.judge()
+    this.judge();
+    this.$http({
+        method:'post',
+        url: '/authorize/address',
+    }).then(function(res){
+        console.log(res);
+        sessionStorage.setItem('address',res.data.data.region);
+    }).catch(function(res){
+        
+    })
   },
   watch: {
    $route: {
