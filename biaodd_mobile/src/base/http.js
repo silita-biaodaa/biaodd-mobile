@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import axios from 'axios'
+import { Toast } from 'vant'
+import Router from 'vue-router'
 Vue.prototype.$http = axios
 // let baseURL='http://api.biaodaa.com'
 let baseURL = 'http://pre.biaodaa.com'
 // let baseURL = '/'
-
+const vuerouter = new Router();
 
 axios.defaults.baseURL = baseURL
 
@@ -21,8 +23,8 @@ if (token&&token!='undefined') {
 axios.interceptors.response.use(function (response) { // ①10010 token过期（30天） ②10011 token无效
   if (response.data.code == 401 ) {
       localStorage.removeItem('xtoken')
-       alert('用户信息失效，请重新登录')
-    return window.location.href = "http://mobile.biaodaa.com/#/logo";
+      Toast('用户信息失效，请重新登陆')
+      vuerouter.push('/logo')
   }
   return response
 }, function (error) {

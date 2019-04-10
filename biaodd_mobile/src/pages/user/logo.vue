@@ -10,7 +10,7 @@
         />
         <div class="prompt"  >
           <span v-show="enname">
-             请输入正确手机号码
+             请重新输入正确手机号码格式
           </span>
          
         </div>
@@ -23,7 +23,7 @@
          <div class="pr-forget"  >
           <div>
            <span v-show="enword">
-            请输入新密码
+            请输入密码(不低于8位)
            </span>
           </div>
           <div class="color" @click="jump" >
@@ -153,6 +153,8 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style lang='less' scoped>
 .logo {
+  height: 100vh;
+  background: #fff;
   padding: 90px 92px;
   display: flex;
   align-items: center;
