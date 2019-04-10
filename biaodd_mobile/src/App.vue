@@ -17,7 +17,7 @@
           <!-- 红 -->
           <img src="./assets/nav-icon-yonghzh.png.png" alt="" v-else >
           <div :class="!fisrt ? 'color' : '' " >
-             用户中心
+             个人中心
           </div>
          
        </div>
