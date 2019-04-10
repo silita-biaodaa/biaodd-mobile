@@ -46,7 +46,7 @@
           <span>客服电话</span>
             <!-- <van-icon name="arrow"  /> -->
           <div class="nav-i" >
-            0731-80776077
+            0731-85776077
           </div>
         </div>
     </div>
