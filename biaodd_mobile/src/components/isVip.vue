@@ -1,29 +1,25 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)" >
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-zhong.png"/>
-            </p>
-            <p class="tit">{{obj.title}}</p>
-        </div>
-        <div class="center">第一候选人：{{obj.oneName ? obj.oneName : '详见原文' }}</div>
-        <div class="bottom">
-            <p>中标金额：{{obj.oneOffer ? obj.oneOffer + '万' : '详见原文' }}</p>
-            <p>公示时间：{{obj.opendate ? obj.opendate : '详见原文' }}</p>
-        </div>
-        <v-dia v-if="isload"></v-dia>
+    <div class="isvip">
+        <!-- <template v-if="isTrue">
+            <slot></slot>
+        </template> -->
+        <!-- <template v-else> -->
+            <div class="tipBoxs">
+                <p>该功能需要会员权限</p>
+                <img src="../assets/pic-huiyuan.png.png" @click="jumpApp">
+            </div>
+        <!-- </template> -->
     </div>
 </template>
 <script>
-
-import dialog from '@/components/dialog'
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'isvip', // 结构名称
     data() {
         return {
             // 数据模型
-            isload:false
+            // dataArr:'',//承载已拥有权限的数组
+            // isTrue:false,
         }
     },
     watch: {
@@ -31,23 +27,26 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+        val:{
+            default:''
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.conver()
-    },
-    components: {
-        'v-dia':dialog
+        // let str=sessionStorage.getItem('permissions');
+        // this.dataArr=str;
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
+        // if(this.dataArr.indexOf(this.val)!=-1){
+            // this.isTrue=true;
+        // }
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
         });
@@ -66,24 +65,34 @@ export default {
     },
     methods: {
         // 方法 集合
-        conver() {
-             this.obj.opendate =  this.obj.opendate.replace('-','年')
-             this.obj.opendate =  this.obj.opendate.replace('-','月')
-             this.obj.opendate = this.obj.opendate +  '日'             
+        jumpApp(){//点击下载APP
+            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         },
-        topush(o) {
-            if(localStorage.getItem('xtoken')) {
-                this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
-            } else {
-                this.isload = true 
-            }
-            
-        }
     }
 
 }
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style scoped lang="less">
+<style  lang='less' scoped>
+.isvip{
+    background: rgba(0,0,0,.8);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.tipBoxs{
+    background: #fff;
+    width: 80%;
+    padding: 0 35px;
+    img{
+        max-width:100% ;
+    }
+}
 </style>

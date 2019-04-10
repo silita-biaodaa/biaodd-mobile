@@ -10,7 +10,14 @@
                 </span>
             </div>
             <div class="right">
-                <div class="btn" @click="upload">下载APP</div>
+               
+                <div class="btn " @click="upload">下载APP</div>
+                <div class="fix-line">
+
+                </div>
+                 <p class="left fix-logo color" @click="jump" >
+                    {{name}}
+                </p>
             </div>
         </div>
         <div class="nav" v-if="isShow">
@@ -43,16 +50,18 @@ export default {
                     path:'/bid'
                 },{
                     txt:'中标',
-                    path:'/zhongBid'
+                    path:'/tender'
                 },{
                     txt:'企业',
-                    path:'/companyList'
+                    path:'/company'
                 }
                 // ,{
                 //     txt:'诚信',
                 //     path:'/'
                 // },
             ],
+            name:'登录或注册'
+           
         }
     },
     watch: {
@@ -79,6 +88,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.address=sessionStorage.getItem('address');
+        this.changeN()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -94,6 +104,18 @@ export default {
     },
     updated() {
         // console.group('更新完成状态===============》updated');
+    },
+    watch: {
+       $route:{
+          handler: function(val, oldVal){
+             if(localStorage.getItem('Bname')) {
+               this.name = localStorage.getItem('Bname')
+             } else {     
+               this.name = '登录或注册'
+             }
+          },
+        deep: true
+      }
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
@@ -112,6 +134,12 @@ export default {
             sessionStorage.setItem('address',option);
             this.$emit('address',option);
         },
+        jump() {
+            if(this.name == '登录或注册') {
+                 this.$router.push('/logo')
+            }
+         
+        },
         addTap(){
             this.mask=!this.mask
             if(this.iconName=='arrow-down'){
@@ -119,7 +147,15 @@ export default {
             }else{
                 this.iconName='arrow-down'
             }
+        },
+        changeN() {
+            if(localStorage.getItem('xtoken')) {
+                this.name = localStorage.getItem('Bname')
+            } else {
+                this.name = '登录或注册'
+            }
         }
+
 
     }
 
@@ -165,10 +201,27 @@ export default {
             width: 164px;
             height: 64px;
             border-radius: 8px;
-            text-align: center;
             line-height: 64px;
             color: #fff;
-            font-size: 28px
+            font-size: 28px;
+           text-align: center;
+           float: left;
+        }
+        .fix-logo {
+             height: 64px;
+             max-width: 150px;
+             overflow: hidden;
+             text-overflow:ellipsis;
+             white-space:nowrap;
+             line-height: 64px;
+             font-size: 28px;
+        }
+        .fix-line {
+            width: 2px;
+            height: 64px;
+            background-color:#e5e5e5;
+            margin: 0 18px;
+            float: left;
         }
     }
 }

@@ -39,7 +39,7 @@
 
         <div class="letter-nav">
           <div>
-              <span v-for="(o,i) of navList" :key="i" :class="navNum==i?'active':''" @click="navNum=i">{{o}}</span>
+              <span v-for="(o,i) of navList" :key="i" :class="navNum==i?'active':''" @click="jump(i)">{{o}}</span>
           </div>
         </div>
         <div class="letter-detail">
@@ -85,6 +85,7 @@
             </div>
         </div>
       </div>
+      
       <v-load v-if="isload"></v-load>
     </div>
 </template>
@@ -109,6 +110,8 @@ export default {
              navNum:0,
              isload:true,
              mask:false,
+             vipStr:'',
+             isvip:false,
             //  path:'/commerc'
         }
     },
@@ -134,6 +137,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        if(sessionStorage.getItem('permissions')){
+          this.vipStr=sessionStorage.getItem('permissions');
+        }
         this.id = this.$route.query.id
          let that=this;
             this.$http({
@@ -146,7 +152,12 @@ export default {
                 that.detail = res.data.data;
                 var arr = []
                 arr = that.detail.phone.split(';')
-                that.detail.phone = arr[0]
+                if(that.vipStr.indexOf('comPhone')==-1){
+                  that.detail.phone =that.resetPhone(arr[0]) 
+                }else{
+                  that.detail.phone=arr[0]
+                } 
+                
                 that.isload=false
              })
     },
@@ -185,6 +196,29 @@ export default {
           this.mask=false;
           this.modalHelper.beforeClose();
            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        },
+        resetPhone(phone) {
+          var str = String(phone)
+          var len = str.length;
+          if (len >= 7) {
+              var reg = str.slice(-7, -3)
+              return str.replace(reg, "****")
+          } else if (len < 7 && len >= 6) {
+              //1234567
+              var reg = str.slice(-4, -2)
+              return str.replace(reg, "**")
+          }
+        },
+        jump(i){
+          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
+            this.isvip=true;
+            return false
+          }
+          if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
+            this.isvip=true;
+            return false
+          }
+          this.navNum=i
         }
 
     }
@@ -206,7 +240,7 @@ export default {
  }
  .letter-de {
    margin-top: 100px;
-   height: calc(100% - 101px);
+   height: calc(100vh - 101px);
    background-color: #f5f5f5;
    .letter-title {
      padding: 49px 35px 31px;

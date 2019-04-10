@@ -30,6 +30,7 @@
   <template v-else>
     <van-loading size="50px"></van-loading>
   </template>
+  <v-vip v-show="isvip"></v-vip>
 </div>
 </template>
 <script>
@@ -43,6 +44,7 @@ import not from '@/components/not'
 export default {
     data () {
       return {
+        isvip:false,
         isScroll:true,
         zbList:[],
         loading:false,//是否加载完，false为加载完
@@ -82,6 +84,7 @@ export default {
         isError:false,//是否加载失败
         finished:false,//是否加载完
         error:false,
+        vipStr:'',
       }
     },
     methods: {
@@ -153,6 +156,10 @@ export default {
       //   this.ajax();
       // },
       showMask(i){//
+        if(this.vipStr.indexOf('bidFilter')==-1){
+          this.isvip=true;
+          return false
+        }    
         if(this.screenList[i].active){
           this.screenList[i].active=false
         }else{
@@ -206,6 +213,9 @@ export default {
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regions = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
+      if(sessionStorage.getItem('permissions')){
+        this.vipStr=sessionStorage.getItem('permissions');
+      }
       this.ajax();
     }
 }

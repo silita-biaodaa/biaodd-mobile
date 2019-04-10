@@ -150,9 +150,7 @@ export default {
    .detail-title {
      padding: 35px;
      p {
-       overflow: hidden;
-       text-overflow:ellipsis;
-       white-space: nowrap;
+       text-align: center;
      }
      .detail-time {      
         display: flex;
@@ -183,6 +181,7 @@ export default {
       display: flex;
       justify-content: space-between;
       border-bottom: 1PX solid #F2F2F2;
+      cursor: pointer;
    }
    .detail-contant {
      padding: 35px;

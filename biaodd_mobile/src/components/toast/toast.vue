@@ -1,29 +1,17 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)" >
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-zhong.png"/>
-            </p>
-            <p class="tit">{{obj.title}}</p>
-        </div>
-        <div class="center">第一候选人：{{obj.oneName ? obj.oneName : '详见原文' }}</div>
-        <div class="bottom">
-            <p>中标金额：{{obj.oneOffer ? obj.oneOffer + '万' : '详见原文' }}</p>
-            <p>公示时间：{{obj.opendate ? obj.opendate : '详见原文' }}</p>
-        </div>
-        <v-dia v-if="isload"></v-dia>
+    <div class="toast" v-if="isShow" >
+      {{text}}
     </div>
 </template>
 <script>
-
-import dialog from '@/components/dialog'
 export default {
-    name: 'zhongbCon', // 结构名称
+    name: 'toast', // 结构名称
     data() {
         return {
             // 数据模型
-            isload:false
+            text:'',
+            isShow:true,
         }
     },
     watch: {
@@ -31,17 +19,12 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.conver()
-    },
-    components: {
-        'v-dia':dialog
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -66,24 +49,12 @@ export default {
     },
     methods: {
         // 方法 集合
-        conver() {
-             this.obj.opendate =  this.obj.opendate.replace('-','年')
-             this.obj.opendate =  this.obj.opendate.replace('-','月')
-             this.obj.opendate = this.obj.opendate +  '日'             
-        },
-        topush(o) {
-            if(localStorage.getItem('xtoken')) {
-                this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
-            } else {
-                this.isload = true 
-            }
-            
-        }
     }
 
 }
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style scoped lang="less">
+<style  lang='less' scoped>
+
 </style>

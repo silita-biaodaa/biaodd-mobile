@@ -130,9 +130,7 @@ export default {
      color:#333;
      border-bottom: 1PX solid #F5F5F5;
       p {
-       overflow: hidden;
-       text-overflow:ellipsis;
-       white-space: nowrap;
+       text-align: center;
      }
      .win-time {
        display: flex;
@@ -159,6 +157,7 @@ export default {
      color:#333;
      padding: 0 35px;
      border-bottom: 1PX solid #f5f5f5;
+     cursor: pointer;
    }
    .win-contant {
      padding: 35px;

@@ -67,23 +67,19 @@ export default {
                 },{
                     img:require('../assets/icon-zhongb.png'),
                     txt:'中标公告',
-                    path:'/zhongBid'
+                    path:'/tender'
                 },{
                     img:require('../assets/icon-qiy.png'),
                     txt:'企业信息',
-                    path:'/companyList'
+                    path:'/company'
                 }
-                ,{
-                    img:require('../assets/icon-chengx.png'),
-                    txt:'旧版本',
-                    path:''
-                }
+                
             ],
             
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[ {name:'查招标',to:'/bid',i:0},{name:'查中标',i:1},{name:'查企业',i:2}],
+            tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2}],
             tabNum:0,
             isScroll:false,
             topath:'/bid'
@@ -107,6 +103,21 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         window.addEventListener('scroll',this.scrollgun,true);
+        if(!localStorage.getItem('filter')){
+            //资质
+            this.$http({
+                method:'get',
+                url: '/company/filter',
+                // data:{
+                //     type:that.type
+                // }
+            }).then(function(res){
+                let obj='';
+                obj=res.data.data.companyQual;
+                localStorage.setItem('filter',JSON.stringify(obj));
+            })
+        }
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -135,7 +146,7 @@ export default {
         // 方法 集合
         tabChange(i){
             this.tabNum=i.i
-            // this.topath = i.to
+            this.topath = i.to
         },
         getAddress(option){
             this.ready()
@@ -167,7 +178,6 @@ export default {
                     type: "2"
                 }
             }).then(function(res){
-                console.log(res.data.data)
                 that.zhongbList=res.data.data;
             })
             //企业
@@ -194,9 +204,9 @@ export default {
             if(this.tabNum == 0) {
                 this.$router.push({ path: '/bid',query:{search:this.search}})
             }else if(this.tabNum == 1){
-                this.$router.push({ path: '/zhongBid',query:{search:this.search}})
+                this.$router.push({ path: '/tender',query:{search:this.search}})
             }else if(this.tabNum == 2){
-                this.$router.push({ path: '/companyList',query:{search:this.search}})
+                this.$router.push({ path: '/company',query:{search:this.search}})
             }
         },
         clearFn(){
