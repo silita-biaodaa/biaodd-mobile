@@ -3,23 +3,17 @@
     <div class="logo">
        <top-back :title='name'></top-back>
        <img src="../../assets/relogo.png" alt="">
-        <van-field
-          v-model="username"
-          placeholder="请输入手机号码"
-          @blur.prevent="inputLoseFocus"
-        />
+       <div class="input-box">
+         <input v-model="username" placeholder="请输入手机号码" @blur.prevent="inputLoseFocus"/>
+       </div>
         <div class="prompt"  >
           <span v-show="enname">
              请重新输入正确手机号码格式
           </span>
-         
         </div>
-         <van-field
-          v-model="password"
-          type='password'
-          placeholder="请输入密码"
-          @blur.prevent="inputLoseFocus"
-        />
+        <div class="input-box">
+          <input v-model="password" type='password' placeholder="请输入密码" @blur.prevent="inputLoseFocus"/>
+        </div>
          <div class="pr-forget"  >
           <div>
            <span v-show="enword">
@@ -130,9 +124,9 @@ export default {
 
         },
         inputLoseFocus() {
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-          }, 200);
+          // setTimeout(() => {
+          //   window.scrollTo(0, 0);
+          // }, 200);
         },
         jumpto() {
             this.$router.push('/enroll')
@@ -153,12 +147,13 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style lang='less' scoped>
 .logo {
-  height: 100vh;
+  min-height: 100vh;
   background: #fff;
   padding: 90px 92px;
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-sizing: border-box;
 //   overflow:scroll;
   img {
     margin: 115px 0 119px;

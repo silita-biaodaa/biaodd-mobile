@@ -174,6 +174,10 @@ export default {
 input::placeholder{
     color: #ddd;
 }
+.user{
+    background: #fff;
+    min-height: 100vh;
+}
 .tx-box{
     padding-top: 147px;
     text-align: center;
