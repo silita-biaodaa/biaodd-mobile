@@ -14,6 +14,7 @@
               <div class="win-c">
                 浏览量：{{clickCount}}
               </div>
+              <v-follow :id="id" :type="'zhongb'" :collected="collected" :source="source"></v-follow>
             </div>
              <div class="win-one">
                 第一候选人：{{detail.oneName}}
@@ -38,6 +39,7 @@
 </template>
 <script>
 import topBack from '@/components/topback'
+import follow from '@/components/followBtn'
 export default {
     name: 'winning', // 结构名称
     data() {
@@ -48,13 +50,15 @@ export default {
             clickCount:0,
             id:'',
             source:'',
+            collected:false
         }
     },
     watch: {
         // 监控集合
     },
     components: {
-      'top-back':topBack  
+      'top-back':topBack,
+      'v-follow':follow   
     },
     props: {
         // 集成父级参数
@@ -76,6 +80,7 @@ export default {
             }
         }).then(function(res){
            that.detail = res.data.data[0]
+           that.collected=res.data.data[0].collected
            console.log(res.data)
            that.clickCount = res.data.clickCount
         })

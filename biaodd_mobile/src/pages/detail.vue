@@ -12,6 +12,7 @@
                 <div class="de-size" >
                     点击次数：{{clickCount}}
                 </div>
+                <v-follow :id="id" :type="'zhaob'" :collected="collected" :source="source"></v-follow>
              </div>
              <div class="detail-time" >
                    <div class="det-size" >
@@ -49,6 +50,7 @@
 </template>
 <script>
 import topBack from '@/components/topback'
+import follow from '@/components/followBtn'
 export default {
     name: 'templateName', // 结构名称
     data() {
@@ -59,14 +61,16 @@ export default {
             detail:{},
             clickCount:0,
             name:'招标详情',
-            total:0
+            total:0,
+            collected:false
         }
     },
     watch: {
         // 监控集合
     },
     components: {
-      'top-back':topBack  
+      'top-back':topBack,
+      'v-follow':follow  
     },
     props: {
         // 集成父级参数
@@ -88,7 +92,7 @@ export default {
             }
         }).then(function(res){
            that.total = res.data.relCompanySize 
-           
+           that.collected=res.data.data[0].collected
            that.detail = res.data.data[0]  
            that.detail.projDq = that.detail.projDq.substring(0,2)
            that.clickCount = res.data.clickCount       
@@ -125,7 +129,8 @@ export default {
         },
         jump() {
             window.open(this.detail.url)
-        }
+        },
+        
     }
 
 }

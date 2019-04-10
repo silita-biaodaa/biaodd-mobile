@@ -84,7 +84,7 @@ export default {
         isError:false,//是否加载失败
         finished:false,//是否加载完
         error:false,
-        // vipStr:'',
+        vipStr:'',
       }
     },
     methods: {
@@ -156,11 +156,11 @@ export default {
       //   this.ajax();
       // },
       showMask(i){//
-        // if(this.vipStr.indexOf('bidFilter')==-1){
-        //   this.isvip=true;
-        //   this.modalHelper.afterOpen();
-        //   return false
-        // }    
+        if(this.vipStr.indexOf('bidFilter')==-1){
+          this.isvip=true;
+          this.modalHelper.afterOpen();
+          return false
+        }    
         if(this.screenList[i].active){
           this.screenList[i].active=false
         }else{
@@ -214,9 +214,9 @@ export default {
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regions = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
-      // if(sessionStorage.getItem('permissions')){
-      //   this.vipStr=sessionStorage.getItem('permissions');
-      // }
+      if(sessionStorage.getItem('permissions')){
+        this.vipStr=sessionStorage.getItem('permissions');
+      }
       this.ajax();
     }
 }

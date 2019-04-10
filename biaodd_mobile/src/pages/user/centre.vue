@@ -30,11 +30,11 @@
         <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
       </div>
       <div class="cen-nav">
-        <!-- <div class="attention"> 
+        <div class="attention"> 
           <img src="../../assets/icon-guanzhu.png.png" alt="">
           <span>关注</span>
             <van-icon name="arrow" class="nav-i"  />
-        </div> -->
+        </div>
          <div class="attention cen-at" @click="jumpto" > 
           <img src="../../assets/icon-shezhi.png.png" alt="">
           <span>设置</span>
