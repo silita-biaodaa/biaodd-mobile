@@ -3,7 +3,7 @@
     <div class="affairs">
         <!-- 搜索 -->
         <!-- <v-ser :selecTxt="'项目类别'"></v-ser> -->
-        <div class="box">
+        <div class="box" v-if="!more">
             <!-- list -->
             <template v-if="isajax">
                 <template v-if="list.length>0">
@@ -21,6 +21,12 @@
                 <van-loading size="50px"></van-loading>
             </template>
         </div>
+        <template v-else>
+            <div class="more">
+                <img src="../../assets/pic-chakgd.png"/>
+                <p>查看更多资讯，请<span @click="jumpApp">下载APP</span></p>
+            </div>
+        </template>
     </div>
 </template>
 <script>
@@ -53,6 +59,9 @@ export default {
     },
     props: {
         // 集成父级参数
+        more:{
+            default:false
+        }
     },
     components:{
         'v-con':listCon,
@@ -133,6 +142,9 @@ export default {
                     that.error = true;
                 }
             })
+        },
+        jumpApp(){
+            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         }
     }
 
@@ -145,5 +157,23 @@ export default {
     background: #f5f5f5;
     padding: 18px 32px;
     
+}
+.more{
+    padding-top: 167px;
+    text-align: center;
+    img{
+        width: 180px;
+        margin-bottom: 58px
+    }
+    p{
+        color: #111;
+        font-size: 28px;
+        span{
+            color: #FE6603;
+            font-size: 32px;
+            margin-left: 10px;
+            display: inline-block
+        }
+    }
 }
 </style>

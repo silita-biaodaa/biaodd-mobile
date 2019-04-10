@@ -205,6 +205,8 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .find  {
+    background: #fff;
+    height: 100vh;
     padding: 280px 92px 90px;
     display: flex;
     align-items: center;

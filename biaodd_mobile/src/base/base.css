@@ -242,3 +242,13 @@ body .toast {
     border: 1px solid #FE6603;
     color:#FE6603;
   }
+
+
+  body .van-toast{
+    color: #fff;
+    font-size:28px;
+  }
+  body .van-toast div{
+      color: #fff;
+      padding: 10px;
+  }

@@ -17,7 +17,7 @@
           <!-- 红 -->
           <img src="./assets/nav-icon-yonghzh.png.png" alt="" v-else >
           <div :class="!fisrt ? 'color' : '' " >
-             用户中心
+             个人中心
           </div>
          
        </div>
@@ -64,7 +64,16 @@ export default {
     }
   },
   created () {
-    this.judge()
+    this.judge();
+    this.$http({
+        method:'post',
+        url: '/authorize/address',
+    }).then(function(res){
+        console.log(res);
+        sessionStorage.setItem('address',res.data.data.region);
+    }).catch(function(res){
+        
+    })
   },
   watch: {
    $route: {

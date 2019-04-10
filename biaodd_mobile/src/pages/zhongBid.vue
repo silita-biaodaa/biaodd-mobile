@@ -30,7 +30,7 @@
   <template v-else>
     <van-loading size="50px"></van-loading>
   </template>
-  <v-vip v-show="isvip"></v-vip>
+  <v-vip :mask="isvip" :txt="'筛选功能请跳转至APP哟~'"></v-vip>
 </div>
 </template>
 <script>
@@ -158,6 +158,7 @@ export default {
       showMask(i){//
         if(this.vipStr.indexOf('bidFilter')==-1){
           this.isvip=true;
+          this.modalHelper.afterOpen();
           return false
         }    
         if(this.screenList[i].active){

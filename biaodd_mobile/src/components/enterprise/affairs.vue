@@ -3,7 +3,7 @@
     <div class="affairs">
         <!-- 搜索 -->
         <!-- <v-ser @searchFn="searchFn"></v-ser> -->
-        <div class="box">
+        <div class="box" v-if="!more">
             <!-- total-->
             <div class="title">{{companyLaw.lawBri+companyLaw.briCount}}条，{{companyLaw.lawJud+companyLaw.judCount}}条,{{companyLaw.lawTotal+companyLaw.total}}条</div>
             <!-- list -->
@@ -23,6 +23,12 @@
                 <van-loading size="50px"></van-loading>
             </template>
         </div>
+        <template v-else>
+            <div class="more">
+                <img src="../../assets/pic-chakgd.png"/>
+                <p>查看更多资讯，请<span @click="jumpApp">下载APP</span></p>
+            </div>
+        </template>
         <van-popup v-model="mask"  position="bottom" :overlay="true">
             <van-datetime-picker
             type="year"
@@ -78,6 +84,9 @@ export default {
     },
     props: {
         // 集成父级参数
+        more:{
+            default:false
+        }
     },
     components:{
         'v-con':listCon,
@@ -186,6 +195,9 @@ export default {
         },
         confirm(){
             
+        },
+        jumpApp(){
+            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         }
     }
 
@@ -205,5 +217,22 @@ export default {
         line-height: 80px
     }
 }
-
+.more{
+    padding-top: 167px;
+    text-align: center;
+    img{
+        width: 180px;
+        margin-bottom: 58px
+    }
+    p{
+        color: #111;
+        font-size: 28px;
+        span{
+            color: #FE6603;
+            font-size: 32px;
+            margin-left: 10px;
+            display: inline-block
+        }
+    }
+}
 </style>
