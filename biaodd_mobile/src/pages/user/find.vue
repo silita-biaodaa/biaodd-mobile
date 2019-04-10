@@ -2,36 +2,28 @@
 <template>
     <div class="find">
       <top-back :title='name'></top-back>
-       <van-field
-          v-model="username"
-          placeholder="请输入手机号码"
-          @blur.prevent="inputLoseFocus"
-       />
+      <div class="input-box">
+        <input v-model="username" placeholder="请输入手机号码" @blur.prevent="inputLoseFocus" />
+      </div>
+       
        <div class="prompt fi-mb"  >
            <span v-show="enname">
               请输入正确手机号码
            </span>
         </div>
-         <van-field
-           v-model="note"
-           center
-           clearable
-           placeholder="请输入短信验证码"
-           @blur.prevent="inputLoseFocus"
-         >
-           <van-button slot="button" size="small" type="primary" @click="gainCode" >{{Message}}</van-button>
-         </van-field>
+        <div class="input-box">
+          <input v-model="note" center clearable placeholder="请输入短信验证码" @blur.prevent="inputLoseFocus"/>
+          <span slot="button" @click="gainCode" >{{Message}}</span>
+        </div>
          <div class="prompt fi-mb"  >
            <span v-show="encode">
               请输入正确验证码
            </span>
         </div>
-         <van-field
-          v-model="password"
-          placeholder="请输入新密码(不低于8位)"
-          type='password'
-          @blur.prevent="inputLoseFocus"
-        />
+        <div class="input-box">
+          <input v-model="password" placeholder="请输入新密码(不低于8位)" type='password' @blur.prevent="inputLoseFocus"/>
+        </div>
+         
         <div class="prompt fi-mb"  >
            <span v-show="fiword">
               请确保两次密码一致或密码格式正确
@@ -114,9 +106,9 @@ export default {
     methods: {
         // 方法 集合
          inputLoseFocus() {
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-          }, 200);
+          // setTimeout(() => {
+          //   window.scrollTo(0, 0);
+          // }, 200);
         },
         gainCode() {
               if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
@@ -206,7 +198,7 @@ export default {
 <style  lang='less' scoped>
 .find  {
     background: #fff;
-    height: 100vh;
+    min-height: 100vh;
     padding: 280px 92px 90px;
     display: flex;
     align-items: center;

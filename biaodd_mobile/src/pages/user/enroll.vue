@@ -3,36 +3,30 @@
     <div class="enroll">
          <top-back :title='name'></top-back>
          <img src="../../assets/relogo.png" alt="">
-        <van-field
-          v-model="username"
-          placeholder="请输入手机号码"
-          @blur.prevent="inputLoseFocus"
-        />
+         <div class="input-box">
+           <input v-model="username" placeholder="请输入手机号码" @blur.prevent="inputLoseFocus" />
+         </div>
+        
          <div class="prompt en-mb"  >
            <span v-show="enname">
               请输入正确手机号码
            </span>
          </div>
-        <van-field
-           v-model="note"
-           center
-           clearable
-           placeholder="请输入短信验证码"
-           @blur.prevent="inputLoseFocus"
-         >
-           <van-button slot="button" size="small" type="primary" @click="gainCode" >{{Message}}</van-button>
-         </van-field>
+         <div class="input-box">
+           <input v-model="note" center clearable placeholder="请输入短信验证码" @blur.prevent="inputLoseFocus"/>
+           <span slot="button" type="primary" @click="gainCode" >{{Message}}</span>
+         </div>
+        
+           
          <div class="prompt en-mb"  >
            <span v-show="enword">
              {{msg}}
            </span>
          </div>
-         <van-field
-          v-model="password"
-          type='password'
-          placeholder="请输入密码(不低于8位)"
-          @blur.prevent="inputLoseFocus"
-        />
+         <div class="input-box">
+           <input v-model="password" type='password' placeholder="请输入密码(不低于8位)" @blur.prevent="inputLoseFocus" />
+         </div>
+         
        <div class="en-hint">
          点击注册即表示同意<span class="color" @click="deal" >《标大大用户协议》</span>
        </div>
@@ -103,9 +97,9 @@ export default {
     methods: {
         // 方法 集合
          inputLoseFocus() {
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-          }, 200);
+          // setTimeout(() => {
+          //   window.scrollTo(0, 0);
+          // }, 200);
         },
         deal() {
           this.$router.push('/deal')
@@ -198,7 +192,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .enroll {
-  height: 100vh;
+  min-height: 100vh;
   background: #fff;
   padding: 90px 92px;
   display: flex;
