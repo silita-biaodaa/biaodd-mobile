@@ -195,6 +195,8 @@ export default {
       box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
       border-radius:8px;
       display: flex;
+      transform: translateX(-50%);
+      left: 50%;
       align-items: center;
       padding: 0 35px;
       .cen-img {
