@@ -222,18 +222,15 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
 .letter {
-//  position: absolute;
-//  top: 0;
-//  left: 0;
-//  right: 0;
-//  bottom: 0;
+
  padding-top: 100px;
+ min-height:100vh;
+ background: #f5f5f5;
+ box-sizing: border-box;
  .le-col{
    color:#FE6603;
  }
  .letter-de {
-  //  margin-top: 100px;
-  //  height: calc(100vh - 101px);
    background-color: #f5f5f5;
    .letter-title {
      padding: 49px 35px 31px;
