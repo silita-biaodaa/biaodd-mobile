@@ -128,9 +128,8 @@ export default {
             this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
         },
         jump() {
-            window.open(this.detail.url)
-        },
-        
+            window.location.href =this.detail.url
+        }
     }
 
 }

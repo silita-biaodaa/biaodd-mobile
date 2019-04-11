@@ -109,7 +109,7 @@ export default {
     methods: {
         // 方法 集合
         jump() {
-             window.open(this.detail.url)
+             window.location.href =this.detail.url
         }
     }
 
