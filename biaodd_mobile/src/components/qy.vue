@@ -1,15 +1,22 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zhongbCon newNotice" @click="topush(obj)">
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-qi.png"/>
-            </p>
-            <p class="tit">{{obj.comName}}</p>
+    <div class="zhongbCon newNotice">
+        <div @click="topush(obj)">
+            <div class="top">
+                <p class="icon">
+                    <img src="../assets/icon-qi.png"/>
+                </p>
+                <p class="tit">{{obj.comName}}</p>
+            </div>
+            <div class="center">法定代表：{{obj.legalPerson}}</div>
+            <div class="center">联系方式：{{obj.phone}}</div>
+            <div class="center">企业地址：{{obj.comAddress}}</div>
         </div>
-        <div class="center">法定代表：{{obj.legalPerson}}</div>
-        <div class="center">联系方式：{{obj.phone}}</div>
-        <div class="center">企业地址：{{obj.comAddress}}</div>
+        <template v-if="follow">
+            <div class="follow-box">
+                <span @click="noFollow">取消关注</span>
+            </div>
+        </template>
         <v-dia v-if="isload"></v-dia>
     </div>
 </template>
@@ -28,7 +35,10 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+        obj:{},
+        follow:{
+            default:false
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -70,6 +80,9 @@ export default {
                 this.isload = true 
             }
             
+        },
+        noFollow(){
+            this.$emit('nofollow',{id:this.obj.comId})
         }
     }
 

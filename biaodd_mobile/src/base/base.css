@@ -278,3 +278,20 @@ body .toast {
     color: #999;
     font-size: 28px;
 }
+
+
+.follow-box{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 38px;
+}
+.follow-box span{
+    width: 148px;
+    height: 52px;
+    line-height: 52px;
+    border: 1PX solid #999;
+    color: #999;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 26px
+}

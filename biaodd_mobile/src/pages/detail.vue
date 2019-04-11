@@ -52,7 +52,7 @@
 import topBack from '@/components/topback'
 import follow from '@/components/followBtn'
 export default {
-    name: 'templateName', // 结构名称
+    name: 'detail', // 结构名称
     data() {
         return {
             // 数据模型

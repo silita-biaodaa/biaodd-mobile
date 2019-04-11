@@ -48,7 +48,7 @@ export default {
       })
     },
     judge() {
-       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install'||  this.$route.path == '/deal' ||  this.$route.path == '/user') {
+       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install'||  this.$route.path == '/deal' ||  this.$route.path == '/user' ||this.$route.path=='/followList') {
             this.fisrt = false 
             this.per  = false
         } else {
@@ -78,7 +78,7 @@ export default {
   watch: {
    $route: {
       handler: function(val, oldVal){
-        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user') {
+        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/followList') {
             this.fisrt = false 
             this.per  = false
         } else {

@@ -5,12 +5,11 @@
       <div class="letter-de">
          <div class="letter-title">
             <div class="letter-name">
-              <p>
-               {{detail.comName}}
-              </p>
-              <div class="letter-save">
-                  {{detail.subsist}}
+              <div style="display:flex">
+                <p>{{detail.comName}}</p>
+                <div class="letter-save">{{detail.subsist}}</div>
               </div>
+              <v-follow :id="id" :type="'qy'" :collected="collected"></v-follow>
             </div>
             <div class="letter-lead">
               <span  style="color:#FE6603">
@@ -89,6 +88,7 @@ import achievement from '@/components/enterprise/achievement'
 import bid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
 import loading from '@/components/loading'
+import follow from '@/components/followBtn'
 export default {
     name: 'letter', // 结构名称
     data() {
@@ -103,7 +103,9 @@ export default {
              vipStr:'',
              isvip:false,
              fwIsVip:false,
-             yjIsVip:false
+             yjIsVip:false,
+             collected:false,
+             id:''
             //  path:'/commerc'
         }
     },
@@ -119,7 +121,8 @@ export default {
        'v-yj':achievement,
        'v-zb':bid,
        'v-gl':good,
-       'v-load':loading
+       'v-load':loading,
+       'v-follow':follow
     },
     props: {
         // 集成父级参数
@@ -149,7 +152,7 @@ export default {
                 }else{
                   that.detail.phone=arr[0]
                 } 
-                
+                that.collected=res.data.data.collected
                 that.isload=false
              })
     },
@@ -241,6 +244,7 @@ export default {
       color:#333;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 47px;
       p {
         max-width: 550px;

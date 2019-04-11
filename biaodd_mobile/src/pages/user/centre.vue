@@ -30,7 +30,7 @@
         <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
       </div>
       <div class="cen-nav">
-        <div class="attention"> 
+        <div class="attention" @click="$router.push('/followList')"> 
           <img src="../../assets/icon-guanzhu.png.png" alt="">
           <span>关注</span>
             <van-icon name="arrow" class="nav-i"  />

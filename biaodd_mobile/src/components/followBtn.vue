@@ -11,11 +11,19 @@ export default {
     data() {
         return {
             // 数据模型
-            isFollow:false
         }
     },
     watch: {
         // 监控集合
+    },
+    computed:{
+        isFollow(){
+            if(this.collected){
+                return true;
+            }else{
+                return false;
+            }
+        }
     },
     props: {
         // 集成父级参数
@@ -26,7 +34,6 @@ export default {
             default:''
         },
         collected:{
-            default:false
         },
         source:{
             default:''
@@ -37,15 +44,17 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.isFollow=this.collected;
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
+        
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            
+            
         });
     },
     beforeUpdate() {
@@ -63,10 +72,31 @@ export default {
     methods: {
         // 方法 集合
         followFn(){//取消关注
-            this.isFollow=false
+            let that=this;
+            if(this.type!='qy'){
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/cancelCollectionNotice',
+                    data:{
+                        source:that.source,
+                        noticeid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=false;
+                })
+            }else{
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/cancelCollectionCompany',
+                    data:{
+                        companyid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=false;
+                })
+            }
         },
         nofollowFn(){//关注
-            this.isFollow=true;
             if(this.type=='zhaob'){//招标   type=0
                 let that=this;
                 this.$http({
@@ -76,15 +106,36 @@ export default {
                         source:that.source,
                         type: "0",
                         noticeid:that.id,
-                        userid:''
                     }
                 }).then(function(res){
-
+                    that.$parent.collected=true;
                 })
-            }else if(this.type='zhongb'){//中标  type=2
-
+            }else if(this.type=='zhongb'){//中标  type=2
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/collectionNotice',
+                    data:{
+                        source:that.source,
+                        type: "2",
+                        noticeid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=true;
+                })
             }else{//公司
-
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/collectionCompany',
+                    data:{
+                        companyid:that.id,
+                    }
+                }).then(function(res){
+                    if(res.data.code==1){
+                        that.$parent.collected=true;
+                    }
+                })
             }
         }
     }

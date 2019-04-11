@@ -23,6 +23,7 @@ import find from '@/pages/user/find'
 import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
 import deal from '@/pages/user/deal'
+import followList from '@/pages/user/followList'
 import dialog from '@/components/dialog'
 
 import user from '@/pages/user/user'
@@ -158,6 +159,11 @@ export default new Router({
       path: '/user',
       component: user,
       name: 'user'
+    },
+    {// 关注列表
+      path: '/followList',
+      component: followList,
+      name: 'followList'
     }         
   ]
 })

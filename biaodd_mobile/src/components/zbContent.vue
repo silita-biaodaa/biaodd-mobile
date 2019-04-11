@@ -1,17 +1,25 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="zbContent newNotice" @click="topush(obj)" >
-        <div class="top">
-            <p class="icon">
-                <img src="../assets/icon-zhao.png"/>
-            </p>
-            <p class="tit">{{obj.title}}</p>
+    <div class="zbContent newNotice" >
+        <div @click="topush(obj)">
+            <div class="top">
+                <p class="icon">
+                    <img src="../assets/icon-zhao.png"/>
+                </p>
+                <p class="tit">{{obj.title}}</p>
+            </div>
+            <div class="center">资质要求：{{obj.certificate ? obj.certificate : '详见原文'}}</div>
+            <div class="bottom">
+                <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
+                <p>发布时间：{{obj.opendate ? obj.opendate : '详见原文'}}</p>
+            </div>
         </div>
-        <div class="center">资质要求：{{obj.certificate ? obj.certificate : '详见原文'}}</div>
-        <div class="bottom">
-            <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-            <p>发布时间：{{obj.opendate ? obj.opendate : '详见原文'}}</p>
-        </div>
+        
+        <template v-if="follow">
+            <div class="follow-box">
+                <span @click="noFollow">取消关注</span>
+            </div>
+        </template>
          <v-dia v-if="isload"></v-dia>
     </div>
 </template>
@@ -31,7 +39,10 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{}
+        obj:{},
+        follow:{
+            default:false
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -79,6 +90,9 @@ export default {
                 this.isload = true 
             }
            
+        },
+        noFollow(){
+            this.$emit('nofollow',{id:this.obj.id,source:this.obj.source})
         }
     }
 
