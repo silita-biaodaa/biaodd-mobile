@@ -11,7 +11,7 @@
             <div class="center">第一候选人：{{obj.oneName ? obj.oneName : '详见原文' }}</div>
             <div class="bottom">
                 <p>中标金额：{{obj.oneOffer ? obj.oneOffer + '万' : '详见原文' }}</p>
-                <p>公示时间：{{obj.opendate ? obj.opendate : '详见原文' }}</p>
+                <p>公示时间：{{obj.opendate||obj.openDate ? obj.opendate||obj.openDate : '详见原文' }}</p>
             </div>
         </div>
         <template v-if="follow">
