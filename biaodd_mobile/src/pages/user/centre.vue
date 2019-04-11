@@ -2,11 +2,12 @@
 <template>
     <div class="centre">
       <div class="cen-top">
-          <div class="top-nav">
-               <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
-                   个人中心
-          </div>
-          <div class="cen-per"  @click="jump" >
+        <div class="top-nav">
+            <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
+                个人中心
+        </div>
+        <div class="cen-per"  @click="jump" >
+          <div class="flex-box">
             <div class="cen-img">
               <img :src="userinfo.imageUrl " alt="" v-show="userinfo.imageUrl">
               <img src="../../assets/icon-tpux.png.png" alt="" v-show="!userinfo.imageUrl">
@@ -16,35 +17,43 @@
             </div>
             <div  v-show="!decision" >
               <div class="cen-name" >
-                 <div class="left">{{userinfo.nikeName}}</div>
-                 <div class=" cen-state left">{{state}}</div>
+                <div class="left">{{userinfo.nikeName}}</div>
+                <div class=" cen-state left">{{state}}</div>
               </div>
               <div class="cen-day">
                 剩余会员天数：<span class="color">{{day}}</span>天
               </div>
             </div>
-             <van-icon name="arrow" class="cen-i"  />
           </div>
+          <van-icon name="arrow" class="cen-i" />
+        </div>
+        
       </div>
       <div class="buy-vip">
         <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
       </div>
       <div class="cen-nav">
-        <div class="attention" @click="$router.push('/followList')"> 
-          <img src="../../assets/icon-guanzhu.png.png" alt="">
-          <span>关注</span>
-            <van-icon name="arrow" class="nav-i"  />
+        <div class="attention" @click="$router.push('/followList')" v-if="isLogin">
+          <div class="flex-box">
+            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <span>关注</span>  
+          </div> 
+          <van-icon name="arrow" class="nav-i"  />
         </div>
-         <div class="attention cen-at" @click="jumpto" > 
-          <img src="../../assets/icon-shezhi.png.png" alt="">
+         <div class="attention cen-at" @click="jumpto"  v-if="isLogin"> 
+          <div class="flex-box">
+            <img src="../../assets/icon-shezhi.png.png" alt="">
           <span>设置</span>
-            <van-icon name="arrow" class="nav-i"   />
+          </div>
+          <van-icon name="arrow" class="nav-i"   />
         </div>
       </div>
        <div class="attention cen-ip"> 
-          <img src="../../assets/icon-dianhua.png.png" alt="">
-          <span>客服电话</span>
-            <!-- <van-icon name="arrow"  /> -->
+          <div class="flex-box">
+            <img src="../../assets/icon-dianhua.png.png" alt="">
+            <span>客服电话</span>
+          </div> 
+          <!-- <van-icon name="arrow"  /> -->
           <div class="nav-i" >
             0731-85076077
           </div>
@@ -59,7 +68,8 @@ export default {
             // 数据模型
             userinfo:{},
             state:'',
-            day:0
+            day:0,
+            isLogin:true,
         }
     },
     watch: {
@@ -83,7 +93,12 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.gainNew()
+        this.gainNew();
+        if(localStorage.getItem('xtoken')){
+          this.isLogin=true
+        }else{
+          this.isLogin=false
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -151,6 +166,10 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
+.flex-box{
+  display: flex;
+  align-items: center;
+}
 .centre {
   background-color: #F5F5F5;
   position: absolute;
@@ -197,6 +216,7 @@ export default {
       display: flex;
       transform: translateX(-50%);
       left: 50%;
+      justify-content: space-between;
       align-items: center;
       padding: 0 35px;
       .cen-img {
@@ -234,8 +254,8 @@ export default {
         margin-top: 12px;
       }
       .cen-i {
-        position: absolute;
-        right: 35px;
+        // position: absolute;
+        // right: 35px;
         font-size:50px; 
         color:#040000;
       }
@@ -250,15 +270,6 @@ export default {
       position: relative;
       img {
         width: 100%;
-      }
-      div {
-        position: absolute;
-        width: 120px;
-        height: 150px;
-        z-index: 9999;
-       
-        right: 25px;
-        top: 0;
       }
     }
     .cen-nav {
@@ -280,8 +291,8 @@ export default {
         color:#333;
         font-weight: 550;
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        position: relative;
         border-bottom: 1px solid #F2F2F2;
         img {
           width: 51px;
@@ -289,8 +300,8 @@ export default {
           margin-right: 33px;
         }
         .nav-i {
-           position: absolute;
-           right: 0px;
+          //  position: absolute;
+          //  right: 0px;
            font-size:50px; 
            color:#040000;
         }
@@ -299,7 +310,7 @@ export default {
         background-color: #fff;
          padding: 0 29px;
          .nav-i {
-           right: 39px;
+          //  right: 39px;
            font-size: 32px;
            color:#999;
            font-weight: 400;

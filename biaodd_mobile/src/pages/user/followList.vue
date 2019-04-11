@@ -5,17 +5,27 @@
         <div class="nav">
             <span v-for="(o,i) of navList" :key="i" :class="{'active':i==navNum}" @click="tabFn(i)">{{o}}</span>
         </div>
-        <!-- 招标 -->
-        <template v-if="navNum==0">
-            <v-zb v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true" @nofollow="zbNoFollow"></v-zb>
+        <template v-if="isajax">
+            <template v-if="zbList.length>0">
+                <!-- 招标 -->
+                <template v-if="navNum==0">
+                    <v-zb v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true" @nofollow="zbNoFollow"></v-zb>
+                </template>
+                <!-- 中标 -->
+                <template v-else-if="navNum==1">
+                    <v-zhongb v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true" @nofollow="zbNoFollow"></v-zhongb>
+                </template>
+                <!-- 企业 -->
+                <template v-else>
+                    <v-qy v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true"  @nofollow="qyNoFollow"></v-qy>
+                </template>
+            </template>
+            <template v-else>
+                <v-not :isError="isError"></v-not>
+            </template>
         </template>
-        <!-- 中标 -->
-        <template v-else-if="navNum==1">
-            <v-zhongb v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true" @nofollow="zbNoFollow"></v-zhongb>
-        </template>
-        <!-- 企业 -->
         <template v-else>
-            <v-qy v-for="(o,i) of zbList" :key="i" :obj="o" :follow="true"  @nofollow="qyNoFollow"></v-qy>
+            <van-loading size="50px"></van-loading>
         </template>
     </div>
 </template>
@@ -24,6 +34,7 @@ import topBack from '@/components/topback'
 import qy from '@/components/qy'
 import zbCon from '@/components/zbContent'
 import zhongbCon from '@/components/zhongbCon'
+import not from '@/components/not'
 export default {
     name: 'followList', // 结构名称
     data() {
@@ -31,7 +42,9 @@ export default {
             // 数据模型
             navList:['招标','中标','企业'],
             navNum:0,
-            zbList:[]
+            zbList:[],
+            isajax:false,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -44,7 +57,8 @@ export default {
       'top-back':topBack,
       'v-qy':qy,
       'v-zb':zbCon,
-      'v-zhongb':zhongbCon
+      'v-zhongb':zhongbCon,
+      'v-not':not
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -78,6 +92,7 @@ export default {
         // 方法 集合
         tabFn(i){
             this.navNum=i;
+            this.isajax=false;
             if(i==0){
                 this.zbAjax()
             }else if(i==1){
@@ -98,7 +113,11 @@ export default {
                     pageSize:1000
                 }
             }).then(function(res){
+                that.isajax=true;
                 that.zbList=res.data.data;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         },
         zhongAjax(){//中标关注
@@ -112,7 +131,11 @@ export default {
                     pageSize:1000
                 }
             }).then(function(res){
+                that.isajax=true;
                 that.zbList=res.data.data;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         },
         qyAjax(){
@@ -125,7 +148,11 @@ export default {
                     pageSize:1000
                 }
             }).then(function(res){
+                that.isajax=true;
                 that.zbList=res.data.data;
+            }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
             })
         },
         zbNoFollow(e){//招中标取消
@@ -168,6 +195,7 @@ export default {
     padding-top: 90px;
     background: #f5f5f5;
     padding-bottom: 0;
+    min-height: 100vh
 }
 .nav{
     background: #fff;
