@@ -133,7 +133,7 @@ export default {
                 }
                 that.storageArr=[];
                 let boxData={
-                    name:name.join(','),
+                    name:name.join('-'),
                     code:code.join('||')
                 }
                 this.boxArr.push(boxData);
