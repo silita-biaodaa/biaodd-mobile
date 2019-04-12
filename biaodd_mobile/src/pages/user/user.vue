@@ -190,6 +190,7 @@ input::placeholder{
         height: 139px;
         display: block;
         margin: 0 auto 20px;
+        border-radius: 50%;
     }
     span{
         font-size: 28px;

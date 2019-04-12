@@ -241,7 +241,7 @@ export default {
         font-weight: 550;
         overflow: hidden;
         .left{
-          max-width:260px;
+          max-width:200px;
           overflow:hidden;
           text-overflow:ellipsis;
           white-space:nowrap 
