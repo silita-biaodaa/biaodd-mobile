@@ -166,7 +166,7 @@ export default {
         this.ajax();
       },
       showMask(i){// 
-        if(this.vipStr.indexOf('tenderFilter')==-1){
+        if(this.vipStr.indexOf('tenderFilter')==-1&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
