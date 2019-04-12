@@ -19,7 +19,7 @@
                         项目地区：{{detail.projDq}}
                     </div>
                     <div class="det-size">
-                        评标办法：{{detail.pbMode}}
+                        评标办法：{{detail.pbMode?detail.pbMode:'详见原文'}}
                     </div>      
              </div>
              <div class="m-15">

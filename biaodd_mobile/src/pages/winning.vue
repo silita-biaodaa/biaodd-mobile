@@ -17,7 +17,7 @@
               <v-follow :id="id" :type="'zhongb'" :collected="collected" :source="source"></v-follow>
             </div>
              <div class="win-one">
-                第一候选人：{{detail.oneName}}
+                第一候选人：{{detail.oneName? detail.oneName : '详见原文'}}
               </div>
               <div class="win-one" >
                 中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文'}} 

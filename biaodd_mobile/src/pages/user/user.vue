@@ -3,7 +3,7 @@
     <div class="user">
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
-            <img src="../../assets/icon-tpux.png.png"/>
+            <img :src="data.img"/>
             <span>{{data.nickname}}</span>
         </div>
         <section>
@@ -74,7 +74,7 @@ export default {
                 sex:0,
                 company:'',
                 title:'',
-                img:''
+                img:'../../assets/icon-tpux.png.png'
             }
         }
     },
@@ -133,6 +133,7 @@ export default {
                    that.data.company = res.data.data.inCompany ? res.data.data.inCompany : ''
                    that.data.title = res.data.data.position ? res.data.data.position : ''
                    that.data.sex = res.data.data.sex
+                   that.data.img=res.data.data.imageUrl
                    that.sexNum = res.data.data.sex
                })
          },
