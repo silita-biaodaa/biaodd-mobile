@@ -133,7 +133,9 @@ export default {
                    that.data.company = res.data.data.inCompany ? res.data.data.inCompany : ''
                    that.data.title = res.data.data.position ? res.data.data.position : ''
                    that.data.sex = res.data.data.sex
-                   that.data.img=res.data.data.imageUrl
+                   if(res.data.data.imageUrl||res.data.data.imageUrl!=null){
+                       that.data.img=res.data.data.imageUrl
+                   }
                    that.sexNum = res.data.data.sex
                })
          },
