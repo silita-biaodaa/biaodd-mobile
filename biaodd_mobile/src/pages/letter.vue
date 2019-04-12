@@ -221,7 +221,7 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
-.letter {
+.letter {    
 
  padding-top: 100px;
  min-height:100vh;
