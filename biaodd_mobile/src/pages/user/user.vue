@@ -3,7 +3,8 @@
     <div class="user">
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
-            <img :src="data.img"/>
+            <img :src="data.img" v-if="isImg"/>
+            <img src="../../assets/icon-tpux.png.png" v-else/>
             <span>{{data.nickname}}</span>
         </div>
         <section>
@@ -74,8 +75,9 @@ export default {
                 sex:0,
                 company:'',
                 title:'',
-                img:'../../assets/icon-tpux.png.png'
-            }
+                img:''
+            },
+            isImg:false,
         }
     },
     watch: {
@@ -128,14 +130,16 @@ export default {
                    url: '/userCenter/refreshUserInfo',
                    data:{}
                }).then(function(res){
-                   that.data.nickname = res.data.data.nikeName
-                   that.data.name = res.data.data.userName ? res.data.data.userName : ''
-                   that.data.company = res.data.data.inCompany ? res.data.data.inCompany : ''
-                   that.data.title = res.data.data.position ? res.data.data.position : ''
-                   that.data.sex = res.data.data.sex
+                   that.data.nickname = res.data.data.nikeName;
+                   that.data.name = res.data.data.userName ? res.data.data.userName : '';
+                   that.data.company = res.data.data.inCompany ? res.data.data.inCompany : '';
+                   that.data.title = res.data.data.position ? res.data.data.position : '';
+                   that.data.sex = res.data.data.sex;
                    if(res.data.data.imageUrl||res.data.data.imageUrl!=null){
-                       that.data.img=res.data.data.imageUrl
+                       that.data.img=res.data.data.imageUrl;
+                       that.isImg=true;
                    }
+                //    that.data.img = res.data.data.imageUrl ? res.data.data.imageUrl : '../../assets/icon-tpux.png.png';
                    that.sexNum = res.data.data.sex
                })
          },
