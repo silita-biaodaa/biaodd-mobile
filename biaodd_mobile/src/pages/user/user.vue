@@ -153,6 +153,8 @@ export default {
                       that.hint = '信息更新成功',
                       that.isShow = true
                       localStorage.setItem('xtoken',res.data.data.xtoken)
+                      localStorage.setItem('Bname',res.data.data.nikeName)
+                      sessionStorage.setItem('permissions',res.data.data.permissions);
                       setTimeout(() => {
                         that.isShow = false;
                       },1500);
