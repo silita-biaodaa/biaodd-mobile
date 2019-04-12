@@ -146,9 +146,10 @@ export default {
 
  .detail-text {
    margin-top: 91px;
-   height: calc(~"100% - 101px");
+   height: calc(~"100vh - 101px");
    overflow-x: hidden;
    overflow-y: auto;
+   padding-bottom: 90px;
    font-size: 32px;
    color:#333;
    .detail-title {

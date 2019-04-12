@@ -126,7 +126,8 @@ export default {
  bottom: 0;
  .win-text {
    margin-top: 91px;
-   height: calc(~"100% - 101px");
+   height: calc(~"100vh - 101px");
+   padding-bottom: 90px;
    overflow-x: auto;
    overflow-y: auto;
    .win-title {
