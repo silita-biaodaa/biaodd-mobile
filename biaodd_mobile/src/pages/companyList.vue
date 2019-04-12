@@ -13,7 +13,7 @@
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
   <!-- 总条数 -->
-  <div class="total">为您搜索到{{total}}条企业信息</div>
+  <div class="total">为您搜索到{{total}}家企业信息</div>
   <!-- 列表 -->
   <template v-if="isajax">
     <template v-if="zbList.length>0">

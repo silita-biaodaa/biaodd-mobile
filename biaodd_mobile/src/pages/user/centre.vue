@@ -240,6 +240,12 @@ export default {
         color:#333;
         font-weight: 550;
         overflow: hidden;
+        .left{
+          max-width:260px;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap 
+        }
         .cen-state {
           font-size: 24px;
           background-color: #E5FFE1;
