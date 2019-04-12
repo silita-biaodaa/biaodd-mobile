@@ -38,7 +38,7 @@ export default {
     data() {
         return {
             // 数据模型
-            address:'',
+            address:'湖南',
             mask:false,
             iconName:'arrow-down',
             scrNav:[
