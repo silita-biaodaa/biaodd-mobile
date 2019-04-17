@@ -113,7 +113,13 @@ export default {
                 localStorage.setItem('xtoken',res.data.data.xtoken)
                 localStorage.setItem('Bname',res.data.data.nikeName)
                 sessionStorage.setItem('permissions',res.data.data.permissions);
-                that.$router.push('/')
+                sessionStorage.setItem('userid',res.data.data.pkid);
+                if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){
+                  let uri=sessionStorage.getItem('path');
+                  that.$router.replace(uri)
+                }else{
+                  that.$router.replace('index')
+                }
             } else {
                 that.isShow = true;
                 setTimeout(() => {

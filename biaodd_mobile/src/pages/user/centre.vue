@@ -33,14 +33,40 @@
         <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
       </div>
       <div class="cen-nav">
-        <div class="attention" @click="$router.push('/followList')" v-if="isLogin">
+        <!-- 开通会员 -->
+        <div class="attention" v-if="isLogin" @click="$router.push('/openingVip')">
           <div class="flex-box">
             <img src="../../assets/icon-guanzhu.png.png" alt="">
-            <span>关注</span>  
+            <span>开通会员</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />
         </div>
-         <div class="attention cen-at" @click="jumpto"  v-if="isLogin"> 
+        <!-- 会员特权 -->
+        <div class="attention" v-if="isLogin" @click="$router.push('/membership')">
+          <div class="flex-box">
+            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <span>会员特权</span>  
+          </div> 
+          <van-icon name="arrow" class="nav-i"  />
+        </div>
+        <!-- 我的关注 -->
+        <div class="attention" @click="$router.push('/followList')" v-if="isLogin">
+          <div class="flex-box">
+            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <span>我的关注</span>  
+          </div> 
+          <van-icon name="arrow" class="nav-i"  />
+        </div>
+        <!-- 我的订单 -->
+        <div class="attention" @click="$router.push('/myOrder')" v-if="isLogin">
+          <div class="flex-box">
+            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <span>我的订单</span>  
+          </div> 
+          <van-icon name="arrow" class="nav-i"  />
+        </div>
+        <!-- 设置 -->
+        <div class="attention cen-at" @click="jumpto"  v-if="isLogin"> 
           <div class="flex-box">
             <img src="../../assets/icon-shezhi.png.png" alt="">
           <span>设置</span>

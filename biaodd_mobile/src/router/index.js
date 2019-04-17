@@ -24,6 +24,9 @@ import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
 import deal from '@/pages/user/deal'
 import followList from '@/pages/user/followList'
+import openingVip from '@/pages/user/openingVip'
+import membership from '@/pages/user/membership'
+import myOrder from '@/pages/user/myOrder'
 import dialog from '@/components/dialog'
 
 import user from '@/pages/user/user'
@@ -164,6 +167,22 @@ export default new Router({
       path: '/followList',
       component: followList,
       name: 'followList'
-    }         
+    },
+    {// 开通会员
+      path: '/openingVip',
+      component: openingVip,
+      name: 'openingVip'
+    },
+    {// 会员特权
+      path: '/membership',
+      component: membership,
+      name: 'membership'
+    },
+    {//我的订单
+      path: '/myOrder',
+      component: myOrder,
+      name: 'myOrder'
+    }   
+            
   ]
 })

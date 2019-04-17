@@ -49,18 +49,12 @@ function setHtmlFontSize(){
       document.getElementsByTagName('head')[0].appendChild(oMeta);
   // }
 };
-// router.beforeEach(function(to, from, next){
-    // next()
-//   let token=localStorage.getItem('xtoken');
-//   if(token){
-//     next()
-//   }else{
-//     next({
-//       name:'logo',
-//       replace:true
-//     })
-//   }
-// })
+router.beforeEach(function(to, from, next){
+  if(to.fullPath=='/logo'){
+    sessionStorage.setItem('path',from.name);
+  }
+  next()
+})
 setHtmlFontSize();
 /* eslint-disable no-new */
 new Vue({
