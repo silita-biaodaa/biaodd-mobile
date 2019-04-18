@@ -51,7 +51,7 @@ export default new Router({
     { //中标列表
       path: '/tender',
       component: zhongBid,
-      name:'zhongBid'
+      name:'tender'
     },
     { //招标列表
       path: '/bid',
@@ -61,11 +61,12 @@ export default new Router({
     { //企业列表
       path: '/company',
       component: companyList,
-      name:'companyList' 
+      name:'company' 
     },
     {  // 招标详情
       path: '/article',
-      component: Detail
+      component: Detail,
+      name:'article'
     },
     { 
       path: '/conform',
@@ -73,15 +74,18 @@ export default new Router({
     },
     {  // 中标详情
       path: '/notice', 
-      component: Winning 
+      component: Winning,
+      name: 'notice'
     },
     { //企业详情页
       path: '/letter', 
-      component: Letter 
+      component: Letter,
+      name: 'letter' 
     },
     { //企信——工商
       path: '/commerce', 
-      component: commerce 
+      component: commerce,
+      name: 'commerce'
     },
     {//企信——法务
       path:'/affairs',
