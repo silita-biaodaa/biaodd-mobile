@@ -29,9 +29,6 @@
         </div>
         
       </div>
-      <div class="buy-vip">
-        <img src="../../assets/pic-huiyuan.png.png" alt="" @click="upload">
-      </div>
       <div class="cen-nav">
         <!-- 开通会员 -->
         <div class="attention" v-if="isLogin" @click="$router.push('/openingVip')">
@@ -294,20 +291,10 @@ export default {
     }
   
   }
-    .buy-vip {
-      margin-top: 95px;
-      width: 100%;
-      height: 150px;
-      background-color: #fff;
-      position: relative;
-      img {
-        width: 100%;
-      }
-    }
     .cen-nav {
       background-color: #fff;
       padding: 0 29px;
-      margin: 16px 0;
+      margin: 95px 0 16px;
        .cen-at {
         img {
           width: 46px;

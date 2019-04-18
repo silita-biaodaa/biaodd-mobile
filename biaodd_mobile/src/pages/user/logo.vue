@@ -118,7 +118,7 @@ export default {
                   let uri=sessionStorage.getItem('path');
                   that.$router.replace(uri)
                 }else{
-                  that.$router.replace('index')
+                  that.$router.replace('home')
                 }
             } else {
                 that.isShow = true;

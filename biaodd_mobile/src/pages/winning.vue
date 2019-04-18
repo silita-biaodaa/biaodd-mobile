@@ -81,7 +81,12 @@ export default {
         }).then(function(res){
            that.detail = res.data.data[0]
            that.collected=res.data.data[0].collected
-           console.log(res.data)
+           if(that.detail.oneName){
+                that.detail.oneName=that.getPassOnename(that.detail.oneName);
+            }
+            if(that.detail.oneOffer){
+                that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
+            }
            that.clickCount = res.data.clickCount
         })
     },
