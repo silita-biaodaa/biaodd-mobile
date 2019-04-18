@@ -58,3 +58,38 @@ Vue.prototype.getPassOneoffer=function(oneOffer){
 	}
 	return oneOffer
 }
+
+/*
+*格式化时间  yyyy-mm-dd
+*@param param 需要格式化的时间戳
+*@param type 传值则未yyyy-mm-dd hh:mm:ss
+**/
+Vue.prototype.formatDate = function(param, type=null) {
+    var a = new Date(param);
+    var m = a.getMonth() + 1;
+    if(m < 10) {
+        m = '0' + m;
+    }
+    var d = a.getDate();
+    if(d < 10) {
+        d = '0' + d;
+    }
+    var b = a.getFullYear() + '-' + m + '-' + d;
+
+    if(type != null) {
+        var h = a.getHours();
+        if(h < 10) {
+            h = '0' + h;
+        }
+        var mm = a.getMinutes();
+        if(mm < 10) {
+            mm = '0' + mm;
+        }
+        var ss = a.getSeconds();
+        if(ss < 10) {
+            ss = '0' + ss;
+        }
+        b = b + ' ' + h + ':' + mm + ':' + ss;
+    }
+    return b;
+}

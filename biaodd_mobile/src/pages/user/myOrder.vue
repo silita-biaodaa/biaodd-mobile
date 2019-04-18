@@ -13,19 +13,29 @@
             <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
                 <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                     <ul class="list">
-                        <li>
+                        <li v-for="(o,i) of list" :key="i">
                             <h5>
-                                <span class="title">vvvv</span>
-                                <span class="status">已支付</span>
+                                <span class="title">VIP会员服务</span>
+                                <template  v-if="isPayed">
+                                    <span class="status">已支付</span>
+                                </template>
+                                <template v-else>
+                                    <span class="status">未支付</span>
+                                </template>
                             </h5>
                             <div class="box">
-                                <p>订单号：88888888888</p>
-                                <p>服务时长：12个月</p>
-                                <p>购买时间：2010-12-31</p>
-                                <span>￥90</span>
+                                <p>订单号：{{o.orderNo}}</p>
+                                <p>服务时长：{{o.timeLenth}}</p>
+                                <p>购买时间：{{o.time}}</p>
+                                <span>￥{{o.money}}</span>
                             </div>
                             <div class="bom-box">
-                                <button>再次购买</button>
+                                <template  v-if="isPayed">
+                                    <button>再次购买</button>
+                                </template>
+                                <template v-else>
+                                    <button>立即支付</button>
+                                </template>
                             </div>
                         </li>
                     </ul>
@@ -52,12 +62,13 @@ export default {
         return {
             // 数据模型
             isPayed:true,//是否已支付,true为已支付
-            navArr:['已支付订单(0)','未支付订单(0)'],
+            navArr:['已支付订单','未支付订单'],
             navNum:0,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
             finished:false,//是否加载完
             isScroll:true,
+            error:false,
             data:{
                 pageNo:1,
                 pageSize:'10',
@@ -120,6 +131,19 @@ export default {
                 that.isajax=true;
                 if(res.data.code==1){
                     that.total=res.data.total;
+                    for(let x of res.data.data){
+                        if(x.stdCode=='month'){
+                            x.timeLenth='1个月'
+                        }else if(x.stdCode=='quarter'){
+                            x.timeLenth='3个月'
+                        }else if(x.stdCode=='hlafYear'){
+                            x.timeLenth='6个月'
+                        }else if(x.stdCode=='year'){
+                            x.timeLenth='12个月'
+                        }
+                        x.time=that.formatDate(x.createTime)
+                        x.money=x.fee/100;
+                    }
                     if(that.list.length==0||that.data.pageNo==1){
                         that.list=res.data.data;
                     }else{
@@ -239,7 +263,7 @@ export default {
                 color: #fff;
                 // height: 52px;
                 line-height: 52px;
-                border-radius: 10px;
+                border-radius: 52px;
                 border: none;
                 background: #FE6603
             }
