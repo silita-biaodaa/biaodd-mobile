@@ -94,7 +94,13 @@
             <div class="letter-iphone">
               <van-icon name="phone-o" />
               <span class="iphone">
-                {{el.phone ? el.phone : '--' }}
+                <template v-if="isVip">
+                  {{el.phone ? el.phone : '--' }}
+                </template>
+                <template v-else>
+                  {{el.phone ? resetPhone(el.phone) : '--' }}
+                </template>
+                
               </span>
             </div>
             <div class="letter-url">
@@ -128,6 +134,7 @@ export default {
             total:0,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
+            isVip:false,
         }
     },
     watch: {
@@ -144,6 +151,12 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        if(sessionStorage.getItem('permissions')){
+          let vipstr=sessionStorage.getItem('permissions');
+          if(vipstr.indexOf('comPhone')!=-1){
+            this.isVip=true;
+          }
+        }
          this.id = this.$route.query.id
          let that=this;
             this.$http({
@@ -209,6 +222,14 @@ export default {
     },
     methods: {
         // 方法 集合
+      resetPhone(phone) {
+        var str = String(phone)
+        var len = str.length;
+        if (len >= 7) {
+            var reg = str.slice(-8, -4)
+            return str.replace(reg, "****")
+        }
+      },
     }
 
 }

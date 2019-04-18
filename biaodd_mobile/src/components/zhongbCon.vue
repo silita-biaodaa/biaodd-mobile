@@ -50,6 +50,14 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         // this.conver()
+        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            if(this.obj.oneName){
+                this.obj.oneName=this.getPassOnename(this.obj.oneName)
+            }
+            if( this.obj.oneOffer) {
+                this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
+            } 
+        }
     },
     components: {
         'v-dia':dialog

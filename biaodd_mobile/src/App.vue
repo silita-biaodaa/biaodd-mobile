@@ -71,6 +71,7 @@ export default {
     }).then(function(res){
         console.log(res);
         sessionStorage.setItem('address',res.data.data.region);
+        sessionStorage.setItem('ip',res.data.data.ip);
     }).catch(function(res){
         
     })

@@ -91,11 +91,17 @@ export default {
                 type: "0"
             }
         }).then(function(res){
-           that.total = res.data.relCompanySize 
-           that.collected=res.data.data[0].collected
-           that.detail = res.data.data[0]  
-           that.detail.projDq = that.detail.projDq.substring(0,2)
-           that.clickCount = res.data.clickCount       
+            that.total = res.data.relCompanySize 
+            that.collected=res.data.data[0].collected
+            that.detail = res.data.data[0]  
+            that.detail.projDq = that.detail.projDq.substring(0,2)
+            if(that.detail.zzRank){
+                that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
+            }
+            if(that.detail.pbMode){
+                that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
+            }
+            that.clickCount = res.data.clickCount       
         })
     },
     beforeMount() {

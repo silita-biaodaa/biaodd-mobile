@@ -7,7 +7,6 @@ let baseURL = 'http://pre.biaodaa.com'
 // let baseURL = '/'
 
 axios.defaults.baseURL = baseURL
-
 axios.interceptors.request.use(function (config) {
 let token = localStorage.getItem('xtoken');
 if (token&&token!='undefined') {

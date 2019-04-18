@@ -50,6 +50,14 @@ export default {
     created() {
         // this.conver()
         // console.group('创建完毕状态===============》created');
+        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+            if(this.obj.certificate){
+                this.obj.certificate=this.getPassCertificate(this.obj.certificate)
+            }
+            if( this.obj.pbMode) {
+                this.obj.pbMode=this.getPassPbMode(this.obj.pbMode)
+            } 
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -59,6 +67,7 @@ export default {
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
+        
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
         });

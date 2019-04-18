@@ -1,17 +1,21 @@
 <!-- 模型： DOM 结构 -->
 <template>
   <div class="top-nav">
-      <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
-          {{title}}
+        <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
+        {{title}}
+        <p v-if="isOrder" @click="mask=true">开发票</p>
+        <v-popup :mask="mask"></v-popup>
    </div>
 </template>
 <script>
 // let moment = require("moment");
+import popup from '@/components/popup'
 export default {
     name: 'topBack', // 结构名称
     data() {
         return {
             // 数据模型
+            mask:false,
         }
     },
     watch: {
@@ -19,7 +23,13 @@ export default {
     },
     props: {
         // 集成父级参数
-        title:''
+        title:'',
+        isOrder:{
+            default:false
+        }
+    },
+    components: {
+       'v-popup':popup,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -58,25 +68,33 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
- .top-nav {
-   height: 90px;
-   width: 100%;
-   background-color: #FE6603;
-   line-height: 90px;
-   text-align: center;
-   color:#fff;
-   font-size: 36px;
-   position: fixed;
-   z-index: 99;
-   top: 0;
-   left: 0;
-   .top-left {
-       font-size: 50px;
-       color:#fff;
-       position: absolute;
-       left: 20px;
-       top: 50%;
-       transform: translateY(-50%);
-   }
- }
+.top-nav {
+    height: 90px;
+    width: 100%;
+    background-color: #FE6603;
+    line-height: 90px;
+    text-align: center;
+    color:#fff;
+    font-size: 36px;
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    .top-left {
+        font-size: 50px;
+        color:#fff;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    p{
+        color: #fff;
+        position: absolute;
+        right:35px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px
+    }
+}
 </style>
