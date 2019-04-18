@@ -49,6 +49,14 @@ export default {
     },
     watch: {
         // 监控集合
+        // $route:{
+        //     handler:function(newVal, oldVal){
+        //         if(newVal.meta.followNum){
+        //             this.navNum=newVal.meta.followNum
+        //         }
+        //     },
+        //     deep:true
+        // }
     },
     props: {
         // 集成父级参数
@@ -65,7 +73,17 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.zbAjax();
+        if(this.$route.meta.followNum!=undefined){
+            this.navNum=this.$route.meta.followNum;
+        }
+        if(this.navNum==0){
+            this.zbAjax()
+        }else if(this.navNum==1){
+            this.zhongAjax()
+        }else{
+            this.qyAjax()
+        }
+        // this.zbAjax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -84,6 +102,7 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+        console.log(1);
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
@@ -92,6 +111,7 @@ export default {
         // 方法 集合
         tabFn(i){
             this.navNum=i;
+            this.$route.meta.followNum=i;
             this.isajax=false;
             if(i==0){
                 this.zbAjax()

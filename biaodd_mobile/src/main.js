@@ -53,6 +53,9 @@ router.beforeEach(function(to, from, next){
   if(to.fullPath=='/logo'){
     sessionStorage.setItem('path',from.name);
   }
+  if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
+    from.meta.followNum=0
+  }
   next()
 })
 setHtmlFontSize();
