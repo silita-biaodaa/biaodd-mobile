@@ -2,22 +2,44 @@
 <template>
     <div class="openingVip">
         <top-back :title='"开通会员"'></top-back>
+        <!-- 用户信息 -->
         <div class="user-box card">
             <div class="user-img">
-                <img src="../../assets/icon-tpux.png.png" alt="">
+                <img :src="userinfo.imageUrl " alt="" v-if="userinfo.imageUrl">
+                <img src="../../assets/icon-tpux.png.png" alt="" v-else>
             </div>
             <div class="user-center">
                 <div class="cen-name">
-                    <span>用户名</span>
-                    <span class="label">会员</span>
+                    <span>{{userinfo.nikeName}}</span>
+                    <span class="label">{{userinfo.state}}</span>
                 </div>
                 <div class="cen-day">
-                    剩余会员天数：<span class="color">1</span>天
+                    剩余会员天数：<span class="color">{{userinfo.day}}</span>天
                 </div>
             </div>
         </div>
+        <!-- 开通会员 -->
         <div class="main card">
             <h5>开通会员</h5>
+            <ul>
+                <li v-for="(o,i) of viplist" :key="i" :class="{'active':i==tabNum}" @click="tabFn(i)">
+                    <p class="time">{{o.time}}</p>
+                    <p class="money">￥{{o.money}}</p>
+                    <p class="save">节省￥{{o.save}}</p>
+                    <div class="discount">{{o.discount}}折</div>
+                </li>
+            </ul>
+            <div class="bottom-box">
+                <button>立即开通</button>
+                <p @click="$router.push('/membership')">了解会员特权  ></p>
+            </div>
+        </div>
+        <!-- 会员注意事项 -->
+        <div class="card item">
+            <h5>开通会员注意事项</h5>
+            <p>1、会员服务开通后立即生效，如支付遇到问题，请及时拨打客服电话：0731-85076077</p>
+            <p>2、您购买的会员服务期限自服务开通之日起计算，会员服务在有效期届满后自行终止，对应的会员权益自动失效</p>
+            <p>3、标大大会员服务支持续费功能，若您购买的会员服务有效期届满，您可以通过续费方式进行续费，续费后可继续使用会员服务</p>
         </div>
     </div>
 </template>
@@ -28,7 +50,34 @@ export default {
     data() {
         return {
             // 数据模型
-            userid:''
+            userinfo:{//用户信息集合
+
+            },
+            userid:'',
+            viplist:[
+                {
+                    time:'1个月',
+                    money:318,
+                    save:182,
+                    discount:'6.3'
+                },{
+                    time:'3个月',
+                    money:898,
+                    save:602,
+                    discount:'6.0'
+                },{
+                    time:'6个月',
+                    money:1498,
+                    save:1502,
+                    discount:'5.0'
+                },{
+                    time:'12个月',
+                    money:2298,
+                    save:3702,
+                    discount:'3.8'
+                }
+            ],
+            tabNum:0
         }
     },
     watch: {
@@ -56,7 +105,8 @@ export default {
         }).catch(function(res){
             
         })
-        this.userid=sessionStorage.getItem('userid')
+        this.userid=sessionStorage.getItem('userid');
+        this.getUser();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -81,6 +131,27 @@ export default {
     },
     methods: {
         // 方法 集合
+        getUser(){//获取用户信息
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/userCenter/refreshUserInfo',
+                data:{}
+            }).then(function(res){
+                that.userinfo = res.data.data
+                let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
+                that.userinfo.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0; 
+                if( that.userinfo.roleName == '会员用户') {
+                    that.userinfo.state = '会员'
+                } else {
+                    that.userinfo.state = '非会员'
+                }
+
+            })
+        },
+        tabFn(i){
+            this.tabNum=i
+        },
         testFn(){
             let that=this;
             let data={
@@ -169,6 +240,98 @@ export default {
     .cen-day{
         font-size: 24px;
         color:#999;
+    }
+}
+/*开通卡*/
+.main{
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    h5{
+        height: 96px;
+        line-height: 96px;
+        font-size: 36px;
+        color: #4D3A3A;
+    }
+    ul{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .active{
+            border: 2PX solid #FF0000
+        }
+        li{
+            width: calc((100% - 30px)/2);
+            border: 2PX solid #F0F0F0;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+            border-radius: 10px;
+            box-sizing: border-box;
+            p{
+                text-align: left;
+                margin-bottom: 24px;
+            }
+            .discount{
+                text-align: center;
+                width: 200px;
+                height: 60px;
+                line-height: 60px;
+                font-size: 40px;
+                background: red;
+                color: #fff;
+                position: absolute;
+                top: 0;
+                right: 0;
+                transform: rotateZ(45deg) translate(25%,-50%);
+
+            }
+            .save{
+                font-size: 24px;
+                color: #999;
+                margin-bottom: 0;
+            }
+            .money{
+                font-size: 60px;
+                color: #FE6603;
+            }
+            .time{
+                color: #4D3A3A;
+                font-size: 28px;
+            }
+        }
+    }
+    .bottom-box{
+        text-align: center;
+        button{
+            width: 70%;
+            line-height: 92px;
+            height: 92px;
+            border-radius: 92px;
+            color: #fff;
+            background: #FE6603;
+            border: none;
+            margin-bottom: 20px;
+        }
+        p{
+            font-size: 24px;
+            color:deepskyblue;
+            text-align: right;
+        }
+    }
+}
+/*注意事项*/
+.item{
+    padding:30px 36px 38px;
+    h5{
+        text-align: center;
+        color: #FE6603;
+        font-size: 32px;
+        margin-bottom: 28px;
+    }
+    p{
+        font-size: 28px;
+        color: #786D6D
     }
 }
 </style>
