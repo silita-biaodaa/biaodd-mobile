@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div class="bottom-box">
-                <button>立即开通</button>
+                <button @click="jumpPay">立即开通</button>
                 <p @click="$router.push('/membership')">了解会员特权  ></p>
             </div>
         </div>
@@ -53,7 +53,6 @@ export default {
             userinfo:{//用户信息集合
 
             },
-            userid:'',
             viplist:[
                 {
                     time:'1个月',
@@ -94,18 +93,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.$http({
-            method:'post',
-            url: '/vip/queryFeeStandard',
-            data:{
-                channel:'1004',
-            }
-        }).then(function(res){
-            console.log(res);
-        }).catch(function(res){
-            
-        })
-        this.userid=sessionStorage.getItem('userid');
+        if(sessionStorage.getItem('payOrder')){
+            this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
+        }
         this.getUser();
     },
     beforeMount() {
@@ -152,41 +142,13 @@ export default {
         tabFn(i){
             this.tabNum=i
         },
-        testFn(){
-            let that=this;
+        jumpPay(){
             let data={
-                    channel:'1004',
-                    stdCode:'month',
-                    userId:that.userid
-                }
-            this.$http({
-                method:'post',
-                url: '/wxPay/unifiedOrder',
-                data:data
-            }).then(function(res){
-                console.log(res);
-                let wxObj={
-                    appid:res.data.data.appid,//appid
-                    mch_id:res.data.data.partnerid,//商户号
-                    nonce_str:res.data.data.noncestr,//随机串
-                    sign:res.data.data.sign,//签名
-                    body:'标大大会员开通',//商品描述
-                    out_trade_no:res.data.orderNo,//商品订单
-                    total_fee:0.01,//金额
-                    spbill_create_ip:sessionStorage.getItem('ip'),//ip
-                    trade_type:'MWEB',//交易类型
-                    notify_url:'http://pre.biaodaa.com',//通知地址
-                    scene_info:{"h5_info": {"type":"Wap","wap_url": "http://pre-mobile.biaodaa.com/","wap_name": "标大大"}},//场景信息
-                }
-                console.log(wxObj);
-                that.$http({
-                    method:'post',
-                    url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
-                    data:wxObj
-                }).then(function(res){
-                    console.log(res)
-                })
-            })
+                obj:this.viplist[this.tabNum],
+                num:this.tabNum
+            };
+            sessionStorage.setItem('payOrder',JSON.stringify(data));
+            this.$router.push('/payVip');
         }
     }
 

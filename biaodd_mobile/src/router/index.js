@@ -27,6 +27,7 @@ import followList from '@/pages/user/followList'
 import openingVip from '@/pages/user/openingVip'
 import membership from '@/pages/user/membership'
 import myOrder from '@/pages/user/myOrder'
+import payVip from '@/pages/user/payVip'
 import dialog from '@/components/dialog'
 
 import user from '@/pages/user/user'
@@ -186,6 +187,11 @@ export default new Router({
       path: '/myOrder',
       component: myOrder,
       name: 'myOrder'
+    },
+    {//支付方式
+      path: '/payVip',
+      component: payVip,
+      name: 'payVip'
     }   
             
   ]
