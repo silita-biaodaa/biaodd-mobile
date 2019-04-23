@@ -18,9 +18,9 @@
                 </div>
             </div>
         </div>
+        <h5 class="title">开通会员</h5>
         <!-- 开通会员 -->
         <div class="main card">
-            <h5>开通会员</h5>
             <ul>
                 <li v-for="(o,i) of viplist" :key="i" :class="{'active':i==tabNum}" @click="tabFn(i)">
                     <p class="time">{{o.time}}</p>
@@ -30,8 +30,9 @@
                 </li>
             </ul>
             <div class="bottom-box">
-                <button @click="jumpPay">立即开通</button>
-                <p @click="$router.push('/membership')">了解会员特权  ></p>
+                <button @click="jumpPay" class="openBtn">立即开通</button>
+                <button @click="$router.push('/membership')" class="privilegeBtn">了解会员特权</button>
+                <!-- <p @click="$router.push('/membership')">了解会员特权  ></p> -->
             </div>
         </div>
         <!-- 会员注意事项 -->
@@ -55,22 +56,22 @@ export default {
             },
             viplist:[
                 {
-                    time:'1个月',
+                    time:'一个月',
                     money:318,
                     save:182,
                     discount:'6.3'
                 },{
-                    time:'3个月',
+                    time:'三个月',
                     money:898,
                     save:602,
                     discount:'6.0'
                 },{
-                    time:'6个月',
+                    time:'六个月',
                     money:1498,
                     save:1502,
                     discount:'5.0'
                 },{
-                    time:'12个月',
+                    time:'十二个月',
                     money:2298,
                     save:3702,
                     discount:'3.8'
@@ -144,7 +145,6 @@ export default {
         },
         jumpPay(){
             let data={
-                obj:this.viplist[this.tabNum],
                 num:this.tabNum
             };
             sessionStorage.setItem('payOrder',JSON.stringify(data));
@@ -163,8 +163,9 @@ export default {
     min-height: calc(100vh - 262px);
 }
 .card{
+    box-sizing: border-box;
     background: #fff;
-    width: 83%;
+    width: 90%;
     margin: 0 auto;
     padding:0 35px;
     box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
@@ -174,7 +175,7 @@ export default {
 .user-box{
     display: flex;
     height: 178px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
     align-items: center;
     .user-img {
         width: 139px;
@@ -204,18 +205,22 @@ export default {
         color:#999;
     }
 }
+.title{
+    height: 88px;
+    line-height: 88px;
+    font-size: 36px;
+    color: #4D3A3A;
+    width: 90%;
+    margin: 0 auto;
+}
 /*开通卡*/
 .main{
     margin-bottom: 25px;
     padding-bottom: 20px;
-    h5{
-        height: 96px;
-        line-height: 96px;
-        font-size: 36px;
-        color: #4D3A3A;
-    }
     ul{
         display: flex;
+        margin-bottom: 50px;
+        padding-top: 36px;
         justify-content: space-between;
         flex-wrap: wrap;
         .active{
@@ -225,14 +230,16 @@ export default {
             width: calc((100% - 30px)/2);
             border: 2PX solid #F0F0F0;
             margin-bottom: 30px;
+            height: 222px;
             overflow: hidden;
             position: relative;
-            padding: 20px;
+            // padding: 20px;
+            padding-top: 50px;
             border-radius: 10px;
             box-sizing: border-box;
             p{
-                text-align: left;
-                margin-bottom: 24px;
+                text-align: center;
+                margin-bottom: 10px;
             }
             .discount{
                 text-align: center;
@@ -254,26 +261,33 @@ export default {
                 margin-bottom: 0;
             }
             .money{
-                font-size: 60px;
+                font-size: 50px;
                 color: #FE6603;
             }
             .time{
                 color: #4D3A3A;
-                font-size: 28px;
+                font-size: 24px;
             }
         }
     }
     .bottom-box{
         text-align: center;
         button{
-            width: 70%;
+            width: 100%;
             line-height: 92px;
             height: 92px;
             border-radius: 92px;
+            border: none;
+            margin-bottom: 30px;
+        }
+        .openBtn{
             color: #fff;
             background: #FE6603;
-            border: none;
-            margin-bottom: 20px;
+        }
+        .privilegeBtn{
+            background: #fff;
+            color: #FE6603;
+            border: 1PX solid #FE6603;
         }
         p{
             font-size: 24px;

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view v-if="isRouter" class="app-boby" />
-    <div class="app-bto"  >
+    <div class="app-bto" v-if="showNav">
        <div class="app-nav" @click="jump" >
          <!-- 红 -->
          <img src="./assets/nav-icon-biaodd.png.png" alt="" v-if="fisrt" >  
@@ -33,6 +33,7 @@ export default {
       isRouter:true,
       fisrt: true,
       per:true,
+      showNav:true,
     }
   },
   provide(){
@@ -85,6 +86,9 @@ export default {
         } else {
             this.fisrt = true  
             this.per  = true 
+        }
+        if(val.name=='payVip'){
+            this.showNav=false
         }
        },
       deep: true
