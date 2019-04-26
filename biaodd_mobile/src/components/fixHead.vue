@@ -108,7 +108,7 @@ export default {
     watch: {
        $route:{
           handler: function(val, oldVal){
-             if(localStorage.getItem('Bname')) {
+             if(localStorage.getItem('xtoken')) {
                this.name = localStorage.getItem('Bname')
              } else {     
                this.name = '登录或注册'

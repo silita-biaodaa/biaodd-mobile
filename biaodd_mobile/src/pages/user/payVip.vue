@@ -90,6 +90,20 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
+        let that=this;
+        if(localStorage.getItem('orderNo')){
+            this.$http({
+                method:'post',
+                url: '/wxPay/queryOrderStatus',
+                data:{
+                    orderNo:localStorage.getItem('orderNo'),
+                }
+            }).then(function(res){
+                that.$router.replace('centre');
+            }).catch(function(res){
+                
+            })
+        }
         // sessionStorage.removeItem('payOrder');
         this.$http({
             method:'post',
@@ -145,6 +159,7 @@ export default {
                 data:data
             }).then(function(res){
                 // console.log(res.data.data.webUrl);
+                localStorage.setItem('orderNo',res.data.orderNo);
                 window.location.href=res.data.data.webUrl;
             })
         }
