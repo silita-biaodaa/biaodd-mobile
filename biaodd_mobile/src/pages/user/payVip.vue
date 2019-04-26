@@ -37,7 +37,7 @@
                 <span class="one">总金额</span>
                 <span class="two">￥{{viplist[tabNum].money}}</span>
             </div>
-            <div class="btn">立即支付</div>
+            <div class="btn" @click="testFn">立即支付</div>
         </div>
     </div>
 </template>
@@ -135,35 +135,16 @@ export default {
             let data={
                     channel:'1004',
                     stdCode:'month',
-                    userId:that.userid
+                    userId:that.userid,
+                    tradeType:'MWEB'
                 }
             this.$http({
                 method:'post',
                 url: '/wxPay/unifiedOrder',
                 data:data
             }).then(function(res){
-                console.log(res);
-                let wxObj={
-                    appid:res.data.data.appid,//appid
-                    mch_id:res.data.data.partnerid,//商户号
-                    nonce_str:res.data.data.noncestr,//随机串
-                    sign:res.data.data.sign,//签名
-                    body:'标大大会员开通',//商品描述
-                    out_trade_no:res.data.orderNo,//商品订单
-                    total_fee:0.01,//金额
-                    spbill_create_ip:sessionStorage.getItem('ip'),//ip
-                    trade_type:'MWEB',//交易类型
-                    notify_url:'http://pre.biaodaa.com',//通知地址
-                    scene_info:{"h5_info": {"type":"Wap","wap_url": "http://pre-mobile.biaodaa.com/","wap_name": "标大大"}},//场景信息
-                }
-                console.log(wxObj);
-                that.$http({
-                    method:'post',
-                    url: 'https://api.mch.weixin.qq.com/pay/unifiedorder',
-                    data:wxObj
-                }).then(function(res){
-                    console.log(res)
-                })
+                // console.log(res.data.data.webUrl);
+                window.location.href=res.data.data.webUrl;
             })
         }
     }

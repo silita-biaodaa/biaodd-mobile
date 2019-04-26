@@ -56,6 +56,9 @@ export default {
             this.fisrt = true  
             this.per  = true 
         }
+        if(this.$route.name=='payVip'){
+            this.showNav=false
+        }
     },
     jump() {
       this.$router.push('/')
@@ -89,6 +92,8 @@ export default {
         }
         if(val.name=='payVip'){
             this.showNav=false
+        }else{
+          this.showNav=true
         }
        },
       deep: true
