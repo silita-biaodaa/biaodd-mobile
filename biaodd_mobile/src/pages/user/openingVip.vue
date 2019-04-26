@@ -23,10 +23,10 @@
         <div class="main card">
             <ul>
                 <li v-for="(o,i) of viplist" :key="i" :class="{'active':i==tabNum}" @click="tabFn(i)">
-                    <p class="time">{{o.time}}</p>
-                    <p class="money">￥{{o.money}}</p>
+                    <p class="time">{{o.stdDesc}}</p>
+                    <p class="money">￥{{o.price}}</p>
                     <p class="save">节省￥{{o.save}}</p>
-                    <div class="discount">{{o.discount}}折</div>
+                    <div class="discount">{{o.altInfo}}</div>
                 </li>
             </ul>
             <div class="bottom-box">
@@ -54,29 +54,7 @@ export default {
             userinfo:{//用户信息集合
 
             },
-            viplist:[
-                {
-                    time:'一个月',
-                    money:318,
-                    save:182,
-                    discount:'6.3'
-                },{
-                    time:'三个月',
-                    money:898,
-                    save:602,
-                    discount:'6.0'
-                },{
-                    time:'六个月',
-                    money:1498,
-                    save:1502,
-                    discount:'5.0'
-                },{
-                    time:'十二个月',
-                    money:2298,
-                    save:3702,
-                    discount:'3.8'
-                }
-            ],
+            viplist:[],
             tabNum:0
         }
     },
@@ -97,6 +75,22 @@ export default {
         if(sessionStorage.getItem('payOrder')){
             this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         }
+        //获取商品
+        let that=this;
+        this.$http({
+            method:'post',
+            url: '/vip/queryFeeStandard',
+            data:{
+                channel:'1004',
+            }
+        }).then(function(res){
+            for(let x of res.data.data){
+                x.save=x.primePrice-x.price
+            }
+            that.viplist=res.data.data
+        }).catch(function(res){
+            
+        })
         this.getUser();
     },
     beforeMount() {

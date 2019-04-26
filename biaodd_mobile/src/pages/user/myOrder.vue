@@ -31,10 +31,10 @@
                             </div>
                             <div class="bom-box">
                                 <template  v-if="isPayed">
-                                    <button>再次购买</button>
+                                    <button @click="payBtn(i)">再次购买</button>
                                 </template>
                                 <template v-else>
-                                    <button>立即支付</button>
+                                    <button @click="payBtn(i)">立即支付</button>
                                 </template>
                             </div>
                         </li>
@@ -184,6 +184,9 @@ export default {
                 this.navNum=1;
             }
             this.ajax();
+        },
+        payBtn(){
+            this.$router.push('/payVip');
         }
     }
 

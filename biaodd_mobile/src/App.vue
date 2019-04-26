@@ -59,7 +59,6 @@ export default {
         if(this.$route.name=='payVip'){
             this.showNav=false
         }
-        alert(111);
         let that=this;
         if(localStorage.getItem('orderNo')){
             this.$http({
@@ -89,7 +88,6 @@ export default {
         method:'post',
         url: '/authorize/address',
     }).then(function(res){
-        console.log(res);
         sessionStorage.setItem('address',res.data.data.region);
         sessionStorage.setItem('ip',res.data.data.ip);
     }).catch(function(res){

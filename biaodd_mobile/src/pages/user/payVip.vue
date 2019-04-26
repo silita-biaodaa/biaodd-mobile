@@ -5,10 +5,10 @@
         <!-- list -->
         <ul class="conten-box">
             <li v-for="(o,i) of viplist" :key="i" :class="{'active':i==tabNum}" @click="tabFn(i)">
-                <p class="time">{{o.time}}</p>
-                <p class="money">￥{{o.money}}</p>
+                <p class="time">{{o.stdDesc}}</p>
+                <p class="money">￥{{o.price}}</p>
                 <p class="save">节省￥{{o.save}}</p>
-                <!-- <div class="discount">{{o.discount}}折</div> -->
+                <!-- <div class="discount">{{o.altInfo}}折</div> -->
             </li>
         </ul>
         <!-- <div class="box money">
@@ -35,7 +35,7 @@
         <div class="fix-box">
             <div class="left">
                 <span class="one">总金额</span>
-                <span class="two">￥{{viplist[tabNum].money}}</span>
+                <span class="two">￥{{viplist[tabNum].price}}</span>
             </div>
             <div class="btn" @click="payFn">立即支付</div>
         </div>
@@ -49,29 +49,7 @@ export default {
         return {
             // 数据模型
             userid:'',
-            viplist:[
-                {
-                    time:'一个月',
-                    money:318,
-                    save:182,
-                    discount:'6.3'
-                },{
-                    time:'三个月',
-                    money:898,
-                    save:602,
-                    discount:'6.0'
-                },{
-                    time:'六个月',
-                    money:1498,
-                    save:1502,
-                    discount:'5.0'
-                },{
-                    time:'十二个月',
-                    money:2298,
-                    save:3702,
-                    discount:'3.8'
-                }
-            ],
+            viplist:[],
             tabNum:0
         }
     },
@@ -91,6 +69,7 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         // sessionStorage.removeItem('payOrder');
+        let that=this;
         this.$http({
             method:'post',
             url: '/vip/queryFeeStandard',
@@ -98,7 +77,10 @@ export default {
                 channel:'1004',
             }
         }).then(function(res){
-            console.log(res);
+            for(let x of res.data.data){
+                x.save=x.primePrice-x.price
+            }
+            that.viplist=res.data.data
         }).catch(function(res){
             
         })
@@ -134,7 +116,7 @@ export default {
             let that=this;
             let data={
                     channel:'1004',
-                    stdCode:'month',
+                    stdCode:that.viplist[that.tabNum].stdCode,
                     userId:that.userid,
                     tradeType:'MWEB',
                     ip:sessionStorage.getItem('ip')
