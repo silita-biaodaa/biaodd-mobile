@@ -150,7 +150,7 @@ export default {
                 // console.log(res.data.data.webUrl);
                 localStorage.setItem('orderNo',res.data.orderNo);
                 let url=location.href+'?type=1';
-                let uri='&redirect_uri='+encodeURIComponent(url);
+                let uri='&redirect_uri='+encodeURI(url);
                 window.location.href=res.data.data.webUrl+uri;
             })
         },

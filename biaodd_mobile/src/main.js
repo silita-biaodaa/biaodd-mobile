@@ -56,6 +56,7 @@ router.beforeEach(function(to, from, next){
   if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
     from.meta.followNum=0
   }
+  alert('to:'+JSON.stringify(to)+'from:'+JSON.stringify(from))
   next()
 })
 setHtmlFontSize();
