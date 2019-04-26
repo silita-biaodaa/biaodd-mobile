@@ -99,6 +99,7 @@ export default {
                     orderNo:localStorage.getItem('orderNo'),
                 }
             }).then(function(res){
+                localStorage.removeItem('orderNo');
                 that.$router.replace('centre');
             }).catch(function(res){
                 
