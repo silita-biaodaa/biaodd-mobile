@@ -60,6 +60,7 @@ router.beforeEach(function(to, from, next){
   }
   
   if(localStorage.getItem('orderNo')){
+    alert(localStorage.getItem('orderNo'))
     axios({
           method:'post',
           url: '/wxPay/queryOrderStatus',
@@ -76,8 +77,10 @@ router.beforeEach(function(to, from, next){
       }).catch(function(res){
           
       })
+  }else{
+    next()
   }
-  next()
+  
 })
 setHtmlFontSize();
 /* eslint-disable no-new */

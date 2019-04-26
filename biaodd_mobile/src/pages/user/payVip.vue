@@ -133,11 +133,8 @@ export default {
                 url: '/wxPay/unifiedOrder',
                 data:data
             }).then(function(res){
-                // console.log(res.data.data.webUrl);
                 localStorage.setItem('orderNo',res.data.orderNo);
-                let url=location.href+'?type=1';
-                let uri='&redirect_uri='+encodeURI(url);
-                window.location.href=res.data.data.webUrl+uri;
+                window.location.href=res.data.data.webUrl;
             })
         },
     }
