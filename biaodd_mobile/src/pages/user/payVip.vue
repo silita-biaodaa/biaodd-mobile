@@ -134,6 +134,7 @@ export default {
                 data:data
             }).then(function(res){
                 localStorage.setItem('orderNo',res.data.orderNo);
+                that.$router.push('/myOrder');
                 window.location.href=res.data.data.webUrl;
             })
         },
