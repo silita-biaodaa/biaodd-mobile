@@ -136,7 +136,8 @@ export default {
                     channel:'1004',
                     stdCode:'month',
                     userId:that.userid,
-                    tradeType:'MWEB'
+                    tradeType:'MWEB',
+                    ip:sessionStorage.getItem('ip')
                 }
             this.$http({
                 method:'post',
