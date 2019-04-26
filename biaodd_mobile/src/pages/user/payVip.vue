@@ -37,7 +37,7 @@
                 <span class="one">总金额</span>
                 <span class="two">￥{{viplist[tabNum].money}}</span>
             </div>
-            <div class="btn" @click="testFn">立即支付</div>
+            <div class="btn" @click="payFn">立即支付</div>
         </div>
     </div>
 </template>
@@ -90,21 +90,6 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
-        let that=this;
-        if(localStorage.getItem('orderNo')){
-            this.$http({
-                method:'post',
-                url: '/wxPay/queryOrderStatus',
-                data:{
-                    orderNo:localStorage.getItem('orderNo'),
-                }
-            }).then(function(res){
-                localStorage.removeItem('orderNo');
-                that.$router.replace('centre');
-            }).catch(function(res){
-                
-            })
-        }
         // sessionStorage.removeItem('payOrder');
         this.$http({
             method:'post',
@@ -145,7 +130,7 @@ export default {
         tabFn(i){
             this.tabNum=i
         },
-        testFn(){
+        payFn(){
             let that=this;
             let data={
                     channel:'1004',
@@ -163,6 +148,9 @@ export default {
                 localStorage.setItem('orderNo',res.data.orderNo);
                 window.location.href=res.data.data.webUrl;
             })
+        },
+        testFn(){
+            localStorage.setItem('orderNo','123');
         }
     }
 

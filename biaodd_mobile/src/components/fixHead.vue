@@ -9,7 +9,7 @@
                     <van-icon :name="iconName"/>
                 </span>
             </div>
-            <div class="right">
+            <div class="fix-right">
                
                 <div class="btn " @click="upload">下载APP</div>
                 <div class="fix-line">
@@ -195,7 +195,7 @@ export default {
             }
         }
     }
-    .right{
+    .fix-right{
         .btn{
             background: #FE6603;
             width: 164px;

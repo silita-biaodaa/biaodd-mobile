@@ -1,5 +1,6 @@
 //公用方法
 import Vue from 'vue'
+import axios from 'axios'
 //fix层防滚动
 Vue.prototype.modalHelper = (function() {
 	var scrollTop;
@@ -93,3 +94,41 @@ Vue.prototype.formatDate = function(param, type=null) {
     }
     return b;
 }
+
+// /*
+// *
+// **/
+// Vue.prototype.watchLocStorage=function(key,value){
+// 	if(k==='orderNo'){
+// 		var newStorageEvent = document.createEvent('StorageEvent');
+// 		const storage={
+// 			setItem:function(k,val){
+// 				sessionStorage.setItem(k,val);
+// 				newStorageEvent.initStorageEvent('setItem',false,false,k,null,val,null,null);
+// 				window.dispatchEvent(newStorageEvent);
+// 			}
+// 		}
+// 		return storage.setItem(key,value);
+// 	}
+// }
+
+// const oldSetItem = window.localStorage.setItem
+// window.localStorage.setItem = function(k, v) {
+// 	oldSetItem(k,v)
+//     if (k === 'orderNo') {
+// 	  // 执行你的逻辑
+// 	  	axios({
+// 			method:'post',
+// 			url: '/wxPay/queryOrderStatus',
+// 			data:{
+// 				orderNo:localStorage.getItem('orderNo'),
+// 			}
+// 		}).then(function(res){
+// 			localStorage.removeItem('orderNo');
+// 			Vue.$router.replace('centre');
+// 		}).catch(function(res){
+			
+// 		})
+//     }
+    
+// }
