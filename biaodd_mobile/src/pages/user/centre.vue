@@ -33,7 +33,7 @@
         <!-- 开通会员 -->
         <div class="attention" v-if="isLogin" @click="$router.push('/openingVip')">
           <div class="flex-box">
-            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <img src="../../assets/hy.png" alt="">
             <span>开通会员</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />
@@ -41,7 +41,7 @@
         <!-- 会员特权 -->
         <div class="attention" v-if="isLogin" @click="$router.push('/membership')">
           <div class="flex-box">
-            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <img src="../../assets/vip.png" alt="">
             <span>会员特权</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />
@@ -57,7 +57,7 @@
         <!-- 我的订单 -->
         <div class="attention" @click="$router.push('/myOrder')" v-if="isLogin">
           <div class="flex-box">
-            <img src="../../assets/icon-guanzhu.png.png" alt="">
+            <img src="../../assets/dd.png" alt="">
             <span>我的订单</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />

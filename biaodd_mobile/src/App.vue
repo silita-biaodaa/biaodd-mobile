@@ -70,7 +70,7 @@ export default {
                 }
             }).then(function(res){
                 localStorage.removeItem('orderNo');
-                that.$router.replace('centre');
+                that.$router.replace('myOrder');
             }).catch(function(res){
                 
             })

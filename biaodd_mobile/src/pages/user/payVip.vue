@@ -146,7 +146,9 @@ export default {
             }).then(function(res){
                 // console.log(res.data.data.webUrl);
                 localStorage.setItem('orderNo',res.data.orderNo);
-                window.location.href=res.data.data.webUrl;
+                let url=location.href;
+                let uri='&redirect_uri='+encodeURIComponent(url);
+                window.location.href=res.data.data.webUrl+uri;
             })
         },
         testFn(){
