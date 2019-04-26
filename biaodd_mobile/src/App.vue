@@ -89,6 +89,8 @@ export default {
         }
         if(val.name=='payVip'){
             this.showNav=false
+        }else{
+          this.showNav=true
         }
        },
       deep: true
