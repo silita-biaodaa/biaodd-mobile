@@ -57,21 +57,7 @@ export default {
         // 监控集合
         $route:{
             handler:function(val,old){
-                let that=this;
-                if(localStorage.getItem('orderNo')){
-                    this.$http({
-                        method:'post',
-                        url: '/wxPay/queryOrderStatus',
-                        data:{
-                            orderNo:localStorage.getItem('orderNo'),
-                        }
-                    }).then(function(res){
-                        localStorage.removeItem('orderNo');
-                        that.$router.replace('myOrder');
-                    }).catch(function(res){
-                        
-                    })
-                }
+                
             },
             deep:true
         }

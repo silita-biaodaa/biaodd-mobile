@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
@@ -49,6 +50,7 @@ function setHtmlFontSize(){
       document.getElementsByTagName('head')[0].appendChild(oMeta);
   // }
 };
+let that=Vue;
 router.beforeEach(function(to, from, next){
   if(to.fullPath=='/logo'){
     sessionStorage.setItem('path',from.name);
@@ -56,7 +58,25 @@ router.beforeEach(function(to, from, next){
   if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
     from.meta.followNum=0
   }
-  alert('to:'+JSON.stringify(to)+'from:'+JSON.stringify(from))
+  
+  if(localStorage.getItem('orderNo')){
+    axios({
+          method:'post',
+          url: '/wxPay/queryOrderStatus',
+          data:{
+              orderNo:localStorage.getItem('orderNo'),
+          }
+      }).then(function(res){
+          localStorage.removeItem('orderNo');
+          // router.replace('myOrder');
+          next({
+            replace:true,
+            name:'myOrder'
+          })
+      }).catch(function(res){
+          
+      })
+  }
   next()
 })
 setHtmlFontSize();
