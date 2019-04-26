@@ -59,21 +59,6 @@ export default {
         if(this.$route.name=='payVip'){
             this.showNav=false
         }
-        let that=this;
-        if(localStorage.getItem('orderNo')){
-            this.$http({
-                method:'post',
-                url: '/wxPay/queryOrderStatus',
-                data:{
-                    orderNo:localStorage.getItem('orderNo'),
-                }
-            }).then(function(res){
-                localStorage.removeItem('orderNo');
-                that.$router.replace('myOrder');
-            }).catch(function(res){
-                
-            })
-        }
     },
     jump() {
       this.$router.push('/')

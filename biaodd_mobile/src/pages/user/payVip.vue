@@ -55,6 +55,26 @@ export default {
     },
     watch: {
         // 监控集合
+        $route:{
+            handler:function(val,old){
+                let that=this;
+                if(localStorage.getItem('orderNo')){
+                    this.$http({
+                        method:'post',
+                        url: '/wxPay/queryOrderStatus',
+                        data:{
+                            orderNo:localStorage.getItem('orderNo'),
+                        }
+                    }).then(function(res){
+                        localStorage.removeItem('orderNo');
+                        that.$router.replace('myOrder');
+                    }).catch(function(res){
+                        
+                    })
+                }
+            },
+            deep:true
+        }
     },
     props: {
         // 集成父级参数
@@ -69,6 +89,7 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         // sessionStorage.removeItem('payOrder');
+        
         let that=this;
         this.$http({
             method:'post',
@@ -128,14 +149,11 @@ export default {
             }).then(function(res){
                 // console.log(res.data.data.webUrl);
                 localStorage.setItem('orderNo',res.data.orderNo);
-                let url=location.href;
+                let url=location.href+'?type=1';
                 let uri='&redirect_uri='+encodeURIComponent(url);
                 window.location.href=res.data.data.webUrl+uri;
             })
         },
-        testFn(){
-            localStorage.setItem('orderNo','123');
-        }
     }
 
 }

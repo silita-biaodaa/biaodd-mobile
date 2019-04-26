@@ -50,7 +50,6 @@
             <van-loading size="50px"></van-loading>
             <p style="text-align: center;margin-top:30px">拼命加载中</p>
         </template>
-        
     </div>
 </template>
 <script>
