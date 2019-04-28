@@ -194,12 +194,13 @@ export default {
   align-items: center;
 }
 .centre {
+  min-height:calc(100vh - 151px);
   background-color: #F5F5F5;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
   .cen-top {
     background: url(../../assets/webbc.png) no-repeat;
     background-size: auto 100%;
@@ -286,7 +287,7 @@ export default {
         // position: absolute;
         // right: 35px;
         font-size:50px; 
-        color:#040000;
+        color:#666;
       }
     }
   
@@ -322,7 +323,7 @@ export default {
           //  position: absolute;
           //  right: 0px;
            font-size:50px; 
-           color:#040000;
+           color:#666;
         }
       }
       .cen-ip {

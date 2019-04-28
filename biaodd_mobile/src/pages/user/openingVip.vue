@@ -241,10 +241,10 @@ export default {
             .discount{
                 text-align: center;
                 width: 200px;
-                height: 60px;
-                line-height: 60px;
-                font-size: 40px;
-                background: red;
+                height: 50px;
+                line-height: 50px;
+                font-size: 36px;
+                background: orange;
                 color: #fff;
                 position: absolute;
                 top: 0;

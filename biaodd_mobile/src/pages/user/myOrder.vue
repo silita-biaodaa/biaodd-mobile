@@ -94,7 +94,6 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.ajax();
         if(localStorage.getItem('orderNo')){
-            alert(localStorage.getItem('orderNo'))
             this.$http({
                 method:'post',
                 url: '/wxPay/queryOrderStatus',
