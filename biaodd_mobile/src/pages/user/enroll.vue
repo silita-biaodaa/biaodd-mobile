@@ -162,7 +162,7 @@ export default {
                     verifyCode:that.note,
                     phoneNo:that.username,
                     loginPwd:sha1(that.password),
-                    channel:'1003',
+                    channel:'1004',
                     clientVersion:'3.0'
                   }
               }).then(function(res){

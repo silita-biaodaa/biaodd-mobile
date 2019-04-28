@@ -168,7 +168,7 @@ export default {
                      loginPwd:sha1(that.password1),
                      verifyCode:that.note,
                      phoneNo:that.username,
-                     channel:'1003'
+                     channel:'1004'
                   }
               }).then(function(res){
                 if(res.data.code == 1) {

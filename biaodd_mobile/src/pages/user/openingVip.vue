@@ -30,7 +30,7 @@
                 </li>
             </ul>
             <div class="bottom-box">
-                <button @click="jumpPay" class="openBtn">立即开通</button>
+                <button @click="jumpPay" class="openBtn">{{openTxt}}</button>
                 <button @click="$router.push('/membership')" class="privilegeBtn">了解会员特权</button>
                 <!-- <p @click="$router.push('/membership')">了解会员特权  ></p> -->
             </div>
@@ -55,7 +55,8 @@ export default {
 
             },
             viplist:[],
-            tabNum:0
+            tabNum:0,
+            openTxt:'立即开通'
         }
     },
     watch: {
@@ -127,9 +128,11 @@ export default {
                 let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
                 that.userinfo.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0; 
                 if( that.userinfo.roleName == '会员用户') {
-                    that.userinfo.state = '会员'
+                    that.userinfo.state = '会员';
+                    that.openTxt='立即续费';
                 } else {
-                    that.userinfo.state = '非会员'
+                    that.userinfo.state = '非会员';
+                    that.openTxt='立即开通'
                 }
 
             })

@@ -49,18 +49,17 @@ export default {
         return {
             // 数据模型
             userid:'',
-            viplist:[],
-            tabNum:0
+            viplist:[{
+                price:'',
+                stdDesc:'',
+                save:'',
+            }],
+            tabNum:0,
+            webSock:null
         }
     },
     watch: {
         // 监控集合
-        $route:{
-            handler:function(val,old){
-                
-            },
-            deep:true
-        }
     },
     props: {
         // 集成父级参数
@@ -92,21 +91,21 @@ export default {
             
         })
 
-        if(localStorage.getItem('orderNo')){
-            alert(localStorage.getItem('orderNo'))
-            this.$http({
-                method:'post',
-                url: '/wxPay/queryOrderStatus',
-                data:{
-                    orderNo:localStorage.getItem('orderNo'),
-                }
-            }).then(function(res){
-                localStorage.removeItem('orderNo');
-                that.$router.push('/myOrder');
-            }).catch(function(res){
+        // if(localStorage.getItem('orderNo')){
+        //     alert(localStorage.getItem('orderNo'))
+        //     this.$http({
+        //         method:'post',
+        //         url: '/wxPay/queryOrderStatus',
+        //         data:{
+        //             orderNo:localStorage.getItem('orderNo'),
+        //         }
+        //     }).then(function(res){
+        //         localStorage.removeItem('orderNo');
+        //         that.$router.push('/myOrder');
+        //     }).catch(function(res){
                 
-            })
-        }
+        //     })
+        // }
 
         this.userid=sessionStorage.getItem('userid');
     },
@@ -138,25 +137,46 @@ export default {
         },
         payFn(){
             let that=this;
-            let uri=location.href;
-            uri=encodeURIComponent(uri);
+            // let uri=location.href;
+            // uri=encodeURIComponent(uri);
             let data={
                     channel:'1004',
                     stdCode:that.viplist[that.tabNum].stdCode,
                     userId:that.userid,
                     tradeType:'MWEB',
                     ip:sessionStorage.getItem('ip'),
-                    callbackUrl:uri
                 }
             this.$http({
                 method:'post',
                 url: '/wxPay/unifiedOrder',
                 data:data
             }).then(function(res){
+                // that.openWebSocket();
                 localStorage.setItem('orderNo',res.data.orderNo);
+                that.$router.push('/myOrder');
                 window.location.href=res.data.data.webUrl;
             })
         },
+        // openWebSocket(){
+        //     const wsuri=url;
+        //     this.webSock=new WebSocket(wsuri);
+        //     this.webSock.onopen=this.socketOpen;
+        //     this.webSock.onerror=this.socketError;
+        //     this.webSock.onmessage=this.socketMsg;
+        //     this.webSock.onclose=this.socketClose;
+        // },
+        // socketOpen(){//开启链接
+        //     alert('链接成功')
+        // },
+        // socketError(){//错误
+        //     alert('错误')
+        // },
+        // socketMsg(e){//接收
+        //     alert(JSON.stringify(e));
+        // },
+        // socketClose(e){//关闭
+        //     console.log(e.code);
+        // }
     }
 
 }

@@ -34,7 +34,7 @@
         <div class="attention" v-if="isLogin" @click="$router.push('/openingVip')">
           <div class="flex-box">
             <img src="../../assets/hy.png" alt="">
-            <span>开通会员</span>  
+            <span>我的会员</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />
         </div>
