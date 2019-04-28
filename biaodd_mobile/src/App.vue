@@ -82,7 +82,7 @@ export default {
   watch: {
    $route: {
       handler: function(val, oldVal){
-        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/followList') {
+        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/followList'||val.path == '/myOrder'||val.path == '/payVip'||val.path == '/openingVip') {
             this.fisrt = false 
             this.per  = false
         } else {

@@ -24,7 +24,7 @@
                                 </template>
                             </h5>
                             <div class="box">
-                                <p>订单号：{{o.orderNo}}</p>
+                                <p>订单编号：{{o.orderNo}}</p>
                                 <p>服务时长：{{o.timeLenth}}</p>
                                 <p>购买时间：{{o.time}}</p>
                                 <span>￥{{o.money}}</span>
@@ -74,7 +74,8 @@ export default {
                 channelNo:'1004',
                 orderStatus:'9'
             },
-            list:[]
+            list:[],
+            total:null,
         }
     },
     watch: {
@@ -92,20 +93,17 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.ajax();
-        if(localStorage.getItem('orderNo')){
-            this.$http({
-                method:'post',
-                url: '/wxPay/queryOrderStatus',
-                data:{
-                    orderNo:localStorage.getItem('orderNo'),
-                }
-            }).then(function(res){
-                localStorage.removeItem('orderNo');
-            }).catch(function(res){
-                
-            })
+        if(localStorage.getItem('orderTabNum')){
+            let i=localStorage.getItem('orderTabNum')*1;
+            this.navNum=localStorage.getItem('orderTabNum');
         }
+        if(this.navNum!=0){
+            this.data.orderStatus='1';
+            this.ajax1('9')
+        }else{
+            this.ajax1('1')
+        }
+        this.ajax();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -124,6 +122,7 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+        localStorage.removeItem('orderTabNum');
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
@@ -143,6 +142,12 @@ export default {
                 that.isajax=true;
                 if(res.data.code==1){
                     that.total=res.data.total;
+                    if(that.navNum==0){
+                        that.navArr[0]='已支付订单('+res.data.total+')'
+                    }else{
+                        that.navArr[1]='未支付订单('+res.data.total+')'
+                    }
+                    
                     for(let x of res.data.data){
                         if(x.stdCode=='month'){
                             x.timeLenth='1个月'
@@ -153,7 +158,7 @@ export default {
                         }else if(x.stdCode=='year'){
                             x.timeLenth='12个月'
                         }
-                        x.time=that.formatDate(x.createTime)
+                        x.time=that.formatDate(x.createTime,0)
                         x.money=x.fee/100;
                     }
                     if(that.list.length==0||that.data.pageNo==1){
@@ -171,6 +176,27 @@ export default {
                 that.isError=true;
                 if(that.list.length>0){
                     that.error = true;
+                }
+            })
+        },
+        ajax1(orderStatus){
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/vip/queryOrderList',
+                data:{
+                    pageNo:1,
+                    pageSize:'10',
+                    channelNo:'1004',
+                    orderStatus:orderStatus
+                }
+            }).then(function(res){
+                if(res.data.code==1){
+                    if(that.navNum!=0){
+                        that.navArr[0]='已支付订单('+res.data.total+')'
+                    }else{
+                        that.navArr[1]='未支付订单('+res.data.total+')'
+                    }
                 }
             })
         },
@@ -195,6 +221,7 @@ export default {
                 this.isPayed=false;
                 this.navNum=1;
             }
+            localStorage.setItem('orderTabNum',i);
             this.ajax();
         },
         payBtn(){

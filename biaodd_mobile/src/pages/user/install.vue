@@ -80,11 +80,12 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .install {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+    min-height: calc(100vh - 243px);
   background-color: #F5F5F5;
   padding-top: 92px;
   .in-nav {
@@ -104,7 +105,8 @@ export default {
      }
   }
   .in-b {
-    height: 100%;
+      box-sizing: border-box;
+    height:calc(100vh - 387px);
     background-color: #fff;
     padding-top: 450px;
     .in-btn {
