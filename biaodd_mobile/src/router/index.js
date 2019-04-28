@@ -46,7 +46,7 @@ export default new Router({
     },
     {//首页
       path: '/home',
-      name: 'index',
+      name: 'home',
       component: index
     },
     { //中标列表
