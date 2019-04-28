@@ -91,6 +91,23 @@ export default {
         }).catch(function(res){
             
         })
+
+        if(localStorage.getItem('orderNo')){
+            alert(localStorage.getItem('orderNo'))
+            this.$http({
+                method:'post',
+                url: '/wxPay/queryOrderStatus',
+                data:{
+                    orderNo:localStorage.getItem('orderNo'),
+                }
+            }).then(function(res){
+                localStorage.removeItem('orderNo');
+                that.$router.push('/myOrder');
+            }).catch(function(res){
+                
+            })
+        }
+
         this.userid=sessionStorage.getItem('userid');
     },
     beforeMount() {
@@ -121,12 +138,15 @@ export default {
         },
         payFn(){
             let that=this;
+            let uri=location.href;
+            uri=encodeURIComponent(uri);
             let data={
                     channel:'1004',
                     stdCode:that.viplist[that.tabNum].stdCode,
                     userId:that.userid,
                     tradeType:'MWEB',
-                    ip:sessionStorage.getItem('ip')
+                    ip:sessionStorage.getItem('ip'),
+                    callbackUrl:uri
                 }
             this.$http({
                 method:'post',
@@ -134,7 +154,6 @@ export default {
                 data:data
             }).then(function(res){
                 localStorage.setItem('orderNo',res.data.orderNo);
-                that.$router.push('/myOrder');
                 window.location.href=res.data.data.webUrl;
             })
         },

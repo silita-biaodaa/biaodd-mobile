@@ -58,28 +58,7 @@ router.beforeEach(function(to, from, next){
   if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
     from.meta.followNum=0
   }
-  
-  // if(localStorage.getItem('orderNo')){
-    // alert(localStorage.getItem('orderNo'))
-    // axios({
-    //       method:'post',
-    //       url: '/wxPay/queryOrderStatus',
-    //       data:{
-    //           orderNo:localStorage.getItem('orderNo'),
-    //       }
-    //   }).then(function(res){
-    //       localStorage.removeItem('orderNo');
-    //       // router.replace('myOrder');
-    //       next({
-    //         replace:true,
-    //         name:'myOrder'
-    //       })
-    //   }).catch(function(res){
-          
-    //   })
-  // }else{
-    next()
-  // }
+  next()
   
 })
 setHtmlFontSize();

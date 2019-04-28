@@ -93,20 +93,6 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.ajax();
-        if(localStorage.getItem('orderNo')){
-            alert(localStorage.getItem('orderNo'))
-            this.$http({
-                method:'post',
-                url: '/wxPay/queryOrderStatus',
-                data:{
-                    orderNo:localStorage.getItem('orderNo'),
-                }
-            }).then(function(res){
-                localStorage.removeItem('orderNo');
-            }).catch(function(res){
-                
-            })
-        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
