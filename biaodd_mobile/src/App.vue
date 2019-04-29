@@ -111,7 +111,7 @@ export default {
  bottom: 0;
 } */
 .app-boby {
- padding-bottom: 151px;
+ padding-bottom: 101px;
 }
 .app-bto {
   position: fixed;

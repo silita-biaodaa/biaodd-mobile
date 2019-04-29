@@ -214,8 +214,9 @@ export default {
 .followList{
     padding-top: 90px;
     background: #f5f5f5;
-    padding-bottom: 0;
-    min-height: 100vh
+    // box-sizing: border-box;
+    padding-bottom: 101px;
+    min-height: calc(100vh - 191px)
 }
 .nav{
     background: #fff;

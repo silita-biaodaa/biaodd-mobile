@@ -194,5 +194,19 @@ export default new Router({
       name: 'payVip'
     }   
             
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+		let u = navigator.userAgent;
+		let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		if(isiOS){
+			if (savedPosition) {
+				return savedPosition
+			}else{
+				return { x: 0, y: 0 }
+			}
+		}else{
+			return { x: 0, y: 0 }
+		}
+		
+	}
 })

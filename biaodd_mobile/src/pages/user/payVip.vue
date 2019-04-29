@@ -186,7 +186,7 @@ export default {
 <style  lang='less' scoped>
 .payVip{
     padding-top: 90px;
-    min-height: calc(100vh - 262px);
+    min-height: calc(100vh - 242px);
     background: #fff;
     .conten-box{
         background: #f5f5f5;
