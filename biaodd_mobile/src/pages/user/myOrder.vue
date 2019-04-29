@@ -41,7 +41,7 @@
                             </template>
                             <template v-else>
                                 <h5>
-                                    <span class="title">企业资质+业绩查询报告——体验版</span>
+                                    <span class="title">{{o.report.repTitle}}</span>
                                     <template  v-if="isPayed">
                                         <span class="status">已支付</span>
                                     </template>
@@ -53,7 +53,7 @@
                                     <p>订单编号：{{o.orderNo}}</p>
                                     <p>接收邮箱：{{o.report.email}}</p>
                                     <p>报告格式：{{o.report.pattern}}</p>
-                                    <p>购买时间：{{o.report.payDate}}</p>
+                                    <p>购买时间：{{o.time}}</p>
                                     <span>￥{{o.money}}</span>
                                 </div>
                             </template>
