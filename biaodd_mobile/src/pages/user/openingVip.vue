@@ -157,7 +157,8 @@ export default {
 .openingVip{
     background: #f5f5f5;
     padding-top: 110px;
-    min-height: calc(100vh - 262px);
+    padding-bottom: 121px;
+    // min-height: calc(100vh - 282px);
 }
 .card{
     box-sizing: border-box;
