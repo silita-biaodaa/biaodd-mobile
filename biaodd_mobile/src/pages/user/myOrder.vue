@@ -71,7 +71,7 @@ export default {
             data:{
                 pageNo:1,
                 pageSize:'10',
-                channelNo:'1004',
+                // channelNo:'1004',
                 orderStatus:'9'
             },
             list:[],
@@ -80,6 +80,14 @@ export default {
     },
     watch: {
         // 监控集合
+        data:{
+            handler:function(val, oldVal){
+                if(val.orderStatus=='9'){
+                    val.channelNo='1004'
+                }
+            },
+            deep:true
+        }
     },
     components: {
        'top-back':topBack,
@@ -99,8 +107,10 @@ export default {
         }
         if(this.navNum!=0){
             this.data.orderStatus='1';
+            this.isPayed=false;
             this.ajax1('9')
         }else{
+            this.isPayed=true;
             this.ajax1('1')
         }
         this.ajax();
@@ -181,15 +191,19 @@ export default {
         },
         ajax1(orderStatus){
             let that=this;
+            let data={
+                pageNo:1,
+                pageSize:'10',
+                // channelNo:'1004',
+                orderStatus:orderStatus
+            }
+            if(orderStatus=='1'){
+                data.channelNo='1004'
+            }
             this.$http({
                 method:'post',
                 url: '/vip/queryOrderList',
-                data:{
-                    pageNo:1,
-                    pageSize:'10',
-                    channelNo:'1004',
-                    orderStatus:orderStatus
-                }
+                data:data
             }).then(function(res){
                 if(res.data.code==1){
                     if(that.navNum!=0){
