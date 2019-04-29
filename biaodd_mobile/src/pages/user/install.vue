@@ -67,8 +67,8 @@ export default {
             this.$router.push('/find')
         },
         quit() {
-            localStorage.removeItem('xtoken')
-            localStorage.removeItem('Bname')
+            sessionStorage.removeItem('xtoken')
+            sessionStorage.removeItem('Bname')
             sessionStorage.removeItem('permissions')
             this.$router.push('/')
         }

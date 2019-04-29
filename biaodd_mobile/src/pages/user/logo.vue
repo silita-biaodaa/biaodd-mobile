@@ -110,8 +110,8 @@ export default {
             }
         }).then(function(res){
             if(res.data.code == '1' ) {
-                localStorage.setItem('xtoken',res.data.data.xtoken)
-                localStorage.setItem('Bname',res.data.data.nikeName)
+                sessionStorage.setItem('xtoken',res.data.data.xtoken)
+                sessionStorage.setItem('Bname',res.data.data.nikeName)
                 sessionStorage.setItem('permissions',res.data.data.permissions);
                 sessionStorage.setItem('userid',res.data.data.pkid);
                 if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){

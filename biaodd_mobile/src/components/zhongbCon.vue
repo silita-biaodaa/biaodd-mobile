@@ -91,7 +91,7 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            if(localStorage.getItem('xtoken')) {
+            if(sessionStorage.getItem('xtoken')) {
                 this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
             } else {
                 this.isload = true 

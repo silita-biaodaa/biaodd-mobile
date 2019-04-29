@@ -104,7 +104,7 @@ export default {
     },
     computed: {
        decision() {
-         if(localStorage.getItem('xtoken')) {
+         if(sessionStorage.getItem('xtoken')) {
            return false
          } else {
            return true
@@ -117,7 +117,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.gainNew();
-        if(localStorage.getItem('xtoken')){
+        if(sessionStorage.getItem('xtoken')){
           this.isLogin=true
         }else{
           this.isLogin=false
@@ -147,7 +147,7 @@ export default {
     methods: {
         // 方法 集合
         jump() {
-          if(localStorage.getItem('xtoken')) {
+          if(sessionStorage.getItem('xtoken')) {
             this.$router.push('/user')
           } else {
              this.$router.push('/logo')
@@ -155,7 +155,7 @@ export default {
          
         },
         jumpto() {
-            if(localStorage.getItem('xtoken')) {
+            if(sessionStorage.getItem('xtoken')) {
                 this.$router.push('/install')
             }
         },
@@ -163,7 +163,7 @@ export default {
             window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
         },
         gainNew() {
-          if(localStorage.getItem('xtoken')) {
+          if(sessionStorage.getItem('xtoken')) {
                 let that=this;
                   this.$http({
                       method:'post',

@@ -68,6 +68,12 @@ export default {
     }
   },
   created () {
+    if(localStorage.getItem('xtoken')){
+      localStorage.removeItem('xtoken')
+    }
+    if(localStorage.getItem('Bname')){
+      localStorage.removeItem('Bname')
+    }
     this.judge();
     this.$http({
         method:'post',
