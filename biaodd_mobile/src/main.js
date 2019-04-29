@@ -52,7 +52,7 @@ function setHtmlFontSize(){
 };
 let that=Vue;
 router.beforeEach(function(to, from, next){
-  if(to.fullPath=='/logo'){
+  if(to.name=='logo'){
     sessionStorage.setItem('path',from.name);
   }
   if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
