@@ -85,7 +85,7 @@ export default {
 //   left: 0;
 //   right: 0;
 //   bottom: 0;
-    min-height: calc(100vh - 243px);
+    min-height: calc(100vh - 202px);
   background-color: #F5F5F5;
   padding-top: 92px;
   .in-nav {
