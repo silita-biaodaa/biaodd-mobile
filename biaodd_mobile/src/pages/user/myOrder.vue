@@ -14,29 +14,49 @@
                 <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                     <ul class="list">
                         <li v-for="(o,i) of list" :key="i">
-                            <h5>
-                                <span class="title">VIP会员服务</span>
-                                <template  v-if="isPayed">
-                                    <span class="status">已支付</span>
-                                </template>
-                                <template v-else>
-                                    <span class="status">未支付</span>
-                                </template>
-                            </h5>
-                            <div class="box">
-                                <p>订单编号：{{o.orderNo}}</p>
-                                <p>服务时长：{{o.timeLenth}}</p>
-                                <p>购买时间：{{o.time}}</p>
-                                <span>￥{{o.money}}</span>
-                            </div>
-                            <div class="bom-box">
-                                <template  v-if="isPayed">
-                                    <button @click="payBtn(i)">再次购买</button>
-                                </template>
-                                <template v-else>
-                                    <button @click="payBtn(i)">立即支付</button>
-                                </template>
-                            </div>
+                            <template v-if="!o.report">
+                                <h5>
+                                    <span class="title">VIP会员服务</span>
+                                    <template  v-if="isPayed">
+                                        <span class="status">已支付</span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="status">未支付</span>
+                                    </template>
+                                </h5>
+                                <div class="box">
+                                    <p>订单编号：{{o.orderNo}}</p>
+                                    <p>服务时长：{{o.timeLenth}}</p>
+                                    <p>购买时间：{{o.time}}</p>
+                                    <span>￥{{o.money}}</span>
+                                </div>
+                                <div class="bom-box">
+                                    <template  v-if="isPayed">
+                                        <button @click="payBtn(i)">再次购买</button>
+                                    </template>
+                                    <template v-else>
+                                        <button @click="payBtn(i)">立即支付</button>
+                                    </template>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <h5>
+                                    <span class="title">企业资质+业绩查询报告——体验版</span>
+                                    <template  v-if="isPayed">
+                                        <span class="status">已支付</span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="status">未支付</span>
+                                    </template>
+                                </h5>
+                                <div class="box">
+                                    <p>订单编号：{{o.orderNo}}</p>
+                                    <p>接收邮箱：{{o.report.email}}</p>
+                                    <p>报告格式：{{o.report.pattern}}</p>
+                                    <p>购买时间：{{o.report.payDate}}</p>
+                                    <span>￥{{o.money}}</span>
+                                </div>
+                            </template>
                         </li>
                     </ul>
                 </van-list>
@@ -82,8 +102,10 @@ export default {
         // 监控集合
         data:{
             handler:function(val, oldVal){
-                if(val.orderStatus=='9'){
+                if(val.orderStatus=='1'){
                     val.channelNo='1004'
+                }else{
+                    val.channelNo=''
                 }
             },
             deep:true
