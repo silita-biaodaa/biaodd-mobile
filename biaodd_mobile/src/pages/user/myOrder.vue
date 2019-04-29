@@ -260,8 +260,13 @@ export default {
             localStorage.setItem('orderTabNum',i);
             this.ajax();
         },
-        payBtn(){
-            this.$router.push('/payVip');
+        payBtn(i){
+            this.$router.push({
+                path:'/payVip',
+                query:{
+                    code:this.list[i].stdCode
+                }
+            });
         }
     }
 

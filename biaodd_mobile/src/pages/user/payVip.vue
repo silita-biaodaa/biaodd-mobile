@@ -72,7 +72,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         // sessionStorage.removeItem('payOrder');
         
         let that=this;
@@ -86,11 +85,21 @@ export default {
             for(let x of res.data.data){
                 x.save=x.primePrice-x.price
             }
-            that.viplist=res.data.data
+            that.viplist=res.data.data;
+            if(that.$router.query.code){
+                for(let x in that.viplist){
+                    if(that.viplist[x].stdCode==that.$router.query.code){
+                        that.tabNum=x;
+                        break
+                    }
+                }
+            }
         }).catch(function(res){
             
         })
-
+        if(sessionStorage.getItem('payOrder')){
+            this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
+        }
         // if(localStorage.getItem('orderNo')){
         //     alert(localStorage.getItem('orderNo'))
         //     this.$http({
