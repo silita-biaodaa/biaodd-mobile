@@ -1,4 +1,5 @@
 <!-- 模型： DOM 结构 -->
+import { setTimeout } from 'timers';
 <template>
     <div class="aptitude" :class="{'zIndex':isFix}">
         <div class="box">
@@ -10,7 +11,7 @@
                     <div class="tit" v-if="type==1">最多可选3条资质</div>
                     <ul>
                         <li  v-for="(o,i) of boxArr" :key="i">
-                            <span>{{o.name}}</span>
+                            <span @click="modifyFn(i)">{{o.name}}</span>
                             <van-icon name="cross" @click="delteFn(i)"></van-icon>
                         </li>
                     </ul>
@@ -29,12 +30,15 @@
                     <van-icon name="cross" @click="hideFix"></van-icon>
                 </div>
                 <div class="nav">
-                    <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i">{{o}}</span>
+                    <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
                 </div>
                 <ul>
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
                 </ul>
             </div>
+        </div>
+        <div class="toast" v-if="isToast">
+            <span>资质不可重复选择哟~</span>
         </div>
     </div>
 </template>
@@ -52,6 +56,7 @@ export default {
             navTxt:['请选择'],
             storageArr:[],//存
             boxArr:[],//用于显示在筛选区
+            isToast:false,
         }
     },
     watch: {
@@ -125,17 +130,27 @@ export default {
             this.storageArr.push(obj);
             this.navTxt[that.num]=that.showArr[i].name;
             if(that.showArr[i].list==null){
-                this.hideFix();
                 let name=[],code=[];
                 for(let x of that.storageArr){
                     name.push(x.name);
                     code.push(x.code);
                 }
-                that.storageArr=[];
                 let boxData={
                     name:name.join('-'),
                     code:code.join('||')
                 }
+                for(let x of this.boxArr){
+                    if(x.code==boxData.code){
+                        that.storageArr.length=2;
+                        that.isToast=true;
+                        setTimeout(function(){
+                            that.isToast=false;
+                        },1500)
+                        return false
+                    }
+                }
+                this.hideFix();
+                that.storageArr=[];
                 this.boxArr.push(boxData);
                 this.navTxt=[];
                 this.sureTxt='确定';
@@ -182,6 +197,54 @@ export default {
         },
         recordFn(){
             this.$emit('recordFn');
+        },
+        navTap(i){
+            this.num=i;
+            if(i==0){
+                this.showArr=this.data;
+                this.navTxt=['请选择'];
+                this.storageArr=[];
+            }else if(i==1){
+                for(let x in this.data){
+                    if(this.data[x].name==this.navTxt[0]){
+                        this.showArr=this.data[x].list
+                        break
+                    }
+                }
+                this.navTxt[1]='请选择';
+                this.navTxt.length=2;
+                this.storageArr.length=1;
+            }
+        },
+        modifyFn(i){
+            this.isFix=true;
+            this.modalHelper.afterOpen();
+            //取之前的数据
+            let arrName=this.boxArr[i].name.split('-');
+            let arrCode=this.boxArr[i].code.split('||');
+            //删除之前的那行
+            this.boxArr.splice(i,1);
+            this.navTxt=arrName;
+            this.navTxt[2]='请选择';
+            this.num=2;
+            for(let x of this.data){
+                if(x.code==arrCode[0]){
+                    for(let y of x.list){
+                        if(y.code==arrCode[1]){
+                            this.showArr=y.list
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+            for(let x=0;x<arrCode.length-1;x++){
+                let data={
+                    code:arrCode[x],
+                    name:arrName[x]
+                }
+                this.storageArr.push(data);
+            }
         }
     }
 
@@ -308,5 +371,12 @@ export default {
 .isShow{
     right: 0;
     // min-height: 100vh;
+}
+.toast{
+    z-index: 9999991;
+    span{
+        color: #fff;
+        font-size: 28px;
+    }
 }
 </style>

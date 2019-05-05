@@ -2,12 +2,20 @@
 <template>
     <div class="popup-box isvip" v-if="mask">
         <div class="box-con">
-            <div class="top-box">
+            <div class="top-box" v-if="isLogin">
                 <span>{{txt}}</span>
             </div>
+            <div class="top-box" v-else>
+                <span>检测到您尚未登录，请先登录</span>
+            </div>
             <div class="bom-box">
-                <span class="canel" @click="canelFn">取消下载</span>
-                <span class="sure" @click="sureFn">下载APP</span>
+                <span class="canel" @click="canelFn">取消</span>
+                <template v-if="isLogin">
+                    <span class="sure" @click="sureFn">去开通</span>
+                </template>
+                <template v-else>
+                    <span class="sure" @click="jumpLogin">去登录</span>
+                </template>
             </div>
         </div>
     </div>
@@ -18,6 +26,7 @@ export default {
     data() {
         return {
             // 数据模型
+            isLogin:false,
         }
     },
     watch: {
@@ -32,7 +41,7 @@ export default {
             default:false
         },
         txt:{
-            default:'查看更多资讯，请下载标大大APP'
+            default:'查看更多资讯，请开通会员'
         }
 
     },
@@ -43,6 +52,9 @@ export default {
         // console.group('创建完毕状态===============》created');
         // let str=sessionStorage.getItem('permissions');
         // this.dataArr=str;
+        if(sessionStorage.getItem('xtoken')){
+            this.isLogin=true;
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -72,11 +84,15 @@ export default {
         // 方法 集合
         sureFn(){//点击下载APP
             this.modalHelper.beforeClose();
-            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+            this.$router.push('/openingVip');
         },
         canelFn(){
             this.modalHelper.beforeClose();
             this.$parent.isvip=false;
+        },
+        jumpLogin(){
+            this.modalHelper.beforeClose();
+            this.$router.push('/logo');
         }
     }
 

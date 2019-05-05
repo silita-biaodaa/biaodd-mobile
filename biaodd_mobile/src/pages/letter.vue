@@ -73,7 +73,7 @@
         </div>
 
       </div>
-      <v-vip :mask="isvip" :txt="'查看企业更多电话号码，请下载标大大APP'"></v-vip>
+      <v-vip :mask="isvip" :txt="'查看企业更多电话号码，请开通会员'"></v-vip>
       
       <v-load v-if="isload"></v-load>
     </div>

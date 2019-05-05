@@ -26,7 +26,7 @@
                     <p class="time">{{o.stdDesc}}</p>
                     <p class="money">￥{{o.price}}</p>
                     <p class="save">节省￥{{o.save}}</p>
-                    <div class="discount">{{o.altInfo}}</div>
+                    <div class="discount" v-if="o.altInfo">{{o.altInfo}}</div>
                 </li>
             </ul>
             <div class="bottom-box">
