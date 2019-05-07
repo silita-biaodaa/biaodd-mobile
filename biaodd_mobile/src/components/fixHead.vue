@@ -2,7 +2,7 @@
 <template>
     <div class="fixbox">
         <div class="fixHead">
-            <div class="left">
+            <div class="fix-left">
                 <img src="../assets/logo.png"/>
                 <span v-if="isshow" @click="addTap">
                     {{address}}
@@ -15,7 +15,7 @@
                 <div class="fix-line">
 
                 </div>
-                 <p class="left fix-logo color" @click="jump" >
+                 <p class="fix-logo color" @click="jump" >
                     {{name}}
                 </p>
             </div>
@@ -43,9 +43,6 @@ export default {
             iconName:'arrow-down',
             scrNav:[
                 {
-                    txt:'首页',
-                    path:'/'
-                },{
                     txt:'招标',
                     path:'/bid'
                 },{
@@ -55,10 +52,13 @@ export default {
                     txt:'企业',
                     path:'/company'
                 }
-                // ,{
-                //     txt:'诚信',
-                //     path:'/'
-                // },
+                ,{
+                    txt:'业绩',
+                    path:'/'
+                },{
+                    txt:'人员',
+                    path:'/'
+                },
             ],
             name:'登录或注册'
            
@@ -178,7 +178,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    .left{
+    .fix-left{
         display: flex;
         align-items:center;
         img{

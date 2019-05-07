@@ -3,9 +3,11 @@
     <div class="user">
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
-            <img :src="data.img" v-if="isImg"/>
-            <img src="../../assets/icon-tpux.png.png" v-else/>
-            <span>{{data.nickname}}</span>
+            <van-uploader :after-read="changeImg"  accept="image/gif, image/jpeg">
+                <img :src="data.img" v-if="isImg"/>
+                <img src="../../assets/icon-tpux.png.png" v-else/>
+            </van-uploader>
+            <p>{{data.nickname}}</p>
         </div>
         <section>
             <ul>
@@ -143,32 +145,57 @@ export default {
                    that.sexNum = res.data.data.sex
                })
          },
-         changeNew() {
-              let that=this;
-               this.$http({
-                   method:'post',
-                   url: '/userCenter/updateUserInfo',
-                   data:{
-                      nikeName:that.data.nickname,
-                      sex:that.data.sex,
-                      inCompany:that.data.company,
-                      position:that.data.title,
-                      userName:that.data.name
-                   }
-               }).then(function(res){
-                  if(res.data.code == 1) {
-                      that.hint = '信息更新成功',
-                      that.isShow = true
-                      sessionStorage.setItem('xtoken',res.data.data.xtoken)
-                      sessionStorage.setItem('Bname',res.data.data.nikeName)
-                      sessionStorage.setItem('permissions',res.data.data.permissions);
-                      setTimeout(() => {
+        changeNew(type=null) {
+            let that=this;
+            let data={
+                nikeName:that.data.nickname,
+                sex:that.data.sex,
+                inCompany:that.data.company,
+                position:that.data.title,
+                userName:that.data.name,
+            };
+            if(this.isImg){
+                data.imageUrl=that.data.img
+            }
+            this.$http({
+                method:'post',
+                url: '/userCenter/updateUserInfo',
+                data:data
+            }).then(function(res){
+                if(res.data.code == 1) {
+                    that.hint = '信息更新成功',
+                    that.isShow = true
+                    sessionStorage.setItem('xtoken',res.data.data.xtoken)
+                    sessionStorage.setItem('Bname',res.data.data.nikeName)
+                    sessionStorage.setItem('permissions',res.data.data.permissions);
+                    setTimeout(() => {
                         that.isShow = false;
-                      },1500);
-                      that.$router.push('/centre')
-                  }
-               })
-         }
+                    },1500);
+                    if(type==null){
+                        that.$router.push('/centre')
+                    }
+                    
+                }
+            })
+        },
+        changeImg(file, detail){
+            // console.log(file.file)
+            let formData=new FormData();
+            formData.append('file',file.file);
+            let that=this;
+            this.isImg=true;
+            // this.data.img=file.content;
+            this.$http({
+                method:'post',
+                url: '/userCenter/updateHeadPortrait',
+                data:formData
+            }).then(function(res){
+                if(res.data.code==1){
+                    that.data.img=res.data.imgPath;
+                    that.changeNew(0);
+                }
+            })
+        }
     }
 
 }
@@ -198,7 +225,7 @@ input::placeholder{
         margin: 0 auto 20px;
         border-radius: 50%;
     }
-    span{
+    p{
         font-size: 28px;
     }
 }
