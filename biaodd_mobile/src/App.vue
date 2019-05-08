@@ -80,9 +80,21 @@ export default {
         url: '/authorize/address',
     }).then(function(res){
         sessionStorage.setItem('address',res.data.data.region);
+        if(res.data.data.region=='湖南'){
+          sessionStorage.setItem('city',res.data.data.city);
+        }
         sessionStorage.setItem('ip',res.data.data.ip);
     }).catch(function(res){
         
+    })
+
+
+    //筛选条件存于本地
+    this.$http({
+        method:'get',
+        url: '/company/filter',
+    }).then(function(res){
+        localStorage.setItem('filter',JSON.stringify(res.data.data));
     })
   },
   watch: {

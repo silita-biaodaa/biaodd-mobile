@@ -62,15 +62,23 @@ export default {
             navList:[
                 {
                     img:require('../assets/icon-zhaob.png'),
-                    txt:'招标公告',
+                    txt:'招标',
                     path:'/bid'
                 },{
                     img:require('../assets/icon-zhongb.png'),
-                    txt:'中标公告',
+                    txt:'中标',
                     path:'/tender'
                 },{
                     img:require('../assets/icon-qiy.png'),
-                    txt:'企业信息',
+                    txt:'企业',
+                    path:'/company'
+                },{
+                    img:require('../assets/icon-yej.png'),
+                    txt:'业绩',
+                    path:'/company'
+                },{
+                    img:require('../assets/icon-reny.png'),
+                    txt:'人员',
                     path:'/company'
                 }
                 
@@ -79,7 +87,7 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2}],
+            tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2},{name:'查业绩',to:'/company',i:3},{name:'查人员',to:'/company',i:4}],
             tabNum:0,
             isScroll:false,
             topath:'/bid'
@@ -149,10 +157,11 @@ export default {
             this.topath = i.to
         },
         getAddress(option){
-            this.ready()
+            this.ad
+            this.ready(option.str);
         },
-        ready(){
-            let address=this.$refs.fixObj.address;
+        ready(str=null){
+            let address=this.$refs.fixObj.addressStr;
             //招标
             let that=this;
             this.$http({
@@ -181,11 +190,16 @@ export default {
                 that.zhongbList=res.data.data;
             })
             //企业
+            let arr=address.split('||');
+            let qyAddress=address;
+            if(arr.length>1){
+                qyAddress=arr[0]
+            }
             this.$http({
                 method:'post',
                 url: '/company/host',
                 data:{
-                    regisAddress:address,
+                    regisAddress:qyAddress,
                     limit: 3
                 }
             }).then(function(res){
@@ -213,10 +227,10 @@ export default {
             this.search=''
         },
         tapFn(x,y){
-            if(y==3){
-                window.location.href='http://old.biaodaa.com/';
-                return false
-            }
+            // if(y==3){
+            //     window.location.href='http://old.biaodaa.com/';
+            //     return false
+            // }
             this.$router.push(x.path);
         }
     }
@@ -241,7 +255,7 @@ export default {
         width: 100%;
         height:450px;
         background: url('../assets/banner.png') no-repeat;
-        background-size: cover;
+        background-size:100% 100%;
         .van-search{
             width: 100%;
             height: 96px;
@@ -262,17 +276,19 @@ export default {
             }
         }
         .tabBox{
-            padding: 0 25px;
+            // padding: 0 25px;
             background: none;
             span{
                 display: inline-block;
                 color: #fff;
                 width: 120px;
-                height: 77px;
-                line-height: 77px;
+                height: 68px;
+                border-radius: 5px;
+                line-height:68px;
                 text-align: center;
+                font-size: 28px;
                 margin-bottom: 36px;
-                margin-right: 20px;
+                margin-right: 10px;
             }
             .active{
                 background: #fff;
@@ -340,5 +356,13 @@ export default {
     li:last-child{
         border-bottom: none
     }
+}
+@media screen and (max-width:374px){
+    .index {
+        .banner{
+            height:550px;
+        }
+    }
+    
 }
 </style>

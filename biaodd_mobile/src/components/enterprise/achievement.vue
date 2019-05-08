@@ -2,14 +2,14 @@
 <template>
     <div class="affairs">
         <!-- 搜索 -->
-        <!-- <v-ser :selecTxt="'项目类别'"></v-ser> -->
+        <v-ser :selecTxt="selecTxt"></v-ser>
         <div class="box" v-if="!more">
             <!-- list -->
             <template v-if="isajax">
                 <template v-if="list.length>0">
                     <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
                         <van-list finished-text="没有更多了" @load="onLoad"  :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-                            <v-con :type="'yj'" v-for="(el,i) in list" :key="i" :obj='el'></v-con>
+                            <v-con :type="achType" v-for="(el,i) in list" :key="i" :obj='el'></v-con>
                         </van-list>
                     <!-- </van-pull-refresh> -->
                 </template>
@@ -27,6 +27,9 @@
                 <p>查看更多资讯，请<span @click="jumpApp">下载APP</span></p>
             </div>
         </template>
+        <van-popup v-model="mask"  position="bottom" :overlay="true">
+            <van-picker :columns="personCategory" value-key="name" show-toolbar @confirm="confirmFn" @cancel="mask=false" ref="picker"/>
+        </van-popup>
     </div>
 </template>
 <script>
@@ -44,7 +47,8 @@ export default {
                 comId:'', // 企业ID
                 type:'page',
                 pageNo:1,
-                pageSize:5
+                pageSize:5,
+                tabType:'project'
             },
             list:[],
             isScroll:true,
@@ -52,6 +56,21 @@ export default {
             isError:false,//是否加载失败
             finished:false,//是否加载完
             error:false,
+            mask:false,
+            personCategory:[
+                {
+                    name:'住建部',
+                    value:'project'
+                },{
+                    name:'水利部',
+                    value:'shuili'
+                },{
+                    name:'交通部',
+                    value:'jiaotong'
+                },
+            ],
+            selecTxt:'住建部',
+            achType:'yj1'
         }
     },
     watch: {
@@ -145,6 +164,20 @@ export default {
         },
         jumpApp(){
             window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        },
+        confirmFn(){
+            this.mask=false;
+            this.peoList=[];
+            this.data.tabType=this.$refs.picker.getValues()[0].value;
+            this.selecTxt=this.$refs.picker.getValues()[0].name;
+            if(this.selecTxt=='住建部'){
+                this.achType='yj1'
+            }else if(this.selecTxt=='水利部'){
+                this.achType='yj2'
+            }else{
+                this.achType='yj3'
+            }
+            this.ajax();
         }
     }
 

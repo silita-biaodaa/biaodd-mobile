@@ -143,8 +143,8 @@ export default {
         this.isajax=false;
         this.zbList=[];
         this.screenList[0].active=false;
-        this.screenList[0].txt=option;
-        this.data.regions=option;
+        this.screenList[0].txt=option.txt;
+        this.data.regions=option.str;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -223,6 +223,10 @@ export default {
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regions = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
+      if(sessionStorage.getItem('city')){
+          this.data.regions=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
+          this.screenList[0].txt=sessionStorage.getItem('city');
+      }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }

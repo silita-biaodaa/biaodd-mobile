@@ -81,6 +81,24 @@ export default {
                 this.selectPush.push(y);
             }
         }
+        // //条件
+        // let that=this;
+        // if(!localStorage.getItem('filter')){
+        //     this.$http({
+        //         method:'get',
+        //         url: '/company/filter',
+        //     }).then(function(res){
+        //         for(let x of res.data.data.pbMode){
+        //             x.class=false
+        //         }
+        //         that.assessList=res.data.data.pbMode;
+        //     })
+        // }else{
+        //     let obj=localStorage.getItem('filter');
+        //     obj=JSON.parse(obj);
+        //     that.data=obj.companyQual;
+        //     that.showArr=obj.companyQual;
+        // }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

@@ -22,13 +22,6 @@
             <p>专  业：{{obj.major}}</p>
             <p>有效日期：{{obj.validDate}}</p>
         </template>
-        <!-- 业绩 -->
-        <template v-else-if="type=='yj'">
-            <h5>{{obj.proName}}</h5>
-            <p>建设单位：{{obj.proOrg}}</p>
-            <p>项目地区：{{obj.province}}</p>
-            <p>项目类别：{{obj.proType}}</p>
-        </template>
         <!-- 中标 -->
         <template v-else-if="type=='zb'">
             <h5>{{obj.title}}</h5>
@@ -49,6 +42,26 @@
             <p>发布部门：{{obj.publishSite}}</p>
             <p>发布日期：{{obj.publishDate}}</p>
             <p>发布内容：{{obj.badBehaviorContent}}</p>
+        </template>
+        <!-- 业绩 -->
+        <template v-else>
+            <h5>{{obj.proName}}</h5>
+            <template v-if="type=='yj1'">
+                <p>建设单位：{{obj.proOrg}}</p>
+                <p>合同金额：{{obj.amount}}</p>
+                <p>竣工日期：{{obj.buildEnd}}</p>
+            </template>
+            <template v-else-if="type=='yj2'">
+                <p>施工单位：{{obj.proOrg}}</p>
+                <p>合同金额：{{obj.amount}}</p>
+                <p>竣工日期：{{obj.build}}</p>
+            </template>
+            <template v-else-if="type=='yj3'">
+                <p>施工单位：{{obj.comName}}</p>
+                <p>标段名称：{{obj.section}}</p>
+                <p>合同金额：{{obj.amount}}</p>
+                <p>竣工日期：{{obj.buildEnd}}</p>
+            </template>
         </template>
     </div>
 </template>

@@ -90,8 +90,8 @@ export default {
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
-            that.data=obj;
-            that.showArr=obj;
+            that.data=obj.companyQual;
+            that.showArr=obj.companyQual;
         }
         that.boxArr=that.arr;
         if(that.boxArr.length>0){

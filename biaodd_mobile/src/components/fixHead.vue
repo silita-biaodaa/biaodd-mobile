@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </div>
-        <v-addr @addObj="returnAddress" v-if="mask" :add="address"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="mask" :add="addressStr"></v-addr>
     </div>
     
 </template>
@@ -41,8 +41,12 @@ export default {
             address:'湖南',
             mask:false,
             iconName:'arrow-down',
+            addressStr:'',
             scrNav:[
                 {
+                    txt:'首页',
+                    path:'/'
+                },{
                     txt:'招标',
                     path:'/bid'
                 },{
@@ -88,6 +92,10 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.address=sessionStorage.getItem('address');
+        if(sessionStorage.getItem('city')){
+            this.address=sessionStorage.getItem('city');
+            this.addressStr=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
+        }
         this.changeN()
     },
     beforeMount() {
@@ -130,9 +138,15 @@ export default {
         },
         returnAddress(option){
             this.iconName='arrow-down'
-            this.address=option;
-            sessionStorage.setItem('address',option);
-            this.$emit('address',option);
+            this.address=option.txt;
+            let arr=option.str.split('||');
+            this.addressStr=option.str;
+            sessionStorage.setItem('address',arr[0]);
+            // console.log(arr);
+            if(arr.length>1){
+                sessionStorage.setItem('city',arr[1]);
+            }
+            this.$emit('address',option.str);
         },
         jump() {
             if(this.name == '登录或注册') {
@@ -227,13 +241,19 @@ export default {
 }
 .nav{
     height: 88px;
+    overflow-x: scroll;
     border-top: 1PX solid #f2f2f2;
+    border-bottom: 1PX solid #f2f2f2;
     ul{
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        width: 120%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
         height: 100%;
         li{
+            box-sizing: border-box;
+            width: 20%;
             text-align: center;
             padding: 20px 32px 0;
             p{

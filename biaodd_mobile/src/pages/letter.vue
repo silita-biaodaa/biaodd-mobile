@@ -63,11 +63,11 @@
               <v-yj :more="yjIsVip"></v-yj>
             </template>
             <template v-else-if="navNum==5">
-              <!-- 业绩 -->
+              <!-- 中标 -->
               <v-zb></v-zb>
             </template>
              <template v-else-if="navNum==6">
-              <!-- 业绩 -->
+              <!-- 诚信 -->
               <v-gl></v-gl>
             </template>
         </div>

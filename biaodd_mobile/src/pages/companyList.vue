@@ -142,8 +142,8 @@ export default {
         this.isajax=false;
         this.zbList=[];
         this.screenList[0].active=false;
-        this.screenList[0].txt=option;
-        this.data.regisAddress=option;
+        this.screenList[0].txt=option.txt;
+        this.data.regisAddress=option.str;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -225,6 +225,10 @@ export default {
       this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regisAddress = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
+      if(sessionStorage.getItem('city')){
+          this.data.regisAddress=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
+          this.screenList[0].txt=sessionStorage.getItem('city');
+      }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
