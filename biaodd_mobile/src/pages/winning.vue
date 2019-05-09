@@ -81,10 +81,10 @@ export default {
         }).then(function(res){
            that.detail = res.data.data[0]
            that.collected=res.data.data[0].collected
-           if(that.detail.oneName){
+           if(that.detail.oneName&&str.indexOf('tenderFilter')==-1){
                 that.detail.oneName=that.getPassOnename(that.detail.oneName);
             }
-            if(that.detail.oneOffer){
+            if(that.detail.oneOffer&&str.indexOf('tenderFilter')==-1){
                 that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
             }
            that.clickCount = res.data.clickCount

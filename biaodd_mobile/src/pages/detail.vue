@@ -83,6 +83,7 @@ export default {
         this.id = this.$route.query.id
         this.source = this.$route.query.source
         let that=this;
+        let str=sessionStorage.getItem('permissions');
         this.$http({
             method:'post',
             url: '/notice/detail/' + that.id,
@@ -95,10 +96,10 @@ export default {
             that.collected=res.data.data[0].collected
             that.detail = res.data.data[0]  
             that.detail.projDq = that.detail.projDq.substring(0,2)
-            if(that.detail.zzRank){
+            if(that.detail.zzRank&&str.indexOf('bidFilter')==-1){
                 that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
             }
-            if(that.detail.pbMode){
+            if(that.detail.pbMode&&str.indexOf('bidFilter')==-1){
                 that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
             }
             that.clickCount = res.data.clickCount       

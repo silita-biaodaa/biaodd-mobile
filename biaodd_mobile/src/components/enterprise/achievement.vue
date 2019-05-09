@@ -46,6 +46,7 @@ export default {
             data:{
                 comId:'', // 企业ID
                 type:'page',
+                comName:'',
                 pageNo:1,
                 pageSize:5,
                 tabType:'project'
@@ -93,6 +94,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
           this.data.comId = this.$route.query.id
+          this.data.comName=this.$route.query.name
             this.ajax();
     },
     beforeMount() {
@@ -167,7 +169,11 @@ export default {
         },
         confirmFn(){
             this.mask=false;
-            this.peoList=[];
+            this.list=[];
+            this.isScroll=true;
+            this.isajax=false,//是否在加载过程中
+            this.isError=false,//是否加载失败
+            this.finished=false,//是否加载完
             this.data.tabType=this.$refs.picker.getValues()[0].value;
             this.selecTxt=this.$refs.picker.getValues()[0].name;
             if(this.selecTxt=='住建部'){

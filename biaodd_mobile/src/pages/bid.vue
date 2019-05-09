@@ -251,6 +251,10 @@ export default {
     .condition{
       display: flex;
       align-items: center;
+      max-width: calc((100% - 92px)/4);
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      overflow: hidden;
     }
     .condition.active{
       color: #FE6603

@@ -8,7 +8,7 @@
   <!-- 筛选 -->
   <div class="screen-box">
     <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress" :type="1"></v-addr>
     <v-apt v-if="screenList[2].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
@@ -225,10 +225,6 @@ export default {
       this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regisAddress = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
-      if(sessionStorage.getItem('city')){
-          this.data.regisAddress=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
-          this.screenList[0].txt=sessionStorage.getItem('city');
-      }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
@@ -251,7 +247,11 @@ export default {
     justify-content: space-between;
     .condition{
       display: flex;
+      max-width: calc((100% - 85px)/3);
       align-items: center;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      overflow: hidden;
     }
     .condition.active{
       color: #FE6603

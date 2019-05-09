@@ -58,7 +58,7 @@ export default {
                 }
                 ,{
                     txt:'业绩',
-                    path:'/'
+                    path:'/yjList'
                 },{
                     txt:'人员',
                     path:'/'

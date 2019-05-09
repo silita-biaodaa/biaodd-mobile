@@ -1,5 +1,4 @@
 <!-- 模型： DOM 结构 -->
-import { setTimeout } from 'timers';
 <template>
     <div class="addr">
         <div class="box">
@@ -11,8 +10,8 @@ import { setTimeout } from 'timers';
             <div class="city" ref="city">
                 <ul>
                     <li v-for="(o,i) of cityList" :key="i" @click="cityTap(i)">
-                        <span>{{o}}</span>
-                        <template v-if="cityNum==i">
+                        <span>{{o.name}}</span>
+                        <template v-if="o.select">
                             <img src="../assets/select.png"/>
                         </template>
                         <template v-else>
@@ -22,8 +21,10 @@ import { setTimeout } from 'timers';
                 </ul>
             </div>
         </div>
-        
         <button @click="sureFn">确定</button>
+        <div class="toast" v-if="isToast">
+            <span>最多只能选择三个市哟~</span>
+        </div>
     </div>
 </template>
 <script>
@@ -36,7 +37,9 @@ export default {
             tabNum:'',
             addList:[],
             cityList:[],
-            cityNum:0,
+            isAll:false,
+            isToast:false,
+            // cityNum:0,
         }
     },
     watch: {
@@ -46,6 +49,9 @@ export default {
         // 集成父级参数
         add:{
             default:'湖南省'
+        },
+        type:{
+            default:0
         }
     },
     beforeCreate() {
@@ -83,15 +89,28 @@ export default {
             let addr=this.add;
             let arr=this.addList;
             if(addr.indexOf('||')>-1){//市
-                that.tabNum=14;
-                that.cityFn(14);
-                that.$refs.pro.scrollTop=(14*85)/2;//自动滚动到当前所选项
                 let arr1=addr.split('||');
-                setTimeout(function(){
+                for(let x=0;x<arr.length;x++){
+                    if(arr[x].name.indexOf(arr1[0])>-1){
+                        that.tabNum=x;
+                        that.cityFn(x);
+                        that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
+                        break
+                    }
+                }
+                this.cityList[0].select=false;
+                //市区滚动到选中位置
+                setTimeout(function(){//定时器用于当进入时，还未渲染完
+                    let first=false;//第一次进入(用来滚动到选中第一个)
                     for(let i=0;i<that.cityList.length;i++){
-                        if(that.cityList[i].indexOf(arr1[1])>-1){
-                            that.cityNum=i;
-                            that.$refs.city.scrollTop=(i*85)/2;
+                        for(let x=1;x<arr1.length;x++){
+                            if(that.cityList[i].name.indexOf(arr1[x])>-1){
+                                that.cityList[i].select=true;
+                                if(!first){
+                                    that.$refs.city.scrollTop=(i*85)/2;
+                                }
+                                first=true;
+                            }
                         }
                     }
                 },50)
@@ -119,29 +138,85 @@ export default {
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
     },
+    watch:{
+        cityList:{
+            handler(val,oldVal){
+                if(val[0].select){
+                    this.isAll=true
+                }else{
+                    this.isAll=false
+                }
+            },
+            deep:true
+        }
+    },
     methods: {
         // 方法 集合
         tapFn(i){
             this.tabNum=i;
             this.cityFn(i);
+            this.$refs.city.scrollTop=0;
         },
         sureFn(){
             let str=this.addList[this.tabNum].name;
             let txt=this.addList[this.tabNum].name;
-            if(this.cityNum!=0){//如果是选市级则传市级
-                str=this.addList[this.tabNum].name+'||'+this.cityList[this.cityNum];
-                txt=this.cityList[this.cityNum];
+            if(!this.isAll){//如果是选市级则传市级
+                let arr=[this.addList[this.tabNum].name]
+                for(let x of this.cityList){
+                    if(x.select){
+                        arr.push(x.name)
+                    }
+                }
+                str=arr.join('||');//用作接口入参
+                arr.splice(0,1);
+                txt=arr.join(',');//用作显示
             }
             this.$parent.mask=false;
             this.$emit('addObj',{str:str,txt:txt});
         },
         cityTap(i){
-            this.cityNum=i;
+            // this.cityNum=i;
+            if(i==0){
+                for(let x of this.cityList){
+                    x.select=false
+                }
+            }else{
+                this.cityList[0].select=false;
+                let arr=[];
+                for(let x of this.cityList){
+                    if(x.select){
+                        arr.push(x);
+                    }
+                }
+                if(arr.length==3){
+                    let that=this;
+                    this.isToast=true;
+                    setTimeout(function(){
+                        that.isToast=false;
+                    },1500)
+                    return false
+                }
+            }
+            if(this.cityList[i].select){
+                this.cityList[i].select=false;
+            }else{
+                this.cityList[i].select=true;
+            }
         },
         cityFn(i){
-            let arr2=this.addList[i].list;
-            let arr1=['全'+this.addList[i].name];
-            if(this.addList[i].name!='湖南省'){
+            let arr2=[];
+            for(let x of this.addList[i].list){
+                let data={
+                    name:x,
+                    select:false
+                }
+                arr2.push(data);
+            }
+            let arr1=[{
+                name:'全部',
+                select:true,
+            }];
+            if(this.addList[i].name!='湖南省'&&this.type==0){
                 arr2=[];
             }
             this.cityList=arr1.concat(arr2);
@@ -225,6 +300,13 @@ export default {
         background: #FE6603;
         color: #fff;
         border: none;
+    }
+}
+.toast{
+    z-index: 9999991;
+    span{
+        color: #fff;
+        font-size: 28px;
     }
 }
 </style>

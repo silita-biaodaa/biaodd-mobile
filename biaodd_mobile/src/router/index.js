@@ -29,6 +29,7 @@ import membership from '@/pages/user/membership'
 import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
 import dialog from '@/components/dialog'
+import yjList from '@/pages/yjList'
 
 import user from '@/pages/user/user'
 
@@ -63,6 +64,11 @@ export default new Router({
       path: '/company',
       component: companyList,
       name:'company' 
+    },
+    { //业绩列表
+      path: '/yjList',
+      component: yjList,
+      name:'yjList'
     },
     {  // 招标详情
       path: '/article',
