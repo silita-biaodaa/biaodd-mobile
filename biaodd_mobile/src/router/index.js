@@ -30,6 +30,7 @@ import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
 import dialog from '@/components/dialog'
 import yjList from '@/pages/yjList'
+import zjDetail from '@/pages/yj/zjDetail'
 
 import user from '@/pages/user/user'
 
@@ -198,8 +199,12 @@ export default new Router({
       path: '/payVip',
       component: payVip,
       name: 'payVip'
-    }   
-            
+    },   
+    {//住建部业绩详情
+      path:'/zjDetail',
+      component:zjDetail,
+      name:'zjDetail'
+    }        
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

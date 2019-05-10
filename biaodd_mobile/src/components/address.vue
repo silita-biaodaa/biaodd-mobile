@@ -219,6 +219,9 @@ export default {
             if(this.addList[i].name!='湖南省'&&this.type==0){
                 arr2=[];
             }
+            if(this.type==2){
+                arr2=[];
+            }
             this.cityList=arr1.concat(arr2);
         }
     }

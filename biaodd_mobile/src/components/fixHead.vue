@@ -27,7 +27,7 @@
                 </li>
             </ul>
         </div>
-        <v-addr @addObj="returnAddress" v-if="mask" :add="addressStr"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="mask" :add="addressStr" :type="2"></v-addr>
     </div>
     
 </template>
@@ -92,10 +92,10 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.address=sessionStorage.getItem('address');
-        if(sessionStorage.getItem('city')){
-            this.address=sessionStorage.getItem('city');
-            this.addressStr=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
-        }
+        // if(sessionStorage.getItem('city')){
+        //     this.address=sessionStorage.getItem('city');
+        this.addressStr=sessionStorage.getItem('address');
+        // }
         this.changeN()
     },
     beforeMount() {
@@ -178,6 +178,9 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
+.addr{
+    font-size: 28px
+}
 .fixbox{
     position: fixed;
     top: 0;

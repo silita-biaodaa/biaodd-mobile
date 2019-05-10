@@ -56,6 +56,7 @@ export default {
           minCapital: "0",
           maxCapital:'',
           keyWord: "",
+          isVip:0,
           // levelRank: "",
           // qualCode:'',
           // rangeType: "and"
@@ -227,6 +228,7 @@ export default {
       this.screenList[0].txt=sessionStorage.getItem('address');
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
+        this.data.isVip=1;
       }
       this.ajax();
     }

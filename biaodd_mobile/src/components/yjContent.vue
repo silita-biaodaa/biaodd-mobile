@@ -101,7 +101,10 @@ export default {
         },
         topush(o) {
             if(sessionStorage.getItem('xtoken')) {
-                this.$router.push({path:'/notice',query:{id:o.id,source:o.source}})
+                if(this.type=='project'){
+                    this.$router.push({path:'/zjDetail',query:{id:o.proId}})
+                }
+                
             } else {
                 this.isload = true 
             }

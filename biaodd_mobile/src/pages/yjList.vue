@@ -9,7 +9,7 @@
     <div class="screen-box">
         <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
         <!--地区 -->
-        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="1"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="2"></v-addr>
         <!-- 项目类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
             <ul>
