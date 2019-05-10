@@ -1,75 +1,96 @@
 <template>
 <div class="bid">
-  <v-fix :nav="4"></v-fix>
-  <!-- 搜索框 -->
-  <div class="search">
-    <van-search placeholder="请输入关键字进行搜索" v-model="data.proName" @search="searchFn" @clear="clearFn"></van-search>
-  </div>
-  <!-- 筛选 -->
-  <div class="screen-box">
-    <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
-    <!--地区 -->
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="1"></v-addr>
-    <!-- 项目类别 -->
-    <div class="tabType condition-box" v-if="screenList[1].active">
-        <ul>
-            <li v-for="(o,i) in tabTypeList" :key="i"><span :class="tabTypeNum==i?'active':''" @click="tabTypeNum=i">{{o}}</span></li>
-        </ul>
-        <div class="btn">
-            <button class="sure" @click="tabTypeTapFn">确定</button>
-        </div>
+    <v-fix :nav="4"></v-fix>
+    <!-- 搜索框 -->
+    <div class="search">
+        <van-search placeholder="请输入关键字进行搜索" v-model="data.proName" @search="searchFn" @clear="clearFn"></van-search>
     </div>
-    <!-- 第三个筛选条件 -->
-    <div class="three condition-box" v-if="screenList[2].active">
-        <ul>
-            <li v-for="(o,i) in threeList" :key="i"><span :class="threeNum==i?'active':''" @click="threeNum=i">{{o}}</span></li>
-        </ul>
-        <div class="btn">
-            <button class="sure" @click="threeTapFn">确定</button>
-        </div>
-    </div>
-    <!-- 第四个筛选条件 -->
-    <div class="four condition-box" v-if="screenList[3].active">
-        <div class="box">
-            <div class="top">
-                <h6>合同金额</h6>
-                <div class="money-box">
-                    <input placeholder="最低价（万）" v-model="data.amountStart"/>
-                    <span>—</span>
-                    <input placeholder="最高价（万）" v-model="data.amountEnd"/>
-                </div>
-                <ul>
-                    <li v-for="(o,i) of moneyList" :key="i">
-                        <span :class="moneyNum==i?'active':''" @click="moneyNum=i;data.amountStart='';data.amountEnd='';">{{o}}</span>
-                    </li>
-                </ul>
+    <!-- 筛选 -->
+    <div class="screen-box">
+        <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
+        <!--地区 -->
+        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="1"></v-addr>
+        <!-- 项目类别 -->
+        <div class="tabType condition-box" v-if="screenList[1].active">
+            <ul>
+                <li v-for="(o,i) in tabTypeList" :key="i"><span :class="tabTypeNum==i?'active':''" @click="tabTypeNum=i">{{o}}</span></li>
+            </ul>
+            <div class="btn">
+                <button class="sure" @click="tabTypeTapFn">确定</button>
             </div>
         </div>
-        <div class="btn">
-            <button class="sure" @click="fourTapFn">确定</button>
+        <!-- 第三个筛选条件 -->
+        <div class="three condition-box" v-if="screenList[2].active">
+            <ul>
+                <li v-for="(o,i) in threeList" :key="i"><span :class="threeNum==i?'active':''" @click="threeNum=i">{{o}}</span></li>
+            </ul>
+            <div class="btn">
+                <button class="sure" @click="threeTapFn">确定</button>
+            </div>
+        </div>
+        <!-- 第四个筛选条件 -->
+        <div class="four condition-box" v-if="screenList[3].active">
+            <div class="box">
+                <div class="top">
+                    <h6>合同金额</h6>
+                    <div class="money-box">
+                        <input placeholder="最低价（万）" v-model="data.amountStart" @click="datePickFn(0)"/>
+                        <span>—</span>
+                        <input placeholder="最高价（万）" v-model="data.amountEnd"  @click="datePickFn(1)"/>
+                    </div>
+                    <ul>
+                        <li v-for="(o,i) of moneyList" :key="i">
+                            <span :class="moneyNum==i?'active':''" @click="moneyNum=i;data.amountStart='';data.amountEnd='';">{{o}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="top">
+                    <h6>竣工时间</h6>
+                    <div class="money-box">
+                        <input placeholder="起始时间" v-model="data.buildStart" @click="dateTapFn(0)"/>
+                        <span>—</span>
+                        <input placeholder="结束时间" v-model="data.buildEnd" @click="dateTapFn(1)"/>
+                    </div>
+                    <ul>
+                        <li v-for="(o,i) of dateList" :key="i">
+                            <span :class="dateNum==i?'active':''" @click="dateFn(i)">{{o}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn">
+                <button class="sure" @click="fourTapFn">确定</button>
+            </div>
         </div>
     </div>
-  </div>
-  <!-- 总条数 -->
-  <div class="total">为您搜索到{{total}}条业绩信息</div>
-  <!-- 列表 -->
-  <template v-if="isajax">
-    <template v-if="zbList.length>0">
-      <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
-        <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-          <v-yj v-for="(o,i) of zbList" :key="i" :obj="o" :type="data.tabType"></v-yj>
-        </van-list>
-      <!-- </van-pull-refresh>   -->
+    <!-- 总条数 -->
+    <div class="total">为您搜索到{{total}}条业绩信息</div>
+    <!-- 列表 -->
+    <template v-if="isajax">
+        <template v-if="zbList.length>0">
+        <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
+            <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
+            <v-yj v-for="(o,i) of zbList" :key="i" :obj="o" :type="data.tabType"></v-yj>
+            </van-list>
+        <!-- </van-pull-refresh>   -->
+        </template>
+        <template v-else>
+            <v-not :isError="isError"></v-not>
+        </template>
     </template>
     <template v-else>
-        <v-not :isError="isError"></v-not>
+        <van-loading size="50px"></van-loading>
+        <p style="text-align: center;margin-top:30px">拼命加载中</p>
     </template>
-  </template>
-  <template v-else>
-    <van-loading size="50px"></van-loading>
-    <p style="text-align: center;margin-top:30px">拼命加载中</p>
-  </template>
-  <v-vip :mask="isvip" :txt="'筛选功能请开通会员哟~'"></v-vip>
+    <v-vip :mask="isvip" :txt="'筛选功能请开通会员哟~'"></v-vip>
+    <van-popup position="bottom" :overlay="true" v-model="dateMask">
+        <van-datetime-picker
+        type="date"
+        :max-date="new Date()"
+        @confirm="confirm"
+        @cancel="dateMask=false"
+        ></van-datetime-picker>
+    </van-popup>
 </div>
 </template>
 <script>
@@ -79,6 +100,7 @@ import search from '@/components/search'
 import addr from '@/components/address'
 import not from '@/components/not'
 export default {
+    name:'yjList',
     data () {
       return {
         isvip:false,
@@ -119,11 +141,15 @@ export default {
         threeNum:0,
         moneyList:['全部','1000万以下','1000-5000万'],
         moneyNum:0,
+        dateList:['全部','近三年','近五年'],
+        dateNum:0,
+        dateMask:false,//时间选择弹窗是否显示
+        isDateStart:true,//是否是开启时间
         isajax:false,//是否加载完
         isError:false,//是否加载失败
         finished:false,//是否加载完
         error:false,
-        vipStr:'',
+        vipStr:'',//会员权限
       }
     },
     methods: {
@@ -252,6 +278,51 @@ export default {
             this.zbList=[];
             this.data.pageNo=1;
             this.ajax();
+        },
+        dateFn(i){
+            this.dateNum=i;
+            this.data.buildStart='';
+            this.data.buildEnd='';
+            let date=new Date();
+            let y=date.getFullYear(),
+                mon=date.getMonth()+1,
+                day=date.getDate();
+                mon=mon<10?'0'+mon:mon;
+                day=day<10?'0'+day:day;
+                if(i==1){
+                    if(mon=='02'&&day==29){
+                        day=28
+                    }
+                    this.data.buildEnd=y+'-'+mon+'-'+day;
+                    this.data.buildStart=(y-3)+'-'+mon+'-'+day;
+                }else if(i==2){
+                    if(mon=='02'&&day==29){
+                        day=28
+                    }
+                    this.data.buildEnd=y+'-'+mon+'-'+day;
+                    this.data.buildStart=(y-5)+'-'+mon+'-'+day;
+                }
+        },
+        dateTapFn(type){
+            if(type==1){
+                this.isDateStart=false
+            }else{
+                this.isDateStart=true
+            }
+            this.dateMask=true
+        },
+        confirm(pick){
+            let y=pick.getFullYear(),
+                mon=pick.getMonth()+1,
+                day=pick.getDate();
+                mon=mon<10?'0'+mon:mon;
+                day=day<10?'0'+day:day;
+            if(this.isDateStart){
+                this.data.buildStart=y+'-'+mon+'-'+day
+            }else{
+                this.data.buildEnd=y+'-'+mon+'-'+day
+            }
+            this.dateMask=false    
         }
     },
     components:{
@@ -381,6 +452,11 @@ export default {
         }
     }
     .four{
+        .condition-box{
+            li{
+                margin-bottom: 64px;
+            }
+        }
         .box{
             
         }
