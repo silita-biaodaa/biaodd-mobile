@@ -75,11 +75,11 @@ export default {
                 },{
                     img:require('../assets/icon-yej.png'),
                     txt:'业绩',
-                    path:'/company'
+                    path:'/yjList'
                 },{
                     img:require('../assets/icon-reny.png'),
                     txt:'人员',
-                    path:'/company'
+                    path:'/'
                 }
                 
             ],
