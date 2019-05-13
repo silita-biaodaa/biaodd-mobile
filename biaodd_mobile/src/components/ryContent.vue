@@ -3,29 +3,25 @@
     <div class="zhongbCon newNotice">
         <div @click="topush(obj)" >
             <div class="top">
-                <p class="icon">
-                    <img src="../assets/icon-yj.png"/>
-                </p>
-                <p class="tit">{{obj.proName}}</p>
+                <div class="left-name">
+                    <p class="icon">
+                        <img src="../assets/icon-ry.png"/>
+                    </p>
+                    <p class="tit">{{obj.name}}</p>
+                </div>
+                <div class="under" v-if="obj.isUnder">押证</div>
             </div>
-            <template v-if="type=='project'">
-                <div><span class="zj label">{{obj.proType}}</span></div>
-                <p>建设单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
-            </template>
-            <template v-else-if="type=='shuili'">
-                <div><span class="sl label">{{obj.proType}}</span></div>
-                <p>施工单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.build}}</span></p>
-            </template>
-            <template v-else-if="type=='jiaotong'">
-                <div><span class="jt label">{{obj.source}}</span></div>
-                <p>施工单位：<span>{{obj.comName}}</span></p>
-                <p>标段名称：<span>{{obj.section}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
+            <template>
+                <p>
+                    <span class="left-txt">注册单位</span>
+                    <span>：{{obj.comName}}</span></p>
+                <p>
+                    <span class="left-txt">注册类别</span>
+                    <span>：{{obj.category}}</span>
+                </p>
+                <p>
+                    <span class="left-txt">专业</span>
+                    <span>：{{obj.major}}</span></p>
             </template>
         </div>
         <v-dia v-if="isload"></v-dia>
@@ -36,7 +32,7 @@
 
 import dialog from '@/components/dialog'
 export default {
-    name: 'yjCon', // 结构名称
+    name: 'ryCon', // 结构名称
     data() {
         return {
             // 数据模型
@@ -49,9 +45,6 @@ export default {
     props: {
         // 集成父级参数
         obj:{},
-        type:{
-            default:'yj1'
-        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -60,12 +53,12 @@ export default {
         // console.group('创建完毕状态===============》created');
         // this.conver()
         if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-            if(this.obj.oneName){
-                this.obj.oneName=this.getPassOnename(this.obj.oneName)
-            }
-            if( this.obj.oneOffer) {
-                this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
-            } 
+            // if(this.obj.oneName){
+            //     this.obj.oneName=this.getPassOnename(this.obj.oneName)
+            // }
+            // if( this.obj.oneOffer) {
+            //     this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
+            // } 
         }
     },
     components: {
@@ -94,16 +87,11 @@ export default {
     },
     methods: {
         // 方法 集合
-        conver() {
-             this.obj.opendate =  this.obj.opendate.replace('-','年')
-             this.obj.opendate =  this.obj.opendate.replace('-','月')
-             this.obj.opendate = this.obj.opendate +  '日'             
-        },
         topush(o) {
             if(sessionStorage.getItem('xtoken')) {
-                if(this.type=='project'){
-                    this.$router.push({path:'/zjDetail',query:{id:o.proId}})
-                }
+                // if(this.type=='project'){
+                //     this.$router.push({path:'/zjDetail',query:{id:o.proId}})
+                // }
                 
             } else {
                 this.isload = true 
@@ -126,31 +114,17 @@ export default {
     text-overflow:ellipsis;
     white-space:nowrap
 }
-.label{
-    padding: 11px 15px;
-    font-size: 20px;
-    margin-bottom: 24px;
-    display: inline-block;
-}
-.zj{
-    color: #EF873A;
-    background: #FDEFE3;
-}
-.sl{
-    background: #FFE5F0;
-    color: #D65588;
-}
-.jt{
-    background: #E3E6FD;
-    color: #3A76F0;
-}
 p{
     font-size: 28px;
-    color: #999;
     margin-bottom: 26px;
     overflow: hidden;
     span{
-        color: #333;
+        color: #999;
+    }
+    .left-txt{
+        display: inline-block;
+        text-align-last: justify;
+        width: 112px;
     }
 }
 p:last-child{
@@ -158,5 +132,24 @@ p:last-child{
 }
 .newNotice .top{
     margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+    .left-name{
+        display: flex;
+        align-items: center;
+        p{
+            margin-bottom: 0;
+        }
+    }
+    .under{
+        width: 92px;
+        height: 42px;
+        border: 1PX solid #FE6603;
+        color: #FE6603;
+        border-radius: 10px;
+        text-align: center;
+    }
 }
 </style>

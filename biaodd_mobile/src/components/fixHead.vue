@@ -61,7 +61,7 @@ export default {
                     path:'/yjList'
                 },{
                     txt:'人员',
-                    path:'/'
+                    path:'/ryList'
                 },
             ],
             name:'登录或注册'

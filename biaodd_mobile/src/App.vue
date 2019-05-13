@@ -79,7 +79,19 @@ export default {
         method:'post',
         url: '/authorize/address',
     }).then(function(res){
-        sessionStorage.setItem('address',res.data.data.region);
+        if(res.data.data.region.indexOf('广西')>-1){
+          sessionStorage.setItem('address','广西壮族自治区');
+        }else if(res.data.data.region.indexOf('内蒙古')>-1){
+          sessionStorage.setItem('address','内蒙古自治区');
+        }else if(res.data.data.region.indexOf('宁夏')>-1){
+          sessionStorage.setItem('address','宁夏回族自治区');
+        }else if(res.data.data.region.indexOf('新疆')>-1){
+          sessionStorage.setItem('address','新疆维吾尔自治区');
+        }else if(res.data.data.region.indexOf('西藏')>-1){
+          sessionStorage.setItem('address','西藏自治区');
+        }else{
+          sessionStorage.setItem('address',res.data.data.region+'省');
+        } 
         if(res.data.data.region=='湖南'){
           sessionStorage.setItem('city',res.data.data.city);
         }

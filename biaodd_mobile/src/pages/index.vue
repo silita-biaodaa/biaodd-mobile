@@ -79,7 +79,7 @@ export default {
                 },{
                     img:require('../assets/icon-reny.png'),
                     txt:'人员',
-                    path:'/'
+                    path:'/ryList'
                 }
                 
             ],

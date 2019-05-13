@@ -31,7 +31,7 @@ import payVip from '@/pages/user/payVip'
 import dialog from '@/components/dialog'
 import yjList from '@/pages/yjList'
 import zjDetail from '@/pages/yj/zjDetail'
-
+import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
 
 
@@ -70,6 +70,11 @@ export default new Router({
       path: '/yjList',
       component: yjList,
       name:'yjList'
+    },
+    { //人员列表
+      path: '/ryList',
+      component: ryList,
+      name:'ryList'
     },
     {  // 招标详情
       path: '/article',
