@@ -47,21 +47,27 @@
           </div>
         </div>
         <div class="letter-detail">
-            <template v-if="navNum==0">
+            <template>
               <!-- 招投标 -->
+              <v-list :type="navNum"></v-list>
             </template>
-            <template v-else-if="navNum==1">
+
+            <!-- <template v-else-if="navNum==1"> -->
               <!-- 施工图审查 -->
-            </template>
-            <template v-else-if="navNum==2">
+              <!-- <v-list :type="navNum"></v-list> -->
+            <!-- </template> -->
+            <!-- <template v-else-if="navNum==2"> -->
               <!-- 合同备案 -->
-            </template>
-            <template v-else-if="navNum==3">
+              <!-- <v-list :type="navNum"></v-list> -->
+            <!-- </template> -->
+            <!-- <template v-else-if="navNum==3"> -->
               <!-- 施工许可 -->
-            </template>
-            <template v-else-if="navNum==4">
+              <!-- <v-list :type="navNum"></v-list> -->
+            <!-- </template> -->
+            <!-- <template v-else-if="navNum==4"> -->
               <!-- 竣工备案 -->
-            </template>
+              <!-- <v-list :type="navNum"></v-list> -->
+            <!-- </template> -->
         </div>
 
       </div>
@@ -69,6 +75,7 @@
 </template>
 <script>
 import topBack from '@/components/topback'
+import list from '@/components/yj/list'
 export default {
     name: 'zjDetail', // 结构名称
     data() {
@@ -88,7 +95,8 @@ export default {
         // 监控集合
     },
     components: {
-       'top-back':topBack,
+      'top-back':topBack,
+      'v-list':list,
     },
     props: {
         // 集成父级参数
@@ -136,6 +144,10 @@ export default {
     },
     methods: {
         // 方法 集合
+        jump(i){
+          this.navNum=i
+        }
+
     }
 
 }
@@ -189,9 +201,9 @@ export default {
   line-height: 96px;
   border-bottom: 1PX solid #F2F2F2;
   div{
-    width: 120%;
+    width: 126%;
     span{
-      width: 20%;
+      min-width: 20%;
       display: inline-block;
       text-align: center;
     }
