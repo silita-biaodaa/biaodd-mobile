@@ -184,7 +184,16 @@ export default {
                 this.achType='yj3'
             }
             this.ajax();
-        }
+        },
+        // jumpDetail(el){
+        //     if(this.selecTxt=='住建部'){
+        //         this.$router.push({path:'/zjDetail',query:{id:el.proId}})
+        //     }else if(this.selecTxt=='水利部'){
+        //         this.$router.push({path:'/slDetail',query:{id:el.pkid}})
+        //     }else{
+        //         this.$router.push({path:'/jtDetail',query:{id:el.pkid}})
+        //     }
+        // }
     }
 
 }

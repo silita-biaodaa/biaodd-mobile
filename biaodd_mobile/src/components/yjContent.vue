@@ -103,6 +103,10 @@ export default {
             if(sessionStorage.getItem('xtoken')) {
                 if(this.type=='project'){
                     this.$router.push({path:'/zjDetail',query:{id:o.proId}})
+                }else if(this.type=='shuili'){
+                    this.$router.push({path:'/slDetail',query:{id:o.pkid}})
+                }else if(this.type=='jiaotong'){
+                    this.$router.push({path:'/jtDetail',query:{id:o.pkid}})
                 }
                 
             } else {

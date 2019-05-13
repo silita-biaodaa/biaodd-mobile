@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="listCon">
+    <div class="listCon" @click="jumpDetail">
         <!-- 法务 -->
         <template v-if="type=='fw'">
             <h5>{{obj.title}}</h5>
@@ -118,6 +118,15 @@ export default {
     methods: {
         // 方法 集合
         // 时间转换
+        jumpDetail(){
+            if(this.type=='yj1'){
+                this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
+            }else if(this.type=='yj2'){
+                this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
+            }else if(this.type=='yj3'){
+                this.$router.push({path:'/jtDetail',query:{id:this.obj.pkid}})
+            }
+        }
     }
 
 }

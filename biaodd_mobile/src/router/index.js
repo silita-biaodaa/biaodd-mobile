@@ -31,6 +31,8 @@ import payVip from '@/pages/user/payVip'
 import dialog from '@/components/dialog'
 import yjList from '@/pages/yjList'
 import zjDetail from '@/pages/yj/zjDetail'
+import slDetail from '@/pages/yj/slDetail'
+import jtDetail from '@/pages/yj/jtDetail'
 import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
 
@@ -209,7 +211,17 @@ export default new Router({
       path:'/zjDetail',
       component:zjDetail,
       name:'zjDetail'
-    }        
+    },
+    {//水利部业绩详情
+      path:'/slDetail',
+      component:slDetail,
+      name:'slDetail'
+    },
+    {//交通部业绩详情
+      path:'/jtDetail',
+      component:jtDetail,
+      name:'jtDetail'
+    }         
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;
