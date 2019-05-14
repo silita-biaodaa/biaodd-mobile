@@ -50,9 +50,15 @@
                 <span class="tit-txt">结束桩号</span>
                 <span class="val-txt">{{detail.stakeEnd}}</span>  
             </p>
-            <p>
+            <p class='more-box'>
                 <span class="tit-txt">主工程量</span>
-                <span class="val-txt">{{detail.remark}}</span>  
+                <span class="val-txt" :class="{'overHid':!more}">{{detail.remark}}</span>
+                <template v-if="more">
+                    <span class="more" @click="more=false">收起</span>
+                </template>
+                <template v-else>
+                    <span class="more" @click="more=true">展开</span>
+                </template>    
             </p>
             <p>
                 <span class="tit-txt">质量评定</span>
@@ -94,7 +100,8 @@ export default {
              isload:true,
              vipStr:'',
              isvip:false,
-             id:''
+             id:'',
+             more:false,
             //  path:'/commerc'
         }
     },
@@ -160,22 +167,42 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
 .jtDetail {    
-  padding-top: 100px;
-  min-height:100vh;
-  background: #f5f5f5;
-  box-sizing: border-box;
-  .letter-de {
-    background-color: #f5f5f5;
-  }
+    padding-top: 100px;
+    min-height:100vh;
+    background: #f5f5f5;
+    box-sizing: border-box;
+    .letter-de {
+        background-color: #f5f5f5;
+    }
 }
 .content{
-  padding: 36px 32px;
-  background: #fff;
-  h5{
-    color: #333333;
-    font-size: 32px;
-    margin-bottom: 36px
-  }
+    padding: 36px 32px;
+    background: #fff;
+    h5{
+        color: #333333;
+        font-size: 32px;
+        margin-bottom: 36px
+    }
+    .more-box{
+        position: relative;
+        margin-bottom: 62px;
+        .more{
+            font-size: 24px;
+            position: absolute;
+            z-index: 9;
+            right: 0;
+            transform: translateY(100%);
+            bottom: -10px;
+            color: #FE6603;
+        }
+        .overHid{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
 }
 p{
     font-size: 28px;

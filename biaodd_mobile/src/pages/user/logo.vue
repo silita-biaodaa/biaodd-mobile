@@ -111,7 +111,12 @@ export default {
         }).then(function(res){
             if(res.data.code == '1' ) {
                 sessionStorage.setItem('xtoken',res.data.data.xtoken)
-                sessionStorage.setItem('Bname',res.data.data.nikeName)
+                if(res.data.data.nikeName){
+                  sessionStorage.setItem('Bname',res.data.data.nikeName)
+                }else{
+                  sessionStorage.setItem('Bname',res.data.data.phoneNo)
+                }
+                
                 sessionStorage.setItem('permissions',res.data.data.permissions);
                 sessionStorage.setItem('userid',res.data.data.pkid);
                 if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){

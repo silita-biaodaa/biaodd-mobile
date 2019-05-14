@@ -21,12 +21,19 @@
             </div>
             <div class="letter-iphone">
               <van-icon name="phone-o" />
-              <span class="iphone">
-                 {{detail.phone}}
-              </span>
-              <span class="le-col" @click="more">
-                更多
-              </span>
+              <template v-if="isMore">
+                <span class="iphone">
+                  {{detail.phone}}
+                </span>
+                <span class="le-col" @click="more">
+                  更多
+                </span>
+              </template>
+              <template v-else>
+                <span class="iphone">
+                  {{phone}}
+                </span>
+              </template>
             </div>
             <div class="letter-url">
                <van-icon name="location-o" />
@@ -96,6 +103,7 @@ export default {
             // 数据模型
              name:'企业详情',
              detail:{},
+             phone:'',
              navList:['工商','法务','资质','人员','业绩','中标','诚信'],
              navNum:0,
              isload:true,
@@ -105,7 +113,8 @@ export default {
              fwIsVip:false,
              yjIsVip:false,
              collected:false,
-             id:''
+             id:'',
+             isMore:true,
             //  path:'/commerc'
         }
     },
@@ -146,7 +155,8 @@ export default {
             }).then(function(res){
                 that.detail = res.data.data;
                 var arr = []
-                arr = that.detail.phone.split(';')
+                arr = that.detail.phone.split(';');
+                that.phone=res.data.data.phone;
                 if(that.vipStr.indexOf('comPhone')==-1){
                   that.detail.phone =that.resetPhone(arr[0]) 
                 }else{
@@ -180,8 +190,12 @@ export default {
     methods: {
         // 方法 集合
         more(){
-          this.isvip=true;
-          this.modalHelper.afterOpen();
+          if(this.vipStr.indexOf('comPhone')==-1){
+            this.isvip=true;
+            this.modalHelper.afterOpen();
+          }else{
+            this.isMore=false;
+          }
         },
         // canelFn(){
         //   this.mask=false;

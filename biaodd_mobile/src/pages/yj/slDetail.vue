@@ -42,13 +42,25 @@
                 <span class="tit-txt">所在地区</span>
                 <span class="val-txt">{{detail.proWhere}}</span>  
             </p>
-            <p>
+            <p class='more-box'>
                 <span class="tit-txt">关键指标</span>
-                <span class="val-txt">{{detail.majorTarget}}</span>  
+                <span class="val-txt" :class="{'overHid':!htmore}">{{detail.majorTarget}}</span>
+                <template v-if="htmore">
+                    <span class="more" @click="htmore=false">收起</span>
+                </template>
+                <template v-else>
+                    <span class="more" @click="htmore=true">展开</span>
+                </template>  
             </p>
-            <p>
+            <p class='more-box'>
                 <span class="tit-txt">合同内容</span>
-                <span class="val-txt">{{detail.contractContent}}</span>  
+                <span class="val-txt" :class="{'overHid':!zbmore}">{{detail.contractContent}}</span>
+                <template v-if="zbmore">
+                    <span class="more" @click="zbmore=false">收起</span>
+                </template>
+                <template v-else>
+                    <span class="more" @click="zbmore=true">展开</span>
+                </template>
             </p>
         </div>
         <!--主要参与人员 -->
@@ -103,8 +115,9 @@ export default {
              isload:true,
              vipStr:'',
              isvip:false,
-             id:''
-            //  path:'/commerc'
+             id:'',
+             htmore:false,//控制合同内容展开收起
+             zbmore:false,//控制关键指标展开收起
         }
     },
     watch: {
@@ -169,22 +182,42 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
 .slDetail {    
-  padding-top: 100px;
-  min-height:100vh;
-  background: #f5f5f5;
-  box-sizing: border-box;
-  .letter-de {
-    background-color: #f5f5f5;
-  }
+    padding-top: 100px;
+    min-height:100vh;
+    background: #f5f5f5;
+    box-sizing: border-box;
+    .letter-de {
+        background-color: #f5f5f5;
+    }
 }
 .content{
-  padding: 36px 32px;
-  background: #fff;
-  h5{
-    color: #333333;
-    font-size: 32px;
-    margin-bottom: 36px
-  }
+    padding: 36px 32px;
+    background: #fff;
+    h5{
+        color: #333333;
+        font-size: 32px;
+        margin-bottom: 36px
+    }
+    .more-box{
+        position: relative;
+        margin-bottom: 62px;
+        .more{
+            font-size: 24px;
+            position: absolute;
+            z-index: 9;
+            right: 0;
+            transform: translateY(100%);
+            bottom: -10px;
+            color: #FE6603;
+        }
+        .overHid{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+    }
 }
 p{
     font-size: 28px;
@@ -231,10 +264,6 @@ p{
             p:last-child{
                 margin-bottom: 0
             }
-            // .val-txt{
-            //     color: #333;
-            //     font-weight: bold;
-            // }
         }
     }
 }
