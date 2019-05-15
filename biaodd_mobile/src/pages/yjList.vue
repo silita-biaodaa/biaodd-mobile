@@ -7,7 +7,10 @@
     </div>
     <!-- 筛选 -->
     <div class="screen-box">
-        <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">{{o.txt}}</div>
+        <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">
+            <span>{{o.txt}}</span>
+            <i></i>
+        </div>
         <!--地区 -->
         <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="2"></v-addr>
         <!-- 项目类别 -->
@@ -345,59 +348,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .bid {
-    padding-top: 200px;
-    /*筛选*/
-    .screen-box{
-        position: relative;
-        height: 80px;
-        display: flex;
-        background: #fff;
-        align-items: center;
-        font-size: 28px;
-        padding: 0 32px;
-        justify-content: space-between;
-        .condition{
-        display: flex;
-        align-items: center;
-        max-width: calc((100% - 92px)/4);
-        text-overflow:ellipsis;
-        white-space:nowrap;
-        overflow: hidden;
-        }
-        .condition.active{
-        color: #FE6603
-        }
-        .condition.active::after{
-        content:'';
-        width: 0;
-        height: 0;
-        margin-left: 12px;
-        margin-bottom: 7px;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        border-bottom: 7px solid #FE6603;
-        border-top: 7px solid transparent;
-        }
-        .condition::after{
-        content:'';
-        width: 0;
-        height: 0;
-        margin-left: 12px;
-        margin-top: 7px;
-        border-left: 7px solid transparent;
-        border-right: 7px solid transparent;
-        border-top: 7px solid #333;
-        border-bottom: 7px solid transparent;
-        }
-    }
-    /*总条数*/
-    .total{
-        font-size: 24px;
-        color: #999;
-        padding: 24px 32px;
-        background: #f5f5f5
-    }
-  
     .condition-box{
         position: absolute;
         background: #f5f5f5;

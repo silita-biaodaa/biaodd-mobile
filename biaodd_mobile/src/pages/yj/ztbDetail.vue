@@ -32,7 +32,7 @@
             </p>
             <p>
                 <span class="tit-txt">中标日期</span>
-                <span class="val-txt">{{detail.zhongbiaoDate}}万元</span>  
+                <span class="val-txt">{{detail.zhongbiaoDate}}</span>  
             </p>
         </div>
         <!--主要参与人员 -->

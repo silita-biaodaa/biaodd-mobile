@@ -27,7 +27,7 @@
               <span class="val-txt">{{detail.buildType}}</span>  
           </p>
           <p>
-              <span class="tit-txt">面积</span>
+              <span class="tit-txt">面&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp积</span>
               <span class="val-txt">{{detail.acreage}}</span>  
           </p>
           <p>

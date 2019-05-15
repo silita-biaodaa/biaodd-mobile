@@ -73,7 +73,7 @@
                 <van-icon name="arrow" class="nav-i"/>
             </h5>
             <p>
-                <span class="tit-txt">面积</span>
+                <span class="tit-txt">面&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp积</span>
                 <span>：{{obj.area}}㎡</span>
             </p>
             <p>

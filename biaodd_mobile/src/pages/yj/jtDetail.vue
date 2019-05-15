@@ -72,7 +72,7 @@
                 <li v-for="(o,i) in detail.persons" :key="i">
                     <h4>{{o.name}}</h4>
                     <p>
-                        <span class="tit-txt">职务</span>
+                        <span class="tit-txt">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp务</span>
                         <i>：</i>
                         <span class="val-txt">{{o.post}}</span>
                     </p>

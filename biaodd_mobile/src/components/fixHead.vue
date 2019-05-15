@@ -20,7 +20,7 @@
                 </p>
             </div>
         </div>
-        <div class="nav" v-if="isShow">
+        <div class="nav" v-if="isShow" ref="scroll">
             <ul>
                 <li v-for="(x,y) of scrNav" :class="nav==y?'active':''" :key="y" @click="$router.push(x.path)">
                     <p>{{x.txt}}</p>
@@ -96,7 +96,7 @@ export default {
         //     this.address=sessionStorage.getItem('city');
         this.addressStr=sessionStorage.getItem('address');
         // }
-        this.changeN()
+        this.changeN();
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -105,6 +105,9 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            if(this.nav==5){
+                this.$refs.scroll.scrollLeft=200;
+            }
         });
     },
     beforeUpdate() {
@@ -248,6 +251,8 @@ export default {
     border-top: 1PX solid #f2f2f2;
     border-bottom: 1PX solid #f2f2f2;
     ul{
+        // position: absolute;
+        height: 88px;
         display: flex;
         justify-content: space-between;
         width: 120%;

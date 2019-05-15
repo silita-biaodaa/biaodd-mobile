@@ -18,14 +18,14 @@
                 <div><span class="sl label">{{obj.proType}}</span></div>
                 <p>施工单位：<span>{{obj.proOrg}}</span></p>
                 <p>合同金额：<span>{{obj.amount}}</span></p>
-                <p>竣工日期：<span>{{obj.build}}</span></p>
+                <p>完工日期：<span>{{obj.build}}</span></p>
             </template>
             <template v-else-if="type=='jiaotong'">
                 <div><span class="jt label">{{obj.source}}</span></div>
                 <p>施工单位：<span>{{obj.comName}}</span></p>
                 <p>标段名称：<span>{{obj.section}}</span></p>
                 <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
+                <p>交工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
         </div>
         <v-dia v-if="isload"></v-dia>

@@ -19,7 +19,7 @@
                 <span class="val-txt">{{detail.proStatus}}</span>  
             </p>
             <p>
-                <span class="tit-txt">合同总额</span>
+                <span class="tit-txt">合同金额</span>
                 <span class="val-txt">{{detail.contractAmount}}</span>  
             </p>
             <p>
