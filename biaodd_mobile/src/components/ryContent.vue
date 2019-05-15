@@ -110,9 +110,10 @@ export default {
     font-weight: bold;
     color: #000;
     margin-bottom: 26px;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap
+    max-width: 100%;
+    // overflow: hidden;
+    // text-overflow:ellipsis;
+    // white-space:nowrap
 }
 p{
     font-size: 28px;
@@ -139,6 +140,8 @@ p:last-child{
     .left-name{
         display: flex;
         align-items: center;
+        width: calc(100% - 92px);
+        
         p{
             margin-bottom: 0;
         }

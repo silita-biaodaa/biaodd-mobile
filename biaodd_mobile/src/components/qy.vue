@@ -9,7 +9,7 @@
                 <p class="tit">{{obj.comName}}</p>
             </div>
             <div class="center">法定代表：{{obj.legalPerson}}</div>
-            <div class="center">联系方式：{{obj.phone}}</div>
+            <div class="center">联系方式：{{phone}}</div>
             <div class="center">企业地址：{{obj.comAddress}}</div>
         </div>
         <template v-if="follow">
@@ -30,6 +30,12 @@ export default {
               isload:false
         }
     },
+    computed:{
+        phone(){
+            let arr=this.obj.phone.split(';');
+            return arr[0]
+        }
+    },
     watch: {
         // 监控集合
     },
@@ -45,6 +51,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+
         
     },
     beforeMount() {

@@ -119,7 +119,8 @@ export default {
             }
         }).then(function(res){
             that.detail = res.data.data;
-          })
+            sessionStorage.setItem('proname',res.data.data.proName)
+        })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

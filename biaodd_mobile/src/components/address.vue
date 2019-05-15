@@ -188,7 +188,7 @@ export default {
                         arr.push(x);
                     }
                 }
-                if(arr.length==3){
+                if(arr.length==3&&!this.cityList[i].select){
                     let that=this;
                     this.isToast=true;
                     setTimeout(function(){

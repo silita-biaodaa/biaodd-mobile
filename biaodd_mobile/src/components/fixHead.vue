@@ -251,8 +251,10 @@ export default {
         display: flex;
         justify-content: space-between;
         width: 120%;
+        min-width: 100%;
         flex-wrap: nowrap;
-        overflow-x: auto;
+        overflow-x:scroll;
+        overflow-y: hidden;
         height: 100%;
         li{
             box-sizing: border-box;

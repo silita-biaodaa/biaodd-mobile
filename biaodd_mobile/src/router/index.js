@@ -33,6 +33,11 @@ import yjList from '@/pages/yjList'
 import zjDetail from '@/pages/yj/zjDetail'
 import slDetail from '@/pages/yj/slDetail'
 import jtDetail from '@/pages/yj/jtDetail'
+import htbaDetail from '@/pages/yj/htbaDetail'
+import ztbDetail from '@/pages/yj/ztbDetail'
+import sgtscDetail from '@/pages/yj/sgtscDetail'
+import sgxkDetail from '@/pages/yj/sgxkDetail'
+import jgbaDetail from '@/pages/yj/jgbaDetail'
 import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
 
@@ -221,6 +226,31 @@ export default new Router({
       path:'/jtDetail',
       component:jtDetail,
       name:'jtDetail'
+    },
+    {//合同备案详情
+      path:'/htbaDetail',
+      component:htbaDetail,
+      name:'htbaDetail'
+    },
+    {//招投标详情
+      path:'/ztbDetail',
+      component:ztbDetail,
+      name:'ztbDetail'
+    },
+    {//施工图审查详情
+      path:'/sgtscDetail',
+      component:sgtscDetail,
+      name:'sgtscDetail'
+    },
+    {//施工许可详情
+      path:'/sgxkDetail',
+      component:sgxkDetail,
+      name:'sgxkDetail'
+    },
+    {//竣工备案详情
+      path:'/jgbaDetail',
+      component:jgbaDetail,
+      name:'jgbaDetail'
     }         
   ],
   scrollBehavior (to, from, savedPosition) {

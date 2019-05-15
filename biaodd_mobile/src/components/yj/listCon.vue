@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="listCon">
+    <div class="listCon" @click="jumpTo">
         <!-- 招投标 -->
         <template v-if="type==0">
             <h5>
@@ -93,11 +93,11 @@
             </h5>
             <p>
                 <span class="tit-txt">实际造价</span>
-                <span>：{{obj.cost}}</span>
+                <span>：{{obj.cost}}万元</span>
             </p>
             <p>
                 <span class="tit-txt">实际面积</span>
-                <span>：{{obj.area}}</span>
+                <span>：{{obj.area}}㎡</span>
             </p>
             <p>
                 <span class="tit-txt">实际竣工验收时间</span>
@@ -155,7 +155,34 @@ export default {
     },
     methods: {
         // 方法 集合
-        // 时间转换
+        //跳转
+        jumpTo(){
+            if(this.type==0){
+                this.$router.push({
+                    path:'/ztbDetail',
+                    query:{
+                        id:this.obj.pkid,
+                        proid:this.obj.proId,
+                        zbdw:this.obj.zhongbiaoCompany,
+                        zbtype:this.obj.zhaobiaoType
+                    }
+                })
+            }else if(this.type==1){
+                this.$router.push({path:'/sgtscDetail',query:{id:this.obj.pkid,proid:this.obj.proId}})
+            }else if(this.type==2){
+                this.$router.push({
+                    path:'/htbaDetail',
+                    query:{
+                        id:this.obj.pkid,
+                        proid:this.obj.proId
+                    }
+                })
+            }else if(this.type==3){
+                this.$router.push({path:'/sgxkDetail',query:{id:this.obj.pkid,proid:this.obj.proId}})
+            }else if(this.type==4){
+                this.$router.push({path:'/jgbaDetail',query:{id:this.obj.pkid,proid:this.obj.proId}})
+            }
+        }
     }
 
 }
