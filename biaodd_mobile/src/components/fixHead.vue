@@ -285,7 +285,7 @@ export default {
     }
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 374px) {
     .fixHead .fix-left .fix-img{
         margin-right: 24px;
         width:68px;

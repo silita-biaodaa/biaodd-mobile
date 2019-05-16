@@ -42,7 +42,7 @@
                 <span class="tit-txt">所在地区</span>
                 <span class="val-txt">{{detail.proWhere}}</span>  
             </p>
-            <p class='more-box'>
+            <p :class="detail.majorTarget&&detail.majorTarget!=''?'more-box':''">
                 <span class="tit-txt">关键指标</span>
                 <span class="val-txt" :class="{'overHid':!htmore}">{{detail.majorTarget}}</span>
                 <template v-if="detail.majorTarget&&detail.majorTarget!=''">
@@ -54,7 +54,7 @@
                     </template> 
                 </template>
             </p>
-            <p class='more-box'>
+            <p :class="detail.contractContent&&detail.contractContent!=''?'more-box':''">
                 <span class="tit-txt">合同内容</span>
                 <span class="val-txt" :class="{'overHid':!zbmore}">{{detail.contractContent}}</span>
                 <template v-if="detail.contractContent&&detail.contractContent!=''">

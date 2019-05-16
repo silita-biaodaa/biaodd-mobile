@@ -50,7 +50,7 @@
                 <span class="tit-txt">结束桩号</span>
                 <span class="val-txt">{{detail.stakeEnd}}</span>  
             </p>
-            <p class='more-box'>
+            <p :class="detail.remark&&detail.remark!=''?'more-box':''">
                 <span class="tit-txt">主工程量</span>
                 <span class="val-txt" :class="{'overHid':!more}">{{detail.remark}}</span>
                 <template v-if="detail.remark&&detail.remark!=''">

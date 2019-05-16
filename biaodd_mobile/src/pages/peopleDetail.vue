@@ -250,7 +250,7 @@ export default {
 }
 
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 374px) {
     .top  .nav ul{
         width: 150%;
     }
