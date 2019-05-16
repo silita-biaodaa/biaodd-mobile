@@ -138,7 +138,6 @@ export default {
                 }else if(that.navNum==4){
                     that.list=res.data.data
                 }
-                console.log(res);
             }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
@@ -149,6 +148,7 @@ export default {
             this.list=[];
             this.isajax=false;
             this.isError=false;
+            this.ajaxUrl='/person/detail';
             if(i==0){
                 this.data.tabType='registerCert'
             }else if(i==1){
