@@ -3,6 +3,10 @@
     margin: 0;
     padding: 0;
     color: #333;
+    font-family: Microsoft Yahei,SimSun,Helvetica;
+}
+body{
+    font-family: Microsoft Yahei,SimSun,Helvetica;
 }
 li{
     list-style: none;
@@ -91,7 +95,7 @@ li{
     border-top: 7px solid #333;
     border-bottom: 7px solid transparent;
 }
-.screen-box .condition.active{
+.screen-box .condition.active span{
     color: #FE6603;
 }
 .screen-box .condition.active i{

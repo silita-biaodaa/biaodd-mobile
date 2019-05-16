@@ -210,11 +210,11 @@ export default {
     }
     .nav{
         background: #fff;
-        height:90px;
+        height:92px;
         overflow-x: scroll;
         box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
         ul{
-            height: 88px;
+            height:92px;
             display: flex;
             justify-content: space-between;
             width: 130%; 

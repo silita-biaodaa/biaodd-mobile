@@ -51,23 +51,6 @@
               <!-- 招投标 -->
               <v-list :type="navNum"></v-list>
             </template>
-
-            <!-- <template v-else-if="navNum==1"> -->
-              <!-- 施工图审查 -->
-              <!-- <v-list :type="navNum"></v-list> -->
-            <!-- </template> -->
-            <!-- <template v-else-if="navNum==2"> -->
-              <!-- 合同备案 -->
-              <!-- <v-list :type="navNum"></v-list> -->
-            <!-- </template> -->
-            <!-- <template v-else-if="navNum==3"> -->
-              <!-- 施工许可 -->
-              <!-- <v-list :type="navNum"></v-list> -->
-            <!-- </template> -->
-            <!-- <template v-else-if="navNum==4"> -->
-              <!-- 竣工备案 -->
-              <!-- <v-list :type="navNum"></v-list> -->
-            <!-- </template> -->
         </div>
 
       </div>
@@ -172,6 +155,7 @@ export default {
   padding: 36px 32px;
   margin-bottom: 16px;
   background: #fff;
+  box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
   h5{
     color: #333333;
     font-size: 32px;
@@ -199,6 +183,7 @@ export default {
   background-color: #fff;
 //  padding: 0 32px;
   overflow-x:scroll;
+  box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
   line-height: 96px;
   border-bottom: 1PX solid #F2F2F2;
   div{

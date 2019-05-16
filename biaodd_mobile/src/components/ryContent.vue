@@ -20,7 +20,7 @@
                     <span>：{{obj.category}}</span>
                 </p>
                 <p>
-                    <span class="left-txt">专业</span>
+                    <span class="left-txt">专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</span>
                     <span>：{{obj.major}}</span></p>
             </template>
         </div>

@@ -195,6 +195,7 @@ export default {
     margin-bottom: 16px;
     border-radius: 8px;
     padding-bottom: 28px;
+    box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
     h5{
         padding:0 20px;
         height: 80px;

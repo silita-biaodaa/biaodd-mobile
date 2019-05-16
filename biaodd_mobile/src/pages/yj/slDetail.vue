@@ -70,12 +70,12 @@
                 <li v-for="(o,i) in detail.mainPersons" :key="i">
                     <h4>{{o.姓名}}</h4>
                     <p>
-                        <span class="tit-txt">职务</span>
+                        <span class="tit-txt">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp务</span>
                         <i>：</i>
                         <span class="val-txt">{{o.职务}}</span>
                     </p>
                     <p>
-                        <span class="tit-txt">职称</span>
+                        <span class="tit-txt">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp称</span>
                         <i>：</i>
                         <span class="val-txt">{{o.职称}}</span>
                     </p>          
@@ -213,9 +213,11 @@ export default {
         .overHid{
             overflow: hidden;
             text-overflow: ellipsis;
+            /*! autoprefixer: off */
+            -webkit-box-orient: vertical;
+            /* autoprefixer: on */
             display: -webkit-box;
             -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
         }
     }
 }

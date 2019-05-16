@@ -150,6 +150,7 @@ export default {
   width: 100%;
   height: 101px;
   display: flex;
+  z-index: 999;
   justify-content: space-between;
   border-top: 1px solid #F2F2F2;
   background-color: #fff;

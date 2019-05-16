@@ -19,7 +19,7 @@
                 <li v-for="(o,i) in categoryList" :key="i"><span :class="categoryNum==i?'active':''" @click="categoryNum=i">{{o.category}}</span></li>
             </ul>
             <div class="btn">
-                <button class="sure" @click="categoryFn">确定</button>
+                <button class="sure" @click.stop="categoryFn">确定</button>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@
                 <li v-for="(o,i) in tabTypeList" :key="i"><span :class="tabTypeNum==i?'active':''" @click="tabTypeNum=i">{{o}}</span></li>
             </ul>
             <div class="btn">
-                <button class="sure" @click="tabTypeTapFn">确定</button>
+                <button class="sure" @click.stop="tabTypeTapFn">确定</button>
             </div>
         </div>
         <!-- 第三个筛选条件 -->
@@ -28,7 +28,7 @@
                 <li v-for="(o,i) in threeList" :key="i"><span :class="threeNum==i?'active':''" @click="threeNum=i">{{o}}</span></li>
             </ul>
             <div class="btn">
-                <button class="sure" @click="threeTapFn">确定</button>
+                <button class="sure" @click.stop="threeTapFn">确定</button>
             </div>
         </div>
         <!-- 第四个筛选条件 -->
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="btn">
-                <button class="sure" @click="fourTapFn">确定</button>
+                <button class="sure" @click.stop="fourTapFn">确定</button>
             </div>
         </div>
     </div>
@@ -413,6 +413,7 @@ export default {
         h6{
             padding-left: 35px;
             margin-bottom: 20px;
+            font-size: 28px;
         }
         .money-box{
             display: flex;

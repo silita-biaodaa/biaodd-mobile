@@ -147,6 +147,7 @@ export default {
     padding: 38px 20px;
     margin-bottom: 18px;
     border-radius: 8px;
+    box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
     h5{
         font-size: 32px;
         // font-weight: normal;

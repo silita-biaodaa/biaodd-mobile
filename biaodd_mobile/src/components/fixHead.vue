@@ -246,13 +246,13 @@ export default {
     }
 }
 .nav{
-    height: 88px;
+    height: 92px;
     overflow-x: scroll;
     border-top: 1PX solid #f2f2f2;
     border-bottom: 1PX solid #f2f2f2;
     ul{
         // position: absolute;
-        height: 88px;
+        height: 92px;
         display: flex;
         justify-content: space-between;
         width: 120%;
@@ -260,12 +260,11 @@ export default {
         flex-wrap: nowrap;
         overflow-x:scroll;
         overflow-y: hidden;
-        // height: 100%;
         li{
             box-sizing: border-box;
             width: 20%;
             text-align: center;
-            padding: 20px 32px 0;
+            padding: 20px 32px 4px;
             p{
                 border-bottom: 4px solid transparent;
             }
