@@ -36,7 +36,8 @@ export default {
     data() {
         return {
             // 数据模型
-            isload:false
+            isload:false,
+            isVip:true,
         }
     },
     watch: {
@@ -51,14 +52,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.conver()
-        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-            // if(this.obj.oneName){
-            //     this.obj.oneName=this.getPassOnename(this.obj.oneName)
-            // }
-            // if( this.obj.oneOffer) {
-            //     this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
-            // } 
+        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '') {
+            this.isVip=false;
         }
     },
     components: {
@@ -89,10 +84,11 @@ export default {
         // 方法 集合
         topush(o) {
             if(sessionStorage.getItem('xtoken')) {
-                // if(this.type=='project'){
-                //     this.$router.push({path:'/zjDetail',query:{id:o.proId}})
-                // }
-                
+                if(!this.isVip){
+                    return false
+                }
+                sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+                this.$router.push({path:'/peopleDetail'})
             } else {
                 this.isload = true 
             }

@@ -40,6 +40,7 @@ import sgxkDetail from '@/pages/yj/sgxkDetail'
 import jgbaDetail from '@/pages/yj/jgbaDetail'
 import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
+import peopleDetail from '@/pages/peopleDetail'
 
 
 
@@ -251,7 +252,12 @@ export default new Router({
       path:'/jgbaDetail',
       component:jgbaDetail,
       name:'jgbaDetail'
-    }         
+    },
+    {//人员详情
+      path:'/peopleDetail',
+      component:peopleDetail,
+      name:'peopleDetail'
+    }          
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

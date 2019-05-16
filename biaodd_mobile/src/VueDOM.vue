@@ -51,6 +51,6 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='' scoped>
+<style  lang='less' scoped>
 
 </style>

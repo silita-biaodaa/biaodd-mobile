@@ -3,7 +3,7 @@
     <div class="user">
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
-            <van-uploader :after-read="changeImg"  accept="image/gif, image/jpeg">
+            <van-uploader :after-read="changeImg"  accept="image/gif, image/jpeg" >
                 <img :src="data.img" v-if="isImg"/>
                 <img src="../../assets/icon-tpux.png.png" v-else/>
             </van-uploader>

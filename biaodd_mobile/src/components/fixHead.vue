@@ -260,7 +260,7 @@ export default {
         flex-wrap: nowrap;
         overflow-x:scroll;
         overflow-y: hidden;
-        height: 100%;
+        // height: 100%;
         li{
             box-sizing: border-box;
             width: 20%;
