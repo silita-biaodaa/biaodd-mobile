@@ -53,12 +53,14 @@
             <p class='more-box'>
                 <span class="tit-txt">主工程量</span>
                 <span class="val-txt" :class="{'overHid':!more}">{{detail.remark}}</span>
-                <template v-if="more">
-                    <span class="more" @click="more=false">收起</span>
+                <template v-if="detail.remark&&detail.remark!=''">
+                    <template v-if="more">
+                        <span class="more" @click="more=false">收起</span>
+                    </template>
+                    <template v-else>
+                        <span class="more" @click="more=true">展开</span>
+                    </template> 
                 </template>
-                <template v-else>
-                    <span class="more" @click="more=true">展开</span>
-                </template>    
             </p>
             <p>
                 <span class="tit-txt">质量评定</span>

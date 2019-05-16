@@ -45,21 +45,25 @@
             <p class='more-box'>
                 <span class="tit-txt">关键指标</span>
                 <span class="val-txt" :class="{'overHid':!htmore}">{{detail.majorTarget}}</span>
-                <template v-if="htmore">
-                    <span class="more" @click="htmore=false">收起</span>
+                <template v-if="detail.majorTarget&&detail.majorTarget!=''">
+                    <template v-if="htmore">
+                        <span class="more" @click="htmore=false">收起</span>
+                    </template>
+                    <template v-else>
+                        <span class="more" @click="htmore=true">展开</span>
+                    </template> 
                 </template>
-                <template v-else>
-                    <span class="more" @click="htmore=true">展开</span>
-                </template>  
             </p>
             <p class='more-box'>
                 <span class="tit-txt">合同内容</span>
                 <span class="val-txt" :class="{'overHid':!zbmore}">{{detail.contractContent}}</span>
-                <template v-if="zbmore">
-                    <span class="more" @click="zbmore=false">收起</span>
-                </template>
-                <template v-else>
-                    <span class="more" @click="zbmore=true">展开</span>
+                <template v-if="detail.contractContent&&detail.contractContent!=''">
+                    <template v-if="zbmore">
+                        <span class="more" @click="zbmore=false">收起</span>
+                    </template>
+                    <template v-else>
+                        <span class="more" @click="zbmore=true">展开</span>
+                    </template>
                 </template>
             </p>
         </div>

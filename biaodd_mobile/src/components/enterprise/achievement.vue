@@ -2,7 +2,7 @@
 <template>
     <div class="affairs">
         <!-- 搜索 -->
-        <v-ser :selecTxt="selecTxt"></v-ser>
+        <v-ser :selecTxt="selecTxt" @searchFn="searFn"></v-ser>
         <div class="box" v-if="!more">
             <!-- list -->
             <template v-if="isajax">
@@ -49,7 +49,8 @@ export default {
                 comName:'',
                 pageNo:1,
                 pageSize:5,
-                tabType:'project'
+                tabType:'project',
+                proName:''
             },
             list:[],
             isScroll:true,
@@ -130,6 +131,12 @@ export default {
                 this.ajax();
             }, 500);
         },
+        searFn(option){
+            this.isajax=false;
+            this.list=[];
+            this.data.proName=option;
+            this.ajax();
+        },
         onLoad(){
             if(!this.isScroll){
                 return false
@@ -145,7 +152,6 @@ export default {
                 url: '/project/company/list',
                 data:that.data
             }).then(function(res){
-                that.showLoad=false;
                 if(that.list.length==0||that.data.pageNo==1){
                     that.list=res.data.data;
                     that.isajax=true;

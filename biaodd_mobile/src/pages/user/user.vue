@@ -3,7 +3,7 @@
     <div class="user">
         <top-back :title='"个人信息"'></top-back>
         <div class="tx-box">
-            <van-uploader :after-read="changeImg"  accept="image/gif, image/jpeg" >
+            <van-uploader :after-read="changeImg"  accept="image/gif,image/jpeg,image/png" max-size="104857600" @oversize="overSize">
                 <img :src="data.img" v-if="isImg"/>
                 <img src="../../assets/icon-tpux.png.png" v-else/>
             </van-uploader>
@@ -195,6 +195,14 @@ export default {
                     that.changeNew(0);
                 }
             })
+        },
+        overSize(){
+            let that=this;
+            that.hint = '图片过大，请更换图片';
+            that.isShow = true
+            setTimeout(() => {
+                that.isShow = false;
+            },1500);
         }
     }
 

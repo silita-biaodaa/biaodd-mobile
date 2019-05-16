@@ -3,7 +3,8 @@
     <div class="fixbox">
         <div class="fixHead">
             <div class="fix-left">
-                <img src="../assets/logo.png"/>
+                <!-- <img src="../assets/logo.png"/> -->
+                <p class="fix-img"></p>
                 <span v-if="isshow" @click="addTap">
                     {{address}}
                     <van-icon :name="iconName"/>
@@ -201,9 +202,12 @@ export default {
     .fix-left{
         display: flex;
         align-items:center;
-        img{
+        .fix-img{
             margin-right: 24px;
-            width: 176px;
+            width: 178px;
+            height: 54px;
+            background:url(../assets/logo.png) no-repeat;
+            background-size: 100%;
         }
         span{
             font-size: 28px;
@@ -278,6 +282,16 @@ export default {
             }
         }
 
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .fixHead .fix-left .fix-img{
+        margin-right: 24px;
+        width:68px;
+        height: 60px;
+        background:url(../assets/relogo.png) no-repeat;
+        background-size: 100%;
     }
 }
 </style>
