@@ -9,7 +9,7 @@
                     <span>({{obj.sex}})</span>
                 </p>
             </div>
-            <div class="nav">
+            <div class="nav" ref="scroll">
                 <ul>
                     <li v-for="(o,i) in navList" :key="i" :class="navNum==i?'active':''" @click="navTap(i)">
                         <p>{{o}}</p>
@@ -83,6 +83,14 @@ export default {
             tabCode:obj.tabCode,
             tabType:'registerCert',
         }
+        if(this.$route.query.type=='yz'){
+            this.navNum=4;
+            this.data={
+                innerid:this.obj.innerid,
+                type:'detail'
+            }
+            this.ajaxUrl='/under/query'
+        }
         this.ajax();
     },
     beforeMount() {
@@ -92,6 +100,9 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+            if(this.navNum==4){
+                this.$refs.scroll.scrollLeft=200;
+            }
         });
     },
     beforeUpdate() {

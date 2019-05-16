@@ -125,8 +125,16 @@ export default {
                 this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='yj3'){
                 this.$router.push({path:'/jtDetail',query:{id:this.obj.pkid}})
+            }else if(this.type=='ry'){
+                sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+                this.$router.push({path:'/peopleDetail'})
             }
+        },
+        jumpgo(){
+            sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+            this.$router.push({path:'/peopleDetail',query:{type:'yz'}})
         }
+        //  @click.stop="jumpgo"
     }
 
 }

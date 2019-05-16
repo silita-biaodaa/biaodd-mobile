@@ -9,7 +9,7 @@
                     </p>
                     <p class="tit">{{obj.name}}</p>
                 </div>
-                <div class="under" v-if="obj.isUnder">押证</div>
+                <div class="under" v-if="obj.isUnder" @click.stop="jumpgo">押证</div>
             </div>
             <template>
                 <p>
@@ -94,6 +94,17 @@ export default {
             }
             
         },
+        jumpgo(){
+            if(sessionStorage.getItem('xtoken')) {
+                if(!this.isVip){
+                    return false
+                }
+                sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+                this.$router.push({path:'/peopleDetail',query:{type:'yz'}})
+            } else {
+                this.isload = true 
+            }
+        }
     }
 
 }
