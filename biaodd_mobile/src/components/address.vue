@@ -23,7 +23,7 @@
         </div>
         <button @click="sureFn">确定</button>
         <div class="toast" v-if="isToast">
-            <span>最多只能选择三个市哟~</span>
+            <span>最多只能选择三个市</span>
         </div>
     </div>
 </template>

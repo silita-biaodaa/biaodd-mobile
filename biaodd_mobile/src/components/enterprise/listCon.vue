@@ -18,8 +18,9 @@
         <!-- 人员 -->
         <template v-else-if="type=='ry'">
             <h5>{{obj.name}}</h5>
+            <div class="yzBtn" v-if="obj.isUnder" @click.stop="jumpgo">押证</div>
             <p>注册类别：<span>{{obj.category}}</span></p>
-            <p>专  业：<span>{{obj.major}}</span></p>
+            <p>专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
             <p>有效日期：<span>{{obj.validDate}}</span></p>
         </template>
         <!-- 中标 -->
@@ -143,11 +144,22 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
 .listCon{
+    position: relative;
     background: #fff;
     padding: 38px 20px;
     margin-bottom: 18px;
     border-radius: 8px;
     box-shadow:0px 3px 9px 1px rgba(4,0,0,0.1);
+    .yzBtn{
+        position: absolute;
+        right: 20px;
+        top: 38px;
+        font-size: 28px;
+        color: #EF873A;
+        border: 1PX solid #EF873A;
+        padding:3px 10px;
+        border-radius: 10px;
+    }
     h5{
         font-size: 32px;
         // font-weight: normal;
