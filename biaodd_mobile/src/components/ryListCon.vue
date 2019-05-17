@@ -5,7 +5,7 @@
         <template v-if="type==0">
             <h5>{{obj.category}}</h5>
             <p>
-                <span class="tit-txt">专业</span>
+                <span class="tit-txt">专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</span>
                 <span>{{obj.major}}</span>
             </p>
             <p>
@@ -49,7 +49,7 @@
                 <span>{{obj.publishdate}}</span>
             </p>
             <p>
-                <span class="tit-txt">性质</span>
+                <span class="tit-txt">性&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp质</span>
                 <span>{{obj.nature}}</span>
             </p>
             <p>

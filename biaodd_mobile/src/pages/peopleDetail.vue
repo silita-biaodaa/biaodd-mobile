@@ -149,6 +149,14 @@ export default {
             this.isajax=false;
             this.isError=false;
             this.ajaxUrl='/person/detail';
+            this.data={
+                comId:this.obj.comId,
+                idCard:this.obj.idCard,
+                sex:this.obj.sex,
+                name:this.obj.name,
+                tabCode:this.obj.tabCode,
+                tabType:'',
+            }
             if(i==0){
                 this.data.tabType='registerCert'
             }else if(i==1){
