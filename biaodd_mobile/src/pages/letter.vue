@@ -67,7 +67,7 @@
             </template>
             <template v-else-if="navNum==4">
               <!-- 业绩 -->
-              <v-yj :more="yjIsVip"></v-yj>
+              <v-yj></v-yj>
             </template>
             <template v-else-if="navNum==5">
               <!-- 中标 -->
@@ -111,7 +111,6 @@ export default {
              vipStr:'',
              isvip:false,
              fwIsVip:false,
-             yjIsVip:false,
              collected:false,
              id:'',
              isMore:true,
@@ -217,9 +216,6 @@ export default {
         jump(i){
           if(i==1&&this.vipStr.indexOf('comLaw')==-1){
             this.fwIsVip=true
-          }
-          if(i==4&&this.vipStr.indexOf('comPerformance')==-1){
-            this.yjIsVip=true;
           }
           this.navNum=i
         }
