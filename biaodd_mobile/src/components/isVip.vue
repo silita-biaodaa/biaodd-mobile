@@ -9,12 +9,12 @@
                 <span>检测到您尚未登录，请先登录</span>
             </div>
             <div class="bom-box">
-                <span class="canel" @click="canelFn">取消</span>
+                <span class="canel" @click.stop="canelFn">取消</span>
                 <template v-if="isLogin">
-                    <span class="sure" @click="sureFn">去开通</span>
+                    <span class="sure" @click.stop="sureFn">去开通</span>
                 </template>
                 <template v-else>
-                    <span class="sure" @click="jumpLogin">去登录</span>
+                    <span class="sure" @click.stop="jumpLogin">去登录</span>
                 </template>
             </div>
         </div>
@@ -50,8 +50,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // let str=sessionStorage.getItem('permissions');
-        // this.dataArr=str;
         if(sessionStorage.getItem('xtoken')){
             this.isLogin=true;
         }
@@ -61,9 +59,6 @@ export default {
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
-        // if(this.dataArr.indexOf(this.val)!=-1){
-            // this.isTrue=true;
-        // }
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
         });

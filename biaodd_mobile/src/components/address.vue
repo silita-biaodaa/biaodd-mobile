@@ -202,6 +202,16 @@ export default {
             }else{
                 this.cityList[i].select=true;
             }
+
+            let arr1=[];
+            for(let x of this.cityList){
+                if(x.select){
+                    arr1.push(x);
+                }
+            }
+            if(arr1.length==0){
+                this.cityList[0].select=true;
+            }
         },
         cityFn(i){
             let arr2=[];

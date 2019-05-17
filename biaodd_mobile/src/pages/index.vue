@@ -221,6 +221,10 @@ export default {
                 this.$router.push({ path: '/tender',query:{search:this.search}})
             }else if(this.tabNum == 2){
                 this.$router.push({ path: '/company',query:{search:this.search}})
+            }else if(this.tabNum==3){
+                this.$router.push({ path: '/yjList',query:{search:this.search}})
+            }else if(this.tabNum==4){
+                this.$router.push({ path: '/ryList',query:{search:this.search}})
             }
         },
         clearFn(){

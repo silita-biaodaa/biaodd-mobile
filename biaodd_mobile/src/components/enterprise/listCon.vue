@@ -163,7 +163,6 @@ export default {
             sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
             this.$router.push({path:'/peopleDetail',query:{type:'yz'}})
         }
-        //  @click.stop="jumpgo"
     }
 
 }
