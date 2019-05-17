@@ -103,7 +103,7 @@ export default {
 <style  lang='less' scoped>
 .isvip{
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     width: 100%;
     height: 100vh;
     background: rgba(0,0,0,.5);
@@ -124,9 +124,11 @@ export default {
         align-items: center;
         height: 196px;
         span{
-        width: 360px;
-        display: inline-block;
-        color: #999;
+            width: 360px;
+            display: inline-block;
+            color: #999;
+            font-size: 28px;
+            text-align: center;
         }
     }
     .bom-box{

@@ -24,20 +24,17 @@
                     <span>：{{obj.major}}</span></p>
             </template>
         </div>
-        <v-dia v-if="isload"></v-dia>
-
+        <v-vip :mask="isvip" :txt="'开通会员才可查看人员详情'"></v-vip>
     </div>
 </template>
 <script>
-
-import dialog from '@/components/dialog'
 export default {
     name: 'ryCon', // 结构名称
     data() {
         return {
             // 数据模型
-            isload:false,
-            isVip:true,
+            // isload:false,
+            isvip:false,
         }
     },
     watch: {
@@ -52,12 +49,9 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '') {
-            this.isVip=false;
-        }
-    },
-    components: {
-        'v-dia':dialog
+        // if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '') {
+        //     this.isVip=false;
+        // }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -83,20 +77,20 @@ export default {
     methods: {
         // 方法 集合
         topush(o) {
-            if(sessionStorage.getItem('xtoken')) {
-                if(!this.isVip){
-                    return false
-                }
-                sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
-                this.$router.push({path:'/peopleDetail'})
-            } else {
-                this.isload = true 
+            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                this.isvip=true;
+                this.modalHelper.afterOpen();
+                return false
             }
+            sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+            this.$router.push({path:'/peopleDetail'})
             
         },
         jumpgo(){
             if(sessionStorage.getItem('xtoken')) {
-                if(!this.isVip){
+                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                    this.isvip=true;
+                    this.modalHelper.afterOpen();
                     return false
                 }
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))

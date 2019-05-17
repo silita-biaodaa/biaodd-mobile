@@ -42,7 +42,6 @@
         <van-loading size="50px"></van-loading>
         <p style="text-align: center;margin-top:30px">拼命加载中</p>
     </template>
-    <v-vip :mask="isvip" :txt="'筛选功能请开通会员哟~'"></v-vip>
 </div>
 </template>
 <script>
@@ -55,7 +54,6 @@ export default {
     name:'ryList',
     data () {
       return {
-        isvip:false,
         isScroll:true,
         zbList:[],
         loading:false,//是否加载完，false为加载完
@@ -161,11 +159,6 @@ export default {
             this.ajax();
         },
         showMask(i){// 
-            if(this.vipStr.indexOf('tenderFilter')==-1&&i!=0){
-            this.isvip=true;
-            this.modalHelper.afterOpen();
-            return false
-            }    
             if(this.screenList[i].active){
             this.screenList[i].active=false
             }else{

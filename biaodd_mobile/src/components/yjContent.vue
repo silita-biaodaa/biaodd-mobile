@@ -28,8 +28,7 @@
                 <p>交工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
         </div>
-        <v-dia v-if="isload"></v-dia>
-
+        <v-vip :mask="isvip" :txt="'开通会员才可查看业绩详情'"></v-vip>
     </div>
 </template>
 <script>
@@ -40,7 +39,7 @@ export default {
     data() {
         return {
             // 数据模型
-            isload:false
+            isvip:false
         }
     },
     watch: {
@@ -58,18 +57,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.conver()
-        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
-            if(this.obj.oneName){
-                this.obj.oneName=this.getPassOnename(this.obj.oneName)
-            }
-            if( this.obj.oneOffer) {
-                this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
-            } 
-        }
-    },
-    components: {
-        'v-dia':dialog
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -100,17 +87,16 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            if(sessionStorage.getItem('xtoken')) {
-                if(this.type=='project'){
-                    this.$router.push({path:'/zjDetail',query:{id:o.proId}})
-                }else if(this.type=='shuili'){
-                    this.$router.push({path:'/slDetail',query:{id:o.pkid}})
-                }else if(this.type=='jiaotong'){
-                    this.$router.push({path:'/jtDetail',query:{id:o.pkid}})
-                }
-                
-            } else {
-                this.isload = true 
+            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                this.isvip=true;
+                return false
+            }
+            if(this.type=='project'){
+                this.$router.push({path:'/zjDetail',query:{id:o.proId}})
+            }else if(this.type=='shuili'){
+                this.$router.push({path:'/slDetail',query:{id:o.pkid}})
+            }else if(this.type=='jiaotong'){
+                this.$router.push({path:'/jtDetail',query:{id:o.pkid}})
             }
             
         },

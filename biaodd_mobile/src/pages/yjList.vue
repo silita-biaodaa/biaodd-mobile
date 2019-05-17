@@ -50,9 +50,9 @@
                 <div class="top">
                     <h6>竣工时间</h6>
                     <div class="money-box">
-                        <input placeholder="起始时间" v-model="data.buildStart" @click="dateTapFn(0)"/>
+                        <span @click="dateTapFn(0)" class="date-select" :class="data.buildStart==''?'empty':''">{{data.buildStart==''?'起始时间':data.buildStart}}</span>
                         <span>—</span>
-                        <input placeholder="结束时间" v-model="data.buildEnd" @click="dateTapFn(1)"/>
+                        <span @click="dateTapFn(1)" class="date-select" :class="data.buildEnd==''?'empty':''">{{data.buildEnd==''?'结束时间':data.buildEnd}}</span>
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">
@@ -85,7 +85,6 @@
         <van-loading size="50px"></van-loading>
         <p style="text-align: center;margin-top:30px">拼命加载中</p>
     </template>
-    <v-vip :mask="isvip" :txt="'筛选功能请开通会员哟~'"></v-vip>
     <van-popup position="bottom" :overlay="true" v-model="dateMask">
         <van-datetime-picker
         type="date"
@@ -106,7 +105,6 @@ export default {
     name:'yjList',
     data () {
       return {
-        isvip:false,
         isScroll:true,
         zbList:[],
         loading:false,//是否加载完，false为加载完
@@ -215,11 +213,6 @@ export default {
             this.ajax();
         },
         showMask(i){// 
-            if(this.vipStr.indexOf('tenderFilter')==-1&&i!=0){
-            this.isvip=true;
-            this.modalHelper.afterOpen();
-            return false
-            }    
             if(this.screenList[i].active){
             this.screenList[i].active=false
             }else{
@@ -277,34 +270,35 @@ export default {
                     this.data.amountEnd='5000'
                 }
             }
-            this.isajax=false;
-            this.zbList=[];
-            this.data.pageNo=1;
-            this.ajax();
-        },
-        dateFn(i){
-            this.dateNum=i;
-            this.data.buildStart='';
-            this.data.buildEnd='';
             let date=new Date();
             let y=date.getFullYear(),
                 mon=date.getMonth()+1,
                 day=date.getDate();
                 mon=mon<10?'0'+mon:mon;
                 day=day<10?'0'+day:day;
-                if(i==1){
-                    if(mon=='02'&&day==29){
-                        day=28
-                    }
-                    this.data.buildEnd=y+'-'+mon+'-'+day;
-                    this.data.buildStart=(y-3)+'-'+mon+'-'+day;
-                }else if(i==2){
-                    if(mon=='02'&&day==29){
-                        day=28
-                    }
-                    this.data.buildEnd=y+'-'+mon+'-'+day;
-                    this.data.buildStart=(y-5)+'-'+mon+'-'+day;
+            if(this.dateNum==1){
+                if(mon=='02'&&day==29){
+                    day=28
                 }
+                this.data.buildEnd=y+'-'+mon+'-'+day;
+                this.data.buildStart=(y-3)+'-'+mon+'-'+day;
+            }else if(this.dateNum==2){
+                if(mon=='02'&&day==29){
+                    day=28
+                }
+                this.data.buildEnd=y+'-'+mon+'-'+day;
+                this.data.buildStart=(y-5)+'-'+mon+'-'+day;
+            }
+            this.isajax=false;
+            this.zbList=[];
+            this.data.pageNo=1;
+            this.dateNum=0;
+            this.ajax();
+        },
+        dateFn(i){
+            this.dateNum=i;
+            this.data.buildStart='';
+            this.data.buildEnd='';
         },
         dateTapFn(type){
             if(type==1){
@@ -312,6 +306,7 @@ export default {
             }else{
                 this.isDateStart=true
             }
+            this.dateNum=0;
             this.dateMask=true
         },
         confirm(pick){
@@ -429,7 +424,19 @@ export default {
                 border-radius: 5px;
                 padding: 10px;
                 box-sizing: border-box;
-                border: 1PX solid #e8e8e8
+                border: 1PX solid #e8e8e8;
+                background: #fff;
+            }
+            .date-select{
+                width: calc((100% - 100px)/2);
+                border-radius: 5px;
+                padding: 10px;
+                box-sizing: border-box;
+                border: 1PX solid #e8e8e8;
+                background: #fff;
+            }
+            .empty{
+                color: #999;
             }
         }
     }

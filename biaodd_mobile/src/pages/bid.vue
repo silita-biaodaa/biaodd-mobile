@@ -35,7 +35,7 @@
     <van-loading size="50px"></van-loading>
     <p style="text-align: center;margin-top:30px">拼命加载中</p>
   </template>
-  <v-vip :mask="isvip" :txt="'筛选功能请开通会员哟~'"></v-vip>
+  <v-vip :mask="isvip" :txt="'筛选功能请开通会员'"></v-vip>
 </div>
 </template>
 <script>
