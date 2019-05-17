@@ -67,7 +67,9 @@
                 <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
         </template>
+        <v-vip :mask="isvip" :txt="'开通会员才可查看详情'"></v-vip>
     </div>
+    
 </template>
 <script>
 // let moment = require("moment");
@@ -76,6 +78,7 @@ export default {
     data() {
         return {
             // 数据模型
+            isvip:false,
         }
     },
     watch: {
@@ -121,17 +124,42 @@ export default {
         // 时间转换
         jumpDetail(){
             if(this.type=='yj1'){
+                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                    this.isvip=true;
+                    this.modalHelper.afterOpen();
+                    return false
+                }
                 this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
             }else if(this.type=='yj2'){
+                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                    this.isvip=true;
+                    this.modalHelper.afterOpen();
+                    return false
+                }
                 this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='yj3'){
+                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                    this.isvip=true;
+                    this.modalHelper.afterOpen();
+                    return false
+                }
                 this.$router.push({path:'/jtDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='ry'){
+                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                    this.isvip=true;
+                    this.modalHelper.afterOpen();
+                    return false
+                }
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
                 this.$router.push({path:'/peopleDetail'})
             }
         },
         jumpgo(){
+            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                this.isvip=true;
+                this.modalHelper.afterOpen();
+                return false
+            }
             sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
             this.$router.push({path:'/peopleDetail',query:{type:'yz'}})
         }

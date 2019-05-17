@@ -96,10 +96,10 @@ export default {
             that.collected=res.data.data[0].collected
             that.detail = res.data.data[0]  
             that.detail.projDq = that.detail.projDq.substring(0,2)
-            if(that.detail.zzRank&&str.indexOf('bidFilter')==-1){
+            if(that.detail.zzRank&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                 that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
             }
-            if(that.detail.pbMode&&str.indexOf('bidFilter')==-1){
+            if(that.detail.pbMode&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                 that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
             }
             that.clickCount = res.data.clickCount       
