@@ -2,9 +2,9 @@ import Vue from 'vue'
 import axios from 'axios'
 import { Toast } from 'vant'
 Vue.prototype.$http = axios
-// let baseURL='http://api.biaodaa.com'
+let baseURL='http://api.biaodaa.com'
 // let baseURL = 'http://pre.biaodaa.com'
-let baseURL = '/'
+// let baseURL = '/'
 
 axios.defaults.baseURL = baseURL
 axios.interceptors.request.use(function (config) {
