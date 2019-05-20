@@ -189,8 +189,8 @@ export default {
         right: 20px;
         top: 38px;
         font-size: 28px;
-        color: #EF873A;
-        border: 1PX solid #EF873A;
+        color: #FE6603;
+        border: 1PX solid #FE6603;
         padding:3px 10px;
         border-radius: 10px;
     }

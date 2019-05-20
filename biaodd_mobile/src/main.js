@@ -58,6 +58,10 @@ router.beforeEach(function(to, from, next){
   if(to.fullPath=='/centre'&&from.fullPath=='/followList'){
     from.meta.followNum=0
   }
+  if(from.name=='letter'&&to.name=='company'){
+    sessionStorage.removeItem('peoploDetail');
+    sessionStorage.removeItem('letterStr');
+  }
   next()
   
 })

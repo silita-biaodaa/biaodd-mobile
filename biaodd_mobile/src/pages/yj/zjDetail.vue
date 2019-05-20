@@ -169,7 +169,6 @@ export default {
       margin-right: 32px;
       width: 112px;
       display: inline-block;
-      text-align-last: justify;
     }
     .val-txt{  
       color: #333;

@@ -217,7 +217,6 @@ p{
       margin-right: 32px;
       width: 112px;
       display: inline-block;
-      text-align-last: justify;
     }
     i{
         color: #999;

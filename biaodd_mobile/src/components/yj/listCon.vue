@@ -221,7 +221,6 @@ export default {
         .tit-txt{
             min-width: 112px;
             display: inline-block;
-            // text-align-last: justify;
         }
         span{
             font-size: 26px;
