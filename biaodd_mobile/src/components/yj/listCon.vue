@@ -27,7 +27,7 @@
         <!-- 施工图审查 -->
         <template v-else-if="type==1">
             <h5>
-                <span>编号：{{obj.checkNo}}</span>
+                <span>编号：{{obj.checkNumber}}</span>
                 <van-icon name="arrow" class="nav-i"/>
             </h5>
             <p>
@@ -42,7 +42,7 @@
         <!-- 合同备案 -->
         <template v-else-if="type==2">
             <h5>
-                <span>编号：{{obj.provRecordCode}}</span>
+                <span>编号：{{obj.recordCode}}</span>
                 <van-icon name="arrow" class="nav-i"/>
             </h5>
             <p>
@@ -69,7 +69,7 @@
         <!-- 施工许可 -->
         <template v-else-if="type==3">
             <h5>
-                <span>编号：{{obj.blicence}}</span>
+                <span>编号：{{obj.buildLicence}}</span>
                 <van-icon name="arrow" class="nav-i"/>
             </h5>
             <p>
@@ -88,7 +88,7 @@
         <!-- 竣工备案 -->
         <template v-else-if="type==4">
             <h5>
-                <span>编号：{{obj.provCode}}</span>
+                <span>编号：{{obj.code}}</span>
                 <van-icon name="arrow" class="nav-i"/>
             </h5>
             <p>
@@ -221,7 +221,7 @@ export default {
         .tit-txt{
             min-width: 112px;
             display: inline-block;
-            text-align-last: justify;
+            // text-align-last: justify;
         }
         span{
             font-size: 26px;

@@ -8,7 +8,7 @@
             <h5>{{proName}}</h5>
             <p>
                 <span class="tit-txt">合同备案编号</span>
-                <span class="val-txt">{{detail.provRecordCode}}</span>  
+                <span class="val-txt">{{detail.recordCode}}</span>  
             </p>
             <p>
                 <span class="tit-txt">承包单位</span>

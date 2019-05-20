@@ -8,7 +8,7 @@
             <h5>{{proName}}</h5>
             <p>
                 <span class="tit-txt">竣工备案编号</span>
-                <span class="val-txt">{{detail.provCode}}</span>  
+                <span class="val-txt">{{detail.code}}</span>  
             </p>
             <p>
                 <span class="tit-txt">实际造价</span>

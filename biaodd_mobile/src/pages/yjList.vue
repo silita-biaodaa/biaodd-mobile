@@ -260,6 +260,7 @@ export default {
             this.ajax();
         },
         fourTapFn(){
+            // this.modalHelper.beforeClose();
             this.screenList[3].active=false;
             if(this.moneyNum!=0){//金额
                 if(this.moneyNum==1){
@@ -306,6 +307,7 @@ export default {
             }else{
                 this.isDateStart=true
             }
+            // this.modalHelper.afterOpen();
             this.dateNum=0;
             this.dateMask=true
         },
@@ -426,6 +428,7 @@ export default {
                 box-sizing: border-box;
                 border: 1PX solid #e8e8e8;
                 background: #fff;
+                outline: medium;
             }
             .date-select{
                 width: calc((100% - 100px)/2);

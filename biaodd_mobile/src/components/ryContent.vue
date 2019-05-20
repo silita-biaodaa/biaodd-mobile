@@ -125,7 +125,7 @@ p{
     }
     .left-txt{
         display: inline-block;
-        text-align-last: justify;
+        // text-align-last: justify;
         width: 112px;
     }
 }

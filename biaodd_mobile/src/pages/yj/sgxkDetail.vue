@@ -8,7 +8,7 @@
             <h5>{{detail.proName}}</h5>
             <p>
                 <span class="tit-txt">施工许可证编号</span>
-                <span class="val-txt">{{detail.blicence}}</span>  
+                <span class="val-txt">{{detail.buildLicence}}</span>  
             </p>
             <p>
                 <span class="tit-txt">合同金额</span>

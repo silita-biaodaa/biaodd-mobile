@@ -8,7 +8,7 @@
             <h5>{{detail.proName}}</h5>
             <p>
                 <span class="tit-txt">图审合格书编号</span>
-                <span class="val-txt">{{detail.checkNo}}</span>  
+                <span class="val-txt">{{detail.checkNumber}}</span>  
             </p>
             <p>
                 <span class="tit-txt">图审机构</span>
