@@ -106,7 +106,7 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
-            if(this.nav==5){
+            if(this.nav!=0){
                 this.$refs.scroll.scrollLeft=200;
             }
         });

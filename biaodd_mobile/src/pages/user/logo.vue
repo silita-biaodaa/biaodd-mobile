@@ -119,7 +119,7 @@ export default {
                 
                 sessionStorage.setItem('permissions',res.data.data.permissions);
                 sessionStorage.setItem('userid',res.data.data.pkid);
-                if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null){
+                if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null&&sessionStorage.getItem('path')!='enroll'){
                   let uri=sessionStorage.getItem('path');
                   that.$router.replace(uri)
                 }else{

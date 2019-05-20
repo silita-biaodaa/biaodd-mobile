@@ -21,19 +21,12 @@
             </div>
             <div class="letter-iphone">
               <van-icon name="phone-o" />
-              <template v-if="isMore">
-                <span class="iphone">
-                  {{detail.phone}}
-                </span>
-                <span class="le-col" @click="more">
-                  更多
-                </span>
-              </template>
-              <template v-else>
-                <span class="iphone">
-                  {{phone}}
-                </span>
-              </template>
+              <span class="iphone">
+                {{detail.phone}}
+              </span>
+              <span class="le-col" @click="more" v-if="phoneArr.length>1">
+                更多
+              </span>
             </div>
             <div class="letter-url">
                <van-icon name="location-o" />
@@ -81,8 +74,10 @@
 
       </div>
       <v-vip :mask="isvip" :txt="'查看企业更多电话号码，请开通会员'"></v-vip>
-      
       <v-load v-if="isload"></v-load>
+      <van-popup v-model="isMore"  position="bottom" :overlay="true">
+          <van-picker :columns="phoneArr" ref="picker"/>
+      </van-popup>
     </div>
 </template>
 <script>
@@ -103,7 +98,7 @@ export default {
             // 数据模型
              name:'企业详情',
              detail:{},
-             phone:'',
+             phoneArr:[],
              navList:['工商','法务','资质','人员','业绩','中标','诚信'],
              navNum:0,
              isload:true,
@@ -113,7 +108,7 @@ export default {
              fwIsVip:false,
              collected:false,
              id:'',
-             isMore:true,
+             isMore:false,
             //  path:'/commerc'
         }
     },
@@ -143,6 +138,12 @@ export default {
         if(sessionStorage.getItem('permissions')){
           this.vipStr=sessionStorage.getItem('permissions');
         }
+        if(sessionStorage.getItem('peoploDetail')){
+          this.navNum=3
+        }
+        if(sessionStorage.getItem('letterStr')){
+          this.navNum=4
+        }
         this.id = this.$route.query.id
          let that=this;
             this.$http({
@@ -155,7 +156,7 @@ export default {
                 that.detail = res.data.data;
                 var arr = []
                 arr = that.detail.phone.split(';');
-                that.phone=res.data.data.phone;
+                that.phoneArr=arr;
                 if(that.vipStr.indexOf('comPhone')==-1){
                   that.detail.phone =that.resetPhone(arr[0]) 
                 }else{
@@ -193,7 +194,7 @@ export default {
             this.isvip=true;
             this.modalHelper.afterOpen();
           }else{
-            this.isMore=false;
+            this.isMore=true;
           }
         },
         // canelFn(){

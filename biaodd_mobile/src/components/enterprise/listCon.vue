@@ -57,14 +57,14 @@
                 <div><span class="sl label">{{obj.proType}}</span></div>
                 <p>施工单位：<span>{{obj.proOrg}}</span></p>
                 <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.build}}</span></p>
+                <p>完工日期：<span>{{obj.build}}</span></p>
             </template>
             <template v-else-if="type=='yj3'">
                 <div><span class="jt label">{{obj.source}}</span></div>
                 <p>施工单位：<span>{{obj.comName}}</span></p>
                 <p>标段名称：<span>{{obj.section}}</span></p>
                 <p>合同金额：<span>{{obj.amount}}万元</span></p>
-                <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
+                <p>交工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
         </template>
         <v-vip :mask="isvip" :txt="'开通会员才可查看详情'"></v-vip>
@@ -129,6 +129,8 @@ export default {
                     this.modalHelper.afterOpen();
                     return false
                 }
+                sessionStorage.removeItem('peoploDetail');
+                sessionStorage.setItem('letterStr','zj');
                 this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
             }else if(this.type=='yj2'){
                 if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
@@ -136,6 +138,8 @@ export default {
                     this.modalHelper.afterOpen();
                     return false
                 }
+                sessionStorage.removeItem('peoploDetail');
+                sessionStorage.setItem('letterStr','sl');
                 this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='yj3'){
                 if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
@@ -143,6 +147,8 @@ export default {
                     this.modalHelper.afterOpen();
                     return false
                 }
+                sessionStorage.removeItem('peoploDetail');
+                sessionStorage.setItem('letterStr','jt');
                 this.$router.push({path:'/jtDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='ry'){
                 if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
@@ -150,6 +156,7 @@ export default {
                     this.modalHelper.afterOpen();
                     return false
                 }
+                sessionStorage.removeItem('letterStr');
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
                 this.$router.push({path:'/peopleDetail'})
             }
