@@ -108,7 +108,7 @@ export default {
                       })
                     })
                   })
-                  that.goodList.length = 3
+                  // that.goodList.length = 3
                 } else {
                   that.goodList.length = 0
                 }
