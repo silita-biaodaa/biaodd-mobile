@@ -39,10 +39,10 @@
         <!-- 不良记录 -->
           <template v-else-if="type=='bl'">
             <h5>{{obj.nature}}</h5>
-            <p>项目名称：<span>{{obj.projectName}}</span></p>
-            <p>发布部门：<span>{{obj.publishSite}}</span></p>
-            <p>发布日期：<span>{{obj.publishDate}}</span></p>
-            <p>发布内容：<span>{{obj.badBehaviorContent}}</span></p>
+            <p>项目名称：<span>{{obj.projName}}</span></p>
+            <p>发布部门：<span>{{obj.pubSite}}</span></p>
+            <p>发布日期：<span>{{obj.pubDate}}</span></p>
+            <p>不良行为内容：<span>{{obj.content}}</span></p>
         </template>
         <!-- 业绩 -->
         <template v-else>

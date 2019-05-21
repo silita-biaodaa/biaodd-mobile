@@ -3,19 +3,19 @@
     <div class="good">
       <template v-if="isajax1&&isajax2">
         <template v-if="goodList.length>0||blList.length>0">
-          <div class="bear" v-if="goodList.length>0">
+          <div class="bear"  :class="{'active':isGood==true}" v-if="goodList.length>0">
             <div class="good-top"  @click="jumpGood" >
               获奖信息
-              <van-icon name="arrow"/>
+              <van-icon :name="goodArrow"/>
             </div>
             <div class="good-list">
               <v-con :type="'gb'"  v-for="(el,i) in goodList" :key="i" :obj='el'></v-con>
             </div>         
           </div>
-          <div class="bear" v-if="blList.length>0">
+          <div class="bear" :class="{'active':isDad==true}" v-if="blList.length>0">
             <div class="good-top" @click="jumpDad" >
               不良记录
-              <van-icon name="arrow" />
+              <van-icon :name="dadArrow"/>
             </div>
             <div class="good-list">
               <v-con :type="'bl'"  v-for="(el,i) in blList" :key="i" :obj='el'></v-con>
@@ -45,6 +45,10 @@ export default {
             isajax1:false,//获奖是否加载完
             isajax2:false,//不良是否加载完
             isError:false,//是否加载失败
+            isDad:false,
+            isGood:false,
+            dadArrow:'arrow-up',
+            goodArrow:'arrow-up',
         }
     },
     watch: {
@@ -119,13 +123,15 @@ export default {
            let that=this;
             this.$http({
                 method:'post',
-                url: '/company/undesirable/' + that.id ,
-                // data:that.data
+                url: '/reputation/undesirable',
+                data:{
+                  comId:that.id
+                }
             }).then(function(res){
               //  console.log(res.data.data.undesirable.list,1)
                if(res.data.data.undesirable) {
                  if(res.data.data.undesirable.length>0){
-                   that.blList = res.data.data.undesirable[0].list
+                   that.blList = res.data.data.undesirable
                  }
                  
                }
@@ -140,13 +146,24 @@ export default {
           if(that.goodList.length == 0) {
             return
           }
-          this.$router.push({path:'/award',query:{id:this.id}})
+          this.isGood=!this.isGood;
+          if(this.goodArrow=='arrow-up'){
+            this.goodArrow='arrow'
+          }else{
+            this.goodArrow='arrow-up'
+          }
+          
         },
         jumpDad() {
-            if(this.blList.length == 0) {
-              return
-            }
-          this.$router.push({path:'/badness',query:{id:this.id}})
+          if(this.blList.length == 0) {
+            return
+          }
+          this.isDad=!this.isDad;
+          if(this.dadArrow=='arrow-up'){
+            this.dadArrow='arrow'
+          }else{
+            this.dadArrow='arrow-up'
+          }
         }
     }
 
@@ -157,7 +174,10 @@ export default {
 <style scoped lang='less'>
 .good {
   .bear {
-    background-color: #f5f5f5;   
+    background-color: #f5f5f5;
+    overflow: hidden;
+    height: 100%;
+    // transition: height .5s;    
     .good-top {
       padding: 0 35px;
       font-size: 32px;
@@ -180,6 +200,9 @@ export default {
     .gpp {
       padding-bottom: 100px;
     }
+  }
+  .active{
+    height: 87px;
   }
 }
 
