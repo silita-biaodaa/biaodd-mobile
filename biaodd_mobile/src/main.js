@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// import 'lib-flexible'
 import axios from 'axios'
 
 import Vant from 'vant';
@@ -52,6 +53,9 @@ function setHtmlFontSize(){
 };
 let that=Vue;
 router.beforeEach(function(to, from, next){
+  let u =window.location.href;
+  console.log(u);
+  alert(u);
   if(to.name=='logo'){
     sessionStorage.setItem('path',from.name);
   }

@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="comment">
+    <div class="comment" v-if="list.length>0">
         <!-- tab -->
         <!-- <div class="nav">
             <p v-for="(o,i) in navTab" :key="i" :class="navNum==i?'active':''" @click="navTap(i)">{{o}}</p>
