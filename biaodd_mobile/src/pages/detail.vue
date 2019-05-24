@@ -2,55 +2,59 @@
 <template>
     <div class="detail">
         <top-back :title='name'></top-back>
+        <!-- 详情内容 -->
         <div class="detail-text">
-          <div class="detail-title">
-             <p>{{detail.title}}</p>
-             <div class="detail-time">
-                <div class="de-size" >
-                    发布时间：{{detail.opendate}}
-                </div>
-                <div class="de-size" >
-                    点击次数：{{clickCount}}
-                </div>
-                <v-follow :id="id" :type="'zhaob'" :collected="collected" :source="source"></v-follow>
-             </div>
-             <div class="detail-time" >
-                   <div class="det-size" >
-                        项目地区：{{detail.projDq}}
+            <div class="detail-title">
+                <p>{{detail.title}}</p>
+                <div class="detail-time">
+                    <div class="de-size" >
+                        发布时间：{{detail.opendate}}
                     </div>
-                    <div class="det-size">
-                        评标办法：{{detail.pbMode?detail.pbMode:'详见原文'}}
-                    </div>      
-             </div>
-             <div class="m-15">
-                    资质要求：{{detail.zzRank ? detail.zzRank : '详见原文'}}
-             </div>
-          </div>
-          <div class="detail-cli" @click="topush(detail)" :class="this.total == null ? 'current' : ''" >
-             <div  >
-                符合资质企业
-             </div>
-             <div>
-                <van-icon name="arrow" />
-             </div>
-          </div>
-          <div class="detail-cli" @click="jump" >
-             <div>
-                访问原文出处
-             </div>
-            <div >
-                 <van-icon name="arrow" />
-             </div>
-          </div>
-          <div class="detail-contant" v-html="detail.content"  >
-             
-          </div>
+                    <div class="de-size" >
+                        点击次数：{{clickCount}}
+                    </div>
+                    <v-follow :id="id" :type="'zhaob'" :collected="collected" :source="source"></v-follow>
+                </div>
+                <div class="detail-time" >
+                    <div class="det-size" >
+                            项目地区：{{detail.projDq}}
+                        </div>
+                        <div class="det-size">
+                            评标办法：{{detail.pbMode?detail.pbMode:'详见原文'}}
+                        </div>      
+                </div>
+                <div class="m-15">
+                        资质要求：{{detail.zzRank ? detail.zzRank : '详见原文'}}
+                </div>
+            </div>
+            <div class="detail-cli" @click="topush(detail)" :class="this.total == null ? 'current' : ''" >
+                <div  >
+                    符合资质企业
+                </div>
+                <div>
+                    <van-icon name="arrow" />
+                </div>
+            </div>
+            <div class="detail-cli" @click="jump" >
+                <div>
+                    访问原文出处
+                </div>
+                <div >
+                    <van-icon name="arrow" />
+                </div>
+            </div>
+            <div class="detail-contant" v-html="detail.content"  >
+                
+            </div>
         </div>
+        <!-- 评论 -->
+        <v-comment :type="'zhaobiao'"></v-comment>
     </div>
 </template>
 <script>
 import topBack from '@/components/topback'
 import follow from '@/components/followBtn'
+import comment from '@/components/comment'
 export default {
     name: 'detail', // 结构名称
     data() {
@@ -70,7 +74,8 @@ export default {
     },
     components: {
       'top-back':topBack,
-      'v-follow':follow  
+      'v-follow':follow,
+      'v-comment':comment  
     },
     props: {
         // 集成父级参数
@@ -145,18 +150,19 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style   lang="less" scoped >
 .detail {
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
-
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  right: 0;
+//  bottom: 0;
+padding-bottom: 101px;
+background: #F8F8F8;
  .detail-text {
+     background: #fff;
    margin-top: 91px;
-   height: calc(~"100vh - 101px");
+   min-height: calc(~"100vh - 101px");
    overflow-x: hidden;
    overflow-y: auto;
-   padding-bottom: 90px;
    font-size: 32px;
    color:#333;
    .detail-title {

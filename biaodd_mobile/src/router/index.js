@@ -8,15 +8,6 @@ import Winning from '@/pages/winning'
 import zhongBid from '@/pages/zhongBid'
 import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
-import commerce from '@/components/enterprise/commerce'
-import affairs from '@/components/enterprise/affairs'
-import qual from '@/components/enterprise/qual'
-import people from '@/components/enterprise/people'
-import achievement from '@/components/enterprise/achievement'
-import letBid from '@/components/enterprise/bid'
-import good from '@/components/enterprise/good'
-import award from '@/pages/award'
-import badness from '@/pages/badness'
 import logo from '@/pages/user/logo'
 import enroll from '@/pages/user/enroll'
 import find from '@/pages/user/find'
@@ -28,7 +19,6 @@ import openingVip from '@/pages/user/openingVip'
 import membership from '@/pages/user/membership'
 import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
-import dialog from '@/components/dialog'
 import yjList from '@/pages/yjList'
 import zjDetail from '@/pages/yj/zjDetail'
 import slDetail from '@/pages/yj/slDetail'
@@ -90,7 +80,7 @@ export default new Router({
       name:'article'
     },
     { 
-      path: '/conform',
+      path: '/conform',// 招标详情符合资质企业
       component: Conform 
     },
     {  // 中标详情
@@ -102,51 +92,6 @@ export default new Router({
       path: '/letter', 
       component: Letter,
       name: 'letter' 
-    },
-    { //企信——工商
-      path: '/commerce', 
-      component: commerce,
-      name: 'commerce'
-    },
-    {//企信——法务
-      path:'/affairs',
-      component:affairs,
-      name:'affairs'
-    },
-    {  // 资质-企信
-      path: '/qual',
-      component: qual,
-      name: 'qual'
-    },
-    {   // 人员
-      path: '/people',
-      component: people,
-      name: 'people'
-    },
-    {   // 人员
-      path: '/achievement',
-      component: achievement,
-      name: 'achievement'
-    },
-    {   // 中标
-      path: '/letbid',
-      component: letBid,
-      name: 'letbid'
-    },
-    {   // 诚信
-      path: '/good',
-      component: good,
-      name: 'good'
-    },
-    {   // 奖项详情
-      path: '/award',
-      component: award,
-      name: 'award'
-    },
-    {   // 奖项详情
-      path: '/badness',
-      component: badness,
-      name: 'badness'
     },
     {  //登录
       path: '/logo',
@@ -177,11 +122,6 @@ export default new Router({
       path: '/deal',
       component: deal,
       name: 'deal'
-    },
-    {  // 协议文本
-      path: '/dialog',
-      component: dialog,
-      name: 'dialog'
     },
     {  // 个人信息
       path: '/user',
