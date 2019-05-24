@@ -1,45 +1,48 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="winning">
-       <top-back :title='name'></top-back>
-        <div class="win-text">
-          <div class="win-title">
-            <p>
-              {{detail.title}}
-            </p>
-            <div class="win-time">
-              <div class="win-c" >
-                发布时间：{{detail.opendate}}
-              </div>
-              <div class="win-c">
-                浏览量：{{clickCount}}
-              </div>
-              <v-follow :id="id" :type="'zhongb'" :collected="collected" :source="source"></v-follow>
-            </div>
-             <div class="win-one">
-                第一候选人：{{detail.oneName? detail.oneName : '详见原文'}}
-              </div>
-              <div class="win-one" >
-                中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文'}} 
-              </div>
+  <div class="winning">
+    <top-back :title='name'></top-back>
+    <div class="win-text">
+      <div class="win-title">
+        <p>
+          {{detail.title}}
+        </p>
+        <div class="win-time">
+          <div class="win-c" >
+            发布时间：{{detail.opendate}}
           </div>
-          <div class="win-to" @click="jump" >
-            <div>
-              访问原文出处
-            </div>
-            <div >
-                 <van-icon name="arrow" />
-             </div>
+          <div class="win-c">
+            浏览量：{{clickCount}}
           </div>
-          <div class="win-contant" v-html="detail.content"  >
-
-          </div>
+          <v-follow :id="id" :type="'zhongb'" :collected="collected" :source="source"></v-follow>
         </div>
+        <div class="win-one">
+            第一候选人：{{detail.oneName? detail.oneName : '详见原文'}}
+          </div>
+          <div class="win-one" >
+            中标金额：{{detail.oneOffer ? detail.oneOffer + '万' : '详见原文'}} 
+          </div>
+      </div>
+      <div class="win-to" @click="jump" >
+        <div>
+          访问原文出处
+        </div>
+        <div >
+            <van-icon name="arrow" />
+        </div>
+      </div>
+      <div class="win-contant" v-html="detail.content"  >
+
+      </div>
     </div>
+    <!-- 评论 -->
+    <v-comment :type="'zhongbiao'"></v-comment>
+  </div>
 </template>
 <script>
 import topBack from '@/components/topback'
 import follow from '@/components/followBtn'
+import comment from '@/components/comment'
 export default {
     name: 'winning', // 结构名称
     data() {
@@ -58,7 +61,8 @@ export default {
     },
     components: {
       'top-back':topBack,
-      'v-follow':follow   
+      'v-follow':follow,
+      'v-comment':comment    
     },
     props: {
         // 集成父级参数
@@ -124,14 +128,17 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less" > 
 .winning {
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  right: 0;
+//  bottom: 0;
+padding-bottom: 101px;
+background: #F8F8F8;
  .win-text {
+   background: #fff;
    margin-top: 91px;
-   height: calc(~"100vh - 101px");
+   min-height: calc(~"100vh - 101px");
    padding-bottom: 90px;
    overflow-x: auto;
    overflow-y: auto;

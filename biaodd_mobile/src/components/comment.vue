@@ -28,7 +28,7 @@
                         <p class="time">{{o.pushd}}</p>
                     </div>
                     <div class="center">{{o.commContent}}</div>
-                    <div class="reply" v-if="o.replys.length>0">
+                    <div class="reply" v-if="o.replys&&o.replys.length>0">
                         <ul>
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
@@ -112,7 +112,7 @@ export default {
             if(!this.isScroll){
                 return false
             }
-            this.data.pageNo++;
+            this.data.pageNum++;
             this.ajax();
         },
         ajax(){
