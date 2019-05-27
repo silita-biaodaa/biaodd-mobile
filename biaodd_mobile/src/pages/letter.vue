@@ -78,6 +78,7 @@
       <van-popup v-model="isMore"  position="bottom" :overlay="true">
           <van-picker :columns="phoneArr" ref="picker"/>
       </van-popup>
+      <v-vip :mask="isvip1" :txt="'开通会员才能查看法务信息'" @canel="fwCanelFn"></v-vip>
     </div>
 </template>
 <script>
@@ -105,6 +106,7 @@ export default {
              mask:false,
              vipStr:'',
              isvip:false,
+             isvip1:false,
              fwIsVip:false,
              collected:false,
              id:'',
@@ -215,10 +217,13 @@ export default {
           }
         },
         jump(i){
-          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
-            this.fwIsVip=true
+          if(i==1&&this.vipStr.indexOf('comLaw')==-1&&this.$route.query.isshare!=1){
+            this.isvip1=true
           }
           this.navNum=i
+        },
+        fwCanelFn(){
+          this.isvip1=false
         }
 
     }

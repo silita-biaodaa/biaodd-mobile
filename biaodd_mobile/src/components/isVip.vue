@@ -84,6 +84,7 @@ export default {
         canelFn(){
             this.modalHelper.beforeClose();
             this.$parent.isvip=false;
+            this.$emit('canel');
         },
         jumpLogin(){
             this.modalHelper.beforeClose();

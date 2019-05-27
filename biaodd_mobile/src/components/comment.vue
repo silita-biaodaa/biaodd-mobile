@@ -198,7 +198,7 @@ export default {
     .right-box{
         width: calc(100% - 102px);
         .top{
-            height: 70px;
+            // height: 70px;
             display: flex;
             margin-bottom: 30px;
             align-content: space-between;
