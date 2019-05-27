@@ -53,9 +53,6 @@ function setHtmlFontSize(){
 };
 let that=Vue;
 router.beforeEach(function(to, from, next){
-  let u =window.location.href;
-  console.log(u);
-  alert(u);
   if(to.name=='logo'){
     sessionStorage.setItem('path',from.name);
   }
