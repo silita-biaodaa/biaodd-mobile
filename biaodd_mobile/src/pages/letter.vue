@@ -217,7 +217,7 @@ export default {
           }
         },
         jump(i){
-          if(i==1&&this.vipStr.indexOf('comLaw')==-1&&this.$route.query.isshare!=1){
+          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
             this.isvip1=true
           }
           this.navNum=i
