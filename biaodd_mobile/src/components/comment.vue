@@ -24,6 +24,7 @@
                         <p>
                             <span class="nickName">{{o.nickName}}</span>
                             <span class="company">{{o.company}}</span>
+                            <span class="post">({{o.post}})</span>
                         </p>
                         <p class="time">{{o.pushd}}</p>
                     </div>
@@ -32,7 +33,7 @@
                         <ul>
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
-                                    <span class="name">{{x.reNikename}}</span>回复<span class="name">{{x.toNikename}}</span>:
+                                    <span class="name">{{x.reNikename}}({{x.reCompany}}  {{x.rePost}})</span>回复<span class="name">{{x.toNikename}}</span>:
                                     {{x.replyContent}}
                                 </div>
                                 <p>{{x.pushd}}</p>
@@ -206,7 +207,7 @@ export default {
             p{
                 width: 100%;
                 .nickName{
-                    margin-right: 50px;
+                    margin-right: 30px;
                 }
             }
             .time{
