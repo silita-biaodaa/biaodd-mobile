@@ -3,15 +3,16 @@ import axios from 'axios'
 import { Toast } from 'vant'
 Vue.prototype.$http = axios
 // let baseURL='http://api.biaodaa.com'
-// let baseURL = 'http://pre.biaodaa.com'
-let baseURL = '/'
+let baseURL = 'http://pre.biaodaa.com'
+// let baseURL = '/'
 
 axios.defaults.baseURL = baseURL
 axios.interceptors.request.use(function (config) {
-let token = sessionStorage.getItem('xtoken');
-if (token&&token!='undefined') {
-  config.headers['X-TOKEN'] = token
-}
+  let token = sessionStorage.getItem('xtoken');
+  if (token&&token!='undefined') {
+    config.headers['X-TOKEN'] = token
+  }
+  config.headers['baseInfo']='wap3.5|'+navigator.userAgent+'|1004'
     return config
 }, function (error) {
     return Promise.reject(error)
