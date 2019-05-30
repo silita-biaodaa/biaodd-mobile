@@ -7,9 +7,9 @@
            暂无权限,请先登录
          </p>
          <div class="btn">
-            <!-- <div class="d-btn left" @click="cancel" >
+            <div class="d-btn left" @click="cancel" >
               取消
-            </div> -->
+            </div>
             <div class="d-btn left"  @click="jump" >
               确定
             </div>
@@ -67,7 +67,7 @@ export default {
     methods: {
         // 方法 集合
         cancel() {
-          this.isall = false
+          this.$parent.isload = false
         },
         jump() {
           this.$router.push('/logo')
@@ -110,14 +110,18 @@ export default {
       bottom: 0;
       height: 80px;
       width: 100%;
-      border-top: 1px solid #f5f5f5;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: space-between;
+      border-top: 1PX solid #f5f5f5;
       .d-btn {
+        background: #fff;
         line-height: 80px;
         text-align: center;
         font-size: 32px;
-        width: 100%;
+        width:calc((100% - 1PX)/2);
         color: #FE6603;
-        border-left: 1px solid #f5f5f5;
+        // border-left: 1PX solid #f5f5f5;
       }
     }
   }

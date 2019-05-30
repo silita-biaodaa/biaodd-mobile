@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
   <div class="winning">
-    <top-back :title='name'></top-back>
+    <top-back :title='name' :isFollow="true" :id="id" :type="'zhongb'" :collected="collected" :source="source"></top-back>
     <div class="win-text">
       <div class="win-title">
         <p>
@@ -14,7 +14,9 @@
           <div class="win-c">
             浏览量：{{clickCount}}
           </div>
-          <v-follow :id="id" :type="'zhongb'" :collected="collected" :source="source"></v-follow>
+          <div class="win-c">
+            评论数：{{commentLength}}
+          </div>
         </div>
         <div class="win-one">
             第一候选人：{{detail.oneName? detail.oneName : '详见原文'}}
@@ -36,12 +38,11 @@
       </div>
     </div>
     <!-- 评论 -->
-    <v-comment :type="'zhongbiao'"></v-comment>
+    <v-comment :type="'zhongbiao'" @comlength="comFn"></v-comment>
   </div>
 </template>
 <script>
 import topBack from '@/components/topback'
-import follow from '@/components/followBtn'
 import comment from '@/components/comment'
 export default {
     name: 'winning', // 结构名称
@@ -53,7 +54,8 @@ export default {
             clickCount:0,
             id:'',
             source:'',
-            collected:false
+            collected:false,
+            commentLength:0,
         }
     },
     watch: {
@@ -61,7 +63,6 @@ export default {
     },
     components: {
       'top-back':topBack,
-      'v-follow':follow,
       'v-comment':comment    
     },
     props: {
@@ -119,6 +120,9 @@ export default {
         // 方法 集合
         jump() {
              window.location.href =this.detail.url
+        },
+        comFn(e){
+            this.commentLength=e
         }
     }
 

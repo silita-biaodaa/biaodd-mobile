@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="letter">
-      <top-back :title='name'></top-back>
+      <top-back :title='name' :id="id" :type="'qy'" :collected="collected" :isFollow="true"></top-back>
       <div class="letter-de">
          <div class="letter-title">
             <div class="letter-name">
@@ -9,7 +9,6 @@
                 <p>{{detail.comName}}</p>
                 <div class="letter-save">{{detail.subsist}}</div>
               </div>
-              <v-follow :id="id" :type="'qy'" :collected="collected"></v-follow>
             </div>
             <div class="letter-lead">
               <span  style="color:#FE6603">
@@ -91,7 +90,6 @@ import achievement from '@/components/enterprise/achievement'
 import bid from '@/components/enterprise/bid'
 import good from '@/components/enterprise/good'
 import loading from '@/components/loading'
-import follow from '@/components/followBtn'
 export default {
     name: 'letter', // 结构名称
     data() {
@@ -127,7 +125,6 @@ export default {
        'v-zb':bid,
        'v-gl':good,
        'v-load':loading,
-       'v-follow':follow
     },
     props: {
         // 集成父级参数

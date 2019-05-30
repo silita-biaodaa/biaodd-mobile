@@ -145,6 +145,10 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
+.followBtn{
+    display: flex;
+    justify-content: flex-end;
+}
 .nofollow{
     width: 100px;
     height: 40px;

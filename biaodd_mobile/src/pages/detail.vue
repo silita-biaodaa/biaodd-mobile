@@ -1,7 +1,7 @@
 <!-- 招标 -->
 <template>
     <div class="detail">
-        <top-back :title='name'></top-back>
+        <top-back :title='name' :isFollow="true" :id="id" :type="'zhaob'" :collected="collected" :source="source"></top-back>
         <!-- 详情内容 -->
         <div class="detail-text">
             <div class="detail-title">
@@ -13,7 +13,9 @@
                     <div class="de-size" >
                         点击次数：{{clickCount}}
                     </div>
-                    <v-follow :id="id" :type="'zhaob'" :collected="collected" :source="source"></v-follow>
+                    <div class="de-size">
+                        评论数：{{commentLength}}
+                    </div>
                 </div>
                 <div class="detail-time" >
                     <div class="det-size" >
@@ -48,12 +50,11 @@
             </div>
         </div>
         <!-- 评论 -->
-        <v-comment :type="'zhaobiao'"></v-comment>
+        <v-comment :type="'zhaobiao'" @comlength="comFn"></v-comment>
     </div>
 </template>
 <script>
 import topBack from '@/components/topback'
-import follow from '@/components/followBtn'
 import comment from '@/components/comment'
 export default {
     name: 'detail', // 结构名称
@@ -66,7 +67,8 @@ export default {
             clickCount:0,
             name:'招标详情',
             total:0,
-            collected:false
+            collected:false,
+            commentLength:0
         }
     },
     watch: {
@@ -74,7 +76,6 @@ export default {
     },
     components: {
       'top-back':topBack,
-      'v-follow':follow,
       'v-comment':comment  
     },
     props: {
@@ -141,6 +142,9 @@ export default {
         },
         jump() {
             window.location.href =this.detail.url
+        },
+        comFn(e){
+            this.commentLength=e
         }
     }
 
@@ -173,7 +177,8 @@ background: #F8F8F8;
      .detail-time {      
         display: flex;
         justify-content: space-between;
-        margin-top: 23px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         .de-size {
           font-size: 20px;
           color:#999;

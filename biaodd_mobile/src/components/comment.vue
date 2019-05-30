@@ -126,6 +126,7 @@ export default {
                 data:that.data
             }).then(function(res){
                 that.total=res.data.total;
+                that.$emit('comlength',that.total);
                 if(that.list.length==0||that.data.pageNum==1){
                     that.list=res.data.data;
                 }else{

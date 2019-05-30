@@ -3,7 +3,13 @@
   <div class="top-nav">
         <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
         {{title}}
-        <p v-if="isOrder" @click="mask=true">开发票</p>
+        <template v-if="isFollow">
+            <van-icon name="like" @click="followFn" v-if="follow"/>
+            <van-icon name="like-o" @click="nofollowFn" v-else/>
+        </template>
+        <template v-if="isOrder">
+            <p @click="mask=true">开发票</p>
+        </template>
         <v-popup :mask="mask"></v-popup>
    </div>
 </template>
@@ -16,6 +22,7 @@ export default {
         return {
             // 数据模型
             mask:false,
+            // follow:true,//是否关注
         }
     },
     watch: {
@@ -26,10 +33,33 @@ export default {
         title:'',
         isOrder:{
             default:false
+        },
+        isFollow:{
+            default:false
+        },
+        type:{
+            default:''
+        },
+        id:{
+            default:''
+        },
+        collected:{
+        },
+        source:{
+            default:''
         }
     },
     components: {
        'v-popup':popup,
+    },
+    computed:{
+        follow(){
+            if(this.collected){
+                return true;
+            }else{
+                return false;
+            }
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -60,7 +90,78 @@ export default {
     },
     methods: {
         // 方法 集合
-   
+        followFn(){//取消关注
+            let that=this;
+            if(this.type!='qy'){
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/cancelCollectionNotice',
+                    data:{
+                        source:that.source,
+                        noticeid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=false;
+                    that.$toast('取消关注成功')
+                })
+            }else{
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/cancelCollectionCompany',
+                    data:{
+                        companyid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=false;
+                    that.$toast('取消关注成功')
+                })
+            }
+        },
+        nofollowFn(){//关注
+            if(this.type=='zhaob'){//招标   type=0
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/collectionNotice',
+                    data:{
+                        source:that.source,
+                        type: "0",
+                        noticeid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=true;
+                    that.$toast('关注成功')
+                })
+            }else if(this.type=='zhongb'){//中标  type=2
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/collectionNotice',
+                    data:{
+                        source:that.source,
+                        type: "2",
+                        noticeid:that.id,
+                    }
+                }).then(function(res){
+                    that.$parent.collected=true;
+                    that.$toast('关注成功')
+                })
+            }else{//公司
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url:'/userCenter/collectionCompany',
+                    data:{
+                        companyid:that.id,
+                    }
+                }).then(function(res){
+                    if(res.data.code==1){
+                        that.$parent.collected=true;
+                        that.$toast('关注成功')
+                    }
+                })
+            }
+        }
     }
 
 }
@@ -81,7 +182,7 @@ export default {
     top: 0;
     left: 0;
     .top-left {
-        font-size: 50px;
+        font-size: 40px;
         color:#fff;
         position: absolute;
         left: 20px;
@@ -95,6 +196,14 @@ export default {
         top: 50%;
         transform: translateY(-50%);
         font-size: 24px
+    }
+    .van-icon-like,.van-icon-like-o{
+        color: #fff;
+        position: absolute;
+        right:35px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
     }
 }
 </style>
