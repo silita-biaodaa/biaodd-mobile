@@ -16,6 +16,13 @@
                 </li>
             </ul>
         </div>
+        <!-- 广告区 -->
+        <div class="advert">
+            <p>标大大福利大放送，工作之余轻松赚外快</p>
+            <p class="test">每天限量前100位</p>
+            <p>即日起至2019年6月30日</p>
+            <h6>查看详情</h6>
+        </div>
         <!-- 招标 -->
         <div class="zhaob">
             <div class="title">
@@ -253,6 +260,45 @@ export default {
     div{
         background: #fff
     }
+    .advert{
+        padding:40px;
+        margin-bottom: 20px;
+        // background: -webkit-linear-gradient(left top,rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Safari 5.1 - 6.0 */
+        // background: -o-linear-gradient(bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Opera 11.1 - 12.0 */
+        // background: -moz-linear-gradient(bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Firefox 3.6 - 15 */
+        // background: linear-gradient(to bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* 标准的语法 */
+        background: -webkit-linear-gradient(left top,#ffa805,#fe7105,#ffa805); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to bottom right,#ffa805,#fe7105,#ffa805); /* 标准的语法 */
+        p{
+            -webkit-text-stroke:1px #fff;
+            color: transparent;
+            // color: #fff;
+            font-size: 28px;
+            // background-image: -webkit-gradient(linear, left 0, right 0, from(#fff), to(rgba(254,102,3,.1)));
+            // -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
+            // -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
+        }
+        .test{
+            font-size: 64px;
+            text-shadow: -10px 10px 10px #333;
+        }
+        h6{
+            text-align: center;
+            width: 230px;
+            height: 70px;
+            border-radius: 50px;
+            line-height: 70px;
+            box-shadow: 0 -10px 10px #333;
+            margin: 30px auto 0;
+            background: transparent;
+            background: -webkit-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Safari 5.1 - 6.0 */
+            background: -o-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Opera 11.1 - 12.0 */
+            background: -moz-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Firefox 3.6 - 15 */
+            background: linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* 标准的语法 */ 
+        }
+    }
     .banner{
         box-sizing: border-box;
         padding: 174px 32px 0;
@@ -314,7 +360,6 @@ export default {
         }
     }
 }
-
 .nav{
     height: 220px;
     padding: 40px 42px 45px;

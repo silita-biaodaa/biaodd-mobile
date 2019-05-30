@@ -24,7 +24,7 @@
                         <p>
                             <span class="nickName">{{o.nickName}}</span>
                             <span class="company">{{o.company}}</span>
-                            <span class="post">({{o.post}})</span>
+                            <span class="post"> ({{o.post}})</span>
                         </p>
                         <p class="time">{{o.pushd}}</p>
                     </div>
