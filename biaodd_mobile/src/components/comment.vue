@@ -22,9 +22,7 @@
                 <div class="right-box">
                     <div class="top">
                         <p>
-                            <span class="nickName">{{o.nickName}}</span>
-                            <span class="company">{{o.company}}</span>
-                            <span class="post" v-if="o.post&&o.post!=''"> ({{o.post}})</span>
+                            <span class="nickName">{{o.nickName}}</span><span class="company">{{o.company}}</span><span class="post" v-if="o.post"> ({{o.post}})</span>
                         </p>
                         <p class="time">{{o.pushd}}</p>
                     </div>
@@ -40,18 +38,8 @@
                         <ul>
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
-                                    <template v-if="x.reCompany&&x.rePost&&x.reCompany!=''&&x.rePost!=''">
-                                        <span class="name">{{x.reNikename}}({{x.reCompany}}  {{x.rePost}})</span>
-                                    </template>
-                                    <template v-else-if="x.reCompany&&x.reCompany!=''">
-                                        <span class="name">{{x.reNikename}}({{x.reCompany}})</span>
-                                    </template>
-                                    <template v-else-if="x.rePost&&x.rePost!=''">
-                                        <span class="name">{{x.reNikename}}({{x.rePost}})</span>
-                                    </template>
-                                    <template v-else>
-                                        <span class="name">{{x.reNikename}}</span>
-                                    </template>
+                                    <span class="name">{{x.reNikename}}</span>  
+                                    <span class="name">({{x.reCompany}}{{x.rePost}})</span>
                                     回复
                                     <span class="name">{{x.toNikename}}</span>:
                                     <template v-if="x.state==1">
