@@ -24,17 +24,42 @@
                         <p>
                             <span class="nickName">{{o.nickName}}</span>
                             <span class="company">{{o.company}}</span>
-                            <span class="post"> ({{o.post}})</span>
+                            <span class="post" v-if="o.post&&o.post!=''"> ({{o.post}})</span>
                         </p>
                         <p class="time">{{o.pushd}}</p>
                     </div>
-                    <div class="center">{{o.commContent}}</div>
+                    <div class="center">
+                        <template v-if="o.state==1">
+                            {{o.commContent}}
+                        </template>
+                        <template v-else>
+                            该评论已被屏蔽
+                        </template>
+                    </div>
                     <div class="reply" v-if="o.replys&&o.replys.length>0">
                         <ul>
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
-                                    <span class="name">{{x.reNikename}}({{x.reCompany}}  {{x.rePost}})</span>回复<span class="name">{{x.toNikename}}</span>:
-                                    {{x.replyContent}}
+                                    <template v-if="x.reCompany&&x.rePost&&x.reCompany!=''&&x.rePost!=''">
+                                        <span class="name">{{x.reNikename}}({{x.reCompany}}  {{x.rePost}})</span>
+                                    </template>
+                                    <template v-else-if="x.reCompany&&x.reCompany!=''">
+                                        <span class="name">{{x.reNikename}}({{x.reCompany}})</span>
+                                    </template>
+                                    <template v-else-if="x.rePost&&x.rePost!=''">
+                                        <span class="name">{{x.reNikename}}({{x.rePost}})</span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="name">{{x.reNikename}}</span>
+                                    </template>
+                                    回复
+                                    <span class="name">{{x.toNikename}}</span>:
+                                    <template v-if="x.state==1">
+                                        {{x.replyContent}}
+                                    </template>
+                                    <template v-else>
+                                        该评论已被屏蔽
+                                    </template>
                                 </div>
                                 <p>{{x.pushd}}</p>
                             </li>
