@@ -22,7 +22,7 @@
                 <div class="right-box">
                     <div class="top">
                         <p>
-                            <span class="nickName">{{o.nickName}}</span><span class="company">{{o.company}}</span><span class="post" v-if="o.post"> ({{o.post}})</span>
+                            <span class="nickName">{{o.nickName}}</span><span class="company">{{o.company}}</span><span class="post" v-if="o.post">{{o.post}}</span>
                         </p>
                         <p class="time">{{o.pushd}}</p>
                     </div>
