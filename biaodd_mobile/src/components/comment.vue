@@ -39,7 +39,7 @@
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
                                     <span class="name">{{x.reNikename}}</span>  
-                                    <span class="name">({{x.reCompany}}{{x.rePost}})</span>
+                                    <span class="name" v-if="x.reCompany&&x.reCompany!=''&&x.rePost&&x.rePost!=''">({{x.reCompany}}{{x.rePost}})</span>
                                     回复
                                     <span class="name">{{x.toNikename}}</span>:
                                     <template v-if="x.state==1">
