@@ -34,7 +34,7 @@
                             该评论已被屏蔽
                         </template>
                     </div>
-                    <div class="reply" v-if="o.replys&&o.replys.length>0">
+                    <div class="reply" v-if="o.replys&&o.replys.length>0&&o.state==1">
                         <ul>
                             <li v-for="(x,y) of o.replys" :key="y">
                                 <div class="content">
