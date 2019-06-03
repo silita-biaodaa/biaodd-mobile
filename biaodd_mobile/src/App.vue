@@ -56,7 +56,7 @@ export default {
             this.fisrt = true  
             this.per  = true 
         }
-        if(this.$route.name=='payVip'){
+        if(this.$route.name=='payVip'||this.$route.name=='dwDetail'){
             this.showNav=false
         }
     },
@@ -119,7 +119,7 @@ export default {
             this.fisrt = true  
             this.per  = true 
         }
-        if(val.name=='payVip'){
+        if(val.name=='payVip'||val.name=='dwDetail'){
             this.showNav=false
         }else{
           this.showNav=true

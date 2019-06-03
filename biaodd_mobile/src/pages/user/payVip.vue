@@ -39,6 +39,20 @@
             </div>
             <div class="btn" @click="payFn">立即支付</div>
         </div>
+        <!-- 端午活动 -->
+        <div class="dw-box">
+            <div class="content">
+                <div class="header">
+                    <van-icon name="cross"/>
+                </div>
+                <div class="bottom">
+                    <p>请输入邀请人的手机号码（可不填）</p>
+                    <div class="input">
+                        <input placeholder="请输入手机号码" type="tel"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -348,10 +362,60 @@ export default {
         left: 0;
     }
 }
+
 .box{
     padding: 0 30px;
     display: flex;
     align-items: center;
 }
-
+/*端午活动*/
+.dw-box{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .content{
+        border-radius:5px;
+        height: 590px;
+        box-sizing: border-box;
+        background: #fff;
+        width: 630px;
+    }
+    .header{
+        padding: 0 40px;
+        background: #f5f5f5;
+        height: 80px;
+        line-height: 80px;
+        font-size: 28px;
+        text-align: right;
+        .van-icon{
+            color: #ccc;
+        }
+    }
+    .bottom{
+        padding: 0 49px;
+        p{
+            color: #4D3A3A;
+            margin-bottom: 25px;
+            margin-top: 48px;
+        }
+        .input{
+            border: 1PX solid #ccc;
+            box-sizing: border-box;
+            height: 96px;
+            padding-left: 82px;
+            display: flex;
+            align-items: center;
+            input{
+                border: 0;
+            }
+        }
+    }
+}
 </style>

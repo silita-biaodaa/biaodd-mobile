@@ -404,9 +404,6 @@ export default {
                 margin-bottom: 64px;
             }
         }
-        .box{
-            
-        }
         h6{
             padding-left: 35px;
             margin-bottom: 20px;

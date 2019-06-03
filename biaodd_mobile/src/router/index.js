@@ -31,7 +31,7 @@ import jgbaDetail from '@/pages/yj/jgbaDetail'
 import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
 import peopleDetail from '@/pages/peopleDetail'
-
+import dwDetail from '@/pages/dwDetail'
 
 
 
@@ -197,7 +197,12 @@ export default new Router({
       path:'/peopleDetail',
       component:peopleDetail,
       name:'peopleDetail'
-    }          
+    },
+    {//活动详情
+      path:'/dwDetail',
+      component:dwDetail,
+      name:'dwDetail'
+    }           
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;
