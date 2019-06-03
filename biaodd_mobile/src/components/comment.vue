@@ -234,8 +234,8 @@ export default {
             background: #F8F8F8;
             padding: 32px 15px;
             li{
+                margin-bottom: 28px;
                 .content{
-                    margin-bottom: 28px;
                     color: #999;
                     .name{
                         color: #333;
