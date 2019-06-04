@@ -96,6 +96,7 @@ export default {
              if(sessionStorage.getItem('xtoken')) {
                  this.$router.push({path:'/article',query:{id:o.id,source:o.source}})
             } else {
+                this.modalHelper.afterOpen();
                 this.isload = true 
             }
         },

@@ -88,6 +88,7 @@ export default {
         },
         topush(o) {
             if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                this.modalHelper.afterOpen();
                 this.isvip=true;
                 return false
             }

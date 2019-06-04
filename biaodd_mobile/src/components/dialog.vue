@@ -67,9 +67,11 @@ export default {
     methods: {
         // 方法 集合
         cancel() {
+          this.modalHelper.beforeClose();
           this.$parent.isload = false
         },
         jump() {
+          this.modalHelper.beforeClose();
           this.$router.push('/logo')
         }
     }

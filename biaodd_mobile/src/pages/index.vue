@@ -56,6 +56,13 @@
                 <v-qy v-for="(o,i) of qyList" :key="i" :obj="o"></v-qy>
             </ul>
         </div>
+        <!-- 邀请游礼浮层 -->
+        <div class="fix-hb" v-if="mask">
+            <img src="../assets/yqyl.png" class="yqyl" @click.stop="dwJump"/>
+            <p @click="dwCross">
+                <van-icon name="cross"/>
+            </p>
+        </div>
     </div>
 </template>
 <script>
@@ -100,7 +107,8 @@ export default {
             tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2},{name:'查业绩',to:'/company',i:3},{name:'查人员',to:'/company',i:4}],
             tabNum:0,
             isScroll:false,
-            topath:'/bid'
+            topath:'/bid',
+            mask:false,
         }
     },
     watch: {
@@ -135,6 +143,10 @@ export default {
                 localStorage.setItem('filter',JSON.stringify(obj));
             })
         }
+        if(!sessionStorage.getItem('isfirst')){
+            this.modalHelper.afterOpen();
+            this.mask=true;
+        }
         
     },
     beforeMount() {
@@ -162,6 +174,17 @@ export default {
     },
     methods: {
         // 方法 集合
+        //端午活动
+        dwCross(){
+            this.modalHelper.beforeClose();
+            this.mask=false;
+            sessionStorage.setItem('isfirst',1);
+        },
+        dwJump(){
+            this.modalHelper.beforeClose();
+            this.$router.push('/dwDetail');
+            sessionStorage.setItem('isfirst',1);
+        },
         tabChange(i){
             this.tabNum=i.i
             this.topath = i.to
@@ -260,6 +283,37 @@ export default {
 .index{
     padding-top: 112px;
     background: #f5f5f5;
+    /*端午活动——邀请有礼*/
+    .fix-hb{
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,.5);
+        width: 100%;
+        height: 100vh;
+        z-index: 9999;
+        padding-top: 50px;
+        box-sizing: border-box;
+        .yqyl{
+            width: 80%;
+            display: block;
+            margin: 0 auto 37px;
+        }
+        p{
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border:2PX solid #999999;
+            .van-icon{
+                color: #999999;
+                font-size: 80px;
+            }
+        }
+    }
     div{
         background: #fff
     }
@@ -419,6 +473,7 @@ export default {
         color: #FE6603;
     }
 }
+
 .box{
     li:last-child{
         border-bottom: none

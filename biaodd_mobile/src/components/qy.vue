@@ -84,6 +84,7 @@ export default {
              if(sessionStorage.getItem('xtoken')) {
                 this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
             } else {
+                this.modalHelper.afterOpen();
                 this.isload = true 
             }
             
