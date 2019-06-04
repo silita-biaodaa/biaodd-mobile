@@ -17,15 +17,15 @@
             </ul>
         </div>
         <!-- 广告区 -->
-        <!-- <div class="advert"> -->
-            <!-- <p>标大大福利大放送，工作之余轻松赚外快</p>
-            <p class="test">每天限量前100位</p>
+        <!-- <div class="advert">
+            <p>标大大福利大放送，工作之余轻松赚外快</p>
+            <p class="test">邀请有礼</p>
             <p>即日起至2019年6月30日</p>
-            <h6>查看详情</h6> -->
-        <!-- </div> -->
-        <!-- <div class="dw">
-            <img src="../assets/pic-duanwu.png"/>
+            <h6>查看详情</h6>
         </div> -->
+        <div class="dw" @click="$router.push('/dwDetail')">
+            <img src="../assets/pic-duanwu.png"/>
+        </div>
         <!-- 招标 -->
         <div class="zhaob">
             <div class="title">
@@ -263,11 +263,11 @@ export default {
     div{
         background: #fff
     }
-    // .dw{
-    //     img{
-    //         width: 100%;
-    //     }
-    // }
+    .dw{
+        img{
+            width: 100%;
+        }
+    }
     // .advert{
     //     padding:40px;
     //     margin-bottom: 20px;
@@ -289,6 +289,16 @@ export default {
     //         // -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
     //     }
     //     .test{
+    //         -webkit-text-stroke:0;
+    //         color: #fff;
+    //         // background-image:-webkit-linear-gradient(left top,#f9ce37,#fae593);
+    //         // background-image: linear-gradient(to bottom right,#f9ce37,#fae593);
+    //         background: -webkit-linear-gradient(left top,#ffa805,#fe7105,#ffa805); /* Safari 5.1 - 6.0 */
+    //     background: -o-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Opera 11.1 - 12.0 */
+    //     background: -moz-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Firefox 3.6 - 15 */
+    //     background: linear-gradient(to bottom right,#ffa805,#fe7105,#ffa805);
+    //         -webkit-background-clip:text;
+    //         -webkit-text-fill-color: transparent;
     //         font-size: 64px;
     //         text-shadow: -10px 10px 10px #333;
     //     }
