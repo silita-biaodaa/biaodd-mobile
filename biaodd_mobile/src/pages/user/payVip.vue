@@ -72,7 +72,7 @@ export default {
             }],
             tabNum:0,
             webSock:null,
-            mask:true,
+            mask:false,
             phone:'',
         }
     },
@@ -189,6 +189,7 @@ export default {
                 data:data
             }).then(function(res){
                 // that.openWebSocket();
+                localStorage.removeItem('firstLogin');
                 localStorage.setItem('orderNo',res.data.orderNo);
                 that.$router.replace('/myOrder');
                 window.location.href=res.data.data.webUrl;
