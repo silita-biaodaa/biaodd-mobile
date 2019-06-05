@@ -120,7 +120,6 @@ export default {
         }
         if(sessionStorage.getItem('firstLogin')){
             if(sessionStorage.getItem('firstLogin')==0){
-                alert(sessionStorage.getItem('firstLogin'));
                 this.mask=true
             }else{
                 this.mask=false
