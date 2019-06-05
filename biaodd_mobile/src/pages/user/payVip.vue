@@ -48,10 +48,10 @@
                 <div class="bottom">
                     <p>请输入邀请人的手机号码（可不填）</p>
                     <div class="input">
-                        <input placeholder="请输入手机号码" type="tel" v-model="phone"/>
+                        <input placeholder="请输入手机号码" type="tel" v-model="phone" maxlength="11"/>
                     </div>
                     <div class="tips"><b>*</b>填写邀请人手机号码，助力好友领取微信红包</div>
-                    <div class="btn"  @click.stop="mask=false">确定</div>
+                    <div class="btn"  @click.stop="sureFn">确定</div>
                 </div>
             </div>
         </div>
@@ -195,6 +195,22 @@ export default {
                 window.location.href=res.data.data.webUrl;
             })
         },
+        /*端午活动确定*/
+        sureFn(){
+            if(this.phone!=''){
+                if(this.phone.length!=11){
+                    this.$toast('请输入正确的手机号码');
+                    this.phone='';
+                    return false
+                }
+                if(this.phone==sessionStorage.getItem('phoneNo')){
+                    this.$toast('不能输入自己的手机号码');
+                    this.phone='';
+                    return false
+                }
+            }
+            this.mask=false;
+        }
         // openWebSocket(){
         //     const wsuri=url;
         //     this.webSock=new WebSocket(wsuri);

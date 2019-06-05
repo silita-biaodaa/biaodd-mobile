@@ -112,6 +112,7 @@ export default {
             if(res.data.code == '1' ) {
                 sessionStorage.setItem('firstLogin',res.data.data.isFirst);
                 sessionStorage.setItem('xtoken',res.data.data.xtoken)
+                sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
                 if(res.data.data.nikeName){
                   sessionStorage.setItem('Bname',res.data.data.nikeName)
                 }else{
