@@ -110,6 +110,7 @@ export default {
             }
         }).then(function(res){
             if(res.data.code == '1' ) {
+                sessionStorage.setItem('firstLogin',res.data.data.isFirst);
                 sessionStorage.setItem('xtoken',res.data.data.xtoken)
                 if(res.data.data.nikeName){
                   sessionStorage.setItem('Bname',res.data.data.nikeName)

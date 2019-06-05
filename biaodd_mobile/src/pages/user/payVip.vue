@@ -118,6 +118,13 @@ export default {
         if(sessionStorage.getItem('payOrder')){
             this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         }
+        if(sessionStorage.getItem('firstLogin')){
+            if(sessionStorage.getItem('firstLogin')==0){
+                this.mask=true
+            }else{
+                this.mask=false
+            }
+        }
         // if(localStorage.getItem('orderNo')){
         //     alert(localStorage.getItem('orderNo'))
         //     this.$http({
