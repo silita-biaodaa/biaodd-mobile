@@ -190,6 +190,7 @@ export default {
             }).then(function(res){
                 // that.openWebSocket();
                 localStorage.removeItem('firstLogin');
+                that.mask=false;
                 localStorage.setItem('orderNo',res.data.orderNo);
                 that.$router.replace('/myOrder');
                 window.location.href=res.data.data.webUrl;
