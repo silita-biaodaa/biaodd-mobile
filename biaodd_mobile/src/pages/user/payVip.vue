@@ -120,6 +120,7 @@ export default {
         }
         if(sessionStorage.getItem('firstLogin')){
             if(sessionStorage.getItem('firstLogin')==0){
+                alert(sessionStorage.getItem('firstLogin'));
                 this.mask=true
             }else{
                 this.mask=false
@@ -189,8 +190,7 @@ export default {
                 data:data
             }).then(function(res){
                 // that.openWebSocket();
-                localStorage.removeItem('firstLogin');
-                that.mask=false;
+                sessionStorage.setItem('firstLogin',1);
                 localStorage.setItem('orderNo',res.data.orderNo);
                 that.$router.replace('/myOrder');
                 window.location.href=res.data.data.webUrl;
