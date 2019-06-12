@@ -13,7 +13,7 @@
                     <div class="de-size" >
                         点击次数：{{clickCount}}
                     </div>
-                    <div class="de-size">
+                    <div class="de-size" @click="tocomment" >
                         评论数：{{commentLength}}
                     </div>
                 </div>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <!-- 评论 -->
-        <v-comment :type="'zhaobiao'" @comlength="comFn"></v-comment>
+        <v-comment :type="'zhaobiao'" @comlength="comFn" id="divId"  ></v-comment>
     </div>
 </template>
 <script>
@@ -145,6 +145,12 @@ export default {
         },
         comFn(e){
             this.commentLength=e
+        },
+        tocomment() {
+            if(this.commentLength == 0) {
+                return
+            }
+            document.getElementById("divId").scrollIntoView(true);
         }
     }
 

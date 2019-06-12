@@ -3,7 +3,7 @@
     <v-fix :nav="5"></v-fix>
     <!-- 搜索框 -->
     <div class="search">
-        <van-search placeholder="请输入关键字进行搜索" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
+        <van-search placeholder="请输入注册人员姓名或企业名称" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
     </div>
     <!-- 筛选 -->
     <div class="screen-box">

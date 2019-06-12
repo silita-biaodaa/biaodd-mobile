@@ -16,13 +16,6 @@
                 </li>
             </ul>
         </div>
-        <!-- 广告区 -->
-        <!-- <div class="advert">
-            <p>标大大福利大放送，工作之余轻松赚外快</p>
-            <p class="test">邀请有礼</p>
-            <p>即日起至2019年6月30日</p>
-            <h6>查看详情</h6>
-        </div> -->
         <div class="dw" @click="$router.push('/dwDetail')">
             <img src="../assets/pic-duanwu.png"/>
         </div>
@@ -113,6 +106,13 @@ export default {
     },
     watch: {
         // 监控集合
+        $route: {
+          handler: function(val, oldVal){
+             
+          },
+          // 深度观察监听
+          deep: true
+        }
     },
     components:{
         'v-zb':zbCon,

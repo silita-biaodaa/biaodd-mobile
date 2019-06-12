@@ -92,9 +92,9 @@ export default {
         }else{
           sessionStorage.setItem('address',res.data.data.region+'省');
         } 
-        if(res.data.data.region=='湖南'){
-          sessionStorage.setItem('city',res.data.data.city);
-        }
+        // if(res.data.data.region=='湖南'){
+        //   sessionStorage.setItem('city',res.data.data.city);
+        // }
         sessionStorage.setItem('ip',res.data.data.ip);
     }).catch(function(res){
         

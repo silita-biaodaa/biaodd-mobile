@@ -14,7 +14,7 @@
           <div class="win-c">
             浏览量：{{clickCount}}
           </div>
-          <div class="win-c">
+          <div class="win-c" @click="tocomment" >
             评论数：{{commentLength}}
           </div>
         </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <!-- 评论 -->
-    <v-comment :type="'zhongbiao'" @comlength="comFn"></v-comment>
+    <v-comment :type="'zhongbiao'" id="divId"  @comlength="comFn"></v-comment>
   </div>
 </template>
 <script>
@@ -123,6 +123,12 @@ export default {
         },
         comFn(e){
             this.commentLength=e
+        },
+        tocomment() {
+           if(this.commentLength == 0) {
+                return
+            }
+            document.getElementById("divId").scrollIntoView(true);
         }
     }
 

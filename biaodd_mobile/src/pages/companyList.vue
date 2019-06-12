@@ -3,7 +3,7 @@
   <v-fix :nav="3"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入关键字进行搜索" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入企业名称或法人名称" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
@@ -11,7 +11,7 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress" :type="1"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress" :allress='true'  :type="1"></v-addr>
     <v-apt v-if="screenList[2].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
@@ -103,6 +103,9 @@ export default {
       ajax(){
         this.isScroll=false;
         let that=this;
+        if(that.data.regisAddress == '全部') {
+          that.data.regisAddress = ''
+        }
         //企业
         this.$http({
             method:'post',

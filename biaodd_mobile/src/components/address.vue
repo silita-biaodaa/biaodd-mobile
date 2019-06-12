@@ -52,6 +52,9 @@ export default {
         },
         type:{
             default:0
+        },
+        allress:{
+             default:false
         }
     },
     beforeCreate() {
@@ -67,11 +70,17 @@ export default {
                 url: '/company/filter',
             }).then(function(res){
                 that.addList=res.data.data.area;
+                if(that.allress) {
+                     that.addList.unshift({name:'全部',list:[]})
+                }
             })
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
             that.addList=obj.area;
+             if(that.allress) {
+                that.addList.unshift({name:'全部',list:[]})
+              }
         }
 
 

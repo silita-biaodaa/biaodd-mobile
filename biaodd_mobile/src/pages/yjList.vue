@@ -3,7 +3,7 @@
     <v-fix :nav="4"></v-fix>
     <!-- 搜索框 -->
     <div class="search">
-        <van-search placeholder="请输入关键字进行搜索" v-model="data.proName" @search="searchFn" @clear="clearFn"></van-search>
+        <van-search placeholder="请输入项目名称或企业名称" v-model="data.proName" @search="searchFn" @clear="clearFn"></van-search>
     </div>
     <!-- 筛选 -->
     <div class="screen-box">
@@ -12,7 +12,7 @@
             <i></i>
         </div>
         <!--地区 -->
-        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area" :type="2"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area"  :allress='true'  :type="2"></v-addr>
         <!-- 项目类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
             <ul>
@@ -165,6 +165,9 @@ export default {
             //招标
             this.isScroll=false;
             let that=this;
+             if(that.data.area == '全部') {
+              that.data.area = ''
+            }
             this.$http({
                 method:'post',
                 url: '/project/query',

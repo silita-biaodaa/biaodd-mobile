@@ -2,10 +2,10 @@
 <template>
     <div class="nott">
       
-      <div v-if="!isError">
+      <div v-if="!isError"  class="noo-img" >
         <img src="../assets/nolist.png" alt="">
         <div class="not-f" >
-          暂无数据
+          {{msg}}
         </div>
       </div>
         <div class="error" v-else>
@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             // 数据模型
+            msg:'Sorry，没有找到符合条件的公告信息'
         }
     },
     inject:['reload'],
@@ -38,6 +39,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.hint()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -64,6 +66,18 @@ export default {
         // 方法 集合
         clickTap(){
             this.reload();
+        },
+        hint() {
+           if(this.$route.fullPath == '/bid' || this.$route.fullPath == '/tender'  ) {
+                this.msg = 'Sorry，没有找到符合条件的公告信息'
+           } else if(this.$route.fullPath == '/company') {
+                this.msg = 'Sorry，没有找到符合条件的企业信息'
+           } else if(this.$route.fullPath == '/yjList') {
+                this.msg = 'Sorry，没有找到符合条件的业绩信息'
+           } else if(this.$route.fullPath == '/ryList') {
+                this.msg = 'Sorry，没有找到符合条件的人员信息'
+           }
+            
         }
     }
 
@@ -75,6 +89,11 @@ export default {
 .nott {
  display: flex;
  justify-content: center;
+ .noo-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
  img {
    margin-top: 138px;
    width: 250px;

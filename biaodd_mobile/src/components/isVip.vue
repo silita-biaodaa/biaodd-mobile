@@ -6,7 +6,7 @@
                 <span>{{txt}}</span>
             </div>
             <div class="top-box" v-else>
-                <span>检测到您尚未登录，请先登录</span>
+                <span>查看更多信息，请立即登录！</span>
             </div>
             <div class="bom-box">
                 <span class="canel" @click.stop="canelFn">取消</span>

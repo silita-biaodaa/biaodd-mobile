@@ -3,7 +3,7 @@
   <v-fix :nav="2"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入关键字进行搜索" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入公告名称或企业名称" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
@@ -218,10 +218,10 @@ export default {
       this.data.title = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regions = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
-      if(sessionStorage.getItem('city')){
-          this.data.regions=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
-          this.screenList[0].txt=sessionStorage.getItem('city');
-      }
+      // if(sessionStorage.getItem('city')){
+      //     this.data.regions=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
+      //     this.screenList[0].txt=sessionStorage.getItem('city');
+      // }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
