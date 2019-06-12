@@ -80,7 +80,7 @@ export default {
             that.addList=obj.area;
              if(that.allress) {
                 that.addList.unshift({name:'全部',list:[]})
-              }
+            }
         }
 
 
