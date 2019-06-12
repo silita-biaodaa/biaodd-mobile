@@ -195,8 +195,31 @@ export default {
             that.categoryList=res.data.data;
             that.categoryList.unshift({category:'全部'});
         })
+        if(sessionStorage.getItem('ryData')&&sessionStorage.getItem('ryCategoryNum')){//刷新保存筛选
+            let data=JSON.parse(sessionStorage.getItem('ryData')),
+                categoryNum=sessionStorage.getItem('ryCategoryNum');
+            data.pageNo=1;
+            this.data=data;
+            this.screenList[0].txt=data.province;
+            this.categoryNum=categoryNum;
+        }
         this.ajax();
-    }
+    },
+    watch:{
+      data:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('ryData',JSON.stringify(val));
+        }
+      },
+      categoryNum(val,old){
+          sessionStorage.setItem('ryCategoryNum',val);
+      }
+    },
+    beforeDestroy(){
+      sessionStorage.removeItem('ryData')
+      sessionStorage.removeItem('ryCategoryNum')
+    },
 }
 </script>
 <style lang="less" scoped>

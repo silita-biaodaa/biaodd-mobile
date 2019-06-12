@@ -60,8 +60,7 @@ export default {
           maxCapital:'',
           keyWord: "",
           isVip:0,
-          // levelRank: "",
-          // qualCode:'',
+          qualCode:'',
           // rangeType: "and"
         },
         total:0,
@@ -178,7 +177,8 @@ export default {
         // console.log(option);
         this.zbList=[];
         this.screenList[2].active=false;
-        this.data.qualCode=option.str;
+        let str=option.str;
+        this.data.qualCode=str;
         this.screenNum.arr=option.list;
         this.data.pageNo=1;
         this.ajax();
@@ -232,12 +232,38 @@ export default {
       this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
       this.data.regisAddress = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
+      if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
+        let data=JSON.parse(sessionStorage.getItem('companyData')),
+            screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
+        data.pageNo=1;
+        this.data=data;
+        this.screenNum=screenNum;
+      }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
         this.data.isVip=1;
       }
+      
       this.ajax();
-    }
+    },
+    watch:{
+      data:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('companyData',JSON.stringify(val));
+        }
+      },
+      screenNum:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('companyScreenNum',JSON.stringify(val));
+        }
+      }
+    },
+    beforeDestroy(){
+      sessionStorage.removeItem('companyData')
+      sessionStorage.removeItem('companyScreenNum')
+    },
 }
 </script>
 <style lang="less" scoped>

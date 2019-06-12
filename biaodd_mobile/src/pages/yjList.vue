@@ -16,7 +16,7 @@
         <!-- 项目类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
             <ul>
-                <li v-for="(o,i) in tabTypeList" :key="i"><span :class="tabTypeNum==i?'active':''" @click="tabTypeNum=i">{{o}}</span></li>
+                <li v-for="(o,i) in tabTypeList" :key="i"><span :class="screenData.tabTypeNum==i?'active':''" @click="screenData.tabTypeNum=i">{{o}}</span></li>
             </ul>
             <div class="btn">
                 <button class="sure" @click.stop="tabTypeTapFn">确定</button>
@@ -25,7 +25,7 @@
         <!-- 第三个筛选条件 -->
         <div class="three condition-box" v-if="screenList[2].active">
             <ul>
-                <li v-for="(o,i) in threeList" :key="i"><span :class="threeNum==i?'active':''" @click="threeNum=i">{{o}}</span></li>
+                <li v-for="(o,i) in threeList" :key="i"><span :class="screenData.threeNum==i?'active':''" @click="screenData.threeNum=i">{{o}}</span></li>
             </ul>
             <div class="btn">
                 <button class="sure" @click.stop="threeTapFn">确定</button>
@@ -43,7 +43,7 @@
                     </div>
                     <ul>
                         <li v-for="(o,i) of moneyList" :key="i">
-                            <span :class="moneyNum==i?'active':''" @click="moneyNum=i;data.amountStart='';data.amountEnd='';">{{o}}</span>
+                            <span :class="screenData.moneyNum==i?'active':''" @click="screenData.moneyNum=i;data.amountStart='';data.amountEnd='';">{{o}}</span>
                         </li>
                     </ul>
                 </div>
@@ -56,7 +56,7 @@
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">
-                            <span :class="dateNum==i?'active':''" @click="dateFn(i)">{{o}}</span>
+                            <span :class="screenData.dateNum==i?'active':''" @click="dateFn(i)">{{o}}</span>
                         </li>
                     </ul>
                 </div>
@@ -136,14 +136,16 @@ export default {
             active:false
           },
         ],
+        screenData:{
+            tabTypeNum:0,
+            threeNum:0,
+            moneyNum:0,
+            dateNum:0,
+        },
         tabTypeList:['住建部','水利部','交通部'],
-        tabTypeNum:0,
         threeList:['全部','房屋建筑','市政工程','其他'],
-        threeNum:0,
         moneyList:['全部','1000万以下','1000-5000万'],
-        moneyNum:0,
         dateList:['全部','近三年','近五年'],
-        dateNum:0,
         dateMask:false,//时间选择弹窗是否显示
         isDateStart:true,//是否是开启时间
         isajax:false,//是否加载完
@@ -229,14 +231,14 @@ export default {
             this.data.proName=''
         },
         tabTypeTapFn(){//项目类型切换
-            this.threeNum=0;
+            this.screenData.threeNum=0;
             this.screenList[1].active=false;
-            if(this.tabTypeNum==0){
+            if(this.screenData.tabTypeNum==0){
                 this.data.tabType='project';
                 this.screenList[1].txt='住建部';
                 this.screenList[2].txt='项目类别';
                 this.threeList=['全部','房屋建筑','市政工程','其他'];
-            }else if(this.tabTypeNum==1){
+            }else if(this.screenData.tabTypeNum==1){
                 this.data.tabType='shuili';
                 this.screenList[1].txt='水利部';
                 this.screenList[2].txt='业绩类型';
@@ -254,8 +256,8 @@ export default {
         },
         threeTapFn(){//第三个筛选条件
             this.screenList[2].active=false;
-            if(this.threeNum!=0){
-                this.data.proType=this.threeList[this.threeNum];
+            if(this.screenData.threeNum!=0){
+                this.data.proType=this.threeList[this.screenData.threeNum];
             }
             this.isajax=false;
             this.zbList=[];
@@ -265,11 +267,11 @@ export default {
         fourTapFn(){
             // this.modalHelper.beforeClose();
             this.screenList[3].active=false;
-            if(this.moneyNum!=0){//金额
-                if(this.moneyNum==1){
+            if(this.screenData.moneyNum!=0){//金额
+                if(this.screenData.moneyNum==1){
                     this.data.amountStart='0';
                     this.data.amountEnd='1000'
-                }else if(this.moneyNum==2){
+                }else if(this.screenData.moneyNum==2){
                     this.data.amountStart='1000';
                     this.data.amountEnd='5000'
                 }
@@ -280,13 +282,13 @@ export default {
                 day=date.getDate();
                 mon=mon<10?'0'+mon:mon;
                 day=day<10?'0'+day:day;
-            if(this.dateNum==1){
+            if(this.screenData.dateNum==1){
                 if(mon=='02'&&day==29){
                     day=28
                 }
                 this.data.buildEnd=y+'-'+mon+'-'+day;
                 this.data.buildStart=(y-3)+'-'+mon+'-'+day;
-            }else if(this.dateNum==2){
+            }else if(this.screenData.dateNum==2){
                 if(mon=='02'&&day==29){
                     day=28
                 }
@@ -296,11 +298,11 @@ export default {
             this.isajax=false;
             this.zbList=[];
             this.data.pageNo=1;
-            this.dateNum=0;
+            // this.screenData.dateNum=0;
             this.ajax();
         },
         dateFn(i){
-            this.dateNum=i;
+            this.screenData.dateNum=i;
             this.data.buildStart='';
             this.data.buildEnd='';
         },
@@ -311,7 +313,7 @@ export default {
                 this.isDateStart=true
             }
             // this.modalHelper.afterOpen();
-            this.dateNum=0;
+            this.screenData.dateNum=0;
             this.dateMask=true
         },
         confirm(pick){
@@ -342,8 +344,50 @@ export default {
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
+      if(sessionStorage.getItem('yjData')&&sessionStorage.getItem('yjScreenData')){//刷新保存筛选
+        let data=JSON.parse(sessionStorage.getItem('yjData')),
+            screenData=JSON.parse(sessionStorage.getItem('yjScreenData'));
+        data.pageNo=1;
+        this.screenList[0].txt=data.area;//地址
+        this.data=data;
+        if(screenData.tabTypeNum==0){//重置数组内容
+            this.data.tabType='project';
+            this.screenList[1].txt='住建部';
+            this.screenList[2].txt='项目类别';
+            this.threeList=['全部','房屋建筑','市政工程','其他'];
+        }else if(screenData.tabTypeNum==1){
+            this.data.tabType='shuili';
+            this.screenList[1].txt='水利部';
+            this.screenList[2].txt='业绩类型';
+            this.threeList=['全部','施工','监理','设计','勘察','招标代理','检测','供货','咨询','机械制造','移民监督']
+        }else{
+            this.data.tabType='jiaotong';
+            this.screenList[1].txt='交通部';
+            this.screenList[2].txt='信息来源';
+            this.threeList=['全部','省厅录入','省厅审核']
+        }
+        this.screenData=screenData;
+      }
       this.ajax();
-    }
+    },
+    watch:{
+      data:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('yjData',JSON.stringify(val));
+        }
+      },
+      screenData:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('yjScreenData',JSON.stringify(val));
+        }
+      }
+    },
+    beforeDestroy(){
+      sessionStorage.removeItem('yjData')
+      sessionStorage.removeItem('yjScreenData')
+    },
 }
 </script>
 <style lang="less" scoped>

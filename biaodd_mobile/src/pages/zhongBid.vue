@@ -225,8 +225,33 @@ export default {
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
+      if(sessionStorage.getItem('zhongbidData')&&sessionStorage.getItem('zhongbidScreenData')){
+        let data=JSON.parse(sessionStorage.getItem('zhongbidData')),
+            screenData=JSON.parse(sessionStorage.getItem('zhongbidScreenData'));
+        data.pageNo=1;
+        this.data=data;
+        this.screenData=screenData;
+      }
       this.ajax();
-    }
+    },
+    watch:{
+      data:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('zhongbidData',JSON.stringify(val));
+        }
+      },
+      screenData:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('zhongbidScreenData',JSON.stringify(val));
+        }
+      }
+    },
+    beforeDestroy(){
+      sessionStorage.removeItem('zhongbidData')
+      sessionStorage.removeItem('zhongbidScreenData')
+    },
 }
 </script>
 <style lang="less" scoped>

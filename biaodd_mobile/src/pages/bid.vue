@@ -233,9 +233,33 @@ export default {
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
-      
+      if(sessionStorage.getItem('bidData')&&sessionStorage.getItem('bidScreenNum')){//刷新保存筛选
+        let data=JSON.parse(sessionStorage.getItem('bidData')),
+            screenNum=JSON.parse(sessionStorage.getItem('bidScreenNum'));
+        data.pageNo=1;
+        this.data=data;
+        this.screenNum=screenNum;
+      }
       this.ajax();
-    }
+    },
+    watch:{
+      data:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('bidData',JSON.stringify(val));
+        }
+      },
+      screenNum:{
+        deep:true,
+        handler(val,old){
+          sessionStorage.setItem('bidScreenNum',JSON.stringify(val));
+        }
+      }
+    },
+    beforeDestroy(){
+      sessionStorage.removeItem('bidData')
+      sessionStorage.removeItem('bidScreenNum')
+    },
 }
 </script>
 <style lang="less" scoped>
