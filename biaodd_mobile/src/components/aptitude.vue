@@ -268,7 +268,7 @@ export default {
     width: 100%;
     box-sizing: border-box;
     .box{
-        height: 480px;
+        height: 595px;
         width: 100%;
         text-align: center;
         p{
