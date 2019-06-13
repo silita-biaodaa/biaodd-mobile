@@ -8,7 +8,7 @@
        </div>
         <div class="prompt"  >
           <span v-show="enname">
-             请重新输入正确手机号
+            {{msg}}
           </span>
         </div>
         <div class="input-box">
@@ -50,6 +50,7 @@ export default {
           enname:false,
           enword:false,
           isShow:false,
+          msg:''
         }
     },
     watch: {
@@ -92,7 +93,12 @@ export default {
     methods: {
         // 方法 集合
         register() {
+            if(this.username.trim() == '') {
+              this.msg = '请输入手机号码'
+              return this.enname = true
+            }
             if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+               this.msg = '请输入正确得手机号'
                return this.enname = true
             }
             if(this.password.trim() == '') {

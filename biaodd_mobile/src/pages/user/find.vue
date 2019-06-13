@@ -8,7 +8,7 @@
        
        <div class="prompt fi-mb"  >
            <span v-show="enname">
-              请输入正确手机号码
+              {{ipmsg}}
            </span>
         </div>
         <div class="input-box">
@@ -17,7 +17,7 @@
         </div>
          <div class="prompt fi-mb"  >
            <span v-show="encode">
-              请输入正确验证码
+              请输入验证码
            </span>
         </div>
         <div class="input-box">
@@ -26,7 +26,8 @@
          
         <div class="prompt fi-mb"  >
            <span v-show="fiword">
-              请确保两次密码一致或密码格式正确
+              <!-- 请确保两次密码一致或密码格式正确 -->
+              {{womsg}}
            </span>
         </div>
          <van-field
@@ -64,7 +65,9 @@ export default {
             encode:false,
             fiword:false,
             isShow:false,
-            hint:''
+            hint:'',
+            ipmsg:'',
+            womsg:''
         }
     },
     watch: {
@@ -111,7 +114,12 @@ export default {
           // }, 200);
         },
         gainCode() {
-              if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+          if(this.username.trim() == '') {
+              this.ipmsg = '请输入手机号码'
+              return this.enname = true
+            }
+            if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+              this.ipmsg = '请输入正确的手机号'
                return this.enname = true
             }
             if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {
@@ -151,13 +159,23 @@ export default {
             }
         },
         newCode() {
-             if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+            if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+               this.ipmsg = '请输入正确的手机号' 
               return this.enname = true
            }
             if(this.note.trim() == '') {
               return this.encode = true
            } 
-             if(this.password.trim() == '' || this.password1.trim() == '' || this.password1.trim() != this.password.trim() || !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
+           if(this.password.trim() == '' || this.password1.trim() == '') {
+               this.womsg = '请输入密码'
+               return this.fiword = true
+           }
+            if(!(/[0-9A-Za-z]{8,16}$/.test(this.password))) {
+                this.womsg = '请设置不低于8位数的密码'
+                return this.fiword = true
+            }
+           if( this.password1.trim() != this.password.trim() ) {
+              this.womsg = '请确保两次密码一致'
               return this.fiword = true
            }
             let that=this;

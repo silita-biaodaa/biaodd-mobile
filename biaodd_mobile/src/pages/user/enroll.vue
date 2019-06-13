@@ -9,7 +9,7 @@
         
          <div class="prompt en-mb"  >
            <span v-show="enname">
-              请输入正确手机号码
+              {{ipmsg}}
            </span>
          </div>
          <div class="input-box">
@@ -55,7 +55,8 @@ export default {
             isShow:false,
             hint:'请输入正确的账号和密码',
             note:'',
-            msg:'请输入正确的短信验证码'
+            msg:'请输入正确的短信验证码',
+            ipmsg:''
         }
     },
     watch: {
@@ -105,7 +106,12 @@ export default {
           this.$router.push('/deal')
         },
         gainCode() {
+            if(this.username.trim() == '') {
+              this.ipmsg = '请输入手机号码'
+               return this.enname = true
+            }
             if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+              this.ipmsg = '请输入正确得手机号'
                return this.enname = true
             }
             if(!(this.Message  == '获取验证码') && !(this.Message  == '重新发送')  ) {
@@ -147,11 +153,15 @@ export default {
               return this.enname = true
            }
             if(this.note.trim() == '') {
-              this.msg = '请输入正确的短信验证码'
+              this.msg = '请输入验证码'
+              return this.enword = true
+           }
+          if(this.password.trim() == '') {
+              this.msg = '请输入密码'
               return this.enword = true
            }
             if(this.password.trim() == '' ||  !(/[0-9A-Za-z]{8,16}$/.test(this.password)) ) {
-              this.msg = '请输入8到16位的密码格式'
+              this.msg = '请设置不低于8位数得密码'
               return this.enword = true
            }
              let that=this;
