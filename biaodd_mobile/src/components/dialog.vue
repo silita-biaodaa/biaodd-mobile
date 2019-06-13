@@ -4,7 +4,7 @@
        <div class="d-hint">
          <h3>提示</h3>
          <p class="d-hi">
-           暂无权限,请先登录
+           查看更多信息，请立即登录！
          </p>
          <div class="btn">
             <div class="d-btn left" @click="cancel" >

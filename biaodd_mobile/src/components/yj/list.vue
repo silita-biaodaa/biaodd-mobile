@@ -12,7 +12,7 @@
                     <!-- </van-pull-refresh> -->
                 </template>
                 <template v-else>
-                    <v-not :isError="isError"></v-not>
+                    <v-not :isError="isError" :hint="'Sorry，暂未查询到该业绩的'+ msg + '信息'"  ></v-not>
                 </template>
             </template>
             <template v-else>
@@ -41,7 +41,7 @@ export default {
             isError:false,//是否加载失败
             finished:false,//是否加载完
             error:false,
-
+            msg:'招投标'
         }
     },
     components:{
@@ -53,14 +53,19 @@ export default {
         type(val,oldVal){
             if(val==0){
                 this.data.tabType='zhaotoubiao'
+                this.msg = '招投标'
             }else if(val==1){
                 this.data.tabType='design'
+                this.msg = '施工图审查'
             }else if(val==2){
                 this.data.tabType='contract'
+                this.msg = '合同备案'
             }else if(val==3){
                 this.data.tabType='build'
+                this.msg = '施工许可'
             }else if(val==4){
                 this.data.tabType='completion'
+                this.msg = '竣工备案'
             }
             this.ajax();
         }

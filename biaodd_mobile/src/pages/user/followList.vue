@@ -21,7 +21,7 @@
                 </template>
             </template>
             <template v-else>
-                <v-not :isError="isError"></v-not>
+                <v-not :isError="isError"  :hint="'暂无关注的' + msg"  ></v-not>
             </template>
         </template>
         <template v-else>
@@ -45,6 +45,7 @@ export default {
             zbList:[],
             isajax:false,//是否加载完
             isError:false,//是否加载失败
+            msg:'招标'
         }
     },
     watch: {
@@ -113,6 +114,13 @@ export default {
             this.navNum=i;
             this.$route.meta.followNum=i;
             this.isajax=false;
+           
+            if(i ==0 || i == 1) {
+               this.msg = this.navList[i] +  '公告'      
+            } else {
+               this.msg = this.navList[i]
+            }
+            
             if(i==0){
                 this.zbAjax()
             }else if(i==1){

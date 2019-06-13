@@ -14,7 +14,7 @@
                     <!-- </van-pull-refresh> -->
                 </template>
                 <template v-else>
-                    <v-not :isError="isError"></v-not>
+                    <v-not :isError="isError" :hint="'Sorry，暂未查询到该公司的' + selecTxt + '业绩信息'"  ></v-not>
                 </template>
             </template>
             <template v-else>
@@ -72,7 +72,7 @@ export default {
                 },
             ],
             selecTxt:'住建部',
-            achType:'yj1'
+            achType:'yj1',
         }
     },
     watch: {

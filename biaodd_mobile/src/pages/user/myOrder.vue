@@ -63,7 +63,7 @@
             <!-- </van-pull-refresh>   -->
             </template>
             <template v-else>
-                <v-not :isError="isError"></v-not>
+                <v-not :isError="isError" :hint='msg' ></v-not>
             </template>
         </template>
         <template v-else>
@@ -96,6 +96,7 @@ export default {
             },
             list:[],
             total:null,
+            msg:''
         }
     },
     watch: {
@@ -250,12 +251,14 @@ export default {
                 this.list=[];
                 this.isPayed=true;
                 this.navNum=0;
+                this.msg = '暂无已支付订单'
             }else{
                 this.data.orderStatus='1';
                 this.pageNo=1;
                 this.list=[];
                 this.isPayed=false;
                 this.navNum=1;
+                this.msg = '暂无未支付订单'
             }
             localStorage.setItem('orderTabNum',i);
             this.ajax();

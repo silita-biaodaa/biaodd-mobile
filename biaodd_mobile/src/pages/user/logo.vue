@@ -8,7 +8,7 @@
        </div>
         <div class="prompt"  >
           <span v-show="enname">
-             请重新输入正确手机号码格式
+             请重新输入正确手机号
           </span>
         </div>
         <div class="input-box">
@@ -17,7 +17,7 @@
          <div class="pr-forget"  >
           <div>
            <span v-show="enword">
-            请输入密码(不低于8位)
+            请输入密码
            </span>
           </div>
           <div class="color" @click="jump" >
@@ -31,7 +31,7 @@
           注册
         </div>
         <div class="toast"  v-if="isShow" >
-           请输入正确的账号和密码
+           手机号或密码错误
         </div>
     </div>
 </template>

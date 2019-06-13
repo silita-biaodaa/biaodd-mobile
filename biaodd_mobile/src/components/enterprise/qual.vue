@@ -15,7 +15,7 @@
                 </div>
             </template>
             <template v-else>
-                <v-not :isError="isError"></v-not>
+                <v-not :isError="isError"  :hint="'Sorry，暂未查询到该公司的资质信息'" ></v-not>
             </template>
         </template>
         <template v-else>

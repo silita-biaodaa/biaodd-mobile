@@ -78,7 +78,7 @@
         <!-- </van-pull-refresh>   -->
         </template>
         <template v-else>
-            <v-not :isError="isError"></v-not>
+            <v-not :isError="isError" :hint="'Sorry，没有找到符合条件的业绩信息'" ></v-not>
         </template>
     </template>
     <template v-else>

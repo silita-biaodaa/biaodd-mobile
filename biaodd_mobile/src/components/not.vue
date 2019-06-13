@@ -32,6 +32,9 @@ export default {
         // 集成父级参数
         isError:{
             default:false
+        },
+        hint:{
+            default:''
         }
     },
     beforeCreate() {
@@ -39,7 +42,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.hint()
+        // this.hint()
+        this.msg = this.hint
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -67,18 +71,18 @@ export default {
         clickTap(){
             this.reload();
         },
-        hint() {
-           if(this.$route.fullPath == '/bid' || this.$route.fullPath == '/tender'  ) {
-                this.msg = 'Sorry，没有找到符合条件的公告信息'
-           } else if(this.$route.fullPath == '/company') {
-                this.msg = 'Sorry，没有找到符合条件的企业信息'
-           } else if(this.$route.fullPath == '/yjList') {
-                this.msg = 'Sorry，没有找到符合条件的业绩信息'
-           } else if(this.$route.fullPath == '/ryList') {
-                this.msg = 'Sorry，没有找到符合条件的人员信息'
-           }
+        // hint() {
+        //    if(this.$route.fullPath == '/bid' || this.$route.fullPath == '/tender'  ) {
+        //         this.msg = 'Sorry，没有找到符合条件的公告信息'
+        //    } else if(this.$route.fullPath == '/company') {
+        //         this.msg = 'Sorry，没有找到符合条件的企业信息'
+        //    } else if(this.$route.fullPath == '/yjList') {
+        //         this.msg = 'Sorry，没有找到符合条件的业绩信息'
+        //    } else if(this.$route.fullPath == '/ryList') {
+        //         this.msg = 'Sorry，没有找到符合条件的人员信息'
+        //    }
             
-        }
+        // }
     }
 
 }
