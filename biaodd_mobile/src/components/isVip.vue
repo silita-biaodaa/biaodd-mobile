@@ -6,7 +6,7 @@
                 <span>{{txt}}</span>
             </div>
             <div class="top-box" v-else>
-                <span>查看更多信息，请立即登录！</span>
+                <p>查看更多信息，请立即登录！</p>
             </div>
             <div class="bom-box">
                 <span class="canel" @click.stop="canelFn">取消</span>
@@ -119,8 +119,8 @@ export default {
         justify-content: center;
         align-items: center;
         height: 196px;
-        span{
-            width: 360px;
+        p{
+            width: 80%;
             display: inline-block;
             color: #999;
             font-size: 28px;

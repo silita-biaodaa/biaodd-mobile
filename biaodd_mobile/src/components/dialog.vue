@@ -88,7 +88,7 @@ export default {
   right: 0;
   bottom: 0;
   .d-hint {
-    width: 80%;
+    width: 85%;
     position: fixed;
     top: 35%;
     left: 50%;

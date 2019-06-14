@@ -37,7 +37,7 @@
         </div>
         <!-- 第四个筛选条件 -->
         <div class="four condition-box" v-if="screenList[3].active">
-            <div class="box">
+            <div class="box yj-chce">
                 <div class="top">
                     <h6>合同金额</h6>
                     <div class="money-box">

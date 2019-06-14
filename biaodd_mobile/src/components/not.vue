@@ -99,7 +99,7 @@ export default {
     align-items: center;
  }
  img {
-   margin-top: 138px;
+   margin-top: 100px;
    width: 250px;
  }
  .not-f {
