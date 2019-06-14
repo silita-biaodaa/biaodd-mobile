@@ -173,13 +173,15 @@ export default {
     left: 0;
     z-index: 9;
     width: 100%;
-    padding:50px 0 0;
     box-sizing: border-box;
     ul{
         display: flex;
         flex-wrap: wrap;
-        padding: 0 32px;
-        margin-bottom: 130px;
+        padding: 50px 32px 0;
+        height: 595px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        // margin-bottom: 130px;
         li{
             text-align: center;
             margin-bottom: 32px;
@@ -222,12 +224,12 @@ export default {
 }
 @media screen and (max-width: 321px) {
     .assess ul li span{
-        margin-right: 10px;
+        // margin-right: 10px;
     }
 }
 @media screen and (min-width:376px){
     .assess ul li span{
-        margin-right: 60px;
+        // margin-right: 60px;
     }
 }
 </style>

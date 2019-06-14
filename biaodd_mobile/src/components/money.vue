@@ -114,7 +114,6 @@ export default {
     left: 0;
     z-index: 9;
     width: 100%;
-    padding:50px 0 0;
     box-sizing: border-box;
     .btn{
         display: flex;
@@ -134,6 +133,9 @@ export default {
         }
     }
     .box{
+      height: 595px;
+      padding:50px 0 0;
+      box-sizing: border-box;
         .top-box{
             padding: 8px 32px 0;
             display: flex;

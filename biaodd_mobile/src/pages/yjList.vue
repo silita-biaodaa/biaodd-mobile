@@ -15,18 +15,22 @@
         <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area"  :allress='true'  :type="2"></v-addr>
         <!-- 项目类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
-            <ul>
-                <li v-for="(o,i) in tabTypeList" :key="i"><span :class="screenData.tabTypeNum==i?'active':''" @click="screenData.tabTypeNum=i">{{o}}</span></li>
-            </ul>
+             <div class="yj-chce" >
+                <ul>
+                    <li v-for="(o,i) in tabTypeList" :key="i"><span :class="screenData.tabTypeNum==i?'active':''" @click="screenData.tabTypeNum=i">{{o}}</span></li>
+                </ul>
+             </div>               
             <div class="btn">
                 <button class="sure" @click.stop="tabTypeTapFn">确定</button>
             </div>
         </div>
         <!-- 第三个筛选条件 -->
         <div class="three condition-box" v-if="screenList[2].active">
-            <ul>
-                <li v-for="(o,i) in threeList" :key="i"><span :class="screenData.threeNum==i?'active':''" @click="screenData.threeNum=i">{{o}}</span></li>
-            </ul>
+            <div class="yj-chce" >
+                <ul>
+                    <li v-for="(o,i) in threeList" :key="i"><span :class="screenData.threeNum==i?'active':''" @click="screenData.threeNum=i">{{o}}</span></li>
+                </ul>
+             </div>   
             <div class="btn">
                 <button class="sure" @click.stop="threeTapFn">确定</button>
             </div>
@@ -400,10 +404,17 @@ export default {
         left: 0;
         z-index: 9;
         width: 100%;
+        // height: 595px;
         padding:50px 0 0;
         box-sizing: border-box;
     }
+    .yj-chce {
+        height: 545px;
+        box-sizing: border-box;
+        overflow-y: auto;
+    }
     .condition-box{
+       
         ul{
             display: flex;
             justify-content: space-between;
@@ -429,14 +440,15 @@ export default {
                 color: #fff;
             }
         }
-        button{
+       
+    }
+     button{
             width: 100%;
             height: 84px;
             background: #FE6603;
             color: #fff;
             border: none;
         }
-    }
     .three{
         ul{
             flex-wrap: wrap;
@@ -447,6 +459,7 @@ export default {
     }
     .four{
         .condition-box{
+           
             li{
                 margin-bottom: 64px;
             }

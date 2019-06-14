@@ -1,11 +1,13 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="getType">
-        <ul>
-            <li v-for="(o,i) of addList" :key="i">
-                <span :class="tabNum==i?'active':''" @click="tapFn(i)">{{o.name}}</span>
-            </li>
-        </ul>
+        <div class="get-add" >
+            <ul>
+                <li v-for="(o,i) of addList" :key="i">
+                    <span :class="tabNum==i?'active':''" @click="tapFn(i)">{{o.name}}</span>
+                </li>
+            </ul>
+        </div>    
         <div class="btn">
             <button class="canle" @click="canleFn">取消</button>
             <button class="sure" @click="sureFn">确定</button>
@@ -110,14 +112,19 @@ export default {
     bottom:0;
     transform: translateY(100%);
     left: 0;
-    z-index: 9;
+    z-index: 9;  
     width: 100%;
-    padding:50px 0 0;
     box-sizing: border-box;
+    .get-add {
+       padding:50px 0 0;
+       height: 595px;
+       box-sizing: border-box;
+    }
     ul{
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 150px;
+        // height: 595px;
+        // margin-bottom: 150px;
         li{
             width:33%;
             text-align: center;

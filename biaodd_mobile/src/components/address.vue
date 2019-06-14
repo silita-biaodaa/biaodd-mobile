@@ -258,7 +258,8 @@ export default {
     left: 0;
     z-index: 9;
     width: 100%;
-    // height: 722px;
+    // height: 360px;
+    // max-height: 360px;
     box-sizing: border-box;
     .box{
         display: flex;
@@ -284,6 +285,7 @@ export default {
         .city{
             width:calc(100% - 320px);
             overflow-y: scroll;
+            background-color: #f2f2f2;
             ul{
                 height: 595px;
                 li{
