@@ -14,7 +14,7 @@
                         点击次数：{{clickCount}}
                     </div>
                     <div class="de-size" @click="tocomment" >
-                        评论数：{{commentLength}}
+                        评论数：<span class="color" >{{commentLength}}</span>
                     </div>
                 </div>
                 <div class="detail-time" >
@@ -151,6 +151,7 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
+            document.documentElement.scrollTop = document.documentElement.scrollTop + 45
         }
     }
 

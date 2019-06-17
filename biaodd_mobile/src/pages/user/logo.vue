@@ -31,7 +31,7 @@
           注册
         </div>
         <div class="toast"  v-if="isShow" >
-           手机号或密码错误
+           {{back}}
         </div>
     </div>
 </template>
@@ -50,7 +50,8 @@ export default {
           enname:false,
           enword:false,
           isShow:false,
-          msg:''
+          msg:'',
+          back:''
         }
     },
     watch: {
@@ -94,11 +95,11 @@ export default {
         // 方法 集合
         register() {
             if(this.username.trim() == '') {
-              this.msg = '请输入手机号码'
+              this.msg = '请输入手机号'
               return this.enname = true
             }
             if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
-               this.msg = '请输入正确得手机号'
+               this.msg = '请输入正确的手机号'
                return this.enname = true
             }
             if(this.password.trim() == '') {
@@ -135,6 +136,7 @@ export default {
                 }
             } else {
                 that.isShow = true;
+                that.back = res.data.msg
                 setTimeout(() => {
                    that.isShow = false;
                  }, 2000);

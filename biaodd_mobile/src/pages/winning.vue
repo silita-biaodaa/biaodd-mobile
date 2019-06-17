@@ -15,7 +15,7 @@
             浏览量：{{clickCount}}
           </div>
           <div class="win-c" @click="tocomment" >
-            评论数：{{commentLength}}
+            评论数：<span class="color" >{{commentLength}}</span>
           </div>
         </div>
         <div class="win-one">
@@ -129,6 +129,8 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
+            document.documentElement.scrollTop = document.documentElement.scrollTop + 45
+            // document.documentElement.scrollTop
         }
     }
 
