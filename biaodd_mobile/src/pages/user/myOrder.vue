@@ -137,6 +137,7 @@ export default {
             this.ajax1('1')
         }
         this.ajax();
+        this.Gmsg()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -262,6 +263,13 @@ export default {
             }
             localStorage.setItem('orderTabNum',i);
             this.ajax();
+        },
+        Gmsg() {
+          if(this.isPayed) {
+               this.msg = '暂无已支付订单'
+          } else {
+               this.msg = '暂无未支付订单'
+          }
         },
         payBtn(i){
             this.$router.push({

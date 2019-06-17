@@ -32,6 +32,8 @@ import ryList from '@/pages/ryList'
 import user from '@/pages/user/user'
 import peopleDetail from '@/pages/peopleDetail'
 import dwDetail from '@/pages/dwDetail'
+import history from '@/pages/history/history'
+
 
 
 
@@ -202,7 +204,12 @@ export default new Router({
       path:'/dwDetail',
       component:dwDetail,
       name:'dwDetail'
-    }           
+    },
+    { // 历史搜索记录
+      path: '/history',
+      component: history,
+      name: 'history'
+    }      
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

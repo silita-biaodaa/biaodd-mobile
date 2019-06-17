@@ -6,7 +6,7 @@
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(o)">{{o.name}}</span>
             </div>
-            <van-search placeholder="请输入关键字进行搜索" v-model="search" @search="searchFn" @clear="clearFn"></van-search>
+            <van-search placeholder="请输入关键字进行搜索" v-model="search" @search="searchFn"  @focus='jumpS'  @clear="clearFn"></van-search>
         </div>
         <div class="nav" v-if="!isScroll">
             <ul>
@@ -73,23 +73,28 @@ export default {
                 {
                     img:require('../assets/icon-zhaob.png'),
                     txt:'招标',
-                    path:'/bid'
+                    path:'/bid',
+                    
                 },{
                     img:require('../assets/icon-zhongb.png'),
                     txt:'中标',
-                    path:'/tender'
+                    path:'/tender',
+                    
                 },{
                     img:require('../assets/icon-qiy.png'),
                     txt:'企业',
-                    path:'/company'
+                    path:'/company',
+                   
                 },{
                     img:require('../assets/icon-yej.png'),
                     txt:'业绩',
-                    path:'/yjList'
+                    path:'/yjList',
+                   
                 },{
                     img:require('../assets/icon-reny.png'),
                     txt:'人员',
-                    path:'/ryList'
+                    path:'/ryList',
+                    
                 }
                 
             ],
@@ -97,11 +102,12 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[{name:'查招标',to:'/bid',i:0},{name:'查中标',to:'/tender',i:1},{name:'查企业',to:'/company',i:2},{name:'查业绩',to:'/company',i:3},{name:'查人员',to:'/company',i:4}],
+            tabList:[{name:'查招标',to:'/bid',i:0,local:'bidL'},{name:'查中标',to:'/tender',i:1,local:'tenL'},{name:'查企业',to:'/company',i:2,local:'comL'},{name:'查业绩',to:'/company',i:3,local:'yjL'},{name:'查人员',to:'/company',i:4,local:'ryL'}],
             tabNum:0,
             isScroll:false,
             topath:'/bid',
             mask:false,
+            local:'bidL'
         }
     },
     watch: {
@@ -188,6 +194,7 @@ export default {
         tabChange(i){
             this.tabNum=i.i
             this.topath = i.to
+            this.local = i.local
         },
         getAddress(option){
             this.ad
@@ -269,6 +276,9 @@ export default {
             //     return false
             // }
             this.$router.push(x.path);
+        },
+        jumpS() {
+           this.$router.push({ path:'/history', query:{path:this.topath,lo:this.local}});
         }
     }
 

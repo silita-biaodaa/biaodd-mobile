@@ -23,7 +23,7 @@
           </div>
         </template>
         <template v-else>
-          <n-not :isError="isError"></n-not>
+          <n-not :isError="isError" :hint="'Sorry，没有找到符合条件的诚信信息'" ></n-not>
         </template>
       </template>
       <template v-else>
