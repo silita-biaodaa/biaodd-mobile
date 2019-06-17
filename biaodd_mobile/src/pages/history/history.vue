@@ -5,9 +5,12 @@
        <div class="search">
          <van-search placeholder="请输入关键字或企业名称" v-model="title"  @search="searchFn"  @clear="clearFn"></van-search>
        </div>
-       <div class="history-list" v-for="(el,i) in HList" :key="i"  @click="saveHis(el)"  >
-         {{el.comName}}
+       <div style="overflowY:auto" >
+          <div class="history-list" v-for="(el,i) in HList" :key="i"  @click="saveHis(el)"  >
+            {{el.comName}}
+          </div>
        </div>
+       
     </div>
 </template>
 <script>
@@ -183,9 +186,12 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .history {
+  overflow: hidden;
+  height: calc(~"100% - 105px");
+  // overflow-y: auto
   .history-list {
     padding: 0 28px;
-    font-size: 12px;
+    font-size: 24px;
     line-height: 70px;
     border-bottom: 1px solid #f5f5f5;
     color:#333;

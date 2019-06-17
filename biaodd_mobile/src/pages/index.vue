@@ -6,7 +6,10 @@
             <div class="tabBox">
                 <span v-for="(o,i) of tabList" :key="i" :class="tabNum==i?'active':''" @click="tabChange(o)">{{o.name}}</span>
             </div>
-            <van-search placeholder="请输入关键字进行搜索" v-model="search" @search="searchFn"  @focus='jumpS'  @clear="clearFn"></van-search>
+            <!-- <van-search placeholder="请输入关键字进行搜索" v-model="search"   @click='jumpS' ></van-search> -->
+            <div class="tab-sea"  @click='jumpS' >
+               请输入关键字进行搜索
+            </div>
         </div>
         <div class="nav" v-if="!isScroll">
             <ul>
@@ -439,6 +442,15 @@ export default {
                 transform: translateX(-50%);
                 left: 50%;
             }
+        }
+        .tab-sea {
+          width: 100%;
+          height: 80px;
+          border-radius: 8px;
+          line-height: 80px;
+          color:#999999;
+          padding: 0 15px;
+          box-sizing: border-box;
         }
     }
 }
