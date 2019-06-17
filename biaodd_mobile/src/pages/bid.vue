@@ -3,7 +3,7 @@
   <v-fix :nav="1"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入公告名称或企业名称" v-model="data.title" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入公告名称或企业名称" v-model="this.title" @focus='jumpS'></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
@@ -62,9 +62,11 @@ export default {
           projectType:'',
           title: "",
           pbModes:'',
-          zzType:''
+          zzType:'',
+          com_name:''
         },
         total:0,
+        title:'',
         screenList:[
           {
             txt:'地区',
@@ -136,11 +138,8 @@ export default {
         this.data.pageNo++;
         this.ajax();
       },
-      searchFn(){//搜索
-        this.isajax=false;
-        this.zbList=[];
-        this.data.pageNo=1;
-        this.ajax();
+      jumpS() {
+          this.$router.push({ path:'/history', query:{path:'/bid',lo:'bidL'}});
       },
       returnAddress(option){//选择地址
         this.isajax=false;
@@ -199,9 +198,6 @@ export default {
         this.data.pageNo=1;
         this.ajax();
       },
-      clearFn(){
-        this.data.title=''
-      },
       recordFn(){
         this.screenList[3].active=false;
         this.data.zzType='';
@@ -211,6 +207,14 @@ export default {
         this.data.pageNo=1;
         this.ajax();
       },
+      gaiaSea() {
+        if(this.$route.query.key) {
+           this.data.title = this.$route.query.key
+        } else {
+            this.data.com_name = this.$route.query.scom
+        }
+        this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
+      }
     },
     components:{
         'v-zb':zbCon,
@@ -223,13 +227,9 @@ export default {
         'v-not':not
     },
     created(){
-      this.data.title = this.$route.query.search ?  this.$route.query.search : '';
+      this.gaiaSea()
       this.data.regions = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
-      // if(sessionStorage.getItem('city')){
-      //     this.data.regions=sessionStorage.getItem('address')+'||'+sessionStorage.getItem('city');
-      //     this.screenList[0].txt=sessionStorage.getItem('city');
-      // }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }

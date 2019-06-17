@@ -3,7 +3,7 @@
     <v-fix :nav="5"></v-fix>
     <!-- 搜索框 -->
     <div class="search">
-        <van-search placeholder="请输入注册人员姓名或企业名称" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
+        <van-search placeholder="请输入注册人员姓名或企业名称" v-model="data.keyWord"  @focus='jumpS' ></van-search>
     </div>
     <!-- 筛选 -->
     <div class="screen-box">
@@ -132,12 +132,6 @@ export default {
             this.data.pageNo++;
             this.ajax();
         },
-        searchFn(){//搜索
-            this.isajax=false;
-            this.zbList=[];
-            this.data.pageNo=1;
-            this.ajax();
-        },
         returnAddress(option){//选择地址
             this.isajax=false;
             this.zbList=[];
@@ -168,9 +162,9 @@ export default {
             this.screenList[i].active=true;
             }
         },
-        clearFn(){
-            this.data.keyWord=''
-        },
+        jumpS() {
+          this.$router.push({ path:'/history', query:{path:'/ryList',lo:'ryL'}});  
+        }
     },
     components:{
         'v-ry':ryCon,
@@ -181,7 +175,7 @@ export default {
     },
     created(){
         let that=this;
-        this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
+        this.data.keyWord =  this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '';
           this.data.province = sessionStorage.getItem('address');
         this.screenList[0].txt=sessionStorage.getItem('address');
         if(sessionStorage.getItem('permissions')){

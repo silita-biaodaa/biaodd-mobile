@@ -3,7 +3,7 @@
     <v-fix :nav="4"></v-fix>
     <!-- 搜索框 -->
     <div class="search">
-        <van-search placeholder="请输入项目名称或企业名称" v-model="data.proName" @search="searchFn" @clear="clearFn"></van-search>
+        <van-search placeholder="请输入项目名称或企业名称" v-model="data.proName"  @focus='jumpS'></van-search>
     </div>
     <!-- 筛选 -->
     <div class="screen-box">
@@ -74,7 +74,7 @@
     <div class="total">为您搜索到{{total}}条业绩信息</div>
     <!-- 列表 -->
     <template v-if="isajax">
-        <template v-if="zbList.length>0">
+        <template v-if="zbList&&zbList.length>0">
         <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
             <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
             <v-yj v-for="(o,i) of zbList" :key="i" :obj="o" :type="data.tabType"></v-yj>
@@ -180,21 +180,30 @@ export default {
                 data:that.data
             }).then(function(res){
                 that.loading = false;
-                that.total=res.data.total;
-                if(that.zbList.length==0||that.data.pageNo==1){
-                that.zbList=res.data.data;
-                that.isajax=true;
-                }else{
-                that.zbList=that.zbList.concat(res.data.data)
+                if(res.data.data) {
+                    that.total=res.data.total;
+                    if(that.zbList.length==0||that.data.pageNo==1){
+                    that.zbList=res.data.data;
+                    that.isajax=true;
+                    }else{
+                    that.zbList=that.zbList.concat(res.data.data)
+                    }
+                    if(res.data.total==that.zbList.length||that.zbList.length<that.data.pageSize){
+                        that.finished=true;//如果返回总条数等于当前list长度
+                    }
+                    that.isScroll=true;
+                } else {
+                    that.isajax=true;
+                    that.isError=false;
+                    // if(that.zbList&&that.zbList.length>0){
+                    //  that.error = true;
+                    // }
                 }
-                if(res.data.total==that.zbList.length||that.zbList.length<that.data.pageSize){
-                    that.finished=true;//如果返回总条数等于当前list长度
-                }
-                that.isScroll=true;
+              
             }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
-                if(that.zbList.length>0){
+                if(that.zbList&&that.zbList.length>0){
                     that.error = true;
                 }
             })
@@ -204,12 +213,6 @@ export default {
                 return false
             }
             this.data.pageNo++;
-            this.ajax();
-        },
-        searchFn(){//搜索
-            this.isajax=false;
-            this.zbList=[];
-            this.data.pageNo=1;
             this.ajax();
         },
         returnAddress(option){//选择地址
@@ -230,9 +233,6 @@ export default {
             }
             this.screenList[i].active=true;
             }
-        },
-        clearFn(){
-            this.data.proName=''
         },
         tabTypeTapFn(){//项目类型切换
             this.screenData.threeNum=0;
@@ -332,6 +332,9 @@ export default {
                 this.data.buildEnd=y+'-'+mon+'-'+day
             }
             this.dateMask=false    
+        },
+        jumpS() {
+          this.$router.push({ path:'/history', query:{path:'/yjList',lo:'yjL'}});  
         }
     },
     components:{
@@ -342,7 +345,7 @@ export default {
         'v-not':not
     },
     created(){
-      this.data.proName = this.$route.query.search ?  this.$route.query.search : '';
+      this.data.proName = this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '' ;
       this.data.area = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
       if(sessionStorage.getItem('permissions')){

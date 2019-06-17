@@ -64,17 +64,35 @@ export default {
     },
     methods: {
         // 方法 集合
+        // 搜索确认按钮
         searchFn() {
-          let str = JSON.parse(localStorage.getItem(this.$route.query.lo))
-          let arr = str.split(',')
-            if(arr.length <= 10) {  // 最多保存十条历史记录
-               arr.push({name:this.title,comId:null}) 
-             } else {
-               arr.length = 9
-               arr.push({name:this.title,comId:null}) 
-             }
-             localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
-             this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
+          if(localStorage.getItem(this.$route.query.lo) ) {
+              let str = JSON.parse(localStorage.getItem(this.$route.query.lo))
+              var same = false
+                for (var i = 0; i< str.length;i++) {
+                  if(str[i].comName == this.title) {
+                    same = true
+                    break
+                  }
+                }
+                if(!same) {
+                   if(str.length <= 10) {  // 最多保存十条历史记录
+                        str.push({comName:this.title,comId:null}) 
+                   } else {
+                     str.length = 9
+                     str.push({comName:this.title,comId:null}) 
+                   }
+                   localStorage.setItem(this.$route.query.lo,JSON.stringify(str))
+                   this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
+                } else {
+                   this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
+                }
+          } else {
+            var arr = []
+            arr.push({comName:this.title,comId:null}) 
+            localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
+            this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
+          }  
         },
         clearFn() {
 
@@ -106,10 +124,11 @@ export default {
                
             })
         },
-        saveHis(el) {  // 历史记录点击的所属
+        // 点击列表搜索
+        saveHis(el) {  // 历史记录点击的所属  
            if(this.cHis) {  // 点击来源历史记录
                 if(el.comId == null) {
-                   this.$router.push({ path:this.$route.query.path, query:{key:el.name}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 } else {
                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
                 }
@@ -117,18 +136,26 @@ export default {
               if(localStorage.getItem(this.$route.query.lo)) {  //判断是否已有历史记录
 
                 let str = JSON.parse(localStorage.getItem(this.$route.query.lo))
-                let arr = str.split(',')
-                if(str.indexOf(el.comName) > -1 ) {  // 判断历史记录是否有相同的值
-                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
-                } else {
-                  if(arr.length <= 10) {  // 最多保存十条历史记录
-                    arr.push(el) 
-                  } else {
-                    arr.length = 9
-                    arr.push(el) 
+                var same = false
+                for (var i = 0; i< str.length;i++) {
+                  if(str[i].comName == el.comName) {
+                    same = true
+                    break
                   }
-                  localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
-                  this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
+                }
+                console.log(same);
+                
+                if(!same) {
+                   if(str.length <= 10) {  // 最多保存十条历史记录
+                        str.push(el) 
+                   } else {
+                     str.length = 9
+                     str.push(el) 
+                   }
+                   localStorage.setItem(this.$route.query.lo,JSON.stringify(str))
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
+                } else {
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 }
               } else {
                 let arr = []
@@ -159,7 +186,7 @@ export default {
   .history-list {
     padding: 0 28px;
     font-size: 12px;
-    line-height: 60px;
+    line-height: 70px;
     border-bottom: 1px solid #f5f5f5;
     color:#333;
   }

@@ -102,7 +102,7 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[{name:'查招标',to:'/bid',i:0,local:'bidL'},{name:'查中标',to:'/tender',i:1,local:'tenL'},{name:'查企业',to:'/company',i:2,local:'comL'},{name:'查业绩',to:'/company',i:3,local:'yjL'},{name:'查人员',to:'/company',i:4,local:'ryL'}],
+            tabList:[{name:'查招标',to:'/bid',i:0,local:'bidL'},{name:'查中标',to:'/tender',i:1,local:'tenL'},{name:'查企业',to:'/company',i:2,local:'comL'},{name:'查业绩',to:'/yjList',i:3,local:'yjL'},{name:'查人员',to:'/ryList',i:4,local:'ryL'}],
             tabNum:0,
             isScroll:false,
             topath:'/bid',

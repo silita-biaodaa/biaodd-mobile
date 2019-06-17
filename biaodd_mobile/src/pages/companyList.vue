@@ -3,7 +3,7 @@
   <v-fix :nav="3"></v-fix>
   <!-- 搜索框 -->
   <div class="search">
-    <van-search placeholder="请输入企业名称或法人名称" v-model="data.keyWord" @search="searchFn" @clear="clearFn"></van-search>
+    <van-search placeholder="请输入企业名称或法人名称" v-model="data.keyWord" @search="searchFn" @clear="clearFn"  @focus='jumpS' ></van-search>
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
@@ -138,6 +138,9 @@ export default {
         this.data.pageNo++;
         this.ajax();
       },
+      jumpS() {
+        this.$router.push({ path:'/history', query:{path:'/company',lo:'comL'}});
+      },
       searchFn(){//搜索
         this.isajax=false;
         this.zbList=[];
@@ -229,7 +232,7 @@ export default {
         'v-not':not,
     },
     created(){
-      this.data.keyWord = this.$route.query.search ?  this.$route.query.search : '';
+      this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
       this.data.regisAddress = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
       if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
