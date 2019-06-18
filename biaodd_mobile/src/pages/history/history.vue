@@ -30,7 +30,12 @@ export default {
     watch: {
         // 监控集合
         title(val) {
-          this.gainCom()
+          if(val == '') {
+            this.HList = JSON.parse(localStorage.getItem(this.$route.query.lo))
+          } else {
+            this.gainCom()
+          }
+           
         }
     },
     props: {

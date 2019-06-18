@@ -115,7 +115,7 @@ export default {
         },
         gainCode() {
           if(this.username.trim() == '') {
-              this.ipmsg = '请输入手机号码'
+              this.ipmsg = '请输入手机号'
               return this.enname = true
             }
             if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
@@ -159,7 +159,11 @@ export default {
             }
         },
         newCode() {
-            if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
+            if(this.username.trim() == '') {
+              this.ipmsg = '请输入手机号'
+              return this.enname = true
+            }
+           if(!(/^1[3|4|5|7|8][0-9]\d{8,11}$/.test(this.username.trim()))) {
                this.ipmsg = '请输入正确的手机号' 
               return this.enname = true
            }
