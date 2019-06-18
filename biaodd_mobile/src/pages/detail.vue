@@ -11,7 +11,7 @@
                         发布时间：{{detail.opendate}}
                     </div>
                     <div class="de-size" >
-                        点击次数：{{clickCount}}
+                        点击次数：<span class="color" >{{clickCount}}</span>
                     </div>
                     <div class="de-size" @click="tocomment" >
                         评论数：<span class="color" >{{commentLength}}</span>

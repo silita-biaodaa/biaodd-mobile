@@ -140,7 +140,12 @@ export default {
                 if(el.comId == null) {
                    this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 } else {
-                  this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
+                  if(this.$route.query.path == '/yjList') {
+                    this.$router.push({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
+                  } else {
+                    this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
+                  }
+                  
                 }
            } else {  // 点击来源搜索记录
               if(localStorage.getItem(this.$route.query.lo)) {  //判断是否已有历史记录
@@ -153,8 +158,6 @@ export default {
                     break
                   }
                 }
-                console.log(same);
-                
                 if(!same) {
                    if(str.length <= 10) {  // 最多保存十条历史记录
                         str.push(el) 
@@ -172,7 +175,11 @@ export default {
                 arr.push(el)
                 localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
               }
-               this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
+               if(this.$route.query.path == '/yjList') {
+                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
+                 } else {
+                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
+                 }
            }
         },
         gainHis() {

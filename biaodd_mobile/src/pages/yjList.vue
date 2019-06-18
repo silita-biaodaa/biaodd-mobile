@@ -3,7 +3,7 @@
     <v-fix :nav="4"></v-fix>
     <!-- 搜索框 -->
     <div class="search">
-        <van-search placeholder="请输入项目名称或企业名称" v-model="data.proName"  @focus='jumpS'></van-search>
+        <van-search placeholder="请输入项目名称或企业名称" v-model="title"  @focus='jumpS'></van-search>
     </div>
     <!-- 筛选 -->
     <div class="screen-box">
@@ -123,7 +123,10 @@ export default {
           amountEnd:'',
           buildStart:'',
           buildEnd:'',
+          comId:'',
+          comName:''
         },
+        title:'',
         total:0,
         screenList:[
           {
@@ -335,6 +338,15 @@ export default {
         },
         jumpS() {
           this.$router.push({ path:'/history', query:{path:'/yjList',lo:'yjL'}});  
+        },
+        gainid() {
+          if(this.$route.query.cid) {
+              this.data.comId =  this.$route.query.cid
+              this.data.comName =  this.$route.query.scom
+          } else {
+              this.data.proName =  this.$route.query.key
+          }
+          this.title = this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '' ;
         }
     },
     components:{
@@ -345,7 +357,8 @@ export default {
         'v-not':not
     },
     created(){
-      this.data.proName = this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '' ;
+        this.gainid()
+    //   this.data.proName = this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '' ;
       this.data.area = sessionStorage.getItem('address');
       this.screenList[0].txt=sessionStorage.getItem('address');
       if(sessionStorage.getItem('permissions')){
