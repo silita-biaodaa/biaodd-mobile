@@ -3,7 +3,7 @@
     <div class="history">
        <!-- <v-fix :nav="1"></v-fix>  -->
        <div class="search">
-         <van-search placeholder="请输入关键字或企业名称" v-model="title"  @search="searchFn"  @clear="clearFn"></van-search>
+         <van-search :placeholder="msg" v-model="title"  @search="searchFn"  @clear="clearFn"></van-search>
        </div>
        <div style="overflowY:auto" >
           <div class="history-list" v-for="(el,i) in HList" :key="i"  @click="saveHis(el)"  >
@@ -24,7 +24,8 @@ export default {
             title:'',
             regisAddress:'',
             HList:[],
-            cHis:true // 用于判断点击的是来源于搜索还是历史记录
+            cHis:true, // 用于判断点击的是来源于搜索还是历史记录
+            msg:''
         }
     },
     watch: {
@@ -48,6 +49,7 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.regisAddress = localStorage.getItem('address') ? localStorage.getItem('address') : '湖南省'
         this.gainHis()
+        this.gainHin()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -179,7 +181,20 @@ export default {
           } else {
             this.HList = []
           }
-        }
+        },
+        gainHin(){
+          if(this.$route.query.path == '/bid') {
+            this.msg = '请输入公告名称或企业名称'
+          } else if(this.$route.query.path == '/tender') {
+             this.msg = '请输入公告名称或企业名称'
+          } else if(this.$route.query.path == '/company') {
+             this.msg = '请输入公告名称或法人名称'
+          } else if(this.$route.query.path == '/company') {
+             this.msg = '请输入项目名称或企业名称'
+          } else {
+            this.msg = '请输入注册人员姓名或企业名称'
+          }
+        },
     },
     components: {
       'v-fix':fixHead,
