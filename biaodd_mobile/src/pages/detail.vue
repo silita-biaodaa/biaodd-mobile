@@ -131,7 +131,7 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            document.documentElement.scrollTop = document.documentElement.scrollTop + 45
+            document.documentElement.scrollTop = document.documentElement.scrollTop -100 
         },
         gainD() {
             let that=this;
