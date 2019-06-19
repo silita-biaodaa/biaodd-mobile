@@ -1,61 +1,81 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="comment" v-if="list.length>0">
-        <!-- tab -->
-        <!-- <div class="nav">
-            <p v-for="(o,i) in navTab" :key="i" :class="navNum==i?'active':''" @click="navTap(i)">{{o}}</p>
-        </div> -->
+    <div class="comment" >
+
         <h5>
             <span>评论</span>
         </h5>
-        <!-- list -->
-        <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-            <div class="box" v-for="(o,i) of list" :key="i">
-                <div class="left-box">
-                    <template v-if="o.image">
-                        <img :src="o.image" class="photo"/>
-                    </template>
-                    <template v-else>
-                        <img src="../assets/icon-tpux.png.png" class="photo"/>  
-                    </template> 
-                </div>   
-                <div class="right-box">
-                    <div class="top">
-                        <p>
-                            <span class="nickName">{{o.nickName}}</span><span class="company">{{o.company}}</span><span class="post" v-if="o.post">{{o.post}}</span>
-                        </p>
-                        <p class="time">{{o.pushd}}</p>
-                    </div>
-                    <div class="center">
-                        <template v-if="o.state==1">
-                            {{o.commContent}}
-                        </template>
-                        <template v-else>
-                            该评论已被屏蔽
-                        </template>
-                    </div>
+
+        <van-list finished-text="没有更多了" v-if="list.length>0"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
+            <div class="box center" v-for="(o,i) of list" :key="i">
+    
+                <div class="right-box center">
+                   <div class="rigit-top center" >
+                       <div>
+                           <template v-if="o.image">
+                                <img :src="o.image" class="photo"/>
+                            </template>
+                            <template v-else>
+                                <img src="../assets/icon-tpux.png.png" class="photo"/>  
+                            </template> 
+                       </div>
+                       <div style="marginLeft:10px;width: 100%;"   >
+                            <div class="top">
+                                <p>
+                                    <span class="nickName">{{o.nickName}}</span>
+                                </p>
+                                <p class="time">{{o.pushd}}</p>
+                            </div>
+                            <div>
+                                <template v-if="o.state==1"   >
+                                   <div v-html="o.commContent" style="color:#666" ></div>
+                                </template>
+                                <template v-else>
+                                    该评论已被屏蔽
+                                </template>
+                            </div>
+                       </div>
+    
+                   </div> 
+                    
                     <div class="reply" v-if="o.replys&&o.replys.length>0&&o.state==1">
                         <ul>
-                            <li v-for="(x,y) of o.replys" :key="y">
-                                <div class="content">
-                                    <span class="name">{{x.reNikename}}</span>  
-                                    <span class="name" v-if="(x.reCompany&&x.reCompany!='')||(x.rePost&&x.rePost!='')">({{x.reCompany}}{{x.rePost}})</span>
-                                    回复
-                                    <span class="name">{{x.toNikename}}</span>:
-                                    <template v-if="x.state==1">
-                                        {{x.replyContent}}
-                                    </template>
-                                    <template v-else>
-                                        该评论已被屏蔽
-                                    </template>
-                                </div>
-                                <p>{{x.pushd}}</p>
+                            <li v-for="(x,y) of o.replys" :key="y" class="center" >
+                                <div class="reply-flex" >
+                                      <div class="reply-img" >
+                                          <img src="../assets/icon-tpux.png.png" alt="" v-if="x.reImage == null" >
+                                          <img :src="x.reImage" alt="">
+                                      </div>
+                                      <div>   
+                                         <div class="content  ">
+                                              <div>
+                                                <span class="name">{{x.reNikename}}</span>  
+                                                <span style="color:#786D6D" >回复</span>
+                                                <span class="name">{{x.toNikename}}</span>:
+                                              </div>
+                                              <div>
+                                                  <template v-if="x.state==1">
+                                                      <div v-html="x.replyContent" style="color:#666"  >
+                                                      
+                                                      </div>
+                                                  </template>
+                                                  <template v-else>
+                                                      该评论已被屏蔽
+                                                  </template>
+                                              </div>
+                                         </div>
+                                      </div>
+                                </div>                               
+                                <p class="reply-time" >{{x.pushd}}</p>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </van-list>
+        <div v-else  class="com-no" >
+            暂无评论
+        </div>
     </div>
 </template>
 <script>
@@ -165,27 +185,6 @@ export default {
 .comment{
     margin-top: 16px;
     background: #fff;
-    // .nav{/*tab*/
-    //     display: flex;
-    //     padding:0 30px;
-    //     height: 82px;
-    //     border-bottom: 1PX solid #F2F2F2;
-    //     p{
-    //         border-bottom: 4px solid transparent;
-    //         box-sizing: border-box;
-    //         height: 100%;
-    //         display: flex;
-    //         align-items: center;
-    //         color: #212121;
-    //     }
-    //     p:first-child{
-    //         margin-right: 70px
-    //     }
-    //     .active{
-    //         color: #FE6603;
-    //         border-color: #FE6603;
-    //     }
-    // }
     h5{
         padding:0 30px;
         height: 82px;
@@ -198,41 +197,45 @@ export default {
     }
 }
 .box{
-    padding: 32px;
+    padding: 24px;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    .left-box{
-        width: 70px;
         .photo{
             width: 70px;
             height:70px;
             border-radius: 50%;
         }
-    }
     .right-box{
-        width: calc(100% - 102px);
+        width: 100%;
+        .rigit-top {
+           display: flex;
+           padding-bottom: 35px;
+        }
         .top{
-            // height: 70px;
             display: flex;
-            margin-bottom: 30px;
-            align-content: space-between;
-            flex-wrap: wrap;
-            p{
-                width: 100%;
-                .nickName{
-                    margin-right: 30px;
-                }
-            }
+            justify-content: space-between;
+            align-items: center;
+            font-size: 32px;
+            width: 100%;
+            height: 70px;
             .time{
                 color: #999;
-                font-size: 28px
+                font-size: 24px
             }
         }
+       
         .reply{
-            margin-top: 35px;
-            background: #F8F8F8;
-            padding: 32px 15px;
+            margin-top: 15px;
+            margin-left: 80px;
+            padding: 20px 15px 32px; 
+            .reply-flex {
+                display: flex;
+                img {
+                    width: 48px;
+                    height:48px;
+                    border-radius: 50%;
+                    margin-right: 10px;
+                }
+            }
             li{
                 margin-bottom: 28px;
                 .content{
@@ -245,9 +248,27 @@ export default {
                     font-size: 24px;
                     color: #999;
                 }
+              
+            }
+             li:last-child {
+                   border-bottom: none!important;
+             }
+            .reply-time {
+                margin: 10px 0;
             }
             
         }
+        
     }
+    .center {
+           border-bottom: 1px solid #f0f0f0;
+        }
 }
+.com-no {
+   text-align: center;
+   font-size: 24px;
+   color:#666;
+   line-height: 70px;  
+}
+ 
 </style>

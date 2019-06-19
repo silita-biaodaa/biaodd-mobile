@@ -88,28 +88,8 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.id = this.$route.query.id
         this.source = this.$route.query.source
-        let that=this;
-        let str=sessionStorage.getItem('permissions');
-        this.$http({
-            method:'post',
-            url: '/notice/detail/' + that.id,
-            data:{
-                source:that.source,
-                type: "0"
-            }
-        }).then(function(res){
-            that.total = res.data.relCompanySize 
-            that.collected=res.data.data[0].collected
-            that.detail = res.data.data[0]  
-            that.detail.projDq = that.detail.projDq.substring(0,2)
-            if(that.detail.zzRank&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
-                that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
-            }
-            if(that.detail.pbMode&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
-                that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
-            }
-            that.clickCount = res.data.clickCount       
-        })
+        this.gainD()
+    
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -152,6 +132,30 @@ export default {
             }
             document.getElementById("divId").scrollIntoView(true);
             document.documentElement.scrollTop = document.documentElement.scrollTop + 45
+        },
+        gainD() {
+            let that=this;
+            let str=sessionStorage.getItem('permissions');
+            this.$http({
+                method:'post',
+                url: '/notice/detail/' + that.id,
+                data:{
+                    source:that.source,
+                    type: "0"
+                }
+            }).then(function(res){
+                that.total = res.data.relCompanySize 
+                that.collected=res.data.data[0].collected
+                that.detail = res.data.data[0]  
+                that.detail.projDq = that.detail.projDq.substring(0,2)
+                if(that.detail.zzRank&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                    that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
+                }
+                if(that.detail.pbMode&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                    that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
+                }
+                that.clickCount = res.data.clickCount       
+            })
         }
     }
 
