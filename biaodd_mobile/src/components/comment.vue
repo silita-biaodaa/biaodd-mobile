@@ -40,7 +40,7 @@
                     
                     <div class="reply" v-if="o.replys&&o.replys.length>0&&o.state==1">
                         <ul>
-                            <li v-for="(x,y) of o.replys" :key="y" class="center" >
+                            <li v-for="(x,y) of o.replys" :key="y" class="center re-p" >
                                 <div class="reply-flex" >
                                       <div class="reply-img" >
                                           <img src="../assets/icon-tpux.png.png" alt="" v-if="x.reImage == null" >
@@ -264,6 +264,9 @@ export default {
     .center {
            border-bottom: 1px solid #f0f0f0;
         }
+     .re-p {
+        padding-bottom: 15px; 
+     }     
 }
 .com-no {
    text-align: center;
