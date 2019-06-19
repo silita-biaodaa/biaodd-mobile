@@ -53,6 +53,7 @@
                                                 <span style="color:#786D6D" >回复</span>
                                                 <span class="name">{{x.toNikename}}</span>:
                                               </div>
+                                              <p class="reply-time" >{{x.pushd}}</p>
                                               <div>
                                                   <template v-if="x.state==1">
                                                       <div v-html="x.replyContent" style="color:#666"  >
@@ -66,7 +67,7 @@
                                          </div>
                                       </div>
                                 </div>                               
-                                <p class="reply-time" >{{x.pushd}}</p>
+                                
                             </li>
                         </ul>
                     </div>
