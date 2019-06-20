@@ -175,7 +175,7 @@ export default {
                        if(gap >=0 ) {
                           that.day = Math.ceil(gap/3600/24/1000)
                        } else {
-                         that.day = 1
+                          that.day = 1
                        }
                       //  that.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : (Math.ceil(gap/3600/24/1000) <= 0 ? 1 : 0); 
                        if( that.userinfo.roleName == '会员用户') {

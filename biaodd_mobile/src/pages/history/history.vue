@@ -93,15 +93,15 @@ export default {
                      str.unshift({comName:this.title,comId:null}) 
                    }
                    localStorage.setItem(this.$route.query.lo,JSON.stringify(str))
-                   this.$router.unshift({ path:this.$route.query.path, query:{key:this.title}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
                 } else {
-                   this.$router.unshift({ path:this.$route.query.path, query:{key:this.title}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
                 }
           } else {
             var arr = []
             arr.unshift({comName:this.title,comId:null}) 
             localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
-            this.$router.unshift({ path:this.$route.query.path, query:{key:this.title}});
+            this.$router.push({ path:this.$route.query.path, query:{key:this.title}});
           }  
         },
         clearFn() {
@@ -138,12 +138,12 @@ export default {
         saveHis(el) {  // 历史记录点击的所属  
            if(this.cHis) {  // 点击来源历史记录
                 if(el.comId == null) {
-                   this.$router.unshift({ path:this.$route.query.path, query:{key:el.comName}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 } else {
                   if(this.$route.query.path == '/yjList') {
-                    this.$router.unshift({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
+                    this.$router.push({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
                   } else {
-                    this.$router.unshift({ path:this.$route.query.path, query:{scom:el.comName}});
+                    this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
                   }
                   
                 }
@@ -166,9 +166,9 @@ export default {
                      str.unshift(el) 
                    }
                    localStorage.setItem(this.$route.query.lo,JSON.stringify(str))
-                   this.$router.unshift({ path:this.$route.query.path, query:{key:el.comName}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 } else {
-                   this.$router.unshift({ path:this.$route.query.path, query:{key:el.comName}});
+                   this.$router.push({ path:this.$route.query.path, query:{key:el.comName}});
                 }
               } else {
                 let arr = []
@@ -176,9 +176,9 @@ export default {
                 localStorage.setItem(this.$route.query.lo,JSON.stringify(arr))
               }
                if(this.$route.query.path == '/yjList') {
-                   this.$router.unshift({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
+                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName,cid:el.comId}});
                  } else {
-                   this.$router.unshift({ path:this.$route.query.path, query:{scom:el.comName}});
+                   this.$router.push({ path:this.$route.query.path, query:{scom:el.comName}});
                  }
            }
         },

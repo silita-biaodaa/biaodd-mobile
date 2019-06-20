@@ -136,11 +136,16 @@ export default {
             }).then(function(res){
                 that.userinfo = res.data.data
                 let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
-                that.userinfo.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0; 
+                  if(gap >=0 ) {
+                     that.userinfo.day = Math.ceil(gap/3600/24/1000)
+                  } else {
+                     that.userinfo.day = 1
+                  }
                 if( that.userinfo.roleName == '会员用户') {
                     that.userinfo.state = '会员';
                     that.openTxt='立即续费';
                 } else {
+                    that.userinfo.day = 0
                     that.userinfo.state = '非会员';
                     that.openTxt='立即开通'
                 }
