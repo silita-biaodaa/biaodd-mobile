@@ -85,13 +85,14 @@ export default {
                 url: '/company/filter',
             }).then(function(res){
                 that.data=res.data.data.companyQual;
-                that.showArr=res.data.data.companyQual;
+     
+                that.showArr=res.data.data.newQual;          
             })
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
             that.data=obj.companyQual;
-            that.showArr=obj.companyQual;
+            that.showArr=obj.newQual;
         }
         that.boxArr=that.arr;
         if(that.boxArr.length>0){
@@ -180,7 +181,6 @@ export default {
                     str=str+x.code+'||'
                 }
                 str=str.substring(0,str.length-2);
-                // console.log(str)
                 this.$emit('sureFn',{str:str,list:this.boxArr});
             }
             
@@ -245,7 +245,7 @@ export default {
                 }
                 this.storageArr.push(data);
             }
-        }
+        },
     }
 
 }

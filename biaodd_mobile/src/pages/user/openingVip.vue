@@ -21,6 +21,7 @@
         <h5 class="title">开通会员</h5>
         <!-- 开通会员 -->
         <div class="main card">
+           <template v-if="isajax">
             <ul>
                 <li v-for="(o,i) of viplist" :key="i" :class="{'active':i==tabNum}" @click="tabFn(i)">
                     <p class="time">{{o.stdDesc}}</p>
@@ -29,6 +30,10 @@
                     <div class="discount" v-if="o.altInfo">{{o.altInfo}}</div>
                 </li>
             </ul>
+           </template>
+           <template v-else>
+               <van-loading size="50px"></van-loading>
+           </template> 
             <div class="bottom-box">
                 <button @click="jumpPay" class="openBtn">{{openTxt}}</button>
                 <button @click="$router.push('/membership')" class="privilegeBtn">了解会员特权</button>
@@ -56,7 +61,8 @@ export default {
             },
             viplist:[],
             tabNum:0,
-            openTxt:'立即开通'
+            openTxt:'立即开通',
+            isajax:false
         }
     },
     watch: {
@@ -77,6 +83,7 @@ export default {
             this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         }
         //获取商品
+        this.isajax = false
         let that=this;
         this.$http({
             method:'post',
@@ -85,10 +92,13 @@ export default {
                 channel:'1004',
             }
         }).then(function(res){
-            for(let x of res.data.data){
-                x.save=x.primePrice-x.price
-            }
-            that.viplist=res.data.data
+            if(res.data.code == 1 ) {
+                that.isajax = true
+                for(let x of res.data.data){
+                    x.save=x.primePrice-x.price
+                }
+                that.viplist=res.data.data
+            }   
         }).catch(function(res){
             
         })

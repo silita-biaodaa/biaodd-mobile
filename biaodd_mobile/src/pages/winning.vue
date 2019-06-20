@@ -129,7 +129,13 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            document.documentElement.scrollTop = document.documentElement.scrollTop - 100
+            var dis = 0
+            if(document.documentElement.scrollTop) {
+                dis = document.documentElement.scrollTop -100 
+            } else {
+                dis = document.body.scrollTop -100 
+            }
+            document.documentElement.scrollTop = dis
         }
     }
 

@@ -170,13 +170,19 @@ export default {
                       url: '/userCenter/refreshUserInfo',
                       data:{}
                   }).then(function(res){
-                      that.userinfo = res.data.data
-                       let gap = new Date( that.userinfo.expiredDate).getTime() - new Date().getTime()
-                       that.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : 0; 
+                       that.userinfo = res.data.data
+                       let gap = new Date(that.userinfo.expiredDate).getTime() - new Date().getTime()
+                       if(gap >=0 ) {
+                          that.day = Math.ceil(gap/3600/24/1000)
+                       } else {
+                         that.day = 1
+                       }
+                      //  that.day = Math.ceil(gap/3600/24/1000) >= 0 ? Math.ceil(gap/3600/24/1000) : (Math.ceil(gap/3600/24/1000) <= 0 ? 1 : 0); 
                        if( that.userinfo.roleName == '会员用户') {
                          that.state = '会员'
                        } else {
                          that.state = '非会员'
+                         that.day = 0
                        }
 
                   })

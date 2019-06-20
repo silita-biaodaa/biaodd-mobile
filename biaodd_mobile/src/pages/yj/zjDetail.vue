@@ -4,6 +4,7 @@
       <top-back :title="'业绩详情'"></top-back>
       <div class="letter-de">
         <!-- 上 -->
+      <template v-if="isajax">
         <div class="content">
           <h5>{{detail.proName}}</h5>
           <p>
@@ -40,6 +41,10 @@
           </p>
           
         </div>
+       </template>
+       <template v-else>
+           <van-loading size="50px"></van-loading>
+       </template>
         <!-- nav及nav以下 -->
         <div class="letter-nav">
           <div>
@@ -70,8 +75,13 @@ export default {
              isload:true,
              vipStr:'',
              isvip:false,
-             id:''
-            //  path:'/commerc'
+             id:'',
+             isajax:false,//是否在加载过程中
+            //  isError:false,//是否加载失败
+            //  finished:false,//是否加载完
+            //  error:false,
+            //  onLoad:false
+             //  path:'/commerc'
         }
     },
     watch: {
@@ -89,6 +99,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.isajax = false
         if(sessionStorage.getItem('permissions')){
           this.vipStr=sessionStorage.getItem('permissions');
         }
@@ -101,8 +112,12 @@ export default {
                 id:this.id
             }
         }).then(function(res){
+          if(res.data.code == 1 ) {
+             that.isajax = true
             that.detail = res.data.data;
             sessionStorage.setItem('proname',res.data.data.proName)
+          } 
+           
         })
     },
     beforeMount() {

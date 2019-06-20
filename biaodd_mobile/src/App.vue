@@ -65,7 +65,17 @@ export default {
     },
      jumpto() {
       this.$router.push('/centre')
-    }
+    },
+    pushAll(el) {
+           for(let val of el) {
+                 for(let vals of val.list) {
+                     if(vals.list.length ==0 ) {
+                         vals.list.push({name:'全部',code:''})
+                         continue
+                     }
+                 }
+             }
+      }
   },
   created () {
     if(localStorage.getItem('xtoken')){
@@ -75,6 +85,7 @@ export default {
       localStorage.removeItem('Bname')
     }
     this.judge();
+   
     this.$http({
         method:'post',
         url: '/authorize/address',
@@ -100,13 +111,17 @@ export default {
         
     })
 
-
+    let that=this;
     //筛选条件存于本地
     this.$http({
         method:'get',
         url: '/company/filter',
     }).then(function(res){
-        localStorage.setItem('filter',JSON.stringify(res.data.data));
+       let arr = res.data.data
+       let obj = res.data.data.companyQual
+       that.pushAll(obj)
+       arr.newQual = obj 
+        localStorage.setItem('filter',JSON.stringify(arr));
     })
   },
   watch: {
