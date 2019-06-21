@@ -1,14 +1,19 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="history">
-       <!-- <v-fix :nav="1"></v-fix>  -->
        <div class="search">
-         <van-search :placeholder="msg" v-model="title"  @search="searchFn"  @clear="clearFn"></van-search>
+         <van-search :placeholder="msg" v-model="title"  @search="searchFn"  @clear="clearFn">
+         </van-search>
+       </div>
+       <div  class="his-title" v-show="ishow" >
+         <span>历史记录</span>
+         <img src="../../assets/search_icon_delate@2x.png" @click="delocal"  alt="">
        </div>
        <div style="overflowY:auto" >
-          <div class="history-list" v-for="(el,i) in HList" :key="i"  @click="saveHis(el)"  >
-            {{el.comName}}
+           <div class="history-list" v-for="(el,i) in HList" :key="i"  @click="saveHis(el)"  >
+             <img src="../../assets/icon_search@2x.png" v-show="!ishow"  alt=""> <span>{{el.comName}}</span>
           </div>
+          
        </div>
        
     </div>
@@ -25,13 +30,15 @@ export default {
             regisAddress:'',
             HList:[],
             cHis:true, // 用于判断点击的是来源于搜索还是历史记录
-            msg:''
+            msg:'',
+            ishow:true
         }
     },
     watch: {
         // 监控集合
         title(val) {
           if(val == '') {
+            this.ishow = true
             this.HList = JSON.parse(localStorage.getItem(this.$route.query.lo))
           } else {
             this.gainCom()
@@ -107,6 +114,10 @@ export default {
         clearFn() {
 
         },
+        delocal() {
+          localStorage.removeItem(this.$route.query.lo)
+          this.HList = []
+        },
         gainCom() {  // 企业模糊搜索
             let that=this;
             this.$http({
@@ -120,6 +131,7 @@ export default {
                if(res.data.code == 1 )  {
                   if(res.data.data.length >= 1) {
                       that.HList = res.data.data
+                      that.ishow = false
                       that.cHis = false
                   } else {
                     that.cHis = true
@@ -215,13 +227,31 @@ export default {
 .history {
   overflow: hidden;
   height: calc(~"100% - 105px");
-  // overflow-y: auto
   .history-list {
     padding: 0 28px;
     font-size: 24px;
     line-height: 70px;
     border-bottom: 1px solid #f5f5f5;
     color:#333;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .his-title {
+    height: 70px;
+      line-height: 70px;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     font-size: 28px;
+     color: #333;
+     padding: 0 28px;
+     font-weight: 550;
+     img {
+       width: 36px;
+       height: 36px;
+     }
   }
 }
 </style>
