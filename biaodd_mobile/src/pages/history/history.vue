@@ -248,6 +248,7 @@ export default {
      color: #333;
      padding: 0 28px;
      font-weight: 550;
+     border-bottom: 1px solid #f5f5f5;
      img {
        width: 36px;
        height: 36px;
