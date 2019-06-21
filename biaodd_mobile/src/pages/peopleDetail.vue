@@ -24,13 +24,14 @@
                     <v-rycon :type="navNum" v-for="(el,i) in list" :key="i" :obj='el'></v-rycon>
                 </template>
                 <template v-else>
-                    <v-not :isError="isError"></v-not>
+                    <v-not :isError="isError" :hint="'Sorry，没有找到符合条件的信息'"  ></v-not>
                 </template>
             </template>
             <template v-else>
                 <van-loading size="50px"></van-loading>
             </template>
         </div>
+        <v-vip :mask="isvip" :txt="'开通会员才可查看详情'"></v-vip>
     </div>
 </template>
 <script>
@@ -47,6 +48,7 @@ export default {
             list:[],
             isajax:false,//是否在加载过程中
             isError:false,//是否加载失败
+             isvip:false,
             data:{
                 comId:'',
                 idCard:'',
@@ -144,6 +146,13 @@ export default {
             })
         },
         navTap(i){
+            if(i == 4) {
+              if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                this.isvip=true;
+                this.modalHelper.afterOpen();
+                return false
+              }
+            }
             this.navNum=i;
             this.list=[];
             this.isajax=false;
@@ -157,6 +166,7 @@ export default {
                 tabCode:this.obj.tabCode,
                 tabType:'',
             }
+           
             if(i==0){
                 this.data.tabType='registerCert'
             }else if(i==1){
@@ -166,13 +176,16 @@ export default {
             }else if(i==3){
                 this.data.tabType='changeRecord'
             }else if(i==4){
+               
+             
                 this.data={
                     innerid:this.obj.innerid,
                     type:'detail'
                 }
                 this.ajaxUrl='/under/query'
+                 
             }
-            this.ajax();
+           this.ajax();
         }
     }
 

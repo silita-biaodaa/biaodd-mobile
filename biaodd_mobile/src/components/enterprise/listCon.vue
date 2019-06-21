@@ -151,11 +151,6 @@ export default {
                 sessionStorage.setItem('letterStr','jt');
                 this.$router.push({path:'/jtDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='ry'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
-                    this.isvip=true;
-                    this.modalHelper.afterOpen();
-                    return false
-                }
                 sessionStorage.removeItem('letterStr');
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
                 this.$router.push({path:'/peopleDetail'})

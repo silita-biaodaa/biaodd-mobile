@@ -77,17 +77,26 @@ export default {
     methods: {
         // 方法 集合
         topush(o) {
-            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
-                this.isvip=true;
-                this.modalHelper.afterOpen();
-                return false
+            if(!sessionStorage.getItem('xtoken')) {
+                 this.isvip=true;
+                 this.modalHelper.afterOpen();
+                 return false
             }
+            // if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+            //     this.isvip=true;
+            //     this.modalHelper.afterOpen();
+            //     return false
+            // }
             sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
             this.$router.push({path:'/peopleDetail'})
             
         },
         jumpgo(){
-            if(sessionStorage.getItem('xtoken')) {
+             if(!sessionStorage.getItem('xtoken')) {
+                 this.isvip=true;
+                 this.modalHelper.afterOpen();
+                 return false
+              }
                 if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
@@ -95,7 +104,6 @@ export default {
                 }
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
                 this.$router.push({path:'/peopleDetail',query:{type:'yz'}})
-            }
         }
     }
 
