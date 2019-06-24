@@ -8,7 +8,7 @@
             </div>
             <!-- <van-search placeholder="请输入关键字进行搜索" v-model="search"   @click='jumpS' ></van-search> -->
             <div class="tab-sea"  @click='jumpS' >
-               请输入关键字进行搜索
+                {{msg}}
             </div>
         </div>
         <div class="nav" v-if="!isScroll">
@@ -105,7 +105,12 @@ export default {
             zbList:[],
             zhongbList:[],
             qyList:[],
-            tabList:[{name:'查招标',to:'/bid',i:0,local:'bidL'},{name:'查中标',to:'/tender',i:1,local:'tenL'},{name:'查企业',to:'/company',i:2,local:'comL'},{name:'查业绩',to:'/yjList',i:3,local:'yjL'},{name:'查人员',to:'/ryList',i:4,local:'ryL'}],
+            tabList:[{name:'查招标',to:'/bid',i:0,local:'bidL',hint:'请输入公告名称或企业名称'},
+            {name:'查中标',to:'/tender',i:1,local:'tenL',hint:'请输入公告名称或企业名称'},
+            {name:'查企业',to:'/company',i:2,local:'comL',hint:'请输入企业名称或法人名称'},
+            {name:'查业绩',to:'/yjList',i:3,local:'yjL',hint:'请输入项目名称或企业名称'},
+            {name:'查人员',to:'/ryList',i:4,local:'ryL',hint:'请输入注册人员姓名或企业名称'}],
+            msg:'请输入公告名称或企业名称',
             tabNum:0,
             isScroll:false,
             topath:'/bid',
@@ -198,6 +203,7 @@ export default {
             this.tabNum=i.i
             this.topath = i.to
             this.local = i.local
+            this.msg = i.hint
         },
         getAddress(option){
             this.ad
