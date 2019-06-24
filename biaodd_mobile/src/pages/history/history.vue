@@ -2,7 +2,7 @@
 <template>
     <div class="history">
        <div class="search">
-         <van-search :placeholder="msg" v-model="title"  @search="searchFn" ref='id' @clear="clearFn">
+         <van-search :placeholder="msg" v-model="title"  @search="searchFn" ref='id' id="id" @clear="clearFn">
          </van-search>
        </div>
        <div  class="his-title" v-show="ishow && iHis" >
@@ -65,10 +65,10 @@ export default {
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
-        this.$nextTick(function() {
-            // console.log('执行完后，执行===============》mounted');
-        });
-        this.$refs.id.focus();
+        // this.$nextTick(function() {
+        //     // console.log('执行完后，执行===============》mounted');
+        // });
+        this.myFocus()
     },
     beforeUpdate() {
         // console.group('更新前状态  ===============》beforeUpdate');
@@ -220,6 +220,10 @@ export default {
             this.msg = '请输入注册人员姓名或企业名称'
           }
         },
+         myFocus:function(){
+               var idObj = document.getElementById('id');
+               idObj.focus();
+           }
     },
     components: {
       'v-fix':fixHead,
