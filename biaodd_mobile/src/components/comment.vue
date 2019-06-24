@@ -44,7 +44,7 @@
                                 <div class="reply-flex" >
                                       <div class="reply-img" >
                                           <img src="../assets/icon-tpux.png.png" alt="" v-if="x.reImage == null" >
-                                          <img :src="x.reImage" alt="">
+                                          <img :src="x.reImage" alt="" v-else >
                                       </div>
                                       <div>   
                                          <div class="content  ">
