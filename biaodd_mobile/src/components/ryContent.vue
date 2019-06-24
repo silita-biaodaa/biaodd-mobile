@@ -21,7 +21,8 @@
                 </p>
                 <p>
                     <span class="left-txt">专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</span>
-                    <span>：{{obj.major}}</span></p>
+                    <span>：</span>
+                    <span>{{obj.major}}</span></p>
             </template>
         </div>
         <v-vip :mask="isvip" :txt="'开通会员才可查看人员详情'"></v-vip>
