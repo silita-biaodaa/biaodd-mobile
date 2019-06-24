@@ -153,16 +153,20 @@ export default {
                 }
             }).then(function(res){
                 that.detail = res.data.data;
-                var arr = []
-                arr = that.detail.phone.split(';');
-                that.phoneArr=arr;
-                if(that.vipStr.indexOf('comPhone')==-1){
-                  that.detail.phone =that.resetPhone(arr[0]) 
-                }else{
-                  that.detail.phone=arr[0]
-                } 
-                that.collected=res.data.data.collected
                 that.isload=false
+                var arr = []
+                if(that.detail.phone) {
+                   arr = that.detail.phone.split(';');
+                   that.phoneArr=arr;
+                   if(that.vipStr.indexOf('comPhone')==-1){
+                     that.detail.phone =that.resetPhone(arr[0]) 
+                   }else{
+                     that.detail.phone=arr[0]
+                   } 
+                }
+               
+                that.collected=res.data.data.collected
+                
              })
     },
     beforeMount() {
