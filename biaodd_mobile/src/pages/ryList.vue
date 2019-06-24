@@ -24,7 +24,7 @@
         </div>
     </div>
     <!-- 总条数 -->
-    <div class="total">为您搜索到{{total}}条业绩信息</div>
+    <div class="total">为您搜索到{{total}}条人员信息</div>
     <!-- 列表 -->
     <template v-if="isajax">
         <template v-if="zbList.length>0">
