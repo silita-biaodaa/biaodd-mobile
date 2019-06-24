@@ -167,6 +167,8 @@ export default {
                
                 that.collected=res.data.data.collected
                 
+             }).catch(function(req) {
+                that.isload=false
              })
     },
     beforeMount() {
