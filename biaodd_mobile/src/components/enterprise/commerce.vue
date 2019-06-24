@@ -167,10 +167,13 @@ export default {
                 }
             }).then(function(res){
                 that.detail = res.data.data
+                 that.isajax=true;
                 var arr = []
-                arr = that.detail.phone.split(';')
-                that.detail.phone = arr[0];
-                that.isajax=true;
+                if(that.detail.phone) {
+                  arr = that.detail.phone.split(';')
+                  that.detail.phone = arr[0];
+                }                
+               
              }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
