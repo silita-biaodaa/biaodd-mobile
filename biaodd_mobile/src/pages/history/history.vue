@@ -2,7 +2,7 @@
 <template>
     <div class="history">
        <div class="search">
-         <van-search :placeholder="msg" v-model="title"  @search="searchFn"  @clear="clearFn">
+         <van-search :placeholder="msg" v-model="title"  @search="searchFn" ref='id' @clear="clearFn">
          </van-search>
        </div>
        <div  class="his-title" v-show="ishow && iHis" >
@@ -58,6 +58,7 @@ export default {
         this.regisAddress = localStorage.getItem('address') ? localStorage.getItem('address') : '湖南省'
         this.gainHis()
         this.gainHin()
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -67,6 +68,7 @@ export default {
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
         });
+        this.$refs.id.focus();
     },
     beforeUpdate() {
         // console.group('更新前状态  ===============》beforeUpdate');
