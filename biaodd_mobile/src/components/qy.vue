@@ -32,8 +32,11 @@ export default {
     },
     computed:{
         phone(){
-            let arr=this.obj.phone.split(';');
-            return arr[0]
+            if(this.obj.phone) {
+                let arr=this.obj.phone.split(';');
+               return arr[0]
+            }
+            
         }
     },
     watch: {
