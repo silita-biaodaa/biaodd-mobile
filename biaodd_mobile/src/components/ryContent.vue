@@ -20,7 +20,7 @@
                     <span>：{{obj.category}}</span>
                 </p>
                 <p>
-                    <span class="left-txt">专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</span>
+                    <span class="left-txt">专&nbsp&nbsp&nbsp业</span>
                     <span>：</span>
                     <span>{{obj.major}}</span></p>
             </template>
@@ -131,9 +131,11 @@ p{
         color: #999;
     }
     .left-txt{
-        display: inline-block;
+        // display: inline-block;
         // text-align-last: justify;
         width: 112px;
+        // display: flex;
+        // justify-content: space-between;
     }
 }
 p:last-child{
