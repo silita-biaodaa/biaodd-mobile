@@ -5,7 +5,7 @@
          <van-search :placeholder="msg" v-model="title"  @search="searchFn"  @clear="clearFn">
          </van-search>
        </div>
-       <div  class="his-title" v-show="ishow" >
+       <div  class="his-title" v-show="ishow && iHis" >
          <span>历史记录</span>
          <img src="../../assets/search_icon_delate@2x.png" @click="delocal"  alt="">
        </div>
@@ -31,7 +31,8 @@ export default {
             HList:[],
             cHis:true, // 用于判断点击的是来源于搜索还是历史记录
             msg:'',
-            ishow:true
+            ishow:true,
+            iHis:true,
         }
     },
     watch: {
@@ -117,6 +118,7 @@ export default {
         delocal() {
           localStorage.removeItem(this.$route.query.lo)
           this.HList = []
+          this.iHis = false
         },
         gainCom() {  // 企业模糊搜索
             let that=this;
@@ -198,7 +200,9 @@ export default {
           if(localStorage.getItem(this.$route.query.lo)) {
             this.HList = JSON.parse(localStorage.getItem(this.$route.query.lo))
           } else {
-            this.HList = []
+            this.HList = [],
+            this.iHis = false
+
           }
         },
         gainHin(){
