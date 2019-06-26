@@ -214,10 +214,12 @@ export default {
              this.msg = '请输入公告名称或企业名称'
           } else if(this.$route.query.path == '/company') {
              this.msg = '请输入公告名称或法人名称'
-          } else if(this.$route.query.path == '/company') {
+          } else if(this.$route.query.path == '/yjList') {
              this.msg = '请输入项目名称或企业名称'
-          } else {
-            this.msg = '请输入注册人员姓名或企业名称'
+          } else if(this.$route.query.path == '/ryList') {
+            this.msg = '请输入注册人员姓名或企业名称'             
+          }else {
+            this.msg = '请输入法务信息关键字'
           }
         },
          myFocus:function(){

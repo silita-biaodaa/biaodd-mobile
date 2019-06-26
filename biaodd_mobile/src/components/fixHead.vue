@@ -63,6 +63,9 @@ export default {
                 },{
                     txt:'人员',
                     path:'/ryList'
+                },{
+                    txt:'法务',
+                    path:'/law'
                 },
             ],
             name:'登录或注册'
@@ -259,7 +262,7 @@ export default {
         height: 92px;
         display: flex;
         justify-content: space-between;
-        width: 120%;
+        width: 128%;
         min-width: 100%;
         flex-wrap: nowrap;
         overflow-x:scroll;

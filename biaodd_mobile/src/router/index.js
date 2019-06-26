@@ -34,6 +34,9 @@ import peopleDetail from '@/pages/peopleDetail'
 import dwDetail from '@/pages/dwDetail'
 import history from '@/pages/history/history'
 
+import law from '@/pages/law/law'
+import lawtext from '@/pages/law/lawtext'
+
 
 
 
@@ -209,7 +212,17 @@ export default new Router({
       path: '/history',
       component: history,
       name: 'history'
-    }      
+    },
+    { // 法务列表
+      path: '/law',
+      component: law,
+      name: 'law'
+    },
+    { // 法务详情
+      path: '/lawtext',
+      component: lawtext,
+      name: 'lawtext'
+    }                
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

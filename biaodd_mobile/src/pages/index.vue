@@ -98,8 +98,12 @@ export default {
                     txt:'人员',
                     path:'/ryList',
                     
-                }
-                
+                },{
+                    img:require('../assets/icon-reny.png'),
+                    txt:'法务',
+                    path:'/law',
+                    
+                }                
             ],
             
             zbList:[],
@@ -461,18 +465,19 @@ export default {
     }
 }
 .nav{
-    height: 220px;
-    padding: 40px 42px 45px;
+    padding: 30px 15px 18px;
     margin-bottom: 20px;
     box-sizing: border-box;
     ul{
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         width: 100%;
         height: 100%;
         font-size: 28px;
         li{
             text-align: center;
+            width: 33%;
             img{
                 max-width: 100%;
                 width: 90px;
