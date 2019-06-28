@@ -161,7 +161,8 @@ export default {
   background-color: #F5F5F5;
   .com-basic {
     background-color: #fff;
-    margin-bottom: 2px;
+    border-bottom: 1PX solid #f2f2f2;
+    // margin-bottom: 2px;
     .bas-test {
       padding: 35px 35px 10px;
       font-size: 28px; 

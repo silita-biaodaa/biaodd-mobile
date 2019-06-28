@@ -268,7 +268,7 @@ export default {
     }
      .letter-save {
        height: 39px;
-       width: 70px;
+       max-width: 320px;
        border: 1PX solid #FE6603;
        color:#FE6603;
        border-radius: 8px;
