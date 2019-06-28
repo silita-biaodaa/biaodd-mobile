@@ -62,6 +62,14 @@
           </div> 
           <van-icon name="arrow" class="nav-i"  />
         </div>
+        <!-- 我的信息 -->
+        <div class="attention" @click="$router.push('/myOrder')" v-if="isLogin">
+          <div class="flex-box">
+            <img src="../../assets/icon-xiaoxi.png.png" alt="">
+            <span>我的消息</span>  
+          </div> 
+          <van-icon name="arrow" class="nav-i"  />
+        </div>
         <!-- 设置 -->
         <div class="attention cen-at" @click="jumpto"  v-if="isLogin"> 
           <div class="flex-box">

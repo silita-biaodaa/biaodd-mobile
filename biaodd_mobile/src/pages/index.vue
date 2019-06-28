@@ -99,7 +99,7 @@ export default {
                     path:'/ryList',
                     
                 },{
-                    img:require('../assets/icon-reny.png'),
+                    img:require('../assets/icon-fawu.png.png'),
                     txt:'法务',
                     path:'/law',
                     
@@ -470,14 +470,13 @@ export default {
     box-sizing: border-box;
     ul{
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
         width: 100%;
         height: 100%;
         font-size: 28px;
         li{
             text-align: center;
-            width: 33%;
+            width: 25%;
             img{
                 max-width: 100%;
                 width: 90px;

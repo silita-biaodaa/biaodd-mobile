@@ -20,7 +20,13 @@ import http from '@/base/http'
 
 /*全局引用会员组件*/
 import isvip from '@/components/isVip'
+import icinfo from '@/components/enterprise/icinfo'
+import icbr from '@/components/enterprise/icbr'
+
 Vue.component('v-vip', isvip)
+Vue.component('ic-infor', icinfo)
+Vue.component('ic-br', icbr)
+
 // function HtmlFontSize(){
 //   let baseSize=32;
 //   const sw=document.documentElement.clientWidth / 750;

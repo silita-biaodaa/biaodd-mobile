@@ -6,111 +6,26 @@
           <v-not :isError="isError"></v-not>
         </template>
         <template v-else>
-          <div class="com-basic">
+        <div class="com-basic" @click="isinfo = !isinfo"  :class="isinfo ? 'hide-in' : 'show-in'" >
           <div class="ba-title">
-             基本信息
-          </div>
-          <div class="bas-test">
-             <div class="bas-line">
-                 <div class="left bas-first">
-                     法定代表
-                 </div>
-                 <div class="left color">
-                    {{detail.legalPerson}}
-                 </div>
-             </div>
-              <div class="bas-line">
-                 <div class="left bas-first">
-                     注册号
-                 </div>
-                 <div class="left">
-                     {{detail.businessNum}}
-                 </div>
-             </div>
-              <div class="bas-line">
-                 <div class="left bas-first">
-                    注册资本
-                 </div>
-                 <div class="left ">
-                     {{detail.regisCapital}}
-                 </div>
-             </div>
-              <div class="bas-line">
-                 <div class="left bas-first">
-                     安许证号
-                 </div>
-                 <div class="left ">
-                     {{detail.certNo}}
-                 </div>
-             </div>
-              <div class="bas-line">
-                 <div class="left bas-first">
-                     安许期限 
-                 </div>
-                 <div class="left">
-                     {{detail.validDate}}
-                 </div>
-             </div>
-              <div class="bas-line">
-                 <div class="left bas-first">
-                     企业类型 
-                 </div>
-                 <div class="left bas-two">
-                    {{detail.economicType}}
-                 </div>
-             </div>
-               <div class="bas-line">
-                 <div class="left bas-first">
-                     经营范围 
-                 </div>
-                 <div class="left bas-two">
-                     {{detail.comRange}}
-                 </div>
+             <span>基本信息</span>
+             <div   >
+               <van-icon name="arrow-down"  v-if="isinfo" />
+               <van-icon name="arrow-up" v-else />
              </div>
           </div>
+          <ic-infor :obj='detail' ></ic-infor>
         </div>
 
-        <div class="branch">
-
-          <div class="ba-title">
-             分支机构({{total}})
+        <div class="branch" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+          <div class="ba-title"   >
+             <span>分支机构({{total}})</span>
+             <div   >
+               <van-icon name="arrow-down"  v-if="isbranch" />
+               <van-icon name="arrow-up" v-else />
+             </div>
           </div>
-
-           <div class="letter-title" v-for="(el,i) in lists" :key="i" >
-            <div class="letter-name">
-              <p>
-               {{el.comName}}
-              </p>
-            </div>
-            <div class="letter-lead">
-              <span class="person color">
-                 负责人 &nbsp : &nbsp
-              </span>
-              <span class="color" >
-                  {{el.legalPerson}}
-              </span>
-              
-            </div>
-            <div class="letter-iphone">
-              <van-icon name="phone-o" />
-              <span class="iphone">
-                <template v-if="isVip">
-                  {{el.phone ? el.phone : '--' }}
-                </template>
-                <template v-else>
-                  {{el.phone ? resetPhone(el.phone) : '--' }}
-                </template>
-                
-              </span>
-            </div>
-            <div class="letter-url">
-               <van-icon name="location-o" />
-               <p>
-                   {{el.comAddress}}
-               </p>               
-            </div>
-           </div>
-
+          <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
         </div>
         </template>
         
@@ -135,6 +50,8 @@ export default {
             isajax:false,//是否加载完
             isError:false,//是否加载失败
             isVip:false,
+            isinfo:true, // 基本信息下拉
+            isbranch:true
         }
     },
     watch: {
@@ -142,6 +59,7 @@ export default {
     },
     props: {
         // 集成父级参数
+     
     },
     components:{
       'v-not':not
@@ -185,9 +103,8 @@ export default {
                    comId:that.id
                 }
             }).then(function(res){
-                // console.log(res.data.data);
                 that.lists = res.data.data  
-                 that.total = that.lists.length
+                that.total = that.lists.length
                 var arr = []
                 that.lists.forEach(el => {
                     if(el.phone) {
@@ -239,12 +156,12 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style scoped lang='less'>
+<style  lang='less'>
 .commerce {
   background-color: #F5F5F5;
   .com-basic {
     background-color: #fff;
-    margin-bottom: 26px;
+    margin-bottom: 2px;
     .bas-test {
       padding: 35px 35px 10px;
       font-size: 28px; 
@@ -265,14 +182,27 @@ export default {
   .branch {
     background-color: #F5F5F5;
   }
+  .hide-in {
+    height: 88px;
+    overflow: hidden;
+  }
+  .show-in {
+     height: auto;
+  }
   .ba-title {
       height: 88px;
-      line-height: 88px;
+      // line-height: 88px;
       font-size: 28px;
       color:#333;
-      padding-left: 35px;
+      padding: 0 35px;
       border-bottom: 1PX solid #f2f2f2;
       background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      i {
+        font-size: 44px;
+      }
     }
     .letter-title {
      padding: 30px 35px 20px;
