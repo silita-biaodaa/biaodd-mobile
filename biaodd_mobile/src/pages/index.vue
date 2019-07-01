@@ -19,9 +19,9 @@
                 </li>
             </ul>
         </div>
-        <div class="dw" @click="$router.push('/dwDetail')">
+        <!-- <div class="dw" @click="$router.push('/dwDetail')">
             <img src="../assets/pic-duanwu.png"/>
-        </div>
+        </div> -->
         <!-- 招标 -->
         <div class="zhaob">
             <div class="title">
@@ -53,12 +53,12 @@
             </ul>
         </div>
         <!-- 邀请游礼浮层 -->
-        <div class="fix-hb" v-if="mask">
+        <!-- <div class="fix-hb" v-if="mask">
             <img src="../assets/yqyl.png" class="yqyl" @click.stop="dwJump"/>
             <p @click="dwCross">
                 <van-icon name="cross"/>
             </p>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -118,7 +118,7 @@ export default {
             tabNum:0,
             isScroll:false,
             topath:'/bid',
-            mask:false,
+            // mask:false,
             local:'bidL'
         }
     },
@@ -161,10 +161,10 @@ export default {
                 localStorage.setItem('filter',JSON.stringify(obj));
             })
         }
-        if(!sessionStorage.getItem('isfirst')){
-            this.modalHelper.afterOpen();
-            this.mask=true;
-        }
+        // if(!sessionStorage.getItem('isfirst')){
+        //     this.modalHelper.afterOpen();
+        //     this.mask=true;
+        // }
         
     },
     beforeMount() {
@@ -193,16 +193,16 @@ export default {
     methods: {
         // 方法 集合
         //端午活动
-        dwCross(){
-            this.modalHelper.beforeClose();
-            this.mask=false;
-            sessionStorage.setItem('isfirst',1);
-        },
-        dwJump(){
-            this.modalHelper.beforeClose();
-            this.$router.push('/dwDetail');
-            sessionStorage.setItem('isfirst',1);
-        },
+        // dwCross(){
+        //     this.modalHelper.beforeClose();
+        //     this.mask=false;
+        //     sessionStorage.setItem('isfirst',1);
+        // },
+        // dwJump(){
+        //     this.modalHelper.beforeClose();
+        //     this.$router.push('/dwDetail');
+        //     sessionStorage.setItem('isfirst',1);
+        // },
         tabChange(i){
             this.tabNum=i.i
             this.topath = i.to

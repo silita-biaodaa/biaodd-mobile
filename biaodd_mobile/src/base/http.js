@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Toast } from 'vant'
-Vue.prototype.$http = axios
-axios.defaults.retry = 4;//重复请求次数
+
+
+Vue.prototype.$http=axios
 axios.defaults.retryDelay = 1000;//重复请求间隔
 // let baseURL='http://api.biaodaa.com'
 let baseURL = 'http://pre.biaodaa.com'

@@ -40,7 +40,7 @@
             <div class="btn" @click="payFn">立即支付</div>
         </div>
         <!-- 端午活动 -->
-        <div class="dw-box" v-if="mask">
+        <!-- <div class="dw-box" v-if="mask">
             <div class="content">
                 <div class="header">
                     <van-icon name="cross" @click.stop="mask=false"/>
@@ -54,7 +54,7 @@
                     <div class="btn"  @click.stop="sureFn">确定</div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
@@ -72,7 +72,7 @@ export default {
             }],
             tabNum:0,
             webSock:null,
-            mask:false,
+            // mask:false,
             phone:'',
         }
     },
@@ -118,13 +118,13 @@ export default {
         if(sessionStorage.getItem('payOrder')){
             this.tabNum=JSON.parse(sessionStorage.getItem('payOrder')).num;
         }
-        if(sessionStorage.getItem('firstLogin')){
-            if(sessionStorage.getItem('firstLogin')==0){
-                this.mask=true
-            }else{
-                this.mask=false
-            }
-        }
+        // if(sessionStorage.getItem('firstLogin')){
+        //     if(sessionStorage.getItem('firstLogin')==0){
+        //         this.mask=true
+        //     }else{
+        //         this.mask=false
+        //     }
+        // }
         // if(localStorage.getItem('orderNo')){
         //     alert(localStorage.getItem('orderNo'))
         //     this.$http({
@@ -189,28 +189,28 @@ export default {
                 data:data
             }).then(function(res){
                 // that.openWebSocket();
-                sessionStorage.setItem('firstLogin',1);
+                // sessionStorage.setItem('firstLogin',1);
                 localStorage.setItem('orderNo',res.data.orderNo);
                 that.$router.replace('/myOrder');
                 window.location.href=res.data.data.webUrl;
             })
         },
         /*端午活动确定*/
-        sureFn(){
-            if(this.phone!=''){
-                if(this.phone.length!=11){
-                    this.$toast('请输入正确的手机号码');
-                    this.phone='';
-                    return false
-                }
-                if(this.phone==sessionStorage.getItem('phoneNo')){
-                    this.$toast('不能输入自己的手机号码');
-                    this.phone='';
-                    return false
-                }
-            }
-            this.mask=false;
-        }
+        // sureFn(){
+        //     if(this.phone!=''){
+        //         if(this.phone.length!=11){
+        //             this.$toast('请输入正确的手机号码');
+        //             this.phone='';
+        //             return false
+        //         }
+        //         if(this.phone==sessionStorage.getItem('phoneNo')){
+        //             this.$toast('不能输入自己的手机号码');
+        //             this.phone='';
+        //             return false
+        //         }
+        //     }
+        //     this.mask=false;
+        // }
         // openWebSocket(){
         //     const wsuri=url;
         //     this.webSock=new WebSocket(wsuri);
