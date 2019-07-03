@@ -1,13 +1,44 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="templateName"></div>
+    <div class="ansite">
+       <div class="aninfo-line" >
+          <div class="an-width" >
+            <div class="info-title" >
+              名称
+            </div>
+            <div class="info-main" >
+              91430000320669897C
+            </div>
+          </div>
+          <div class="an-width" >
+            <div class="info-title" >
+              类型
+            </div>
+            <div class="info-main" >
+              湖南耀邦建设有反对反对限公司
+            </div>
+          </div>
+       </div>
+
+       <div class="aninfo-line" style="border:none" >
+          <div >
+            <div class="info-title" >
+              网址
+            </div>
+            <div class="info-main" >
+              91430000320669897C
+            </div>
+          </div>
+       </div>
+
+    </div>
 </template>
 <script>
 export default {
-    name: 'templateName', // 结构名称
+    name: 'ansite', // 结构名称
     data() {
         return {
-            // 数据模型a
+            // 数据模型
         }
     },
     watch: {
@@ -52,5 +83,7 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-
+.ansite {
+  background-color: #fff;
+}
 </style>

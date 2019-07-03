@@ -17,6 +17,7 @@ import deal from '@/pages/user/deal'
 import followList from '@/pages/user/followList'
 import openingVip from '@/pages/user/openingVip'
 import membership from '@/pages/user/membership'
+import news from '@/pages/user/news'
 import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
 import yjList from '@/pages/yjList'
@@ -36,6 +37,7 @@ import history from '@/pages/history/history'
 
 import law from '@/pages/law/law'
 import lawtext from '@/pages/law/lawtext'
+import annals from '@/components/enterprise/annals'
 
 
 
@@ -222,7 +224,17 @@ export default new Router({
       path: '/lawtext',
       component: lawtext,
       name: 'lawtext'
-    }                
+    },
+    { // 我得消息
+      path: '/news',
+      component: news,
+      name: 'news'
+    },
+    { // 年报详情
+      path: '/annals',
+      component: annals,
+      name: 'annals'
+    }                          
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

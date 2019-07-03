@@ -358,3 +358,21 @@ body .toast {
 body .van-icon-arrow{
     color: #666
 }
+ .aninfo-line {
+    display: flex;
+    justify-content: space-between;
+    font-size:24px;
+    padding-bottom: 10px;
+    border-bottom: 1PX solid #F2F2F2;
+ }
+ .aninfo-line  .info-title {
+      color:rgba(204,204,204,1);
+      line-height:42px;
+ }
+  .aninfo-line  .info-main{
+      color:rgba(51,51,51,1);
+      line-height:42px;
+}
+.an-width {
+    width: 48%;
+}     

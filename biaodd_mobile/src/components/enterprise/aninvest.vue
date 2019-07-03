@@ -1,13 +1,32 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="templateName"></div>
+    <div class="aninvest">
+          <div class="aninfo-line" >
+               <div class="an-width" >
+                 <div class="info-title" >
+                   企业名称
+                 </div>
+                 <div class="info-main" >
+                   91430000320669897C
+                 </div>
+               </div>
+               <div class="an-width" >
+                 <div class="info-title" >
+                   统一社会信用代码
+                 </div>
+                 <div class="info-main" >
+                   湖南耀邦建设有反对反对限公司
+                 </div>
+               </div>
+          </div>
+    </div>
 </template>
 <script>
 export default {
-    name: 'templateName', // 结构名称
+    name: 'aninvest', // 结构名称
     data() {
         return {
-            // 数据模型a
+            // 数据模型
         }
     },
     watch: {
@@ -51,6 +70,9 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' scoped>
+<style  lang='less'>
+.aninvest {
+ background-color: #fff;
 
+}
 </style>

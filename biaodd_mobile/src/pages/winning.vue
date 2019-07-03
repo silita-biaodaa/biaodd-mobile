@@ -93,7 +93,9 @@ export default {
                 that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
             }
            that.clickCount = res.data.clickCount
+           that.formNew()
         })
+        
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -129,13 +131,21 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            var dis = 0
-            if(document.documentElement.scrollTop) {
-                dis = document.documentElement.scrollTop -100 
-            } else {
-                dis = document.body.scrollTop -100 
-            }
-            document.documentElement.scrollTop = dis
+            setTimeout(() => {
+                var dis = 0
+                if(document.documentElement.scrollTop) {
+                    dis = document.documentElement.scrollTop -100 
+                } else {
+                    dis = document.body.scrollTop -100 
+                }
+                document.documentElement.scrollTop = dis
+            }, 100);
+          
+        },
+        formNew() {
+          if(this.$route.query.key) {
+            this.tocomment()
+          }
         }
     }
 

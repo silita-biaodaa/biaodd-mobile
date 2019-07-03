@@ -22,10 +22,26 @@ import http from '@/base/http'
 import isvip from '@/components/isVip'
 import icinfo from '@/components/enterprise/icinfo'
 import icbr from '@/components/enterprise/icbr'
+import newList from '@/pages/user/newList'
+import aninfo from '@/components/enterprise/aninfo'
+import ansite from '@/components/enterprise/ansite'
+import anshare from '@/components/enterprise/anshare'
+import aninvest from '@/components/enterprise/aninvest'
+import anset from '@/components/enterprise/anset'
+import ancury from '@/components/enterprise/ancury'
+
 
 Vue.component('v-vip', isvip)
 Vue.component('ic-infor', icinfo)
 Vue.component('ic-br', icbr)
+Vue.component('new-list', newList)
+Vue.component('an-info', aninfo)
+Vue.component('an-site', ansite)
+Vue.component('an-share', anshare)
+Vue.component('an-vest', aninvest)
+Vue.component('an-set', anset)
+Vue.component('an-cury', ancury)
+
 
 // function HtmlFontSize(){
 //   let baseSize=32;

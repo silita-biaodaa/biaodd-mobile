@@ -63,7 +63,7 @@
           <van-icon name="arrow" class="nav-i"  />
         </div>
         <!-- 我的信息 -->
-        <div class="attention" @click="$router.push('/myOrder')" v-if="isLogin">
+        <div class="attention" @click="$router.push('/news')" v-if="isLogin">
           <div class="flex-box">
             <img src="../../assets/icon-xiaoxi.png.png" alt="">
             <span>我的消息</span>  

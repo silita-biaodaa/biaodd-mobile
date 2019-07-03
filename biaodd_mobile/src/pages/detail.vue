@@ -89,6 +89,7 @@ export default {
         this.id = this.$route.query.id
         this.source = this.$route.query.source
         this.gainD()
+        this.formNew()
     
     },
     beforeMount() {
@@ -131,13 +132,23 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            var dis = 0
-            if(document.documentElement.scrollTop) {
-                dis = document.documentElement.scrollTop -100 
-            } else {
-                dis = document.body.scrollTop -100 
-            }
-            document.documentElement.scrollTop = dis
+            setTimeout(() => {
+                 var dis = 0
+                if(document.documentElement.scrollTop) {
+                    dis = document.documentElement.scrollTop -100 
+                } else {
+                    dis = document.body.scrollTop -100 
+                }
+                document.documentElement.scrollTop = dis
+            }, 100);
+           
+        },
+        formNew() {
+            setTimeout(() => {
+                 if(this.$route.query.key) {
+                  this.tocomment()
+                }
+            }, 100);
         },
         gainD() {
             let that=this;
@@ -160,7 +171,7 @@ export default {
                 if(that.detail.pbMode&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                     that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
                 }
-                that.clickCount = res.data.clickCount       
+                that.clickCount = res.data.clickCount    
             })
         }
     }
