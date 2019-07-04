@@ -22,6 +22,8 @@ import http from '@/base/http'
 import isvip from '@/components/isVip'
 import icinfo from '@/components/enterprise/icinfo'
 import icbr from '@/components/enterprise/icbr'
+import icgu from '@/components/enterprise/ingu'
+
 import newList from '@/pages/user/newList'
 import aninfo from '@/components/enterprise/aninfo'
 import ansite from '@/components/enterprise/ansite'
@@ -34,6 +36,7 @@ import ancury from '@/components/enterprise/ancury'
 Vue.component('v-vip', isvip)
 Vue.component('ic-infor', icinfo)
 Vue.component('ic-br', icbr)
+Vue.component('ic-gu', icgu)
 Vue.component('new-list', newList)
 Vue.component('an-info', aninfo)
 Vue.component('an-site', ansite)

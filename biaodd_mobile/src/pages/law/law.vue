@@ -75,7 +75,7 @@ export default {
             screenData:{
               dateNum:0,
             },
-            isajax:true,//是否加载完
+            isajax:false,//是否加载完
             isError:false,//是否加载失败
             finished:false,//是否加载完
             error:false,

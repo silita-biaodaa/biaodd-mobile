@@ -1,40 +1,37 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="letter">
-      <top-back :title='name' :id="id" :type="'qy'" :collected="collected" :isFollow="true"></top-back>
+      <!-- <top-back :title='name' :id="id" :type="'qy'" :collected="collected" :isFollow="true"></top-back> -->
+      <div class="letter-head" >
+        <div class="head-nav" >
+          <van-icon name="arrow-left" class="head-left" @click="$router.go(-1)" />
+          企业详情
+        </div>
+        <div class="head-name " >
+          <div class="head-color head-over " >{{detail.comName}}</div>
+          <div class="head-collct head-color" @click="follow" >
+            {{msg}}
+          </div>
+        </div>
+        <div class="head-text" style="marginTop:15px;" >
+           <span class="head-color" >联系电话:</span>
+           <span  class="head-color">&nbsp{{detail.phone}}</span>
+           <span class="head-app" @click="sureFn"  >前往APP查看更多》</span>
+        </div>
+        <div class="head-text head-color" >
+           <span  class="head-color">企业网址:</span>
+           <span  class="head-color">&nbsp{{detail.comUrl}}</span>
+        </div>
+        <div class="head-text head-color" >
+           <span  class="head-color">企业邮箱:</span>
+           <span  class="head-color">&nbsp{{detail.email ? detail.email : ''}}</span>
+        </div>
+        <div class="head-text head-color" >
+           <span  class="head-color">企业地址:</span>
+           <span  class="head-color">&nbsp{{detail.comAddress}}</span>
+        </div>
+      </div>
       <div class="letter-de">
-         <div class="letter-title">
-            <div class="letter-name">
-              <div style="display:flex">
-                <p>{{detail.comName}}</p>
-                <div class="letter-save">{{detail.subsist}}</div>
-              </div>
-            </div>
-            <div class="letter-lead">
-              <span  style="color:#FE6603">
-                {{detail.legalPerson}}
-              </span>
-              <span class="person">
-                 法人代表
-              </span>
-            </div>
-            <div class="letter-iphone">
-              <van-icon name="phone-o" />
-              <span class="iphone">
-                {{detail.phone}}
-              </span>
-              <span class="le-col" @click="more" v-if="phoneArr.length>1">
-                更多
-              </span>
-            </div>
-            <div class="letter-url">
-               <van-icon name="location-o" />
-               <p style="color:#666666">
-                  {{detail.comAddress}}
-               </p>               
-            </div>
-         </div>
-
         <div class="letter-nav">
           <div>
               <span v-for="(o,i) of navList" :key="i" :class="navNum==i?'active':''" @click="jump(i)">{{o}}</span>
@@ -72,6 +69,7 @@
         </div>
 
       </div>
+
       <v-vip :mask="isvip" :txt="'查看企业更多电话号码，请开通会员'"></v-vip>
       <v-load v-if="isload"></v-load>
       <van-popup v-model="isMore"  position="bottom" :overlay="true">
@@ -109,6 +107,7 @@ export default {
              collected:false,
              id:'',
              isMore:false,
+             msg:'关注'
             //  path:'/commerc'
         }
     },
@@ -164,9 +163,12 @@ export default {
                      that.detail.phone=arr[0]
                    } 
                 }
-               
                 that.collected=res.data.data.collected
-                
+                if(that.detail.collected) {
+                  that.msg = '取关'
+                }  else {
+                  that.msg = '关注'
+                }
              }).catch(function(req) {
                 that.isload=false
              })
@@ -202,15 +204,9 @@ export default {
             this.isMore=true;
           }
         },
-        // canelFn(){
-        //   this.mask=false;
-        //   this.modalHelper.beforeClose();
-        // },
-        // sureFn(){
-        //   this.mask=false;
-          
-        //    window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
-        // },
+        sureFn(){
+           window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        },
         resetPhone(phone) {
           var str = String(phone)
           var len = str.length;
@@ -228,7 +224,40 @@ export default {
         },
         fwCanelFn(){
           this.isvip1=false
+        },
+        follow() {
+          let useid = sessionStorage.getItem('userid')
+          let that=this;
+          if(that.msg == '关注') {
+             
+              this.$http({
+                  method:'post',
+                  url: '/userCenter/collectionCompany',
+                  data:{
+                     companyid:that.id,
+                     userid:useid
+                  }
+              }).then(function(res){
+                 that.$toast(res.data.msg)
+                 that.msg = '取关'
+               })
+          } else {
+             this.$http({
+                  method:'post',
+                  url: '/userCenter/cancelCollectionCompany',
+                  data:{
+                     companyid:that.id,
+                     userid:useid
+                  }
+              }).then(function(res){
+                 that.$toast(res.data.msg)
+                 that.msg = '关注'
+               })
+          }
+          
+         
         }
+
 
     }
 
@@ -238,89 +267,113 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang='less'>
 .letter {    
-
- padding-top: 100px;
  min-height:100vh;
  background: #f5f5f5;
  box-sizing: border-box;
  .le-col{
    color:#FE6603;
  }
- .letter-de {
-   background-color: #f5f5f5;
-   .letter-title {
-     padding: 49px 35px 31px;
-     background-color: #fff;
-     margin-bottom: 16px;
-    .letter-name {
-      font-size: 32px;
-      color:#333;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 47px;
-      p {
-        max-width: 550px;
-        overflow: hidden;
+ .letter-head {
+   color: #fff;
+   width: 100%;
+   box-sizing: border-box;
+   background:linear-gradient(-10deg,rgba(254,102,3,1) 0%,rgba(255,168,0,1) 100%);
+   padding: 0 30px 15px;
+   .head-nav {
+     height: 90px;
+     line-height: 90px;
+     text-align: center;
+      font-size: 36px;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+      .head-left {
+        font-size: 40px;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        color: #fff;
+        transform: translateY(-50%);
+     }
+   }
+    .head-name {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       font-size: 36px;
+       height: 110px;
+       border-bottom: 1PX solid #fff;
+       .head-collct {
+         font-size: 32px;
+         padding: 2px 15px;
+         border: 1PX solid #fff;
+         border-radius:8px;
+       }
+     }
+     .head-over {
+       max-width: 80%;
+       overflow: hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
-      }
-    }
-     .letter-save {
-       height: 39px;
-       max-width: 320px;
-       border: 1PX solid #FE6603;
-       color:#FE6603;
-       border-radius: 8px;
-       text-align: center;
-       line-height: 39px;
-       box-sizing: border-box;
-       margin-left: 29px;
+     }
+     .head-color {
+        color: #fff;
+     }
+     .head-text {
        font-size:24px;
+       line-height:52px;
      }
-   }
-   .letter-lead {
-     font-size: 28px;
-     color:#FE6603;
-     margin-bottom: 40px;
-     .person {
+     .head-app {
        font-size: 24px;
-       color:#999;
-       margin-left: 15px;
+       color: #fff;
+       font-weight: 550;
+       margin-left: 20px;
      }
-   }
-   .letter-iphone {
-     font-size: 28px;
-     display: flex;
-     align-items: center;
-     margin-bottom: 40px;
-     i {
-       font-size: 36px;
-       color:#FE6603;
-     }
-     .iphone {
-       margin-left: 16px;
-       margin-right: 36px;
-       color:#FE6603;
-     }
-   }
-   .letter-url {
-     font-size: 28px;
-     display: flex;
-     align-items: center;
-     box-sizing: border-box;
-     color:#666;
-     i {
-       font-size: 36px;
-       margin-right: 15px;
-     }
-     p {
-       width: 100%;
-       overflow: hidden;
-       text-overflow:ellipsis;
-       white-space: nowrap;
-     }
-   }
+ }
+ .letter-de {
+   background-color: #f5f5f5;
+  //  .letter-lead {
+  //    font-size: 28px;
+  //    color:#FE6603;
+  //    margin-bottom: 40px;
+  //    .person {
+  //      font-size: 24px;
+  //      color:#999;
+  //      margin-left: 15px;
+  //    }
+  //  }
+  //  .letter-iphone {
+  //    font-size: 28px;
+  //    display: flex;
+  //    align-items: center;
+  //    margin-bottom: 40px;
+  //    i {
+  //      font-size: 36px;
+  //      color:#FE6603;
+  //    }
+  //    .iphone {
+  //      margin-left: 16px;
+  //      margin-right: 36px;
+  //      color:#FE6603;
+  //    }
+  //  }
+  //  .letter-url {
+  //    font-size: 28px;
+  //    display: flex;
+  //    align-items: center;
+  //    box-sizing: border-box;
+  //    color:#666;
+  //    i {
+  //      font-size: 36px;
+  //      margin-right: 15px;
+  //    }
+  //    p {
+  //      width: 100%;
+  //      overflow: hidden;
+  //      text-overflow:ellipsis;
+  //      white-space: nowrap;
+  //    }
+  //  }
  }
  .letter-nav {
    height: 96px;

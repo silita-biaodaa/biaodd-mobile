@@ -8,31 +8,28 @@
               </p>
             </div>
             <div class="letter-lead">
-              <span class="person color">
-                 负责人 &nbsp : &nbsp
+              <span class="person ">
+                 统一社会信用代码&nbsp&nbsp&nbsp
               </span>
-              <span class="color" >
+              <span >
                   {{obj.legalPerson}}
               </span>
-              
             </div>
-            <div class="letter-iphone">
-              <van-icon name="phone-o" />
-              <span class="iphone">
-                <template v-if="isVip">
-                  {{obj.phone ? obj.phone : '--' }}
-                </template>
-                <template v-else>
-                  {{obj.phone ? resetPhone(obj.phone) : '--' }}
-                </template>
-                
+            <div class="letter-lead">
+              <span class="person ">
+                 联系电话&nbsp&nbsp&nbsp
+              </span>
+              <span >
+                  {{obj.legalPerson}}
               </span>
             </div>
-            <div class="letter-url">
-               <van-icon name="location-o" />
-               <p>
-                   {{obj.comAddress}}
-               </p>               
+            <div class="letter-lead">
+              <span class="person ">
+                 公司地址&nbsp&nbsp&nbsp
+              </span>
+              <span class="letter-dizhi" >
+                  {{obj.legalPerson}}
+              </span>
             </div>
           </div>
     </div>
@@ -93,5 +90,10 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' >
-
+.letter-dizhi {
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    max-width: 70%;
+}
 </style>

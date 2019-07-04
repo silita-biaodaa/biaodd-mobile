@@ -6,27 +6,107 @@
           <v-not :isError="isError"></v-not>
         </template>
         <template v-else>
-        <div class="com-basic" @click="isinfo = !isinfo"  :class="isinfo ? 'hide-in' : 'show-in'" >
-          <div class="ba-title">
-             <span>基本信息</span>
-             <div   >
-               <van-icon name="arrow-down"  v-if="isinfo" />
-               <van-icon name="arrow-up" v-else />
-             </div>
-          </div>
-          <ic-infor :obj='detail' ></ic-infor>
-        </div>
+              <div class="com-basic" @click="isinfo = !isinfo"  :class="isinfo ? 'hide-in' : 'show-in'" >
+                <div class="ba-title">
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-jibxx.png.png"  class="img-bas" alt="">
+                     <span>基本信息</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isinfo" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-infor :obj='detail' ></ic-infor>
+              </div>
 
-        <div class="branch" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
-          <div class="ba-title"   >
-             <span>分支机构({{total}})</span>
-             <div   >
-               <van-icon name="arrow-down"  v-if="isbranch" />
-               <van-icon name="arrow-up" v-else />
-             </div>
-          </div>
-          <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
-        </div>
+              <div class="com-basic"   :class="isbranch ? 'hide-in' : 'show-in'" >
+                <div class="ba-title" @click="isbranch = !isbranch"  >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-fenzhjg.png.png"  class="img-bch" alt="">
+                     <span>分支机构</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+                <div class="com-app" >
+                    <button @click.stop="sureFn" >打卡APP，查看更多分支机构信息</button>
+                </div>
+              </div>
+
+              <div class="com-basic"  :class="isgu ? 'hide-in' : 'show-in'" >
+                <div class="ba-title"   @click="isgu = !isgu" >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-g.png.png"  class="img-gu" alt="">
+                     <span>股东信息</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isgu" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-gu v-for="(el,i) in listG" :key="i" :i='i' :obj='el' ></ic-gu>
+              </div>
+
+              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+                <div class="ba-title"   >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-gud.png.png"  class="img-main" alt="">
+                     <span>主要人员</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+              </div>
+
+              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+                <div class="ba-title"   >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-bgjl.png.png"  class="img-chce" alt="">
+                     <span>变更记录</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+              </div>
+
+               <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+                <div class="ba-title"   >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-qynb.png.png"  class="img-chce" alt="">
+                     <span>企业年报</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+              </div>
+
+              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+                <div class="ba-title"   >
+                   <div class="all-cen" >
+                     <img src="../../assets/icon-xzchf.png.png"  class="img-chce" alt="">
+                     <span>行政处罚</span>
+                   </div>
+                   <div   >
+                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-up" v-else />
+                   </div>
+                </div>
+                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+              </div>
+
         </template>
         
       </template>
@@ -46,12 +126,15 @@ export default {
             detail:{},
             id:'',
             lists:[],
+            listG:[], // 股东信息
             total:0,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
             isVip:false,
             isinfo:true, // 基本信息下拉
-            isbranch:true
+            isbranch:true,  // 分支机构
+            isgu:true, //股东信息
+
         }
     },
     watch: {
@@ -105,6 +188,9 @@ export default {
             }).then(function(res){
                 that.lists = res.data.data  
                 that.total = that.lists.length
+                if(that.lists.length > 2) {
+                  that.lists.length = 2
+                }
                 var arr = []
                 that.lists.forEach(el => {
                     if(el.phone) {
@@ -118,6 +204,7 @@ export default {
                 that.isajax=true;
                 that.isError=true;
             })   
+            this.gainG()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -150,6 +237,25 @@ export default {
             return str.replace(reg, "****")
         }
       },
+      sureFn(){
+           window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+      },
+      gainG() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/info' ,
+                data:{
+                   comId:that.id,
+                   paramter:'partner'
+                }
+            }).then(function(res){
+                that.listG = res.data.data 
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
+      }
     }
 
 }
@@ -162,7 +268,7 @@ export default {
   .com-basic {
     background-color: #fff;
     border-bottom: 1PX solid #f2f2f2;
-    // margin-bottom: 2px;
+    margin-bottom: 15px;
     .bas-test {
       padding: 35px 35px 10px;
       font-size: 28px; 
@@ -181,7 +287,9 @@ export default {
     }
   }
   .branch {
-    background-color: #F5F5F5;
+    margin-bottom: 15px;
+    padding: 0 35px;
+    background-color: #fff;
   }
   .hide-in {
     height: 88px;
@@ -190,6 +298,7 @@ export default {
   .show-in {
      height: auto;
   }
+  
   .ba-title {
       height: 88px;
       // line-height: 88px;
@@ -201,14 +310,42 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      .img-bas {
+        width: 35px;
+        height: 40px;
+        margin-right: 15px;
+      }
+      .img-bch {
+        margin-right: 15px;
+        width: 45px;
+        height: 39px;
+      }
+      .img-gu {
+         margin-right: 15px;
+         width: 47px;
+         height: 37px;
+      }
+      .img-main {
+        margin-right: 15px;
+         width: 42px;
+         height: 35px;
+      }
+      .img-chce {
+         margin-right: 15px;
+         width: 38px;
+      }
+      .all-cen {
+        display: flex;
+        align-items: center;
+      }
       i {
         font-size: 44px;
       }
     }
     .letter-title {
-     padding: 30px 35px 20px;
-     background-color: #fff;
-     margin-bottom: 16px;
+     margin:  0 35px;
+     padding: 20px 0;
+     border-bottom: 1PX solid #F2F2F2;
     .letter-name {
       font-size: 32px;
       color:#333;
@@ -238,43 +375,30 @@ export default {
    } 
     .letter-lead {
      font-size: 28px;
-     color:#FE6603;
+     color:#333333;
      margin-bottom: 20px;
+     box-sizing: border-box;
+     display: flex;
      .person {
        font-size: 28px;
+       color: #ccc;
      }
    }
-   .letter-iphone {
-     font-size: 28px;
+   .com-app {
+     height: 150px;
      display: flex;
      align-items: center;
-     margin-bottom: 20px;
-     i {
-       font-size: 36px;
-       color:#FE6603;
+     justify-content: center;
+     button {
+       width:520px;
+       height:72px;
+       border:1px solid rgba(254,102,3,1);
+       border-radius:36px;
+       background-color: #fff;
+       color: #FE6603;
+       font-size: 28px;
      }
-     .iphone {
-       margin: 0 15px;
-       color:#FE6603;
-     }
-   }
-   .letter-url {
-     font-size: 28px;
-     display: flex;
-     align-items: center;
-     box-sizing: border-box;
-     color:#666;
-     i {
-       font-size: 36px;
-       margin-right: 15px;
-     }
-     p {
-       width: 100%;
-       overflow: hidden;
-       text-overflow:ellipsis;
-       white-space: nowrap;
-     }
-   }
+}
    
 }
 </style>

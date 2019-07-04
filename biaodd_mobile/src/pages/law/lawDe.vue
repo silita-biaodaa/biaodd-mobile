@@ -4,13 +4,13 @@
         <div @click="topush(obj)">
             <div class="top">
                 <p class="icon">
-                    <img src="../../assets/icon-qi.png" alt="">
+                    <img src="../../assets/icon-gong.png.png" alt="">
                 </p>
                 <p class="tit">{{obj.title}}</p>
             </div>
-            <div class="center">法&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp院：{{obj.court}}</div>
-            <div class="center">案&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号：{{obj.caseNo}}</div>
-            <div class="center">时&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp间：{{obj.dateStr}}</div>
+            <div class="center">法&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp院：{{obj.court}}</div>
+            <div class="center">案&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号：{{obj.caseNo}}</div>
+            <div class="center">发布时间：{{obj.dateStr}}</div>
         </div>
         <v-dia v-if="isload"></v-dia>
         <v-vip :mask="isvip1" :txt="'开通会员才能查看法务信息'" @canel="fwCanelFn"></v-vip>
@@ -43,6 +43,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.swith()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -81,6 +82,13 @@ export default {
       },
       fwCanelFn(){
           this.isvip1=false
+      },
+      swith() {
+         var date = new Date(this.obj.dateStr.replace(/-/g, '/'));
+         let newDateYear = date.getFullYear()
+         let newDateMonth = (date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+         let newDateDay = date.getDate() + '' < 10 ? '0' + date.getDate() + '' : date.getDate() + ''
+         this.obj.dateStr = newDateYear + '年' + newDateMonth + '月' + newDateDay + '日'  
       }
     }
 

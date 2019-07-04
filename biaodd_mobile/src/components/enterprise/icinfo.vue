@@ -6,7 +6,7 @@
                  <div class="left bas-first">
                      法定代表
                  </div>
-                 <div class="left color">
+                 <div class="left ">
                     {{detail.legalPerson}}
                  </div>
              </div>

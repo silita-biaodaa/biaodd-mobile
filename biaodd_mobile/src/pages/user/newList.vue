@@ -1,8 +1,8 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="newList">
+    <div class="newList" @click="changetrol(obj)"  >
       <div class="new-type" >
-        <div class="new-Sele" v-show="!condition" :class="!control ? '' : 'bor-col' " @click="changetrol" >
+        <div class="new-Sele" v-show="!condition" :class="!control ? '' : 'bor-col' " >
           <img src="../../assets/select.png" alt=""  v-show="control"  >
         </div>
          <div class="new-read" >
@@ -20,12 +20,9 @@
            </div>
          </div>
       </div>
-      <div class="news-btn" @click="jump(obj)"  >
+      <div class="news-btn" @click.stop="jump(obj)"  >
             查看详情 >
        </div>
-     
-
-    
     </div>
 </template>
 <script>
@@ -40,11 +37,24 @@ export default {
     },
     watch: {
         // 监控集合
+        isall(val) {
+          if(val) {
+            if(!this.control) {
+               this.control = true
+               this.$emit('pushid', {id:this.obj.pkid,state:this.control})
+            } 
+          } else {
+            this.control = false
+          }
+        }
     },
     props: {
         // 集成父级参数
         obj:{},
         condition:{
+            default:true
+        },
+        isall:{
             default:true
         }
     },
@@ -53,6 +63,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        // this.all = this.isall
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -87,8 +98,11 @@ export default {
             
           }
         },
-        changetrol() {
-          this.control = !this.control
+        changetrol(obj) {
+          if(!this.condition) {
+             this.control = !this.control
+             this.$emit('pushid', {id:obj.pkid,state:this.control})
+          }
         }
     }
 
@@ -96,7 +110,7 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' scoped>
+<style  lang='less' >
 .newList {
   padding: 36px  15px 0 ;
   
@@ -107,23 +121,10 @@ export default {
   .new-type {
     display: flex;
   }
-  .new-Sele {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    border: 1px solid #666;
-    img {
-      width: 40px;
-      height: 40px;
-    }
-  }
-  .bor-col {
-    border: none;
-  }
   .new-read {
     width: 20px;
     height: 40px;
+    margin-left: 8px;
     display: flex;
     align-items: center;
     .read-red {
@@ -137,7 +138,7 @@ export default {
     width: 96%;
   }
   .conf {
-    width: 88%;
+    width: 86%;
   }
   .news-text {
     margin-left: 10px;
