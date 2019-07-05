@@ -33,7 +33,7 @@
                 </div>
                 <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
                 <div class="com-app" v-show="lists.length ==2" >
-                    <button @click.stop="sureFn" >打卡APP，查看更多分支机构信息</button>
+                    <button @click.stop="sureFn" >打开APP，查看更多分支机构信息</button>
                 </div>
                 <div class="com-hint"  v-show="lists.length == 0 " >
                   Sorry，暂未查询到该公司的分支机构
@@ -87,7 +87,7 @@
                 </div>
                 <ic-alter v-for="(el,i) in listAl" :key="i"  :obj='el' ></ic-alter>
                 <div class="com-app" v-show="listAl.length ==2" >
-                    <button @click.stop="sureFn" >打卡APP，查看更多变更记录信息</button>
+                    <button @click.stop="sureFn" >打开APP，查看更多变更记录信息</button>
                 </div>
                 <div class="com-hint"  v-show="listAl.length == 0 " >
                   Sorry，暂未查询到该公司的变更记录
@@ -105,7 +105,7 @@
                      <van-icon name="arrow-up" v-else />
                    </div>
                 </div>
-                <div class="com-year" v-for="(el,i) in listYe" :key="i"  >
+                <div class="com-year" v-for="(el,i) in listYe" :key="i"  @click="toYear(el)"  >
                   <div>
                     {{el.years}}年度
                   </div>
@@ -129,7 +129,7 @@
                 </div>
                 <ic-pun v-for="(el,i) in listPun" :key="i"  :obj='el'  ></ic-pun>
                 <div class="com-app" v-show="listPun.length ==2" >
-                    <button @click.stop="sureFn" >打卡APP，查看更多行政处罚信息</button>
+                    <button @click.stop="sureFn" >打开APP，查看更多行政处罚信息</button>
                 </div>
                 <div class="com-hint"  v-show="listPun.length == 0 " >
                   Sorry，暂未查询到该公司的行政处罚
@@ -364,6 +364,9 @@ export default {
                 that.isajax=true;
                 that.isError=true;
             })
+      },
+      toYear(o) {
+          this.$router.push({path:'/annals',query:{id:o.comId,year:o.years}})
       }
     }
 

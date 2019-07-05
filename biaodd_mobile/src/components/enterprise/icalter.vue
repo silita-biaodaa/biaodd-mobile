@@ -6,7 +6,7 @@
            联络员备案
          </div>
          <div class="a-size" >
-           {{obj.altDate}}
+           {{formatDate(obj.altDate)}}
          </div>
       </div>
       <div class="alter-list" >

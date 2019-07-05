@@ -1,13 +1,13 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="aninvest">
-          <div class="aninfo-line" >
+          <div class="aninfo-line" v-for="(el,i) in obj.invest" :key="i" >
                <div class="an-width" >
                  <div class="info-title" >
                    企业名称
                  </div>
                  <div class="info-main" >
-                   91430000320669897C
+                   {{el.entName}}
                  </div>
                </div>
                <div class="an-width" >
@@ -15,7 +15,7 @@
                    统一社会信用代码
                  </div>
                  <div class="info-main" >
-                   湖南耀邦建设有反对反对限公司
+                   {{el.uniscId ? el.uniscId : ''}}
                  </div>
                </div>
           </div>
@@ -34,6 +34,9 @@ export default {
     },
     props: {
         // 集成父级参数
+         obj:{
+         default:{}
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

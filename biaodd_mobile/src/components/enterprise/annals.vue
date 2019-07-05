@@ -14,10 +14,10 @@
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-            <an-info></an-info>
+            <an-info :obj='list' ></an-info>
         </div>
 
-        <div class="tab-an" :class="insite ? 'tab-hide' : 'tab-show' " @click="insite = !insite" >
+        <div class="tab-an" :class="insite ? 'tab-hide' : 'tab-show' " @click="insite = !insite" v-if="list.website" >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-wzh.png.png" alt="" class="site-img" >
@@ -28,10 +28,10 @@
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-             <an-site></an-site>
+             <an-site :obj='list'  ></an-site>
         </div>
 
-        <div class="tab-an" :class="shareholder ? 'tab-hide' : 'tab-show' "  @click="shareholder = !shareholder" >
+        <div class="tab-an" :class="shareholder ? 'tab-hide' : 'tab-show' "  @click="shareholder = !shareholder" v-if="list.partner" >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-gud.png.png" alt="" class="share-img" >
@@ -42,10 +42,10 @@
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-            <an-share></an-share>
+            <an-share :obj='list'  ></an-share>
         </div>
 
-        <div class="tab-an" :class="invest ? 'tab-hide' : 'tab-show' "  @click="invest = !invest" >
+        <div class="tab-an" :class="invest ? 'tab-hide' : 'tab-show' "  @click="invest = !invest"  v-if="list.invest" >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-duiwai.png.png" alt="" class="invest-img" >
@@ -56,7 +56,7 @@
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-            <an-vest></an-vest>
+            <an-vest :obj='list' ></an-vest>
         </div>
 
         <div class="tab-an" :class="asset ? 'tab-hide' : 'tab-show' " @click="asset = !asset" >
@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="tab-an" :class="security ? 'tab-hide' : 'tab-show' " @click="security = !security" >
+        <div class="tab-an" :class="security ? 'tab-hide' : 'tab-show' " @click="security = !security" v-if="list.socialSecurity"  >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-sheb.png.png" alt=""  class="security-img">
@@ -100,7 +100,7 @@
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-            <an-cury></an-cury>
+            <an-cury :obj='list' ></an-cury>
         </div>
             
     </div>
@@ -119,6 +119,9 @@ export default {
             asset:true, // 资产
             assure:true, // 担保
             security:true, // 社保
+            id:'',
+            year:'',
+            list:[],
         }
     },
     watch: {
@@ -132,6 +135,19 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.id = this.$route.query.id
+        this.year = this.$route.query.year
+         let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/report/detail' ,
+                data:{
+                   comId:that.id,
+                   years:that.year
+                }
+            }).then(function(res){
+                that.list  = res.data.data
+             })
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

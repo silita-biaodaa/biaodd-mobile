@@ -31,7 +31,7 @@
                     成立时间
                  </div>
                  <div class="left ">
-                     {{detail.regisDate}}
+                     {{changde(detail.regisDate)}}
                  </div>
              </div>
               <div class="bas-line" v-if="detail.businessStart" >
@@ -39,7 +39,7 @@
                     经营期限
                  </div>
                  <div class="left ">
-                     {{detail.businessStart}}至{{detail.businessEnd}}
+                     {{changde(detail.businessStart)}}至{{changde(detail.businessEnd)}}
                  </div>
              </div>
               <div class="bas-line"  v-if="detail.regisAuthority" >
@@ -117,6 +117,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.detail = this.obj
+        // this.changde(this.detail.regisDate)
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -141,6 +142,15 @@ export default {
     },
     methods: {
         // 方法 集合
+        changde(o) { 
+            if(!o)  {
+                return
+            }         
+          let str1 =  o.replace('年', '-')
+          let str2 =  str1.replace('月', '-')
+          let str3 = str2.replace('日', '')
+          return o = str3
+        }
     }
 
 }

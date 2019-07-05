@@ -1,41 +1,37 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="anshare">
-       <div>
-         <div class="aninfo-line" >
-            <div class="an-width" >
-                <div class="info-title" >
-                  股东
-                </div>
-                <div class="info-main" >
-                  91430000320669897C
-                </div>
-            </div>
+       <div  v-for="(el,i) in obj.partner" :key="i" >
+         <div class="share-name" >
+           {{el.invName}}
+         </div>
+         <div class="aninfo-line" style="border:none;"  >
             <div class="an-width" >
                 <div class="info-title" >
                   认缴出资额(万元)
                 </div>
                 <div class="info-main" >
-                  湖南耀邦建设有反对反对限公司
+                  {{el.liSubConAm}}
                 </div>
             </div>
-          </div>
-
-           <div class="aninfo-line" >
-               <div class="an-width" >
+            <div class="an-width" >
                  <div class="info-title" >
                    认缴出资方式
                  </div>
                  <div class="info-main" >
-                   91430000320669897C
+                   {{el.subConFormName}}
                  </div>
-               </div>
+              </div>
+          </div>
+
+           <div class="aninfo-line" >
+               
                <div class="an-width" >
                  <div class="info-title" >
                    认缴出资时间
                  </div>
                  <div class="info-main" >
-                   湖南耀邦建设有反对反对限公司
+                   {{formatDate(el.subConDate)}}
                  </div>
                </div>
             </div>
@@ -56,6 +52,9 @@ export default {
     },
     props: {
         // 集成父级参数
+         obj:{
+         default:{}
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -95,5 +94,10 @@ export default {
 <style  lang='less' >
 .anshare {
  background-color: #fff;
+ .share-name {
+   font-size: 28px;
+   color: #FE6603;
+   line-height:60px;
+ }
 }
 </style>

@@ -7,7 +7,7 @@
               资产总额
             </div>
             <div class="info-main" >
-              91430000320669897C
+              企业选择不公示
             </div>
           </div>
           <div class="an-width" >
@@ -15,7 +15,7 @@
               所有者权益合计
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              企业选择不公示
             </div>
           </div>
        </div>
@@ -26,15 +26,15 @@
              营业总收入
             </div>
             <div class="info-main" >
-              91430000320669897C
+              企业选择不公示
             </div>
           </div>
           <div class="an-width" >
             <div class="info-title" >
-             业总收入中主营业务收入
+             企业选择不公示
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              企业选择不公示
             </div>
           </div>
        </div>
@@ -45,7 +45,7 @@
               利润总额
             </div>
             <div class="info-main" >
-              91430000320669897C
+              企业选择不公示
             </div>
           </div>
           <div class="an-width" >
@@ -53,7 +53,7 @@
               净利润
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+             企业选择不公示
             </div>
           </div>
        </div>
@@ -64,7 +64,7 @@
               纳税总额
             </div>
             <div class="info-main" >
-              91430000320669897C
+              企业选择不公示
             </div>
           </div>
           <div class="an-width" >
@@ -72,7 +72,7 @@
               负债总额
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              企业选择不公示
             </div>
           </div>
        </div>

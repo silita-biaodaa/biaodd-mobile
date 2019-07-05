@@ -7,7 +7,7 @@
               名称
             </div>
             <div class="info-main" >
-              91430000320669897C
+              {{obj.website[0].webSitName}}
             </div>
           </div>
           <div class="an-width" >
@@ -15,7 +15,7 @@
               类型
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+             {{obj.website[0].webType == 1  ? '网站': obj.website[0].webType}}
             </div>
           </div>
        </div>
@@ -26,7 +26,7 @@
               网址
             </div>
             <div class="info-main" >
-              91430000320669897C
+              {{obj.website[0].domain}}
             </div>
           </div>
        </div>
@@ -46,6 +46,9 @@ export default {
     },
     props: {
         // 集成父级参数
+         obj:{
+         default:{}
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

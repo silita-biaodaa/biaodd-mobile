@@ -1,40 +1,51 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="aninfo">
-       <div class="aninfo-line" >
+       <div class="aninfo-line" style="border:none"  >
           <div style="width:48%" >
             <div class="info-title" >
               统一社会信用代码
-            </div>
-            <div class="info-main" >
-              91430000320669897C
             </div>
           </div>
           <div style="width:48%" >
             <div class="info-title" >
               企业名称
             </div>
+          </div>
+       </div>
+        <div class="aninfo-line" >
+          <div style="width:48%" >
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              {{obj.basic.uniscId}}
+            </div>
+          </div>
+          <div style="width:48%" >
+            <div class="info-main" >
+              {{obj.comName}}
             </div>
           </div>
        </div>
-
-        <div class="aninfo-line" >
+        <div class="aninfo-line"  style="border:none" >
           <div style="width:48%" >
             <div class="info-title" >
               企业经营状况
-            </div>
-            <div class="info-main" >
-              91430000320669897C
             </div>
           </div>
           <div style="width:48%" >
             <div class="info-title" >
               企业控股情况
             </div>
+          </div>
+       </div>
+       <div class="aninfo-line" >
+          <div style="width:48%" >
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              {{obj.basic.busSt}}
+            </div>
+          </div>
+          <div style="width:48%" >
+            <div class="info-main" >
+              {{obj.basic.holdingSmsg}}
             </div>
           </div>
        </div>
@@ -45,7 +56,7 @@
               企业联系电话
             </div>
             <div class="info-main" >
-              91430000320669897C
+              {{obj.basic.tel}}
             </div>
           </div>
           <div style="width:48%" >
@@ -53,7 +64,7 @@
               企业电子邮箱
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              {{obj.basic.email}}
             </div>
           </div>
        </div>
@@ -64,7 +75,7 @@
               从业人数
             </div>
             <div class="info-main" >
-              91430000320669897C
+              {{obj.basic.empNum}}
             </div>
           </div>
           <div style="width:48%" >
@@ -72,7 +83,7 @@
               其中女性从业人数
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              企业选择不公式
             </div>
           </div>
        </div>
@@ -84,7 +95,7 @@
               企业通信地址
             </div>
             <div class="info-main" >
-              91430000320669897C
+              {{obj.basic.addr}}
             </div>
           </div>
           <div style="width:48%" >
@@ -92,45 +103,57 @@
               邮政编码
             </div>
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              {{obj.basic.postalCode}}
             </div>
           </div>
        </div>
 
-        <div class="aninfo-line" >
+        <div class="aninfo-line" style="border:none" >
           <div style="width:48%" >
             <div class="info-title" >
               是否有投资信息或购买其他公司股权
-            </div>
-            <div class="info-main" >
-              91430000320669897C
             </div>
           </div>
           <div style="width:48%" >
             <div class="info-title" >
               是否有网站或网店
             </div>
+          </div>
+       </div>
+        <div class="aninfo-line" >
+          <div style="width:48%" >
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              &nbsp
+            </div>
+          </div>
+          <div style="width:48%" >
+            <div class="info-main" >
+              {{obj.website == null ? '有' : '无'}}
             </div>
           </div>
        </div>
 
-        <div class="aninfo-line" >
+        <div class="aninfo-line" style="border:none" >
           <div style="width:48%" >
             <div class="info-title" >
               是否有对外提供担保信息
-            </div>
-            <div class="info-main" >
-              91430000320669897C
             </div>
           </div>
           <div style="width:48%" >
             <div class="info-title" >
               有限责任公司本年度是否发生股东股权转让
             </div>
+          </div>
+       </div>
+       <div class="aninfo-line"  >
+          <div style="width:48%" >
             <div class="info-main" >
-              湖南耀邦建设有反对反对限公司
+              否
+            </div>
+          </div>
+          <div style="width:48%" >
+            <div class="info-main" >
+              &nbsp
             </div>
           </div>
        </div>
@@ -144,7 +167,7 @@
            </div>
          </div>
          <div class="info-text" >
-           广东发货给戴过的攻击对方给对方进攻豆腐干豆腐干豆腐干地方各级地方客观角度高考临近的法国感觉地方给对方进攻对方进攻得分给对方进攻发动进攻的风格感觉发个广泛广泛大概…
+           {{obj.basic.mainBusiAct ? obj.basic.mainBusiAct : '&nbsp'}}
          </div>
        </div>
         
@@ -164,6 +187,9 @@ export default {
     },
     props: {
         // 集成父级参数
+         obj:{
+         default:{}
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
