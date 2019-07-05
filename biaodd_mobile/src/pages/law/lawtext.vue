@@ -119,12 +119,12 @@ background: #F8F8F8;
      }
      .win-time {
        display: flex;
-       justify-content: space-between;
        margin-bottom: 20px;
        font-size: 20px;
        margin-top: 20px;
        .win-c {
           color:#999;
+          margin-right: 20px;
        }
      }
        .win-one {

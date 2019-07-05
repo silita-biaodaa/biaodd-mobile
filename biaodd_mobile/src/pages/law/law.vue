@@ -241,9 +241,9 @@ export default {
 <style  lang='less' scoped>
 .law {
    padding-top: 200px;
-   .law-box {
-     justify-content: center;
-   }
+//    .law-box {
+//      justify-content: center;
+//    }
    .yj-chce {
         height: 545px;
         box-sizing: border-box;

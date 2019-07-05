@@ -6,12 +6,14 @@
         <div class="head-nav" >
           <van-icon name="arrow-left" class="head-left" @click="$router.go(-1)" />
           企业详情
+          <van-icon name="like" @click="follow" class=" head-right" v-if="follows"/>
+          <van-icon name="like-o" @click="follow"  class="head-right" v-else/>
         </div>
         <div class="head-name " >
           <div class="head-color head-over " >{{detail.comName}}</div>
-          <div class="head-collct head-color" @click="follow" >
+          <!-- <div class="head-collct head-color" @click="follow" >
             {{msg}}
-          </div>
+          </div> -->
         </div>
         <div class="head-text" style="marginTop:15px;" >
            <span class="head-color" >联系电话:</span>
@@ -105,6 +107,7 @@ export default {
              isvip1:false,
              fwIsVip:false,
              collected:false,
+             follows:false,
              id:'',
              isMore:false,
              msg:'关注'
@@ -165,9 +168,9 @@ export default {
                 }
                 that.collected=res.data.data.collected
                 if(that.detail.collected) {
-                  that.msg = '取关'
+                  that.follows = true
                 }  else {
-                  that.msg = '关注'
+                  that.follows = false
                 }
              }).catch(function(req) {
                 that.isload=false
@@ -228,7 +231,7 @@ export default {
         follow() {
           let useid = sessionStorage.getItem('userid')
           let that=this;
-          if(that.msg == '关注') {
+          if(!that.follows) {
              
               this.$http({
                   method:'post',
@@ -239,7 +242,8 @@ export default {
                   }
               }).then(function(res){
                  that.$toast(res.data.msg)
-                 that.msg = '取关'
+                 that.follows = true
+                //  that.msg = '取关'
                })
           } else {
              this.$http({
@@ -251,7 +255,8 @@ export default {
                   }
               }).then(function(res){
                  that.$toast(res.data.msg)
-                 that.msg = '关注'
+                  that.follows = false
+                //  that.msg = '关注'
                })
           }
           
@@ -291,6 +296,14 @@ export default {
         font-size: 40px;
         position: absolute;
         left: 0;
+        top: 50%;
+        color: #fff;
+        transform: translateY(-50%);
+     }
+     .head-right {
+        font-size: 40px;
+        position: absolute;
+        right: 0;
         top: 50%;
         color: #fff;
         transform: translateY(-50%);

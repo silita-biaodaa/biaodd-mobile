@@ -1,45 +1,20 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="icbr">
-        <div class="letter-title"  >
-            <div class="letter-name">
-              <p>
-               {{obj.comName}}
-              </p>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 统一社会信用代码&nbsp&nbsp&nbsp
-              </span>
-              <span >
-                  {{obj.creditCode}}
-              </span>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 联系电话&nbsp&nbsp&nbsp
-              </span>
-              <span >
-                  {{obj.phone}}
-              </span>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 公司地址&nbsp&nbsp&nbsp
-              </span>
-              <span class="letter-dizhi" >
-                  {{obj.comAddress}}
-              </span>
-            </div>
-          </div>
+    <div class="icmain">
+      <div  class="main-people">
+         <img src="../../assets/icon-reny.png.png" alt=""> {{obj.name}}
+      </div>
+      <div  class="main-people" style="border:none;" >
+        <img src="../../assets/icon-zhiwu.png.png" alt=""> <span v-html="obj.position_CN" ></span>
+      </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'icbr', // 结构名称
+    name: 'icmain', // 结构名称
     data() {
         return {
-            // 数据模型
+            // 数据模型a
         }
     },
     watch: {
@@ -47,11 +22,8 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{
+         obj:{
          default:{}
-        },
-        isVip:{
-         default:false
         },
     },
     beforeCreate() {
@@ -89,11 +61,25 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' >
-.letter-dizhi {
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-    max-width: 75%;
+<style  lang='less' scoped>
+.icmain {
+  margin: 11px 30px 20px;
+  height:120px;
+  box-shadow:0px 6px 6px 0px rgba(0, 0, 0, 0.03);
+  border-radius:8px;
+  display: flex;
+  align-items: center;
+  .main-people {
+    width: 49%;
+    border-right: 1PX solid #F0F0F0;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 35px;
+      margin-right: 20px;
+    }
+  }
 }
 </style>

@@ -32,8 +32,11 @@
                    </div>
                 </div>
                 <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
-                <div class="com-app" >
+                <div class="com-app" v-show="lists.length ==2" >
                     <button @click.stop="sureFn" >打卡APP，查看更多分支机构信息</button>
+                </div>
+                <div class="com-hint"  v-show="lists.length == 0 " >
+                  Sorry，暂未查询到该公司的分支机构
                 </div>
               </div>
 
@@ -49,62 +52,88 @@
                    </div>
                 </div>
                 <ic-gu v-for="(el,i) in listG" :key="i" :i='i' :obj='el' ></ic-gu>
+                 <div class="com-hint"  v-show="listG.length == 0 " >
+                  Sorry，暂未查询到该公司的股东信息
+                 </div>
               </div>
 
-              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+              <div class="com-basic" @click="ismain = !ismain"  :class="ismain ? 'hide-in' : 'show-in'" >
                 <div class="ba-title"   >
                    <div class="all-cen" >
                      <img src="../../assets/icon-gud.png.png"  class="img-main" alt="">
                      <span>主要人员</span>
                    </div>
                    <div   >
-                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-down"  v-if="ismain" />
                      <van-icon name="arrow-up" v-else />
                    </div>
                 </div>
-                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+                <ic-main v-for="(el,i) in listM" :key="i"  :obj='el' ></ic-main>
+                <div class="com-hint"  v-show="listM.length == 0 " >
+                  Sorry，暂未查询到该公司的主要人员
+                 </div>
               </div>
 
-              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+              <div class="com-basic" @click="isalter = !isalter"  :class="isalter ? 'hide-in' : 'show-in'" >
                 <div class="ba-title"   >
                    <div class="all-cen" >
                      <img src="../../assets/icon-bgjl.png.png"  class="img-chce" alt="">
                      <span>变更记录</span>
                    </div>
                    <div   >
-                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-down"  v-if="isalter" />
                      <van-icon name="arrow-up" v-else />
                    </div>
                 </div>
-                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+                <ic-alter v-for="(el,i) in listAl" :key="i"  :obj='el' ></ic-alter>
+                <div class="com-app" v-show="listAl.length ==2" >
+                    <button @click.stop="sureFn" >打卡APP，查看更多变更记录信息</button>
+                </div>
+                <div class="com-hint"  v-show="listAl.length == 0 " >
+                  Sorry，暂未查询到该公司的变更记录
+                 </div>
               </div>
 
-               <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+               <div class="com-basic" @click="isyear = !isyear"  :class="isyear ? 'hide-in' : 'show-in'" >
                 <div class="ba-title"   >
                    <div class="all-cen" >
                      <img src="../../assets/icon-qynb.png.png"  class="img-chce" alt="">
                      <span>企业年报</span>
                    </div>
                    <div   >
-                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-down"  v-if="isyear" />
                      <van-icon name="arrow-up" v-else />
                    </div>
                 </div>
-                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+                <div class="com-year" v-for="(el,i) in listYe" :key="i"  >
+                  <div>
+                    {{el.years}}年度
+                  </div>
+                  <van-icon name="arrow" />
+                </div>
+                <div class="com-hint"  v-show="listYe.length == 0 " >
+                  Sorry，暂未查询到该公司的企业年报
+                 </div>
               </div>
 
-              <div class="com-basic" @click="isbranch = !isbranch"  :class="isbranch ? 'hide-in' : 'show-in'" >
+              <div class="com-basic" @click="ispunish = !ispunish"  :class="ispunish ? 'hide-in' : 'show-in'" >
                 <div class="ba-title"   >
                    <div class="all-cen" >
                      <img src="../../assets/icon-xzchf.png.png"  class="img-chce" alt="">
                      <span>行政处罚</span>
                    </div>
                    <div   >
-                     <van-icon name="arrow-down"  v-if="isbranch" />
+                     <van-icon name="arrow-down"  v-if="ispunish" />
                      <van-icon name="arrow-up" v-else />
                    </div>
                 </div>
-                <ic-br v-for="(el,i) in lists" :key="i"  :obj='el' :isVip='isVip'  ></ic-br>
+                <ic-pun v-for="(el,i) in listPun" :key="i"  :obj='el'  ></ic-pun>
+                <div class="com-app" v-show="listPun.length ==2" >
+                    <button @click.stop="sureFn" >打卡APP，查看更多行政处罚信息</button>
+                </div>
+                <div class="com-hint"  v-show="listPun.length == 0 " >
+                  Sorry，暂未查询到该公司的行政处罚
+                 </div>
               </div>
 
         </template>
@@ -127,6 +156,10 @@ export default {
             id:'',
             lists:[],
             listG:[], // 股东信息
+            listM:[], // 主要人员
+            listAl:[], // 变更记录
+            listYe:[], //年报
+            listPun:[], // 行政
             total:0,
             isajax:false,//是否加载完
             isError:false,//是否加载失败
@@ -134,7 +167,10 @@ export default {
             isinfo:true, // 基本信息下拉
             isbranch:true,  // 分支机构
             isgu:true, //股东信息
-
+            ismain:true, //主要人员
+            isalter:true, //变更记录
+            isyear:true, //企业年报
+            ispunish:true // 行政处罚
         }
     },
     watch: {
@@ -205,6 +241,10 @@ export default {
                 that.isError=true;
             })   
             this.gainG()
+            this.gainM()
+            this.gainAl()
+            this.gainYe()
+            this.gainPu()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -250,7 +290,76 @@ export default {
                    paramter:'partner'
                 }
             }).then(function(res){
-                that.listG = res.data.data 
+                that.listG = res.data.data ? res.data.data :[];
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
+      },
+       gainM() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/info' ,
+                data:{
+                   comId:that.id,
+                   paramter:'personnel'
+                }
+            }).then(function(res){
+                that.listM = res.data.data ? res.data.data : []
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
+      },
+       gainAl() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/info' ,
+                data:{
+                   comId:that.id,
+                   paramter:'changeRecord'
+                }
+            }).then(function(res){
+                that.listAl =res.data.data ? res.data.data : []
+                if(that.listAl.length > 2) {
+                  that.listAl.length = 2
+                }
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
+      },
+      gainYe() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/report/years' ,
+                data:{
+                   comId:that.id,
+                }
+            }).then(function(res){
+                that.listYe = res.data.data ? res.data.data : []
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
+      },
+      gainPu() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: 'gs/info' ,
+                data:{
+                   comId:that.id,
+                    paramter:'punish'
+                }
+            }).then(function(res){
+                that.listPun = res.data.data ? res.data.data : []
+                if(that.listPun.length > 2) {
+                  that.listPun.length = 2
+                }
              }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
@@ -276,6 +385,7 @@ export default {
       .bas-line {
         overflow: hidden;
         margin-bottom: 25px;
+        display: flex;
        .bas-first {
            width: 25%;
            color:#999;
@@ -398,7 +508,25 @@ export default {
        color: #FE6603;
        font-size: 28px;
      }
-}
-   
+  }
+  .com-year {
+    height: 88px;
+    font-size: 28px;
+    border-bottom: 1PX solid #F2F2F2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:  0 30px;
+    i {
+      font-size: 45px;
+    }
+  } 
+  .com-hint {
+    height: 150px;
+    line-height: 150px;
+    color:#ccc;
+    font-size: 28px;
+    text-align: center;
+  }
 }
 </style>

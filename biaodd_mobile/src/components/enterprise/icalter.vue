@@ -1,45 +1,40 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="icbr">
-        <div class="letter-title"  >
-            <div class="letter-name">
-              <p>
-               {{obj.comName}}
-              </p>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 统一社会信用代码&nbsp&nbsp&nbsp
-              </span>
-              <span >
-                  {{obj.creditCode}}
-              </span>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 联系电话&nbsp&nbsp&nbsp
-              </span>
-              <span >
-                  {{obj.phone}}
-              </span>
-            </div>
-            <div class="letter-lead">
-              <span class="person ">
-                 公司地址&nbsp&nbsp&nbsp
-              </span>
-              <span class="letter-dizhi" >
-                  {{obj.comAddress}}
-              </span>
-            </div>
-          </div>
+    <div class="icalter">
+      <div class="alter-title" >
+         <div class="a-block" >
+           联络员备案
+         </div>
+         <div class="a-size" >
+           {{obj.altDate}}
+         </div>
+      </div>
+      <div class="alter-list" >
+        <div class="alter-text" >
+          <p class="a-size" >
+            变更前
+          </p>
+          <p>
+            {{obj.altBe}}
+          </p>
+        </div>
+        <div class="alter-text" style="border:none;paddingLeft:10px;" >
+          <p class="a-size" >
+            变更后
+          </p>
+          <p>
+            {{obj.altAf}}
+          </p>
+        </div>
+      </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'icbr', // 结构名称
+    name: 'icalter', // 结构名称
     data() {
         return {
-            // 数据模型
+            // 数据模型a
         }
     },
     watch: {
@@ -47,11 +42,8 @@ export default {
     },
     props: {
         // 集成父级参数
-        obj:{
+         obj:{
          default:{}
-        },
-        isVip:{
-         default:false
         },
     },
     beforeCreate() {
@@ -89,11 +81,33 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' >
-.letter-dizhi {
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-    max-width: 75%;
+<style  lang='less' scoped>
+.icalter {
+ margin: 20px 30px 0;
+ border-bottom: 1PX solid #F2F2F2;
+ padding-bottom: 20px;
+ .alter-title {
+   display: flex;
+   justify-content: space-between;
+ }
+ .a-block {
+   font-size: 32px;
+ }
+ .a-size {
+   font-size: 24px;
+   color: #999999;
+ }
+ .alter-list {
+   display: flex;
+   margin-top: 30px;
+   .alter-text {
+     width: 49%;
+     border-right: 1PX solid #f2f2f2;
+     font-size: 24px;
+     p {
+       line-height:42px;
+     }
+   }
+ }
 }
 </style>

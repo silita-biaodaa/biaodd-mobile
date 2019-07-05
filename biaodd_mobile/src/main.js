@@ -23,6 +23,10 @@ import isvip from '@/components/isVip'
 import icinfo from '@/components/enterprise/icinfo'
 import icbr from '@/components/enterprise/icbr'
 import icgu from '@/components/enterprise/ingu'
+import icmain from '@/components/enterprise/icmain'
+import icalter from '@/components/enterprise/icalter'
+import icpun from '@/components/enterprise/icpun'
+
 
 import newList from '@/pages/user/newList'
 import aninfo from '@/components/enterprise/aninfo'
@@ -37,6 +41,11 @@ Vue.component('v-vip', isvip)
 Vue.component('ic-infor', icinfo)
 Vue.component('ic-br', icbr)
 Vue.component('ic-gu', icgu)
+Vue.component('ic-main', icmain)
+Vue.component('ic-alter', icalter)
+Vue.component('ic-pun', icpun)
+
+
 Vue.component('new-list', newList)
 Vue.component('an-info', aninfo)
 Vue.component('an-site', ansite)
