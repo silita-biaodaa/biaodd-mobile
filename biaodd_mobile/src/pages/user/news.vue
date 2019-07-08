@@ -6,7 +6,7 @@
          <p style="width:70%" >
            消息
           </p>
-         <p  @click="state"  v-if="zbList.length == 0" >
+         <p  @click="state"  v-if="zbList.length != 0" >
            {{status}}
          </p>
        </div>

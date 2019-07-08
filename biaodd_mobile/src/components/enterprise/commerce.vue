@@ -535,7 +535,7 @@ export default {
      }
    }
    .com-app {
-     height: 150px;
+     height: 155px;
      display: flex;
      align-items: center;
      justify-content: center;
