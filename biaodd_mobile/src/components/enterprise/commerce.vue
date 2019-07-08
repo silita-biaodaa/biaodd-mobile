@@ -10,7 +10,7 @@
                 <div> 
                   更新时间：{{formatDate(detail.updated*1,1)}}
                 </div>
-                <div class="rush-right" @click="updated" >
+                <div class="rush-right" @click="update" >
                   更新
                 </div>
               </div>
@@ -150,7 +150,7 @@
       <template v-else>
         <van-loading size="50px"></van-loading>
       </template>
-        
+        <v-vip :mask="isvip1" :txt="'开通会员才能更新企业详情'" @canel="fwCanelFn"></v-vip>
     </div>
 </template>
 <script>
@@ -179,7 +179,8 @@ export default {
             ismain:true, //主要人员
             isalter:true, //变更记录
             isyear:true, //企业年报
-            ispunish:true // 行政处罚
+            ispunish:true, // 行政处罚
+            isvip1:false,
         }
     },
     watch: {
@@ -289,6 +290,9 @@ export default {
       sureFn(){
            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
       },
+       fwCanelFn(){
+          this.isvip1=false
+        },
       gainG() {
         let that=this;
             this.$http({
@@ -378,7 +382,10 @@ export default {
       toYear(o) {
           this.$router.push({path:'/annals',query:{id:o.comId,year:o.years}})
       },
-      updated() {
+      update() {
+        if( !sessionStorage.getItem('permissions')) {
+           return  this.isvip1 = true
+        }
         let that=this;
             this.$http({
                 method:'post',
@@ -388,8 +395,6 @@ export default {
                    comName:that.name
                 }
             }).then(function(res){
-               console.log(res);
-               
                that.$toast(res.data.msg)
                 // that.listPun = res.data.data ? res.data.data : []
                 // if(that.listPun.length > 2) {

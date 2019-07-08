@@ -129,6 +129,18 @@ export default {
               this.$router.push({path:'/openingVip'})
 
           }
+           let that=this;
+            this.$http({
+                method:'post',
+                url: 'message/set/read' ,
+                data:{
+                 pkid:o.pkid
+                }
+            }).then(function(res){
+                
+             }).catch(function(res){
+                
+            })
         },
         changetrol(obj) {
           if(!this.condition) {

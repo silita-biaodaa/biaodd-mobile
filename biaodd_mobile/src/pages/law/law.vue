@@ -145,14 +145,7 @@ export default {
         this.active = !this.active
       },
       dateTapFn(type){
-            if(type==1){
-                this.isDateStart=false
-            }else{
-                this.isDateStart=true
-            }
-            // this.modalHelper.afterOpen();
-            this.screenData.dateNum=0;
-            this.dateMask=true
+          this.screenData.dateNum=0;
        },
        dateFn(i){
             this.screenData.dateNum=i;

@@ -89,7 +89,7 @@ export default {
         this.id = this.$route.query.id
         this.source = this.$route.query.source
         this.gainD()
-        this.formNew()
+       
     
     },
     beforeMount() {
@@ -99,6 +99,7 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+             this.formNew()
         });
     },
     beforeUpdate() {
@@ -136,8 +137,10 @@ export default {
                  var dis = 0
                 if(document.documentElement.scrollTop) {
                     dis = document.documentElement.scrollTop -100 
+                    document.documentElement.scrollTop = dis
                 } else {
                     dis = document.body.scrollTop -100 
+                     document.body.scrollTop  = dis
                 }
                 document.documentElement.scrollTop = dis
             }, 100);
