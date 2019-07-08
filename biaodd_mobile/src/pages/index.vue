@@ -514,7 +514,12 @@ export default {
 @media screen and (max-width:374px){
     .index {
         .banner{
-            height:550px;
+             .tabBox{
+                span{
+                    transform: scale(0.8,0.8);
+                    width: auto;
+                }
+            }
         }
     }
     

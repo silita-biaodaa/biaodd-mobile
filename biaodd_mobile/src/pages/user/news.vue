@@ -14,7 +14,7 @@
           <template v-if="zbList.length>0">
       <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
               <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-                  <new-list v-for="(el,i) in zbList" :key="i" :obj='el' :condition='condition' :isall='isall'  @pushid ='oparid' ></new-list>
+                  <new-list v-for="(el,i) in zbList" :key="i" :obj='el' :condition='condition' :isall='isall' :isk='isk'  @pushid ='oparid' ></new-list>
               </van-list>
             <!-- </van-pull-refresh>   -->
           </template>
@@ -62,7 +62,8 @@ export default {
             zbList:[],
             isScroll:true,
             isall:false, //全选反选
-            allsel:[]
+            allsel:[],
+            isk:0
         }
     },
     watch: {
@@ -186,9 +187,16 @@ export default {
             }).then(function(res){
               if(res.data.code == 1) {
                  that.$toast(res.data.msg)
+                 if(that.isall)  {
+                    that.isall = false
+                 } else {
+                   that.isk++
+                   console.log(that.isk);
+                   
+                 }
                  that.data.pageNum = 1
                  that.gainList()
-                 that.isall = false
+                
               } else {
                  that.$toast(res.data.msg)
               }
@@ -206,11 +214,7 @@ export default {
             }).then(function(res){
               if(res.data.code == 1) {
                  that.$toast(res.data.msg)
-                  for (const val of that.zbList) {
-                    if(val.isRead == 0) {
-                      val.isRead = 1
-                    }
-                  }
+                  that.gainList()
               } else {
                  that.$toast(res.data.msg)
               }

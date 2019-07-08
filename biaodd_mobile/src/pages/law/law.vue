@@ -15,9 +15,9 @@
                 <div class="top">
                     <h6>判决年份</h6>
                     <div class="money-box">
-                        <span @click="dateTapFn(0)" class="date-select" :class="data.start==null?'empty':''">{{data.start==null?'起始时间':data.start}}</span>
-                        <span>—</span>
-                        <span @click="dateTapFn(1)" class="date-select" :class="data.end==null?'empty':''">{{data.end==null?'结束时间':data.end}}</span>
+                            <input placeholder="最低价（万）" v-model="data.start" @click="dateTapFn(0)"/>
+                            <span>—</span>
+                            <input placeholder="最高价（万）" v-model="data.end"  @click="dateTapFn(1)"/>
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">
@@ -248,6 +248,42 @@ export default {
         height: 545px;
         box-sizing: border-box;
         overflow-y: auto;
+    }
+    .top-box{
+            padding: 8px 32px 0;
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+            margin-bottom: 32px;
+            span{
+                color: #999;
+                font-size: 24px
+            }
+            div{
+                display: flex;
+                align-items: center;
+                .line{
+                    width: 35px;
+                    height: 1PX;
+                    background: #CCBEBE;
+                    margin:0 21px;
+                }
+                p{
+                    width: 210px;
+                    height: 56px;
+                    border-radius: 56px;
+                    border: 1PX solid #CCBEBE;
+                    text-align: center;
+                    background: #fff;
+                    input{
+                        background: none;
+                        width: 44%;
+                        height: 100%;
+                        border: none
+                    }
+                }
+            }   
+            
     }
    .condition-box{
         position: absolute;

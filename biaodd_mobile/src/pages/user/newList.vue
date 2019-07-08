@@ -10,12 +10,30 @@
            
            </div>
          </div>
-         <div class="news-text" :class="condition ? 'con' : 'conf'" >
+         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'reply' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.noticeTitle}}</h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>
            </div>
            <div class="news-name" v-html="obj.replyContent"  >
+           
+           </div>
+         </div>
+         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'company' " >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="obj.msgContent"  >
+           
+           </div>
+         </div>
+          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'vip' " >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="obj.msgContent"  >
            
            </div>
          </div>
@@ -46,6 +64,12 @@ export default {
           } else {
             this.control = false
           }
+        },
+        isk(val) {
+          if(val) {
+             console.log(val);
+            this.control = false
+          }
         }
     },
     props: {
@@ -56,6 +80,9 @@ export default {
         },
         isall:{
             default:true
+        },
+         isk:{
+            default:0
         }
     },
     beforeCreate() {
@@ -96,6 +123,11 @@ export default {
               this.$router.push({ path:'/article', query:{id:o.relatedId,source:o.source,key:true}})
             }
             
+          } else if(o.msgType == 'company') {
+                this.$router.push({path:'/letter',query:{id:o.replyId,source:o.regisAddress,name:o.comName}})
+          } else {
+              this.$router.push({path:'/openingVip'})
+
           }
         },
         changetrol(obj) {

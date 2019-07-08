@@ -6,6 +6,14 @@
           <v-not :isError="isError"></v-not>
         </template>
         <template v-else>
+              <div class="com-rush" >
+                <div> 
+                  更新时间：{{formatDate(detail.updated*1,1)}}
+                </div>
+                <div class="rush-right" @click="updated" >
+                  更新
+                </div>
+              </div>
               <div class="com-basic" @click="isinfo = !isinfo"  :class="isinfo ? 'hide-in' : 'show-in'" >
                 <div class="ba-title">
                    <div class="all-cen" >
@@ -154,6 +162,7 @@ export default {
             // 数据模型
             detail:{},
             id:'',
+            name:'',
             lists:[],
             listG:[], // 股东信息
             listM:[], // 主要人员
@@ -347,6 +356,7 @@ export default {
             })
       },
       gainPu() {
+        this.name = this.$route.query.name
         let that=this;
             this.$http({
                 method:'post',
@@ -367,6 +377,28 @@ export default {
       },
       toYear(o) {
           this.$router.push({path:'/annals',query:{id:o.comId,year:o.years}})
+      },
+      updated() {
+        let that=this;
+            this.$http({
+                method:'post',
+                url: '/updated/company' ,
+                data:{
+                   comId:that.id,
+                   comName:that.name
+                }
+            }).then(function(res){
+               console.log(res);
+               
+               that.$toast(res.data.msg)
+                // that.listPun = res.data.data ? res.data.data : []
+                // if(that.listPun.length > 2) {
+                //   that.listPun.length = 2
+                // }
+             }).catch(function(res){
+                that.isajax=true;
+                that.isError=true;
+            })
       }
     }
 
@@ -530,6 +562,22 @@ export default {
     color:#ccc;
     font-size: 28px;
     text-align: center;
+  }
+  .com-rush {
+    height: 88px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 24px;
+    padding: 0 30px;
+    .rush-right {
+      text-align: center;
+      line-height: 40px;
+      color: #FE6603;
+      width: 100px;
+      border: 1PX solid #FE6603;
+      border-radius: 8px;
+    }
   }
 }
 </style>
