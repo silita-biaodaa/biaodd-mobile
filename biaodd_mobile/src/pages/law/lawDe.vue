@@ -8,8 +8,8 @@
                 </p>
                 <p class="tit">{{obj.title}}</p>
             </div>
-            <div class="center">法&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp院：{{obj.court}}</div>
-            <div class="center">案&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp号：{{obj.caseNo}}</div>
+            <div class="center">法院：{{obj.court}}</div>
+            <div class="center">案号：{{obj.caseNo}}</div>
             <div class="center">发布时间：{{obj.dateStr}}</div>
         </div>
         <v-dia v-if="isload"></v-dia>
