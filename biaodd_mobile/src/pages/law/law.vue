@@ -143,10 +143,11 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
-        sessionStorage.removeItem('bidData')
+        sessionStorage.removeItem('lawData')
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
+        // sessionStorage.removeItem('companyData')
     },
     methods: {
         // 方法 集合

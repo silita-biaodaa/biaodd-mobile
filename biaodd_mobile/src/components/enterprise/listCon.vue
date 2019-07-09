@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="listCon" @click="jumpDetail">
+    <div class="listCon" @click="jumpDetail(obj)">
         <!-- 法务 -->
         <template v-if="type=='fw'">
             <h5>{{obj.title}}</h5>
@@ -154,6 +154,8 @@ export default {
                 sessionStorage.removeItem('letterStr');
                 sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
                 this.$router.push({path:'/peopleDetail'})
+            } else if(this.type=='fw') {
+                this.$router.push({path:'/lawtext',query:{id:this.obj.id}})
             }
         },
         jumpgo(){
