@@ -18,9 +18,9 @@
                             <!-- <input placeholder="判决年份" v-model="data.start" @click="dateTapFn(0)"/>
                             <span>—</span>
                             <input placeholder="判决年份" v-model="data.end"  @click="dateTapFn(1)"/> -->
-                        <span @click="dateTapFn(0)" class="date-select" :class="data.start==null?'empty':''">{{data.start==null?'判决年份':data.start}}</span>
+                        <span @click="dateTapFn(0)" class="date-select" :class="data.start==null?'empty':''">{{data.start==null?'起始年份':data.start}}</span>
                         <span>—</span>
-                        <span @click="dateTapFn(1)" class="date-select" :class="data.end==null?'empty':''">{{data.end==null?'判决年份':data.end}}</span>
+                        <span @click="dateTapFn(1)" class="date-select" :class="data.end==null?'empty':''">{{data.end==null?'结束年份':data.end}}</span>
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">

@@ -12,11 +12,14 @@
          </div>
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'reply' " >
            <div  class="news-title"  >
-             <h6 class="new-over" >{{obj.noticeTitle}}</h6>
+             <h6 class="new-over" >{{obj.reNikename}}<span style="color:#ccc" >回复了你:</span></h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>
            </div>
            <div class="news-name" v-html="obj.replyContent"  >
            
+           </div>
+           <div class='notice-title' >
+             {{obj.relatedType ? '招标公共': '中标公共'}}:{{obj.noticeTitle}}
            </div>
          </div>
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'company' " >
@@ -207,6 +210,13 @@ export default {
   .news-name {
     margin-top: 30px;
     color:#666;
+  }
+  .notice-title {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color:#ccc;
   }
   .news-btn {
     height: 80px;
