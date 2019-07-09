@@ -167,13 +167,15 @@ export default {
             })
         },
         qyAjax(){
+            let vip = sessionStorage.getItem('permissions') ? 1 : 0
             let that=this;
             this.$http({
                 method:'post',
                 url:'/userCenter/listCollectionCompany',
                 data:{
                     pageNo:1,
-                    pageSize:1000
+                    pageSize:1000,
+                    isVip:vip
                 }
             }).then(function(res){
                 that.isajax=true;

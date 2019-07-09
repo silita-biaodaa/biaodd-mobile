@@ -248,12 +248,14 @@ export default {
             if(arr.length>1){
                 qyAddress=arr[0]
             }
+           let vip = sessionStorage.getItem('permissions') ? 1 : 0
             this.$http({
                 method:'post',
                 url: '/company/host',
                 data:{
                     regisAddress:qyAddress,
-                    limit: 3
+                    limit: 3,
+                    isVip:vip
                 }
             }).then(function(res){
                 that.qyList=res.data.data.slice(0,3);
