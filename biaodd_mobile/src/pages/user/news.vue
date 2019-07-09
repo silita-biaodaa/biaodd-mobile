@@ -3,12 +3,15 @@
     <div class="use-news"  :class="condition ? 'no-opar' :  'have-opar'">
        <div class="top-nav">
         <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
-         <p  >
+         <p >
            消息
           </p>
-         <p  @click="state"  v-if="zbList.length != 0" >
-           {{status}}
-         </p>
+          <div>
+            <p  @click="state"  v-if="zbList.length != 0" >
+            {{status}}
+            </p>
+          </div>
+         
        </div>
        <template v-if="isajax"  >
           <template v-if="zbList.length>0">
@@ -26,7 +29,7 @@
           <van-loading size="50px"></van-loading>
           <p style="text-align: center;margin-top:30px">拼命加载中</p>
         </template>
-       <div class="operation" v-show="!condition"   >
+       <div class="operation" v-show="!condition && zbList.length != 0 "   >
          <div class="new-all" @click="check" >
            <div class="new-Sele "  :class="isall ? 'bor-col' : ''"   >
              <img src="../../assets/select.png" alt="" v-show="isall" >
