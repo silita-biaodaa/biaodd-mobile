@@ -151,6 +151,9 @@
         <van-loading size="50px"></van-loading>
       </template>
         <v-vip :mask="isvip1" :txt="'开通会员才能更新企业详情'" @canel="fwCanelFn"></v-vip>
+        <div class="com-pop" v-show="ishint" >
+           {{mhint}}
+        </div>
     </div>
 </template>
 <script>
@@ -181,6 +184,8 @@ export default {
             isyear:true, //企业年报
             ispunish:true, // 行政处罚
             isvip1:false,
+            mhint:'',
+            ishint:false,
         }
     },
     watch: {
@@ -395,11 +400,12 @@ export default {
                    comName:that.name
                 }
             }).then(function(res){
-               that.$toast(res.data.msg)
-                // that.listPun = res.data.data ? res.data.data : []
-                // if(that.listPun.length > 2) {
-                //   that.listPun.length = 2
-                // }
+              that.mhint = res.data.msg
+              that.ishint = true
+              setTimeout(() => {
+                that.ishint = false
+              }, 2000);
+             
              }).catch(function(res){
                 that.isajax=true;
                 that.isError=true;
@@ -583,6 +589,20 @@ export default {
       border: 1PX solid #FE6603;
       border-radius: 8px;
     }
+  }
+  .com-pop {
+    padding: 5px 10px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    opacity: 0.5;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 32px;
+    line-height: 42px;
+    text-align: center;
   }
 }
 </style>

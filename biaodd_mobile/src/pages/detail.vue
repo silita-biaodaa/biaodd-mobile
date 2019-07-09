@@ -97,9 +97,10 @@ export default {
     },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
+        this.formNew()
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
-             this.formNew()
+             
         });
     },
     beforeUpdate() {
@@ -133,7 +134,6 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            setTimeout(() => {
                  var dis = 0
                 if(document.documentElement.scrollTop) {
                     dis = document.documentElement.scrollTop -100 
@@ -142,8 +142,7 @@ export default {
                     dis = document.body.scrollTop -100 
                      document.body.scrollTop  = dis
                 }
-                document.documentElement.scrollTop = dis
-            }, 100);
+
            
         },
         formNew() {
@@ -151,7 +150,7 @@ export default {
                  if(this.$route.query.key) {
                   this.tocomment()
                 }
-            }, 100);
+            }, 600);
         },
         gainD() {
             let that=this;

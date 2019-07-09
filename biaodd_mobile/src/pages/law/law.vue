@@ -15,9 +15,9 @@
                 <div class="top">
                     <h6>判决年份</h6>
                     <div class="money-box">
-                            <input placeholder="最低价（万）" v-model="data.start" @click="dateTapFn(0)"/>
+                            <input placeholder="判决年份" v-model="data.start" @click="dateTapFn(0)"/>
                             <span>—</span>
-                            <input placeholder="最高价（万）" v-model="data.end"  @click="dateTapFn(1)"/>
+                            <input placeholder="判决年份" v-model="data.end"  @click="dateTapFn(1)"/>
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">

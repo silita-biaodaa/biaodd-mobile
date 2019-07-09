@@ -4,7 +4,7 @@
        <div class="aninfo-line" style="border:none"  >
           <div style="width:48%" >
             <div class="info-title" >
-              统一社会信用代码
+              统一社会信用代码/注册号
             </div>
           </div>
           <div style="width:48%" >
@@ -16,7 +16,7 @@
         <div class="aninfo-line" >
           <div style="width:48%" >
             <div class="info-main" >
-              {{obj.basic.uniscId}}
+              {{obj.basic.uniscId ? obj.basic.uniscId : obj.basic.regNo }}
             </div>
           </div>
           <div style="width:48%" >

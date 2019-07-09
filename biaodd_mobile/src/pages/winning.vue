@@ -131,21 +131,23 @@ export default {
                 return
             }
             document.getElementById("divId").scrollIntoView(true);
-            setTimeout(() => {
                 var dis = 0
                 if(document.documentElement.scrollTop) {
                     dis = document.documentElement.scrollTop -100 
+                    document.documentElement.scrollTop = dis
                 } else {
                     dis = document.body.scrollTop -100 
+                    document.body.scrollTop  = dis
                 }
-                document.documentElement.scrollTop = dis
-            }, 100);
           
         },
         formNew() {
-          if(this.$route.query.key) {
-            this.tocomment()
-          }
+           setTimeout(() => {
+                 if(this.$route.query.key) {
+                  this.tocomment()
+                }
+            }, 600);
+         
         }
     }
 
