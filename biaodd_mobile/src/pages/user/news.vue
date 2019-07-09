@@ -3,7 +3,7 @@
     <div class="use-news"  :class="condition ? 'no-opar' :  'have-opar'">
        <div class="top-nav">
         <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
-         <p style="width:70%" >
+         <p  >
            消息
           </p>
          <p  @click="state"  v-if="zbList.length != 0" >
@@ -214,7 +214,9 @@ export default {
             }).then(function(res){
               if(res.data.code == 1) {
                  that.$toast(res.data.msg)
-                  that.gainList()
+                 for(let i of that.zbList) {
+                   i.isRead = 1 
+                 }
               } else {
                  that.$toast(res.data.msg)
               }
@@ -242,8 +244,10 @@ export default {
     top: 0;
     left: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 34px;
+    box-sizing: border-box;
     .top-left {
         font-size: 40px;
         color:#fff;

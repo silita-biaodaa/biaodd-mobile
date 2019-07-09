@@ -230,11 +230,13 @@ export default {
                 that.isajax=true;
                 that.isError=true;
             })
+          let vip = sessionStorage.getItem('permissions') ? 1 : 0
            this.$http({
                 method:'post',
                 url: '/company/branchCompany',
                 data:{
-                   comId:that.id
+                   comId:that.id,
+                   isVip:vip
                 }
             }).then(function(res){
                 that.lists = res.data.data  
