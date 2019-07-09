@@ -15,9 +15,12 @@
                 <div class="top">
                     <h6>判决年份</h6>
                     <div class="money-box">
-                            <input placeholder="判决年份" v-model="data.start" @click="dateTapFn(0)"/>
+                            <!-- <input placeholder="判决年份" v-model="data.start" @click="dateTapFn(0)"/>
                             <span>—</span>
-                            <input placeholder="判决年份" v-model="data.end"  @click="dateTapFn(1)"/>
+                            <input placeholder="判决年份" v-model="data.end"  @click="dateTapFn(1)"/> -->
+                        <span @click="dateTapFn(0)" class="date-select" :class="data.start==null?'empty':''">{{data.start==null?'判决年份':data.start}}</span>
+                        <span>—</span>
+                        <span @click="dateTapFn(1)" class="date-select" :class="data.end==null?'empty':''">{{data.end==null?'判决年份':data.end}}</span>
                     </div>
                     <ul>
                         <li v-for="(o,i) of dateList" :key="i">
@@ -49,6 +52,14 @@
           <van-loading size="50px"></van-loading>
           <p style="text-align: center;margin-top:30px">拼命加载中</p>
         </template>
+        <van-popup position="bottom" :overlay="true" v-model="dateMask">
+        <van-datetime-picker
+        type="date"
+        :max-date="new Date()"
+        @confirm="confirm"
+        @cancel="dateMask=false"
+        ></van-datetime-picker>
+    </van-popup>
     </div>
 </template>
 <script>
@@ -82,6 +93,7 @@ export default {
             loading:false,//是否加载完，false为加载完
             isScroll:true,
             zbList:[],
+             dateMask:false,//时间选择弹窗是否显示
         }
     },
     watch: {
@@ -145,8 +157,28 @@ export default {
         this.active = !this.active
       },
       dateTapFn(type){
-          this.screenData.dateNum=0;
+           if(type==1){
+                this.isDateStart=false
+            }else{
+                this.isDateStart=true
+            }
+            // this.modalHelper.afterOpen();
+            this.screenData.dateNum=0;
+            this.dateMask=true
        },
+        confirm(pick){
+            let y=pick.getFullYear(),
+                mon=pick.getMonth()+1,
+                day=pick.getDate();
+                mon=mon<10?'0'+mon:mon;
+                day=day<10?'0'+day:day;
+            if(this.isDateStart){
+                this.data.start=y+'-'+mon+'-'+day
+            }else{
+                this.data.end=y+'-'+mon+'-'+day
+            }
+            this.dateMask=false    
+        },
        dateFn(i){
             this.screenData.dateNum=i;
             this.data.start=null;

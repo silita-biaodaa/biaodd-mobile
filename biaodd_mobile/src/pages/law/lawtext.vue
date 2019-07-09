@@ -124,7 +124,7 @@ background: #F8F8F8;
        margin-top: 20px;
        .win-c {
           color:#999;
-          margin-right: 20px;
+          margin-right: 70px;
        }
      }
        .win-one {
