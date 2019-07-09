@@ -5,8 +5,8 @@ import { Toast } from 'vant'
 
 Vue.prototype.$http=axios
 axios.defaults.retryDelay = 1000;//重复请求间隔
-// let baseURL='http://api.biaodaa.com'
-let baseURL = 'http://pre.biaodaa.com'
+let baseURL='http://api.biaodaa.com'
+// let baseURL = 'http://pre.biaodaa.com'
 // let baseURL = '/'
 
 axios.defaults.baseURL = baseURL
