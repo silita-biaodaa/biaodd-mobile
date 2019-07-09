@@ -113,6 +113,7 @@ export default {
           if( this.condition) {
             this.status = '编辑'
           } else {
+             this.allsel = []
              this.status = '取消'
           }
           this.isall = false
@@ -194,12 +195,10 @@ export default {
                     that.isall = false
                  } else {
                    that.isk++
-                   console.log(that.isk);
-                   
                  }
                  that.data.pageNum = 1
                  that.gainList()
-                
+                 that.allsel = []
               } else {
                  that.$toast(res.data.msg)
               }
@@ -217,9 +216,13 @@ export default {
             }).then(function(res){
               if(res.data.code == 1) {
                  that.$toast(res.data.msg)
-                 for(let i of that.zbList) {
-                   i.isRead = 1 
-                 }
+                 for(let i of that.zbList) {    
+                                  
+                   if(that.allsel.indexOf(i.pkid) > -1) {
+                      i.isRead = 1 
+                   }
+                  
+                 }                
               } else {
                  that.$toast(res.data.msg)
               }
