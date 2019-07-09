@@ -14,7 +14,7 @@
                         点击次数：<span class="color" >{{clickCount}}</span>
                     </div>
                     <div class="de-size" @click="tocomment" >
-                        评论数：<span class="color" >{{commentLength}}</span>
+                        浏览量：<span class="color" >{{commentLength}}</span>
                     </div>
                 </div>
                 <div class="detail-time" >
