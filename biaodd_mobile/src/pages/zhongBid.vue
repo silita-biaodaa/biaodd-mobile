@@ -55,14 +55,14 @@ export default {
         data:{
           pageNo:1,
           pageSize:'10',
-          regions:'湖南',
+          regions:'hunan',
           type: "2",
           projectType:'',
           title: "",
           projSumStart:'',//中标开始金额
           projSumEnd:'',//中标结束金额
-          sumType:"zhongbiao",
-          com_name:''
+          // sumType:"zhongbiao",
+          // com_name:''
         },
         title:'',
         total:0,
@@ -102,7 +102,7 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/newnocite/zhongbiao/list',
             data:that.data
         }).then(function(res){
             that.loading = false;
@@ -208,7 +208,7 @@ export default {
     },
     created(){
       this.gaiaSea()
-      this.data.regions = sessionStorage.getItem('address');
+      // this.data.regions = sessionStorage.getItem('address');   // 获取省份
       this.screenList[0].txt=sessionStorage.getItem('address');
 
       if(sessionStorage.getItem('permissions')){
