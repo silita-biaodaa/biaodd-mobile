@@ -9,7 +9,7 @@
         </p>
         <div class="win-time">
           <div class="win-c" >
-            发布时间：{{detail.openDate}}
+            发布时间：{{detail.opendate}}
           </div>
           <div class="win-c">
             浏览量：<span class="color" >{{clickCount}}</span>
@@ -74,21 +74,18 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.id = this.$route.query.id
-        // this.source = this.$route.query.source
+        this.source = this.$route.query.source
         let that=this;
         this.$http({
             method:'post',
-            url: '/newnocite/nociteDetails/' + that.id,
+            url: '/notice/detail/' + that.id,
             data:{
-                source:'hunan',
+                source:that.source,
                 type: "2"
-                // id:that.id
             }
         }).then(function(res){
-          console.log(res);
-          
-           that.detail = res.data.data
-           that.collected=res.data.data.collected
+           that.detail = res.data.data[0]
+           that.collected=res.data.data[0].collected
            if(that.detail.oneName&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                 that.detail.oneName=that.getPassOnename(that.detail.oneName);
             }
