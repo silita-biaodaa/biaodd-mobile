@@ -7,10 +7,12 @@
         </template>
         <template v-else>
               <div class="com-rush" >
-                <div> 
-                  更新时间：{{formatDate(detail.updated*1,1)}}
+                <div > 
+                  <span  >
+                     更新时间：{{detail.updated ? formatDate(detail.updated*1,1) : ''}}
+                  </span>
                 </div>
-                <div class="rush-right" @click="update" >
+                <div class="rush-right" @click="update"   >
                   更新
                 </div>
               </div>
