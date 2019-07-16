@@ -33,7 +33,6 @@ export default {
     data() {
         return {
             // 数据模型
-            // addList:["北京","天津","上海","重庆","河北","山西","辽宁","吉林","黑龙江","江苏","浙江","安徽","福建","江西","山东","河南","湖北","湖南","广东","海南","四川","贵州","云南","陕西","甘肃","青海","内蒙古","广西","西藏","宁夏","新疆"],
             tabNum:'',
             addList:[],
             cityList:[],
@@ -66,8 +65,8 @@ export default {
         if(!localStorage.getItem('filter')){
             //资质
             this.$http({
-                method:'get',
-                url: '/company/filter',
+                method:'post',
+                url: '/new/common/condition/filter',
             }).then(function(res){
                 that.addList=res.data.data.area;
                 if(that.allress) {
@@ -167,32 +166,59 @@ export default {
             this.$refs.city.scrollTop=0;
         },
         sureFn(){
-            let str=this.addList[this.tabNum].name;
-            let txt=this.addList[this.tabNum].name;
+            let str = ''
+            let txt = ''
+            let showstr =this.addList[this.tabNum].name;
+            if(this.$route.path == '/tender') {
+                 str=this.addList[this.tabNum].code;
+                 txt=this.addList[this.tabNum].code;
+            } else {
+                 str=this.addList[this.tabNum].name;
+                 txt=this.addList[this.tabNum].name;
+            }
+            
             if(!this.isAll){//如果是选市级则传市级
-                let arr=[this.addList[this.tabNum].name]
+                let arr = []
+                 if(this.$route.path == '/tender') {
+                      arr.push(this.addList[this.tabNum].code)
+                 } else {
+                      arr.push(this.addList[this.tabNum].name)
+                 }
+                // let arr=[this.addList[this.tabNum].name]
                 for(let x of this.cityList){
                     if(x.select){
-                        arr.push(x.name)
+                         if(this.$route.path == '/tender') {
+                           arr.push(x.code)
+                         } else {
+                           arr.push(x.name)  
+                         }
                     }
                 }
                 str=arr.join('||');//用作接口入参
                 arr.splice(0,1);
-                txt=arr.join(',');//用作显示
+                txt=showstr;//用作显示
             }
             this.$parent.mask=false;
             this.$emit('addObj',{str:str,txt:txt});
         },
         cityTap(i){
             // this.cityNum=i;
+            if(this.cityList[i].select){
+                this.cityList[i].select=false;
+            }else{
+                this.cityList[i].select=true;
+            }
             if(i==0){
                 for(let x of this.cityList){
                     x.select=false
                 }
             }else{
                 this.cityList[0].select=false;
+                // this.cityList[i].select=true;
+
                 let arr=[];
                 for(let x of this.cityList){
+                    console.log(x);
                     if(x.select){
                         arr.push(x);
                     }
@@ -206,11 +232,7 @@ export default {
                     return false
                 }
             }
-            if(this.cityList[i].select){
-                this.cityList[i].select=false;
-            }else{
-                this.cityList[i].select=true;
-            }
+           
 
             let arr1=[];
             for(let x of this.cityList){
@@ -224,12 +246,13 @@ export default {
         },
         cityFn(i){
             let arr2=[];
-            for(let x of this.addList[i].list){
-                let data={
-                    name:x,
-                    select:false
-                }
-                arr2.push(data);
+            for(let x of this.addList[i].data){
+                // let data={
+                //     name:x,
+                //     select:false
+                // }
+                x.select = false
+                arr2.push(x);
             }
             let arr1=[{
                 name:'全部',

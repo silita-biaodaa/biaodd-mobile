@@ -51,6 +51,7 @@ export default {
         // console.group('创建完毕状态===============》created');
          this.id = this.$route.query.id
          this.source = this.$route.query.source
+         let vip = sessionStorage.getItem('permissions') ? 1 : 0;
          let that=this;
             this.$http({
                 method:'post',
@@ -58,10 +59,10 @@ export default {
                 data:{
                     source:that.source,
                     pageNo:that.current,
-                    pageSize:5
+                    pageSize:5,
+                    isVip:vip
                 }
             }).then(function(res){
-                console.log(res);
                 that.list = res.data.data
                 that.total = res.data.total
             })

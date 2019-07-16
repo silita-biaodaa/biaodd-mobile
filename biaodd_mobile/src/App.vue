@@ -68,9 +68,9 @@ export default {
     },
     pushAll(el) {
            for(let val of el) {
-                 for(let vals of val.list) {
-                     if(vals.list.length ==0 ) {
-                         vals.list.push({name:'全部',code:''})
+                 for(let vals of val.data) {
+                     if(vals.data.length == 0 ) {
+                         vals.data.push({name:'全部',code:''})
                          continue
                      }
                  }
@@ -114,14 +114,15 @@ export default {
     let that=this;
     //筛选条件存于本地
     this.$http({
-        method:'get',
-        url: '/company/filter',
+        method:'post',
+        url: '/new/common/condition/filter',
     }).then(function(res){
+       console.log(res,1);
        let arr = res.data.data
-       let obj = res.data.data.companyQual
-       that.pushAll(obj)
+       let obj = res.data.data.comQua
+       that.pushAll(obj)   
        arr.newQual = obj 
-        localStorage.setItem('filter',JSON.stringify(arr));
+       localStorage.setItem('filter',JSON.stringify(arr));
     })
   },
   watch: {

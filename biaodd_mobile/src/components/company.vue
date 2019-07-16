@@ -80,6 +80,8 @@ export default {
     font-weight: 550;
     img {
       margin-right: 35px;
+      width: 44px;
+      height: 40px;
     }
   }
   .c-pl {
