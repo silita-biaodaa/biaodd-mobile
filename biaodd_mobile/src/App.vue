@@ -115,7 +115,7 @@ export default {
     //筛选条件存于本地
     this.$http({
         method:'post',
-        url: '/new/common/condition/filter',
+        url: '/new/common/condition',
     }).then(function(res){
        console.log(res,1);
        let arr = res.data.data

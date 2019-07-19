@@ -6,10 +6,10 @@ import { Toast } from 'vant'
 Vue.prototype.$http=axios
 axios.defaults.retryDelay = 1000;//重复请求间隔
 // let baseURL='http://api.biaodaa.com'
-let baseURL = 'http://pre.biaodaa.com'
+// let baseURL = 'http://pre.biaodaa.com'
 // let baseURL = '/'
 
-axios.defaults.baseURL = baseURL
+axios.defaults.baseURL = process.env.API_HOST
 axios.interceptors.request.use(function (config) {
   let token = sessionStorage.getItem('xtoken');
   if (token&&token!='undefined') {

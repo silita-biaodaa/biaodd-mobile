@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/proxy': {
-      //   target: 'http://api.biaodaa.com/',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/proxy': ''
-      //   }
-      // }
+      '/api': {
+        target: 'http://pre.biaodaa.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     },
 
     // Various Dev Server settings

@@ -9,13 +9,13 @@
             </div>
             <div class="city" ref="city">
                 <ul>
-                    <li v-for="(o,i) of cityList" :key="i" @click="cityTap(i)">
+                    <li v-for="(o,j) of cityList" :key="j" @click="citYtap(j)">
                         <span>{{o.name}}</span>
-                        <template v-if="o.select">
-                            <img src="../assets/select.png"/>
+                        <template >
+                            <img src="../assets/select.png" v-show="o.select" />
                         </template>
-                        <template v-else>
-                            <span class="quan"></span>
+                        <template >
+                            <span  v-show="!o.select" class="quan"></span>
                         </template>
                     </li>
                 </ul>
@@ -43,6 +43,7 @@ export default {
     },
     watch: {
         // 监控集合
+       
     },
     props: {
         // 集成父级参数
@@ -147,15 +148,22 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     watch:{
-        cityList:{
-            handler(val,oldVal){
-                if(val[0].select){
-                    this.isAll=true
-                }else{
-                    this.isAll=false
-                }
-            },
-            deep:true
+        // cityList:{
+        //     handler(val,oldVal){
+        //         if(val[0].select){
+        //             this.isAll=true
+        //         }else{
+        //             this.isAll=false
+        //         }
+        //     },
+        //     deep:true
+        // },
+         isToast(val) {
+          if(val) {
+              setTimeout(() => {
+                  this.isToast = false
+              },1500 );
+          }
         }
     },
     methods: {
@@ -201,61 +209,91 @@ export default {
             this.$parent.mask=false;
             this.$emit('addObj',{str:str,txt:txt});
         },
-        cityTap(i){
+        citYtap(i){
             // this.cityNum=i;
-            if(this.cityList[i].select){
-                this.cityList[i].select=false;
-            }else{
-                this.cityList[i].select=true;
-            }
-            if(i==0){
+            // if(this.cityList[i].select){
+            //     this.cityList[i].select=false;
+            // }else{
+            //     this.cityList[i].select=true;
+            // }
+        //    console.log(i);
+           
+            if(i == 0) {
                 for(let x of this.cityList){
                     x.select=false
                 }
+                 this.cityList[0].select=true;
+                 this.isAll=true
             }else{
-                this.cityList[0].select=false;
-                // this.cityList[i].select=true;
+                if(this.cityList[0].select) {
+                   this.cityList[0].select=false
+                //    console.log(this.cityList[i]);
 
+                   this.cityList[i].select = true
+                    // console.log(this.cityList[i]);
+                   this.isAll=false
+                } 
+                // this.cityList[0].select=false
                 let arr=[];
-                for(let x of this.cityList){
-                    console.log(x);
-                    if(x.select){
-                        arr.push(x);
-                    }
+                for(let sex of this.cityList) {
+                    if(sex.select) {
+                         arr.push(sex);
+                    }                    
                 }
-                if(arr.length==3&&!this.cityList[i].select){
-                    let that=this;
-                    this.isToast=true;
-                    setTimeout(function(){
-                        that.isToast=false;
-                    },1500)
-                    return false
+                console.log(arr);
+                
+                if(arr.length >= 3 ) {
+                     this.isToast=true;
+                    // setTimeout(function(){
+                    //     this.isToast=false;
+                    // },1500)
+                } else {
+                  this.cityList[i].select = !this.cityList[i].select
                 }
+
+                // this.cityList[i].select = !this.cityList[i].select
+                
+                // let arr=[];
+                // for(let sex of this.cityList) {
+                //     if(sex.select) {
+                //          arr.push(sex);
+                //     }                    
+                // }
+                // // for(let x=0;x++;x<this.cityList.length){
+                // //     if(this.cityList[x].select){
+                // //         arr.push(this.cityList[x]);
+                // //     }
+                // // }
+                // if(arr.length==3&&!this.cityList[i].select){
+                //     // let that=this;
+                //     this.isToast=true;
+                //     setTimeout(function(){
+                //         this.isToast=false;
+                //     },1500)
+                //     // return false
+                // }
             }
            
 
-            let arr1=[];
-            for(let x of this.cityList){
-                if(x.select){
-                    arr1.push(x);
-                }
-            }
-            if(arr1.length==0){
-                this.cityList[0].select=true;
-            }
+            // let arr1=[];
+            // for(let x of this.cityList){
+            //     if(x.select){
+            //         arr1.push(x);
+            //     }
+            // }
+            // if(arr1.length==0){
+            //     this.cityList[0].select=true;
+            // }
         },
         cityFn(i){
             let arr2=[];
             for(let x of this.addList[i].data){
-                // let data={
-                //     name:x,
-                //     select:false
-                // }
                 x.select = false
                 arr2.push(x);
             }
             let arr1=[{
                 name:'全部',
+                code:'',
                 select:true,
             }];
             if(this.addList[i].name!='湖南省'&&this.type==0){
