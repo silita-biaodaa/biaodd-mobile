@@ -11,11 +11,11 @@
                 <ul>
                     <li v-for="(o,j) of cityList" :key="j" @click="citYtap(j)">
                         <span>{{o.name}}</span>
-                        <template >
-                            <img src="../assets/select.png" v-show="o.select" />
+                        <template v-if="o.select">
+                            <img src="../assets/select.png"/>
                         </template>
-                        <template >
-                            <span  v-show="!o.select" class="quan"></span>
+                        <template v-else>
+                            <span class="quan"></span>
                         </template>
                     </li>
                 </ul>
@@ -148,16 +148,16 @@ export default {
         // console.group('销毁完成状态===============》destroyed');
     },
     watch:{
-        // cityList:{
-        //     handler(val,oldVal){
-        //         if(val[0].select){
-        //             this.isAll=true
-        //         }else{
-        //             this.isAll=false
-        //         }
-        //     },
-        //     deep:true
-        // },
+        cityList:{
+            handler(val,oldVal){
+                if(val[0].select){
+                    this.isAll=true
+                }else{
+                    this.isAll=false
+                }
+            },
+            deep:true
+        },
          isToast(val) {
           if(val) {
               setTimeout(() => {
@@ -210,80 +210,45 @@ export default {
             this.$emit('addObj',{str:str,txt:txt});
         },
         citYtap(i){
-            // this.cityNum=i;
-            // if(this.cityList[i].select){
-            //     this.cityList[i].select=false;
-            // }else{
-            //     this.cityList[i].select=true;
-            // }
-        //    console.log(i);
-           
-            if(i == 0) {
+            let list=this.cityList;
+            if(i==0){
                 for(let x of this.cityList){
                     x.select=false
                 }
-                 this.cityList[0].select=true;
-                 this.isAll=true
             }else{
-                if(this.cityList[0].select) {
-                   this.cityList[0].select=false
-                //    console.log(this.cityList[i]);
-
-                   this.cityList[i].select = true
-                    // console.log(this.cityList[i]);
-                   this.isAll=false
-                } 
-                // this.cityList[0].select=false
+                this.cityList[0].select=false;
+                // this.cityList[i].select=true;
                 let arr=[];
-                for(let sex of this.cityList) {
-                    if(sex.select) {
-                         arr.push(sex);
-                    }                    
+                for(let x of this.cityList){
+                    if(x.select){
+                        arr.push(x);
+                    }
                 }
-                console.log(arr);
-                
-                if(arr.length >= 3 ) {
-                     this.isToast=true;
-                    // setTimeout(function(){
-                    //     this.isToast=false;
-                    // },1500)
-                } else {
-                  this.cityList[i].select = !this.cityList[i].select
+                if(arr.length==3&&!this.cityList[i].select){
+                    let that=this;
+                    this.isToast=true;
+                    setTimeout(function(){
+                        that.isToast=false;
+                    },1500)
+                    return false
                 }
-
-                // this.cityList[i].select = !this.cityList[i].select
-                
-                // let arr=[];
-                // for(let sex of this.cityList) {
-                //     if(sex.select) {
-                //          arr.push(sex);
-                //     }                    
-                // }
-                // // for(let x=0;x++;x<this.cityList.length){
-                // //     if(this.cityList[x].select){
-                // //         arr.push(this.cityList[x]);
-                // //     }
-                // // }
-                // if(arr.length==3&&!this.cityList[i].select){
-                //     // let that=this;
-                //     this.isToast=true;
-                //     setTimeout(function(){
-                //         this.isToast=false;
-                //     },1500)
-                //     // return false
-                // }
             }
-           
-
-            // let arr1=[];
-            // for(let x of this.cityList){
-            //     if(x.select){
-            //         arr1.push(x);
-            //     }
-            // }
-            // if(arr1.length==0){
-            //     this.cityList[0].select=true;
-            // }
+            if(this.cityList[i].select){
+                list[i].select=false;
+            }else{
+                list[i].select=true;
+            }
+            this.$set(this.cityList,i,list[i]);
+            let arr1=[];
+            for(let x of this.cityList){
+                if(x.select){
+                    arr1.push(x);
+                }
+            }
+            if(arr1.length==0){
+                this.cityList[0].select=true;
+            }
+            // this.$set(this.cityList,list);
         },
         cityFn(i){
             let arr2=[];
@@ -358,14 +323,14 @@ export default {
                         width: 40px;
                         height: 40px;
                         position: absolute;
-                        right: 48px;
+                        right: 16px;
                         transform: translateY(-50%);
                         top: 50%;
                     }
                     .quan{
                         box-sizing: border-box;
                         position: absolute;
-                        right: 48px;
+                        right: 16px;
                         transform: translateY(-50%);
                         top: 50%;
                         width: 40px;
