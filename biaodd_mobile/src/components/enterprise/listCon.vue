@@ -28,7 +28,7 @@
             <h5>{{obj.title}}</h5>
             <p>第一候选人：<span>{{obj.oneName}}</span></p>
             <p>中标金额：<span>{{obj.oneOffer}}万元</span></p>
-            <p>发布日期：<span>{{obj.opendate}}</span></p>
+            <p>发布日期：<span>{{obj.openDate}}</span></p>
         </template>
         <!-- 获奖 -->
         <template v-else-if="type=='gb'">
