@@ -214,17 +214,22 @@ export default {
             this.ready(option.str);
         },
         ready(str=null){
-            let address=this.$refs.fixObj.addressStr;
+            let address=this.$refs.fixObj.addressStr.code;
             //招标
             let that=this;
             this.$http({
                 method:'post',
-                url: '/notice/queryList',
+                url: '/newnocite/zhaobiao/list',
                 data:{
                     pageNo:1,
                     pageSize:3,
                     regions:address,
-                    type: "0"
+                    type: "1",
+                    title:'',
+                    projectType:'',
+                    pbModes:'',
+                    rangeType:'',
+                    zzType:''
                 }
             }).then(function(res){
                 that.zbList=res.data.data;
@@ -232,12 +237,17 @@ export default {
             //中标
             this.$http({
                 method:'post',
-                url: '/notice/queryList',
+                url: '/newnocite/zhaobiao/list',
                 data:{
                     pageNo:1,
                     pageSize:3,
                     regions:address,
-                    type: "2"
+                    type: "2",
+                    title:'',
+                    projectType:'',
+                    pbModes:'',
+                    rangeType:'',
+                    zzType:''
                 }
             }).then(function(res){
                 that.zhongbList=res.data.data;

@@ -26,22 +26,22 @@ export default {
                     return:'',
                     name:'全部',
                 },{
-                    return:'0',
+                    return:'01',
                     name:'施工',
                 },{
-                    return:1,
+                    return:'03',
                     name:'设计',
                 },{
-                    return:2,
+                    return:'02',
                     name:'监理',
                 },{
-                    return:3,
+                    return:'05',
                     name:'采购',
                 },{
-                    return:4,
+                    return:'04',
                     name:'勘察',
                 },{
-                    return:5,
+                    return:'06',
                     name:'其他',
                 }
             ],

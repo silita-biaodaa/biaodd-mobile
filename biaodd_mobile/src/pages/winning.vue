@@ -78,14 +78,14 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/detail/' + that.id,
+            url: '/newnocite/nociteDetails/' + that.id,
             data:{
                 source:that.source,
                 type: "2"
             }
         }).then(function(res){
-           that.detail = res.data.data[0]
-           that.collected=res.data.data[0].collected
+           that.detail = res.data.data
+           that.collected=res.data.data.collected
            if(that.detail.oneName&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                 that.detail.oneName=that.getPassOnename(that.detail.oneName);
             }

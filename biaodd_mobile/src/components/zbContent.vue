@@ -11,7 +11,7 @@
             <div class="center">资质要求：{{obj.certificate ? obj.certificate : '详见原文'}}</div>
             <div class="bottom">
                 <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-                <p>发布时间：{{obj.opendate||obj.openDate ? obj.opendate||obj.openDate : '详见原文'}}</p>
+                <p>发布时间：{{obj.openDate ? obj.openDate : '详见原文'}}</p>
             </div>
         </div>
         

@@ -55,7 +55,7 @@ export default {
          let that=this;
             this.$http({
                 method:'post',
-                url: '/notice/queryCompanyList/' + that.id,
+                url: '/company/qual/list/' + that.id,
                 data:{
                     source:that.source,
                     pageNo:that.current,
@@ -63,6 +63,8 @@ export default {
                     isVip:vip
                 }
             }).then(function(res){
+                console.log(res);
+                
                 that.list = res.data.data
                 that.total = res.data.total
             })

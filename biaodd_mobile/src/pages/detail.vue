@@ -121,7 +121,7 @@ export default {
              if(this.total == null) {
                  return 
              }
-            this.$router.push({path:'/conform',query:{id:o.id,source:o.source}})
+            this.$router.push({path:'/conform',query:{id:o.id,source:this.source}})
         },
         jump() {
             window.location.href =this.detail.url
@@ -157,15 +157,15 @@ export default {
             let str=sessionStorage.getItem('permissions');
             this.$http({
                 method:'post',
-                url: '/notice/detail/' + that.id,
+                url: '/newnocite/nociteDetails/' + that.id,
                 data:{
                     source:that.source,
-                    type: "0"
+                    type: "1"
                 }
             }).then(function(res){
                 that.total = res.data.relCompanySize 
-                that.collected=res.data.data[0].collected
-                that.detail = res.data.data[0]  
+                that.collected=res.data.data.collected
+                that.detail = res.data.data  
                 that.detail.projDq = that.detail.projDq.substring(0,2)
                 if(that.detail.zzRank&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
                     that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);

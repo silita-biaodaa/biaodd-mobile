@@ -48,7 +48,7 @@ export default {
     props: {
         // 集成父级参数
         add:{
-            default:'湖南省'
+            default:{}
         },
         type:{
             default:0
@@ -95,32 +95,78 @@ export default {
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
             let that=this;
-            let addr=this.add;
+            let addr=this.add.name ? this.add.name : (this.add.regions ? this.add.regions : '湖南省');
             let arr=this.addList;
-            if(addr.indexOf('||')>-1){//市
+            if(addr.indexOf('||') > -1) {//市
                 let arr1=addr.split('||');
+                let arr4 = []
+                if(addr.indexOf(',')>-1) {
+                   arr4 = arr1[1].split(',')
+                } 
                 for(let x=0;x<arr.length;x++){
-                    if(arr[x].name.indexOf(arr1[0])>-1){
-                        that.tabNum=x;
-                        that.cityFn(x);
-                        that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
-                        break
+                    if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
+                        if(arr[x].code.indexOf(arr1[0])>-1){
+                            that.tabNum=x;
+                            that.cityFn(x);
+                            that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
+                            break
+                        }
+                    } else {
+                        if(arr[x].name.indexOf(arr1[0])>-1){
+                            that.tabNum=x;
+                            that.cityFn(x);
+                            that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
+                            break
+                        }
                     }
+                    
                 }
-                this.cityList[0].select=false;
+                if(arr4.length >= 1 ) {
+                     that.cityList[0].select=false; 
+                      for(let item of that.cityList ) {
+                        if(arr4.indexOf(item.code) > -1) {
+                            item.select = true
+                        }
+                     }
+                } else if (arr1.length >= 2) {
+                     that.cityList[0].select=false; 
+                      for(let item of that.cityList ) {
+                        if(arr1.indexOf(item.name) > -1) {
+                            item.select = true
+                        }
+                     }
+                } else {
+                     that.cityList[0].select= true
+                }
+              
                 //市区滚动到选中位置
                 setTimeout(function(){//定时器用于当进入时，还未渲染完
                     let first=false;//第一次进入(用来滚动到选中第一个)
                     for(let i=0;i<that.cityList.length;i++){
-                        for(let x=1;x<arr1.length;x++){
-                            if(that.cityList[i].name.indexOf(arr1[x])>-1){
-                                that.cityList[i].select=true;
-                                if(!first){
-                                    that.$refs.city.scrollTop=(i*85)/2;
-                                }
-                                first=true;
-                            }
+                        if(arr4.length >= 1) {
+                             for(let x=1;x<arr4.length;x++){
+                              if(that.$route.path == '/tender' || that.$route.path == '/bid' ) {
+                                    if(arr4.indexOf(that.cityList[i].code)>-1){
+                                        that.cityList[i].select=true;
+                                        if(!first){
+                                            that.$refs.city.scrollTop=(i*85)/2;
+                                        }
+                                        first=true;
+                                    }
+                              }
+                          }
+                        } else {
+                            for(let x=1;x<arr1.length;x++){
+                                    if(arr1.indexOf(that.cityList[i].name)>-1){
+                                        that.cityList[i].select=true;
+                                        if(!first){
+                                            that.$refs.city.scrollTop=(i*85)/2;
+                                        }
+                                        first=true;
+                                    }
+                          }
                         }
+                       
                     }
                 },50)
             }else{
@@ -187,23 +233,37 @@ export default {
             
             if(!this.isAll){//如果是选市级则传市级
                 let arr = []
-                 if(this.$route.path == '/tender') {
+                 if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
                       arr.push(this.addList[this.tabNum].code)
                  } else {
                       arr.push(this.addList[this.tabNum].name)
                  }
                 // let arr=[this.addList[this.tabNum].name]
+                let arr1 = []
+                let str1 = ''
                 for(let x of this.cityList){
                     if(x.select){
-                         if(this.$route.path == '/tender') {
-                           arr.push(x.code)
+                         if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
+                           arr1.push(x.code)
+                           
                          } else {
-                           arr.push(x.name)  
+                           arr1.push(x.name)  
                          }
                     }
                 }
-                str=arr.join('||');//用作接口入参
-                arr.splice(0,1);
+                // str1=arr1.join(',');
+                if(this.$route.path == '/tender' || this.$route.path == '/bid') {
+                    let str1 = arr1.join(',')
+                    if(arr.length == 1) {
+                        str = arr[0] + "||" + str1
+                    }
+                    // str = arr.join('||');
+                } else {
+                    let arr2 = arr.concat(arr1)
+                    str=arr2.join('||');
+                }
+                //用作接口入参
+                // arr.splice(0,1);
                 txt=showstr;//用作显示
             }
             this.$parent.mask=false;
@@ -248,7 +308,6 @@ export default {
             if(arr1.length==0){
                 this.cityList[0].select=true;
             }
-            // this.$set(this.cityList,list);
         },
         cityFn(i){
             let arr2=[];

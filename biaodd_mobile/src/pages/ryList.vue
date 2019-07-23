@@ -12,7 +12,7 @@
             <i></i>
         </div>
         <!--地区 -->
-        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.province" :type="2"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add" :type="2"></v-addr>
         <!-- 注册类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
             <ul>
@@ -81,6 +81,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',//会员权限
+        add:{}
       }
     },
     methods: {
@@ -137,6 +138,8 @@ export default {
             this.zbList=[];
             this.screenList[0].active=false;
             this.screenList[0].txt=option.txt;
+            this.add = {}
+            this.add.regions = option.str
             this.data.province=option.str;
             this.data.pageNo=1;
             this.ajax();
@@ -176,11 +179,23 @@ export default {
     created(){
         let that=this;
         this.data.keyWord =  this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '';
-          this.data.province = sessionStorage.getItem('address');
-        this.screenList[0].txt=sessionStorage.getItem('address');
+        this.data.province = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
+        // this.screenList[0].txt=JSON.parse(sessionStorage.getItem('address')).name;
+        if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=  '湖南省' ;
+            }
+        } else {
+            this.screenList[0].txt= '湖南省' ;
+        }
         if(sessionStorage.getItem('permissions')){
             this.vipStr=sessionStorage.getItem('permissions');
         }
+        // this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  JSON.parse(sessionStorage.getItem('address'))
+        this.add = (sessionStorage.getItem('ryData')) ? JSON.parse(sessionStorage.getItem('ryData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+
         //获取注册类别列表
         this.$http({
             method:'post',

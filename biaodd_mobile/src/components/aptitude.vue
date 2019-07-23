@@ -81,17 +81,17 @@ export default {
         if(!localStorage.getItem('filter')){
             //资质
             this.$http({
-                method:'get',
-                url: '/company/filter',
+                method:'post',
+                url: '/new/common/condition',
             }).then(function(res){
-                that.data=res.data.data.companyQual;
+                that.data=res.data.data.newQual;
      
                 that.showArr=res.data.data.newQual;          
             })
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
-            that.data=obj.companyQual;
+            that.data=obj.newQual;
             that.showArr=obj.newQual;
         }
         that.boxArr=that.arr;
@@ -124,31 +124,33 @@ export default {
         // 方法 集合
         selectFn(i){
             let that=this;
-            let obj={
+            let obj={   
                 code:that.showArr[i].code,
                 name:that.showArr[i].name,
             }
-            this.storageArr.push(obj);
-            this.navTxt[that.num]=that.showArr[i].name;
-            if(that.showArr[i].list==null){
+            this.storageArr.push(obj);   // 存进去一个对象
+            this.navTxt[that.num]=that.showArr[i].name;  // 对应位置展示
+            if(that.showArr[i].data==null){    // 资质选到最好一级的操作 
                 let name=[],code=[];
                 for(let x of that.storageArr){
                     name.push(x.name);
-                    code.push(x.code);
+                    if(that.storageArr[0].code != x.code) {
+                     code.push(x.code);
+                    }
                 }
                 let boxData={
                     name:name.join('-'),
                     code:code.join('||')
                 }
                 for(let x of this.boxArr){
-                    if(x.code==boxData.code){
-                        that.storageArr.length=2;
-                        that.isToast=true;
-                        setTimeout(function(){
-                            that.isToast=false;
-                        },1500)
-                        return false
-                    }
+                   if(x.code==boxData.code){
+                       that.storageArr.length=2;
+                       that.isToast=true;
+                       setTimeout(function(){
+                           that.isToast=false;
+                       },1500)
+                       return false
+                   }
                 }
                 this.hideFix();
                 that.storageArr=[];
@@ -157,7 +159,7 @@ export default {
                 this.sureTxt='确定';
                 this.showArr=this.data;
             }
-            this.showArr=this.showArr[i].list;
+            this.showArr=this.showArr[i].data;
             this.num++;
             this.navTxt.push('请选择')
         },
@@ -178,12 +180,12 @@ export default {
                 let arr=that.boxArr;
                 let str='';
                 for(let x of arr){
-                    str=str+x.code+'||'
+                    console.log(x.code,1);
+                    str=str+x.code+','
                 }
-                str=str.substring(0,str.length-2);
+                str=str.substring(0,str.length-1);
                 this.$emit('sureFn',{str:str,list:this.boxArr});
             }
-            
         },
         addFn(){
             this.isFix=true;

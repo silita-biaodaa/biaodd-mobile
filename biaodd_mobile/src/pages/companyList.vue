@@ -11,7 +11,7 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress" :allress='true'  :type="1"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add" :allress='true'  :type="1"></v-addr>
     <v-apt v-if="screenList[2].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
   </div>
@@ -89,6 +89,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{}
       }
     },
     methods: {
@@ -152,6 +153,8 @@ export default {
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.add = {}
+        this.add.regions = option.str
         this.data.regisAddress=option.str;
         this.data.pageNo=1;
         this.ajax();
@@ -233,8 +236,19 @@ export default {
     },
     created(){
       this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
-      this.data.regisAddress = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
+      this.data.regisAddress = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
+       if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=  '湖南省' ;
+            }
+        } else {
+            this.screenList[0].txt= '湖南省' ;
+        }
+      // this.add = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')) :  JSON.parse(sessionStorage.getItem('address'))
+      this.add = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+
       if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
         let data=JSON.parse(sessionStorage.getItem('companyData')),
             screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));

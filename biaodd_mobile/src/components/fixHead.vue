@@ -95,10 +95,18 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.address=sessionStorage.getItem('address');
+        if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.address=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+                this.address=   '湖南省' ;
+            }
+        } else {
+            this.address=   '湖南省' ;
+        }
         // if(sessionStorage.getItem('city')){
         //     this.address=sessionStorage.getItem('city');
-        this.addressStr=sessionStorage.getItem('address');
+        this.addressStr = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
         // }
         this.changeN();
     },

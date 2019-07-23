@@ -11,7 +11,7 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
     <!-- <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type> -->
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenData"></v-money>
   </div>
@@ -55,14 +55,14 @@ export default {
         data:{
           pageNo:1,
           pageSize:'10',
-          regions:'湖南',
+          regions:'hunan',
           type: "2",
           projectType:'',
           title: "",
           projSumStart:'',//中标开始金额
           projSumEnd:'',//中标结束金额
-          sumType:"zhongbiao",
-          com_name:''
+          // sumType:"zhongbiao",
+          comName:''
         },
         title:'',
         total:0,
@@ -87,6 +87,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{}
       }
     },
     methods: {
@@ -102,7 +103,7 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/newnocite/zhongbiao/list',
             data:that.data
         }).then(function(res){
             that.loading = false;
@@ -142,6 +143,8 @@ export default {
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.add = {}
+        this.add.regions = option.str
         this.data.regions=option.str;
         this.data.pageNo=1;
         this.ajax();
@@ -192,7 +195,7 @@ export default {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
         } else {
-            this.data.com_name = this.$route.query.scom
+            this.data.comName = this.$route.query.scom
         }
         this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
       }
@@ -208,9 +211,18 @@ export default {
     },
     created(){
       this.gaiaSea()
-      this.data.regions = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
-
+      this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
+       if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=   '湖南省' ;
+            }
+        } else {
+            this.screenList[0].txt=   '湖南省' ;
+        }
+      // this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  JSON.parse(sessionStorage.getItem('address'))
+       this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }

@@ -11,7 +11,7 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
     <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="screenNum.typeNum"></v-type>
     <v-assess :selectArr="screenNum.select" @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
     <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :type="0" :arr="screenNum.arr"></v-apt>
@@ -56,14 +56,14 @@ export default {
         loading:false,//是否加载完，false为加载完
         data:{
           pageNo:1,
-          pageSize:'10',
-          regions:'湖南',
-          type: "0",
-          projectType:'',
-          title: "",
-          pbModes:'',
-          zzType:'',
-          com_name:''
+          pageSize:'10', 
+          regions:'hunan',  // 地区
+          type: "1",  // 类型
+          projectType:'', // 类型
+          title: "",  // 标题
+          pbModes:'', // 评标办法
+          zzType:'', // 资质
+          comName:'' // 企业名称
         },
         total:0,
         title:'',
@@ -92,6 +92,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{}
       }
     },
     methods: {
@@ -108,9 +109,11 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/newnocite/zhaobiao/list',
             data:that.data
         }).then(function(res){
+            console.log(res);
+            
             that.loading = false;
             that.total=res.data.total;
             if(that.zbList.length==0||that.data.pageNo==1){
@@ -146,6 +149,8 @@ export default {
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.add = {}
+        this.add.regions = option.str
         this.data.regions=option.str;
         this.data.pageNo=1;
         this.ajax();
@@ -211,7 +216,7 @@ export default {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
         } else {
-            this.data.com_name = this.$route.query.scom
+            this.data.comName = this.$route.query.scom
         }
         this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
       }
@@ -228,8 +233,17 @@ export default {
     },
     created(){
       this.gaiaSea()
-      this.data.regions = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
+      this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
+      this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+       if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=   '湖南省' ;
+            }
+        } else {
+            this.screenList[0].txt=   '湖南省' ;
+        }
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
@@ -238,6 +252,7 @@ export default {
             screenNum=JSON.parse(sessionStorage.getItem('bidScreenNum'));
         data.pageNo=1;
         this.data=data;
+        // this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  JSON.parse(sessionStorage.getItem('address'))
         this.screenNum=screenNum;
       }
       this.ajax();

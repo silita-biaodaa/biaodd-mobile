@@ -34,6 +34,7 @@ export default {
       fisrt: true,
       per:true,
       showNav:true,
+      area:[]
     }
   },
   provide(){
@@ -70,7 +71,7 @@ export default {
            for(let val of el) {
                  for(let vals of val.data) {
                      if(vals.data.length == 0 ) {
-                         vals.data.push({name:'全部',code:''})
+                         vals.data.push({name:'全部',code:'0'})
                          continue
                      }
                  }
@@ -85,11 +86,12 @@ export default {
       localStorage.removeItem('Bname')
     }
     this.judge();
-   
-    this.$http({
+     let that=this;
+       this.$http({
         method:'post',
         url: '/authorize/address',
     }).then(function(res){
+      console.log(res,'执行');
         if(res.data.data.region.indexOf('广西')>-1){
           sessionStorage.setItem('address','广西壮族自治区');
         }else if(res.data.data.region.indexOf('内蒙古')>-1){
@@ -101,17 +103,20 @@ export default {
         }else if(res.data.data.region.indexOf('西藏')>-1){
           sessionStorage.setItem('address','西藏自治区');
         }else{
-          sessionStorage.setItem('address',res.data.data.region+'省');
+          let str = res.data.data.region+'省'
+          for(let x of that.area) {
+            if( str == x.name ) {
+              sessionStorage.setItem('address',JSON.stringify(x)); 
+            }
+          }
         } 
-        // if(res.data.data.region=='湖南'){
-        //   sessionStorage.setItem('city',res.data.data.city);
-        // }
-        sessionStorage.setItem('ip',res.data.data.ip);
+        if(res.data.data.ip) {
+          sessionStorage.setItem('ip',res.data.data.ip);
+        }
+        
     }).catch(function(res){
         
     })
-
-    let that=this;
     //筛选条件存于本地
     this.$http({
         method:'post',
@@ -120,10 +125,16 @@ export default {
        console.log(res,1);
        let arr = res.data.data
        let obj = res.data.data.comQua
+       that.area = res.data.data.area
        that.pushAll(obj)   
        arr.newQual = obj 
        localStorage.setItem('filter',JSON.stringify(arr));
-    })
+    });
+
+    //  let that=this;
+  
+
+  
   },
   watch: {
    $route: {
