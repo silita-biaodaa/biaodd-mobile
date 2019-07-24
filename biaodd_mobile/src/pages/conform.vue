@@ -63,8 +63,10 @@ export default {
                     isVip:vip
                 }
             }).then(function(res){
-                console.log(res);
-                
+                for(let x of res.data.data) {
+                    let arr =  x.phone.split(';')
+                    x.phone = arr[0]
+                }
                 that.list = res.data.data
                 that.total = res.data.total
             })

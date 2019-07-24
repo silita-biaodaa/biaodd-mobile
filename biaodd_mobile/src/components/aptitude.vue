@@ -128,7 +128,7 @@ export default {
                 code:that.showArr[i].code,
                 name:that.showArr[i].name,
             }
-            this.storageArr.push(obj);   // 存进去一个对象
+            this.storageArr.push(obj);   // 存进去选择资质
             this.navTxt[that.num]=that.showArr[i].name;  // 对应位置展示
             if(that.showArr[i].data==null){    // 资质选到最好一级的操作 
                 let name=[],code=[];
@@ -208,8 +208,8 @@ export default {
                 this.storageArr=[];
             }else if(i==1){
                 for(let x in this.data){
-                    if(this.data[x].name==this.navTxt[0]){
-                        this.showArr=this.data[x].list
+                    if(this.data[x].name == this.navTxt[0]){
+                        this.showArr = this.data[x].data
                         break
                     }
                 }
