@@ -29,7 +29,7 @@
                         资质要求：{{detail.zzRank ? detail.zzRank : '详见原文'}}
                 </div>
             </div>
-            <div class="detail-cli" @click="topush(detail)" :class="this.total == null ? 'current' : ''" >
+            <div class="detail-cli" @click="topush(detail)" :class="this.total == 0 ? 'current' : ''" >
                 <div  >
                     符合资质企业
                 </div>
@@ -118,7 +118,7 @@ export default {
     methods: {
         // 方法 集合
          topush(o) {
-             if(this.total == null) {
+             if(this.total == 0) {
                  return 
              }
             this.$router.push({path:'/conform',query:{id:o.id,source:this.source}})
