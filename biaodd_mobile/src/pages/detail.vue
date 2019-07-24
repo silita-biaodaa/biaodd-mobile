@@ -8,7 +8,7 @@
                 <p>{{detail.title}}</p>
                 <div class="detail-time">
                     <div class="de-size" >
-                        发布时间：{{detail.opendate}}
+                        发布时间：{{detail.openDate}}
                     </div>
                     <div class="de-size" >
                         浏览量：<span class="color" >{{clickCount}}</span>

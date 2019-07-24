@@ -9,7 +9,7 @@
         </p>
         <div class="win-time">
           <div class="win-c" >
-            发布时间：{{detail.opendate}}
+            发布时间：{{detail.openDate}}
           </div>
           <div class="win-c">
             浏览量：<span class="color" >{{clickCount}}</span>
