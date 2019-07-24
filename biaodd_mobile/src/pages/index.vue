@@ -237,7 +237,7 @@ export default {
             //中标
             this.$http({
                 method:'post',
-                url: '/newnocite/zhaobiao/list',
+                url: '/newnocite/zhongbiao/list',
                 data:{
                     pageNo:1,
                     pageSize:3,
@@ -253,11 +253,13 @@ export default {
                 that.zhongbList=res.data.data;
             })
             //企业
-            let arr=address.split('||');
-            let qyAddress=address;
-            if(arr.length>1){
-                qyAddress=arr[0]
-            }
+            console.log(this.$refs.fixObj.addressStr);
+            
+            // let arr=this.$refs.fixObj.addressStr.name;
+            let qyAddress=this.$refs.fixObj.addressStr.name;
+            // if(arr.length>1){
+            //     qyAddress=arr[0]
+            // }
            let vip = sessionStorage.getItem('permissions') ? 1 : 0
             this.$http({
                 method:'post',
