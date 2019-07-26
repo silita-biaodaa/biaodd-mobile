@@ -230,17 +230,17 @@ export default {
             this.navTxt[2]='请选择';
             this.num=2;
             for(let x of this.data){
-                if(x.code==arrCode[0]){
-                    for(let y of x.list){
-                        if(y.code==arrCode[1]){
-                            this.showArr=y.list
+                if(x.name == arrName[0]){
+                    for(let y of x.data){
+                        if(y.code == arrCode[0]){
+                            this.showArr = y.data
                             break
                         }
                     }
                     break
                 }
             }
-            for(let x=0;x<arrCode.length-1;x++){
+            for(let x=0;x<arrName.length-1;x++){
                 let data={
                     code:arrCode[x],
                     name:arrName[x]
