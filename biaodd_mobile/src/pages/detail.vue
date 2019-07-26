@@ -1,7 +1,7 @@
 <!-- 招标 -->
 <template>
     <div class="detail">
-        <top-back :title='name' :isFollow="true" :id="id" :type="'zhaob'" :collected="collected" :source="source"></top-back>
+        <top-back :title='name' :isFollow="true" :id="id" :type="'zhaob'" :collected="collected" :source="source" :collect="detail.type" ></top-back>
         <!-- 详情内容 -->
         <div class="detail-text">
             <div class="detail-title">

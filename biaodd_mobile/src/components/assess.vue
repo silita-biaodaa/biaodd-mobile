@@ -70,9 +70,8 @@ export default {
                 that.assessList[x].class = false
             }
         }
-       console.log( that.selectArr);
-       
-        if(that.selectArr.length>0){
+        let str = sessionStorage.getItem('assess') ? sessionStorage.getItem('assess') : '0'
+        if(that.selectArr.length>0 && str != 1 ){
           for(let x of that.assessList){
               for(let y of that.selectArr){
                   if(x.name == y.name){
@@ -107,6 +106,7 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+         sessionStorage.removeItem('assess')
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');

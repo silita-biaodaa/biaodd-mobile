@@ -146,6 +146,10 @@ export default {
           this.$router.push({ path:'/history', query:{path:'/bid',lo:'bidL'}});
       },
       returnAddress(option){//选择地址
+        if( this.screenList[0] != option.txt) {
+          this.data.pbModes = ''
+          sessionStorage.setItem('assess','1')
+        } 
         this.isajax=false;
         this.zbList=[];
         this.screenList[0].active=false;
@@ -268,8 +272,13 @@ export default {
               this.data.comName = this.$route.query.scom
           }
       }
-      this.screenNum = sessionStorage.getItem('bidScreenNum') ? JSON.parse(sessionStorage.getItem('bidScreenNum')) : {typeNum:0,select:[],arr:[]},
-      this.souCode = this.data.regions
+      this.screenNum = sessionStorage.getItem('bidScreenNum') ? JSON.parse(sessionStorage.getItem('bidScreenNum')) : {typeNum:0,select:[],arr:[]}
+      if(this.data.regions.indexOf('||')> -1) {
+        let arr7 = this.data.regions.split('||')
+        this.souCode = arr7[0]
+      } else {
+        this.souCode = this.data.regions
+      }
       this.ajax();
     },
     watch:{

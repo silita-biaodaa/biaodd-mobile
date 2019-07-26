@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
   <div class="winning">
-    <top-back :title='name' :isFollow="true" :id="id" :type="'zhongb'" :collected="collected" :source="source"></top-back>
+    <top-back :title='name' :isFollow="true" :id="id" :type="'zhongb'" :collected="collected" :source="source" :collect="detail.type" ></top-back>
     <div class="win-text">
       <div class="win-title">
         <p>

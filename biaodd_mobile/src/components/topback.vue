@@ -47,7 +47,11 @@ export default {
         },
         source:{
             default:''
-        }
+        },
+        collect:{
+            default:''
+        },
+
     },
     components: {
        'v-popup':popup,
@@ -125,7 +129,7 @@ export default {
                     url:'/userCenter/collectionNotice',
                     data:{
                         source:that.source,
-                        type: "0",
+                        type: collect,
                         noticeid:that.id,
                     }
                 }).then(function(res){
