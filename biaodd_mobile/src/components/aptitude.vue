@@ -140,7 +140,7 @@ export default {
                 }
                 let boxData={
                     name:name.join('-'),
-                    code:code.join('||')
+                    code:code.join('/')
                 }
                 for(let x of this.boxArr){
                    if(x.code==boxData.code){
@@ -223,7 +223,7 @@ export default {
             this.modalHelper.afterOpen();
             //取之前的数据
             let arrName=this.boxArr[i].name.split('-');
-            let arrCode=this.boxArr[i].code.split('||');
+            let arrCode=this.boxArr[i].code.split('/');
             //删除之前的那行
             this.boxArr.splice(i,1);
             this.navTxt=arrName;

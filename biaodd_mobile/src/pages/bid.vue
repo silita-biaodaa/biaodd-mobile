@@ -12,8 +12,8 @@
       <i></i>
     </div>
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
-    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="screenNum.typeNum"></v-type>
-    <v-assess :selectArr="screenNum.select" @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
+    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="data.projectType"></v-type>
+    <v-assess :selectArr="screenNum.select" :souCode='souCode' @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
     <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :type="0" :arr="screenNum.arr"></v-apt>
   </div>
   <!-- 总条数 -->
@@ -92,7 +92,8 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
-        add:{}
+        add:{},
+        souCode:''
       }
     },
     methods: {
@@ -150,8 +151,10 @@ export default {
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
         this.add = {}
-        this.add.regions = option.str
+        this.add.regions = option.txt
+        sessionStorage.setItem('bidArea',option.txt)
         this.data.regions=option.str;
+        this.souCode = this.data.regions
         this.data.pageNo=1;
         this.ajax();
       },
@@ -160,7 +163,7 @@ export default {
         this.zbList=[];
         this.screenList[1].active=false;
         this.data.projectType=option.str;
-        this.screenNum.typeNum=option.index;
+        // this.screenNum.typeNum=option.index;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -218,7 +221,7 @@ export default {
         } else {
             this.data.comName = this.$route.query.scom
         }
-        this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
+        this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom         
       }
     },
     components:{
@@ -235,26 +238,36 @@ export default {
       this.gaiaSea()
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
       this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
-       if( JSON.parse(sessionStorage.getItem('address'))) {
+       if(sessionStorage.getItem('bidArea')) {
+         this.screenList[0].txt = sessionStorage.getItem('bidArea')
+         this.add.name = this.screenList[0].txt
+       } else {
+          if( JSON.parse(sessionStorage.getItem('address'))) {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {
                  this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
             } else {
                this.screenList[0].txt=   '湖南省' ;
             }
-        } else {
-            this.screenList[0].txt=   '湖南省' ;
-        }
+          } else {
+              this.screenList[0].txt=   '湖南省' ;
+          }
+       }
+      
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
-      if(sessionStorage.getItem('bidData')&&sessionStorage.getItem('bidScreenNum')){//刷新保存筛选
-        let data=JSON.parse(sessionStorage.getItem('bidData')),
-            screenNum=JSON.parse(sessionStorage.getItem('bidScreenNum'));
-        data.pageNo=1;
+      if(sessionStorage.getItem('bidData')){//刷新保存筛选
+        let data=JSON.parse(sessionStorage.getItem('bidData'))
+        data.pageNo=1
         this.data=data;
-        // this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  JSON.parse(sessionStorage.getItem('address'))
-        this.screenNum=screenNum;
+          if(this.$route.query.key) {
+             this.data.title = this.$route.query.key
+          } else {
+              this.data.comName = this.$route.query.scom
+          }
       }
+      this.screenNum = sessionStorage.getItem('bidScreenNum') ? JSON.parse(sessionStorage.getItem('bidScreenNum')) : {typeNum:0,select:[],arr:[]},
+      this.souCode = this.data.regions
       this.ajax();
     },
     watch:{
@@ -269,11 +282,11 @@ export default {
         handler(val,old){
           sessionStorage.setItem('bidScreenNum',JSON.stringify(val));
         }
-      }
+      },
     },
     beforeDestroy(){
-      sessionStorage.removeItem('bidData')
-      sessionStorage.removeItem('bidScreenNum')
+      // sessionStorage.removeItem('bidData')
+      // sessionStorage.removeItem('bidScreenNum')
     },
 }
 </script>

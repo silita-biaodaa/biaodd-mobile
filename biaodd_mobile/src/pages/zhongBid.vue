@@ -145,6 +145,7 @@ export default {
         this.screenList[0].txt=option.txt;
         this.add = {}
         this.add.regions = option.str
+        sessionStorage.setItem('tenArea',option.txt)
         this.data.regions=option.str;
         this.data.pageNo=1;
         this.ajax();
@@ -212,27 +213,38 @@ export default {
     created(){
       this.gaiaSea()
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
-       if( JSON.parse(sessionStorage.getItem('address'))) {
+       if(sessionStorage.getItem('tenArea')) {
+         this.screenList[0].txt = sessionStorage.getItem('tenArea')
+         this.add.name = this.screenList[0].txt
+       } else {
+          if( JSON.parse(sessionStorage.getItem('address'))) {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {
                  this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
             } else {
                this.screenList[0].txt=   '湖南省' ;
             }
-        } else {
-            this.screenList[0].txt=   '湖南省' ;
-        }
+          } else {
+              this.screenList[0].txt=   '湖南省' ;
+          }
+       }
       // this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  JSON.parse(sessionStorage.getItem('address'))
        this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
-      if(sessionStorage.getItem('zhongbidData')&&sessionStorage.getItem('zhongbidScreenData')){
+      if(sessionStorage.getItem('zhongbidData') || sessionStorage.getItem('zhongbidScreenData')){
         let data=JSON.parse(sessionStorage.getItem('zhongbidData')),
-            screenData=JSON.parse(sessionStorage.getItem('zhongbidScreenData'));
+            screenData= sessionStorage.getItem('zhongbidScreenData') ? JSON.parse(sessionStorage.getItem('zhongbidScreenData')) : {num:0, projSumStart:'',projSumEnd:''}
         data.pageNo=1;
         this.data=data;
         this.screenData=screenData;
+         if(this.$route.query.key) {
+             this.data.title = this.$route.query.key
+          } else {
+              this.data.comName = this.$route.query.scom
+          }
       }
+
       this.ajax();
     },
     watch:{
@@ -250,8 +262,8 @@ export default {
       }
     },
     beforeDestroy(){
-      sessionStorage.removeItem('zhongbidData')
-      sessionStorage.removeItem('zhongbidScreenData')
+      // sessionStorage.removeItem('zhongbidData')
+      // sessionStorage.removeItem('zhongbidScreenData')
     },
 }
 </script>

@@ -30,18 +30,16 @@ export default {
     props: {
         // 集成父级参数
         selectArr:{
-
+            default:[]
+        },
+        souCode: {
+           default:''
         }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
-        // console.group('创建完毕状态===============》created');
-        // console.log(this.selectArr);
-        
-        this.source = JSON.parse(sessionStorage.getItem('address')).code;
-        // //条件
         let that=this;
         if(!localStorage.getItem('filter')){
             this.$http({
@@ -49,7 +47,7 @@ export default {
                 url: '/new/common/condition',
             }).then(function(res){
                 for(let item of res.data.data.pbMode) {
-                    if(item.provice == that.source) {
+                    if(item.provice == that.souCode) {
                         that.assessList = item.list
                     }
                 }
@@ -63,7 +61,7 @@ export default {
             let obj1 =JSON.parse(obj);
             let arr1 = obj1.pbMode
             for(let item of arr1) {
-                if(item.provice == that.source) {
+                if(item.provice == that.souCode) {
                     that.assessList = item.list
                 }
             }
@@ -72,11 +70,12 @@ export default {
                 that.assessList[x].class = false
             }
         }
+       console.log( that.selectArr);
        
         if(that.selectArr.length>0){
           for(let x of that.assessList){
               for(let y of that.selectArr){
-                  if(x.name==y.name){
+                  if(x.name == y.name){
                       x.class=true
                   }
               }

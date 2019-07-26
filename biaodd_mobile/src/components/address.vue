@@ -223,9 +223,9 @@ export default {
             let str = ''
             let txt = ''
             let showstr =this.addList[this.tabNum].name;
-            if(this.$route.path == '/tender') {
+            if(this.$route.path == '/tender'|| this.$route.path == '/bid') {
                  str=this.addList[this.tabNum].code;
-                 txt=this.addList[this.tabNum].code;
+                 txt=this.addList[this.tabNum].name;
             } else {
                  str=this.addList[this.tabNum].name;
                  txt=this.addList[this.tabNum].name;

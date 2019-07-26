@@ -55,7 +55,7 @@ export default {
                 this.obj.oneName=this.getPassOnename(this.obj.oneName)
             }
             if( this.obj.oneOffer) {
-                this.obj.oneOffer=this.getPassOneoffer(this.obj.oneOffer)
+                this.obj.oneOffer=this.getPassOneoffer((this.obj.oneOffer + ''))
             } 
         }
     },
