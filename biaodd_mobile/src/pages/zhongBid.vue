@@ -61,7 +61,6 @@ export default {
           title: "",
           projSumStart:'',//中标开始金额
           projSumEnd:'',//中标结束金额
-          // sumType:"zhongbiao",
           comName:''
         },
         title:'',
@@ -107,8 +106,8 @@ export default {
             data:that.data
         }).then(function(res){
             that.loading = false;
-            that.data.projSumStart='';
-            that.data.projSumEnd='';
+            // that.data.projSumStart='';
+            // that.data.projSumEnd='';
             that.total=res.data.total;
             if(that.zbList==0||that.data.pageNo==1){
               that.zbList=res.data.data;
@@ -145,8 +144,8 @@ export default {
         this.screenList[0].txt=option.txt;
         this.add = {}
         this.add.regions = option.str
-        sessionStorage.setItem('tenArea',option.txt)
-        this.data.regions=option.str;
+        sessionStorage.setItem('tenArea',JSON.stringify(option))
+        this.data.regions = option.str;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -182,6 +181,7 @@ export default {
               this.data.projSumStart='5000';
               this.data.projSumEnd='10000';
           }else if(option.num==4){
+              this.data.projSumEnd='';
               this.data.projSumStart='10000';
           }else{
               this.data.projSumStart=option.projSumStart;
@@ -214,21 +214,25 @@ export default {
       this.gaiaSea()
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
        if(sessionStorage.getItem('tenArea')) {
-         this.screenList[0].txt = sessionStorage.getItem('tenArea')
-         this.add.name = this.screenList[0].txt
+         this.screenList[0].txt = JSON.parse(sessionStorage.getItem('tenArea')).txt
+         this.add.name =  JSON.parse(sessionStorage.getItem('tenArea')).str
+        //  this.screenList[0].txt = sessionStorage.getItem('tenArea')
+        //  this.add.name = this.screenList[0].txt
        } else {
           if( JSON.parse(sessionStorage.getItem('address'))) {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {
                  this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+                  this.add.name = JSON.parse(sessionStorage.getItem('address')).name 
             } else {
                this.screenList[0].txt=   '湖南省' ;
             }
           } else {
               this.screenList[0].txt=   '湖南省' ;
+              this.add.name = '湖南省'
           }
        }
       // this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  JSON.parse(sessionStorage.getItem('address'))
-       this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+      //  this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }

@@ -151,10 +151,11 @@ export default {
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
         this.add = {}
-        this.add.regions = option.txt
-        sessionStorage.setItem('bidArea',option.txt)
+        this.add.regions = option.str
+        sessionStorage.setItem('bidArea',JSON.stringify(option))
         this.data.regions=option.str;
-        this.souCode = this.data.regions
+        let str = this.data.regions.split('||')
+        this.souCode = str[0]
         this.data.pageNo=1;
         this.ajax();
       },
@@ -239,8 +240,9 @@ export default {
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
       this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
        if(sessionStorage.getItem('bidArea')) {
-         this.screenList[0].txt = sessionStorage.getItem('bidArea')
-         this.add.name = this.screenList[0].txt
+         
+         this.screenList[0].txt = JSON.parse(sessionStorage.getItem('bidArea')).txt
+         this.add.name =  JSON.parse(sessionStorage.getItem('bidArea')).str
        } else {
           if( JSON.parse(sessionStorage.getItem('address'))) {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {

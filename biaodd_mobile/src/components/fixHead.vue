@@ -16,7 +16,7 @@
                 <div class="fix-line">
 
                 </div>
-                 <p class="fix-logo color" @click="jump" >
+                 <p class="fix-logo color" @click.stop="jump" >
                     {{name}}
                 </p>
             </div>

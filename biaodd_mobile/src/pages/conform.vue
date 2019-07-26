@@ -115,6 +115,10 @@ export default {
                     }
                     }).then(function(res){
                         if(res.data.code == 1 ) {
+                             for(let x of res.data.data) {
+                                 let arr =  x.phone.split(';')
+                                 x.phone = arr[0]
+                             }
                             res.data.data.forEach( el => {
                               that.list.push(el)
                            })
@@ -123,7 +127,7 @@ export default {
                             that.error = true
                         }   
                     })
-                 that.loading = false;
+                    that.loading = false;
 
                   // 数据全部加载完成
                   if (that.list.length >= that.total) {

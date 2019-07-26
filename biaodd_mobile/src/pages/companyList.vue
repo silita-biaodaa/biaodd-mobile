@@ -247,7 +247,7 @@ export default {
             this.screenList[0].txt= '湖南省' ;
         }
       // this.add = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')) :  JSON.parse(sessionStorage.getItem('address'))
-      this.add = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+      this.add.name = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')).regisAddress :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省')
 
       if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
         let data=JSON.parse(sessionStorage.getItem('companyData')),

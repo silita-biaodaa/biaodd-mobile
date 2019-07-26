@@ -105,14 +105,14 @@ export default {
                 } 
                 for(let x=0;x<arr.length;x++){
                     if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
-                        if(arr[x].code.indexOf(arr1[0])>-1){
+                        if(arr[x].code.indexOf(arr1[0])>-1 ){
                             that.tabNum=x;
                             that.cityFn(x);
                             that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
                             break
                         }
                     } else {
-                        if(arr[x].name.indexOf(arr1[0])>-1){
+                        if(arr[x].name.indexOf(arr1[0])>-1 ){
                             that.tabNum=x;
                             that.cityFn(x);
                             that.$refs.pro.scrollTop=(x*85)/2;//省份滚动到选中位置
@@ -124,7 +124,7 @@ export default {
                 if(arr4.length >= 1 ) {
                      that.cityList[0].select=false; 
                       for(let item of that.cityList ) {
-                        if(arr4.indexOf(item.code) > -1) {
+                        if(arr4.indexOf(item.code) > -1 || arr4.indexOf(item.name) > -1 ) {
                             item.select = true
                         }
                      }
@@ -153,6 +153,14 @@ export default {
                                         }
                                         first=true;
                                     }
+                              } else {
+                                   if(arr4.indexOf(that.cityList[i].name)>-1){
+                                        that.cityList[i].select=true;
+                                        if(!first){
+                                            that.$refs.city.scrollTop=(i*85)/2;
+                                        }
+                                        first=true;
+                                    }
                               }
                           }
                         } else {
@@ -171,7 +179,7 @@ export default {
                 },50)
             }else{
                 for(let x=0;x<arr.length;x++){
-                    if(arr[x].name.indexOf(addr)>-1){
+                    if(arr[x].code ==addr || arr[x].name == addr ){
                         that.tabNum=x;
                         that.cityFn(x);
                         that.$refs.pro.scrollTop=(x*85)/2;//自动滚动到当前所选项
@@ -251,17 +259,10 @@ export default {
                          }
                     }
                 }
-                // str1=arr1.join(',');
-                if(this.$route.path == '/tender' || this.$route.path == '/bid') {
-                    let str1 = arr1.join(',')
-                    if(arr.length == 1) {
-                        str = arr[0] + "||" + str1
-                    }
-                    // str = arr.join('||');
-                } else {
-                    let arr2 = arr.concat(arr1)
-                    str=arr2.join('||');
-                }
+                  str1 = arr1.join(',')
+                 if(arr.length == 1) {
+                     str = arr[0] + "||" + str1
+                 }
                 //用作接口入参
                 // arr.splice(0,1);
                 txt=showstr;//用作显示
