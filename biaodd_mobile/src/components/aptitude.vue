@@ -180,7 +180,6 @@ export default {
                 let arr=that.boxArr;
                 let str='';
                 for(let x of arr){
-                    console.log(x.code,1);
                     str=str+x.code+','
                 }
                 str=str.substring(0,str.length-1);
@@ -240,7 +239,8 @@ export default {
                     break
                 }
             }
-            for(let x=0;x<arrName.length-1;x++){
+            arrCode.unshift('0000')
+           for(let x=0;x<arrName.length-1;x++){
                 let data={
                     code:arrCode[x],
                     name:arrName[x]
