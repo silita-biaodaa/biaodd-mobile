@@ -274,40 +274,40 @@ export default {
         width: 100%;
         text-align: center;
         p{
-            color: #999999;
-            padding-top: 176px
+          color: #999999;
+          padding-top: 176px
         }
         .content-box{
-            .tit{
-                padding: 0 32px;
-                height: 72px;
-                line-height: 72px;
-                text-align: left;
-                color: #999;
-                font-size: 24px
-            }
-            ul{
-                margin-bottom: 112px;
-            }
-            li{
-                padding: 0 32px;
-                background: #fff;
-                height: 88px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                span{
-                    display: inline-block;
-                    max-width: 650px;
-                    overflow: hidden;
-                    text-overflow:ellipsis;
-                    white-space:nowrap;
-                }
-            }
-            .addBtn{
-                text-align: center;
-                color: #FE6603
-            }
+          .tit{
+              padding: 0 32px;
+              height: 72px;
+              line-height: 72px;
+              text-align: left;
+              color: #999;
+              font-size: 24px
+          }
+          ul{
+              margin-bottom: 112px;
+          }
+          li{
+              padding: 0 32px;
+              background: #fff;
+              height: 88px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              span{
+                  display: inline-block;
+                  max-width: 650px;
+                  overflow: hidden;
+                  text-overflow:ellipsis;
+                  white-space:nowrap;
+              }
+          }
+          .addBtn{
+              text-align: center;
+              color: #FE6603
+          }
         }
     }
     .btn{

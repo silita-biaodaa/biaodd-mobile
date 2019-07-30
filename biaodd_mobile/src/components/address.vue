@@ -100,9 +100,12 @@ export default {
             if(addr.indexOf('||') > -1) {//市
                 let arr1=addr.split('||');
                 let arr4 = []
-                if(addr.indexOf(',')>-1) {
-                   arr4 = arr1[1].split(',')
-                } 
+                // if(addr.indexOf(',')>-1) {
+                //    arr4 = arr1[1].split(',')
+                // } 
+                // if(arr1[1] != null) {
+                     arr4 = arr1[1].split(',')
+                // }
                 for(let x=0;x<arr.length;x++){
                     if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
                         if(arr[x].code.indexOf(arr1[0])>-1 ){
@@ -119,7 +122,6 @@ export default {
                             break
                         }
                     }
-                    
                 }
                 if(arr4.length >= 1 ) {
                      that.cityList[0].select=false; 
@@ -138,15 +140,16 @@ export default {
                 } else {
                      that.cityList[0].select= true
                 }
+              console.log(arr4);
               
                 //市区滚动到选中位置
                 setTimeout(function(){//定时器用于当进入时，还未渲染完
                     let first=false;//第一次进入(用来滚动到选中第一个)
                     for(let i=0;i<that.cityList.length;i++){
                         if(arr4.length >= 1) {
-                             for(let x=1;x<arr4.length;x++){
+                             for(let x=0;x<arr4.length;x++){
                               if(that.$route.path == '/tender' || that.$route.path == '/bid' ) {
-                                    if(arr4.indexOf(that.cityList[i].code)>-1){
+                                    if(arr4.indexOf(that.cityList[i].code)>-1){ 
                                         that.cityList[i].select=true;
                                         if(!first){
                                             that.$refs.city.scrollTop=(i*85)/2;

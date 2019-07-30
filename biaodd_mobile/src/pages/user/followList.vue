@@ -136,7 +136,7 @@ export default {
                 method:'post',
                 url:'/userCenter/listCollectionNotice',
                 data:{
-                    type:'0',
+                    type:'1',
                     pageNo:1,
                     pageSize:1000
                 }
