@@ -97,7 +97,7 @@ export default {
       }
     },
     methods: {
-      onRefresh(){//下拉刷新
+      onRefresh(){   //下拉刷新
         this.zbList=[];
         setTimeout(() => {
           this.data.pageNo=1;
@@ -223,10 +223,12 @@ export default {
       gaiaSea() {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
+           this.data.comName = ''
         } else {
             this.data.comName = this.$route.query.scom
+            this.data.title = ''
         }
-        this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom         
+        this.title = this.$route.query.key ? this.$route.query.key : (this.$route.query.scom ? this.$route.query.scom : '' )         
       }
     },
     components:{
@@ -240,7 +242,7 @@ export default {
         'v-not':not
     },
     created(){
-      this.gaiaSea()
+      
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
       this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
        if(sessionStorage.getItem('bidArea')) {
@@ -279,6 +281,7 @@ export default {
       } else {
         this.souCode = this.data.regions
       }
+      this.gaiaSea()
       this.ajax();
     },
     watch:{

@@ -195,8 +195,10 @@ export default {
       gaiaSea() {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
+           this.data.comName = ''
         } else {
-            this.data.comName = this.$route.query.scom
+            this.data.comName  = this.$route.query.scom
+            this.data.title = ''
         }
         this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
       }
@@ -211,7 +213,7 @@ export default {
         'v-not':not
     },
     created(){
-      this.gaiaSea()
+     
       this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
        if(sessionStorage.getItem('tenArea')) {
          this.screenList[0].txt = JSON.parse(sessionStorage.getItem('tenArea')).txt
@@ -231,8 +233,6 @@ export default {
               this.add.name = '湖南省'
           }
        }
-      // this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  JSON.parse(sessionStorage.getItem('address'))
-      //  this.add = (sessionStorage.getItem('zhongbidData')) ? JSON.parse(sessionStorage.getItem('zhongbidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
       }
@@ -248,7 +248,7 @@ export default {
               this.data.comName = this.$route.query.scom
           }
       }
-
+      this.gaiaSea()
       this.ajax();
     },
     watch:{
