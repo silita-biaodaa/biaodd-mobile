@@ -67,7 +67,7 @@ import zhongbCon from '@/components/zhongbCon'
 import qy from '@/components/qy'
 import fixHead from '@/components/fixHead'
 export default {
-    name: 'index', // 结构名称
+    // name: 'index', // 结构名称
     data() {
         return {
             // 数据模型

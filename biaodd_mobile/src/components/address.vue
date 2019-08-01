@@ -347,8 +347,6 @@ export default {
     left: 0;
     z-index: 9;
     width: 100%;
-    // height: 360px;
-    // max-height: 360px;
     box-sizing: border-box;
     .box{
         display: flex;
