@@ -40,6 +40,7 @@ import lawtext from '@/pages/law/lawtext'
 import annals from '@/components/enterprise/annals'
 
 
+import newtext from '@/pages/newtext'   // 与项目无关页面，测试页面
 
 
 
@@ -50,6 +51,11 @@ export default new Router({
     {
       path: '/',
       redirect: '/home'
+    },
+    {  // 测试页面
+      path: '/newtext',
+      name: 'newtext',
+      component: newtext
     },
     {//首页
       path: '/home',
