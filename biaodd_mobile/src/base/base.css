@@ -391,3 +391,52 @@ body .van-icon-arrow{
    .bor-col {
     border: none;
   }
+
+  .ba-title {
+      height: 88px;
+      font-size: 28px;
+      color:#333;
+      padding: 0 35px;
+      border-bottom: 1PX solid #f2f2f2;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+   .tab-an {
+      box-shadow:0px 6px 6px 0px rgba(0, 0, 0, 0.03);
+      border-radius:8px;
+      margin-bottom: 20px;
+      padding: 0 14px 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+    .tab-hide {
+      height: 120px;
+      overflow: hidden;
+    }
+    .tab-show {
+      height: auto;
+    }
+    .tab-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 120px;
+      border-bottom: 1PX solid #F2F2F2;
+    }  
+     .tab-list  img {
+        width: 35px;
+        height: 40px;
+        margin-right: 20px;
+    }
+    .tab-list  .tab-name {
+        font-size: 32px;
+        color: #333;
+        display: flex;
+        align-items: center;
+     }
+     .tab-list  i {
+        font-size: 40px;
+        color: #666;
+    }

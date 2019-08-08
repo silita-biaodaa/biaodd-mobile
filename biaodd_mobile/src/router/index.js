@@ -38,6 +38,8 @@ import history from '@/pages/history/history'
 import law from '@/pages/law/law'
 import lawtext from '@/pages/law/lawtext'
 import annals from '@/components/enterprise/annals'
+import prise from '@/components/enterprise/prise'
+
 
 
 
@@ -234,7 +236,12 @@ export default new Router({
       path: '/annals',
       component: annals,
       name: 'annals'
-    }                          
+    },
+    { // 获奖详情
+      path: '/prise',
+      component: prise,
+      name: 'prise'
+    }                                  
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

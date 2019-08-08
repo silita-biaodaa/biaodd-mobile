@@ -460,16 +460,6 @@ export default {
   }
   
   .ba-title {
-      height: 88px;
-      // line-height: 88px;
-      font-size: 28px;
-      color:#333;
-      padding: 0 35px;
-      border-bottom: 1PX solid #f2f2f2;
-      background-color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       .img-bas {
         width: 35px;
         height: 40px;

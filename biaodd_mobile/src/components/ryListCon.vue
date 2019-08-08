@@ -4,22 +4,31 @@
         <!-- 注册证书 -->
         <template v-if="type==0">
             <h5>{{obj.category}}</h5>
-            <p>
+            <p v-show="obj.category" >
+                <span class="tit-txt">注册类别</span>
+                <span>{{obj.category}}</span>
+            </p>
+            <p v-show="obj.major" >
                 <span class="tit-txt">专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</span>
                 <span>{{obj.major}}</span>
             </p>
-            <p>
+            <p v-show="obj.certNo" >
+                <span class="tit-txt">证书编号</span>
+                <span>{{obj.certNo}}</span>
+            </p>
+            <p v-show="obj.sealNo" >
                 <span class="tit-txt">执业印章号</span>
                 <span>{{obj.sealNo}}</span>
             </p>
-            <p>
-                <span class="tit-txt">单位名称</span>
-                <span>{{obj.comName}}</span>
-            </p>
-            <p>
+            <p v-show="obj.validDate" >
                 <span class="tit-txt">有效日期</span>
                 <span>{{obj.validDate}}</span>
             </p>
+            <p v-show="obj.comName" >
+                <span class="tit-txt">注册单位</span>
+                <span>{{obj.comName}}</span>
+            </p>
+           
         </template>
         <!-- 个人业绩 -->
         <template v-else-if="type==1">
