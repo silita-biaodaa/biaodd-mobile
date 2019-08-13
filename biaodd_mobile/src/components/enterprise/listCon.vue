@@ -22,7 +22,6 @@
             <p>注册类别：<span>{{obj.category}}</span></p>
             <p v-show="obj.certNo"  >注册类别：<span>{{obj.certNo}}</span></p>
             <p v-show="obj.major" >专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
-            <p>有效日期：<span>{{obj.validDate}}</span></p>
         </template>
         <!-- 中标 -->
         <template v-else-if="type=='zb'">

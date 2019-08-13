@@ -8,7 +8,7 @@
                 {{obj.awardName}}
               </div>
               <p>
-                评定日期：<span>{{obj.valided}}</span>
+                <span>{{obj.pkid ? '评定日期': '有效日期'}}</span>：<span>{{obj.valided ? obj.valided : obj.issued}}</span>
               </p>
             </div>
       </template>
