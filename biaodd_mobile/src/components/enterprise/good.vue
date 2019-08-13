@@ -5,7 +5,7 @@
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-rongy.png.png" class="good-glory" alt="">
-                 企业荣耀 ({{award}})
+                 企业荣誉 ({{award}})
               </div>
               <div>
                    <van-icon name="arrow-down"  v-if="glory" />
@@ -123,7 +123,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
          this.id = this.$route.query.id
-         this.source = this.$route.query.source
+        //  this.source = this.$route.query.source
          this.gainList()
     },
     beforeMount() {
@@ -156,7 +156,7 @@ export default {
                 url: 'reputation/new/company' ,
                 data:{
                    comId:that.id,
-                   source:that.source,
+                  //  source:that.source,
                    reqType:'WAP'
                 }
             }).then(function(res){
@@ -171,9 +171,6 @@ export default {
                 that.wins = res.data.data.projectAwards
                 that.win = res.data.data.projectAwards.length
               }
-                
-                console.log(res);
-                // that.list  = res.data.data
             })
         }
     }

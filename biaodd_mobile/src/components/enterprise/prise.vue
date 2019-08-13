@@ -3,7 +3,7 @@
     <div class="prise">
         <top-back :title="'获奖详情'"  ></top-back>
         <h5>
-          杨店社区北片区施工6#楼 被评为 2018～2019年度第一批湖北省建筑结构优质工程
+          {{detail.projName}}
         </h5>
 
         <div  class="prise-name" > 
@@ -11,7 +11,7 @@
                奖项名称：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               {{detail.awardName}}
             </div>
         </div>
 
@@ -20,131 +20,131 @@
                工程名称：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               {{detail.projName}}
             </div>
         </div>
 
-        <div  class="prise-name" > 
+        <div  class="prise-name"  v-show="detail.projType" > 
             <div class="prise-left" >
                项目类型：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+                {{detail.projType}}
             </div>
         </div>
 
-        <div  class="prise-name" > 
+        <div  class="prise-name" v-show="detail.acreage" > 
             <div style="width:26%" >
                建筑面积(m2)： 
             </div>
             <div  style="width:73%" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               {{detail.acreage}}
             </div>
         </div>
 
-         <div  class="prise-name" > 
+         <div  class="prise-name"  > 
             <div class="prise-left" >
                单位名称：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               <span v-for="(el,i) in detail.unitOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.unitOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-        <div  class="prise-name" > 
+        <div  class="prise-name" v-show="detail.projManager" > 
             <div class="prise-left" >
                项目经理：
             </div>
             <div  class="prise-right" >
-               李三
+               {{detail.projManager}}
             </div>
          </div>
 
-          <div  class="prise-name" > 
-            技术负责人：李二
+          <div  class="prise-name" v-show="detail.skillManager" > 
+            技术负责人：{{detail.skillManager}}
          </div>
 
-          <div  class="prise-name" > 
-            质量负责人：李四
+          <div  class="prise-name" v-show="detail.qualityManager" > 
+            质量负责人：{{detail.qualityManager}}
          </div>
 
-         <div  class="prise-name" > 
-            技术质量负责人：李武
+         <div  class="prise-name" v-show="detail.techQualManage" > 
+            技术质量负责人：{{detail.techQualManage}}
          </div>
 
-        <div  class="prise-name" > 
+        <div  class="prise-name"  v-show="detail.buildOrg"  > 
             <div class="prise-left" >
                建设单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               <span v-for="(el,i) in detail.buildOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.buildOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name"  v-show="detail.superOrg" > 
             <div class="prise-left" >
                监理单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+                <span v-for="(el,i) in detail.superOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.superOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-         <div  class="prise-name" > 
-            总监理工程师：李武
+         <div  class="prise-name"  v-show="detail.superPerson" > 
+            总监理工程师：{{detail.superPerson}}
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name"  v-show="detail.exploreOrg" > 
             <div class="prise-left" >
                勘察单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+              <span v-for="(el,i) in detail.exploreOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.exploreOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name"   v-show="detail.designOrg"> 
             <div class="prise-left" >
                设计单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               <span v-for="(el,i) in detail.designOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.designOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name"  v-show="detail.checkOrg"> 
             <div class="prise-left" >
                监督单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               <span v-for="(el,i) in detail.checkOrg"  :key="i" >{{el.comName}}&nbsp<i v-show="i !=  detail.checkOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name"  v-show="detail.joinOrg"> 
             <div class="prise-left" >
                参建单位：
             </div>
             <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+               <span v-for="(el,i) in detail.joinOrg"  :key="i"  @click.stop="letter(el)"  >{{el.comName}}&nbsp<i v-show="i !=  detail.joinOrg.length -1" >,</i>&nbsp</span>
             </div>
          </div>
 
-          <div  class="prise-name" > 
-            备注：李武
+          <div  class="prise-name" v-show="detail.remark" > 
+            备注：{{detail.remark}}
          </div>
 
-          <div  class="prise-name" > 
+          <div  class="prise-name" v-show="detail.pubOrg"> 
             <div class="prise-left" >
                发布单位：
             </div>
-            <div  class="prise-right" >
-               2018～2019年度第一批湖北省建筑结构优质工程
+            <div  class="prise-right"  >
+              {{detail.pubOrg}}
             </div>
          </div>
 
          <div  class="prise-name" > 
-            发布日期：李武
+            发布日期：{{detail.issued}}
          </div>
 
 
@@ -157,6 +157,7 @@ export default {
     data() {
         return {
             // 数据模型a
+            detail:{}
         }
     },
     watch: {
@@ -173,6 +174,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.id = this.$route.query.id
+        this.gainDel()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -197,6 +200,24 @@ export default {
     },
     methods: {
         // 方法 集合
+          gainDel() {
+           let that=this;
+            this.$http({
+                method:'post',
+                url: 'reputation/detail' ,
+                data:{
+                  pkid:that.id
+                }
+            }).then(function(res){
+              if(res.data.code == 1) {
+                 that.detail = res.data.data
+              }
+            })
+        },
+        letter(o) {
+           
+         //   this.$router.push({path:'/letter',query:{id:o.comId,name:o.comName}})
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="goodList">
+    <div class="goodList" >
        <!-- 荣耀列表 -->
       <template v-if="type == 'glory'" >
             <div class="glory-list" >
@@ -8,7 +8,7 @@
                 {{obj.awardName}}
               </div>
               <p>
-                有效期至：<span>{{obj.valided}}</span>
+                评定日期：<span>{{obj.valided}}</span>
               </p>
             </div>
       </template>
@@ -53,15 +53,15 @@
                 </div>
                 <div  class="bad-name" > 
                   <div class="bad-left" >
-                     项目原因：
+                     评定原因：
                   </div>
                   <div  class="bad-right"  v-show="obj.remark" >
-                     {{obj.remark}};
+                     {{obj.remark}}
                   </div>
                 </div>
                 <div  class="bad-name"  v-show="obj.issued" > 
                   <div class="bad-left" >
-                     评分时间：
+                     评定时间：
                   </div>
                   <div  class="bad-right" >
                     {{obj.issued}}
@@ -71,8 +71,8 @@
       </template>
       
       <!-- 获奖  -->
-      <template v-if="type == 'win'" >
-            <div class="list-bad" >
+      <template v-if="type == 'win'"  >
+            <div class="list-bad"  @click.stop="toWin(obj)"   >
                 <div class="glory-title" >
                   {{obj.projName}}
                 </div>
@@ -94,10 +94,10 @@
                 </div>
                 <div  class="bad-name" > 
                   <div class="bad-left" >
-                     获奖时间：
+                     获奖日期：
                   </div>
                   <div  class="bad-right" >
-                     {{obj.issued}};
+                     {{obj.issued}}
                   </div>
                 </div>
             </div>
@@ -152,9 +152,12 @@ export default {
     },
     methods: {
         // 方法 集合
+        toWin(o) {
+            this.$router.push({path:'/prise',query:{id:o.pkid}})
+          }
+        }
     }
 
-}
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->

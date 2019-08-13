@@ -20,7 +20,8 @@
             <h5>{{obj.name}}</h5>
             <div class="yzBtn" v-if="obj.isUnder" @click.stop="jumpgo">押证</div>
             <p>注册类别：<span>{{obj.category}}</span></p>
-            <p>专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
+            <p v-show="obj.certNo"  >注册类别：<span>{{obj.certNo}}</span></p>
+            <p v-show="obj.major" >专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
             <p>有效日期：<span>{{obj.validDate}}</span></p>
         </template>
         <!-- 中标 -->

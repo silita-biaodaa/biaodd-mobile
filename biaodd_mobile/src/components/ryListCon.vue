@@ -21,7 +21,7 @@
                 <span>{{obj.sealNo}}</span>
             </p>
             <p v-show="obj.validDate" >
-                <span class="tit-txt">有效日期</span>
+                <span class="tit-txt">有效期</span>
                 <span>{{obj.validDate}}</span>
             </p>
             <p v-show="obj.comName" >
