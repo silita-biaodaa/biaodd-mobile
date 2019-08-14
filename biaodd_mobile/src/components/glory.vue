@@ -13,7 +13,7 @@
             </ul>
         </div>
         <div class="recode-btn" >
-          <button @click="recordFn" >重置</button>
+          <button @click="recordFn" style="backgroundColor:#fff;color:#000" >重置</button>
           <button  @click="sureFn" >确定</button>
         </div>
     </div>

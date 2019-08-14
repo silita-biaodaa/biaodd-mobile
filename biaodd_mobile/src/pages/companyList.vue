@@ -173,8 +173,11 @@ export default {
         this.zbList=[];
         this.screenShow[0].active=false;
         this.screenList[0].txt=option.txt;
-        if(this.screenList[0].txt == '湖南省' && this.screenList.length == 2 ) {
-          this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+        if(this.screenList[0].txt == '湖南省' ) {
+          if(this.screenList.length == 2) {
+             this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+          }
+         
         } else {
            this.screenList.length = 2
            this.screenNum.honorCate.code= '';
@@ -324,8 +327,10 @@ export default {
         this.vipStr=sessionStorage.getItem('permissions');
         this.data.isVip=1;
       }
-      if(this.screenList[0].txt == '湖南省' && this.screenList.length == 2 ) {
-        this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+      if(this.screenList[0].txt == '湖南省') {
+         if(this.screenList.length == 2) {
+             this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+          }
       } else {
          this.screenList.length = 2
          this.screenNum.honorCate.code= '';

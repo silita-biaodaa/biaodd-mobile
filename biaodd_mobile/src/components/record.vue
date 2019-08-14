@@ -7,7 +7,7 @@
             </ul>
         </div>
         <div class="recode-btn" >
-          <button  @click="recordFn" >重置</button>
+          <button  @click="recordFn" style="backgroundColor:#fff;color:#000" >重置</button>
           <button @click="sureFn" >确定</button>
         </div>
     </div>
@@ -22,7 +22,7 @@ export default {
               {
                 name:'湘内企业',
                 code:'hunan',
-                active:false,
+                active:true,
               },
               {
                 name:'入湘企业',
@@ -98,8 +98,9 @@ export default {
           for (let i of this.keep) {
             i.active = false
           }
-          this.name = ''
-           this.$emit('recordFn',{str:''});
+
+          this.name = this.keep[0].code
+          this.$emit('sureFn',{str:this.name});
         }
     }
 

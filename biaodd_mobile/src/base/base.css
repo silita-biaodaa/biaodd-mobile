@@ -471,9 +471,10 @@ body .van-icon-arrow{
        flex-wrap:wrap; 
     }
      .recode-list ul li {
-        line-height: 56px;
+        line-height: 76px;
         color:#999;
         font-size:28px;
+        background-color: #fff;
         padding: 0 20px;
         border: 1px solid #CCBEBE;
         border-radius:10px;
