@@ -94,7 +94,7 @@ export default {
         return {
             // 数据模型
            glory:true,
-           winning:true,
+           winning:false,
            road:true,
            water:true,
            bad:true,

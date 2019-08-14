@@ -77,7 +77,7 @@
                建设单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.buildOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.buildOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.buildOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.buildOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -86,7 +86,7 @@
                监理单位：
             </div>
             <div  class="prise-right" >
-                <span v-for="(el,i) in detail.superOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.superOrg.length -1"  class="color"  >,</i>&nbsp</span>
+                <span v-for="(el,i) in detail.superOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.superOrg.length -1"  class="color"  >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -99,7 +99,7 @@
                勘察单位：
             </div>
             <div  class="prise-right" >
-              <span v-for="(el,i) in detail.exploreOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.exploreOrg.length -1"  class="color" >,</i>&nbsp</span>
+              <span v-for="(el,i) in detail.exploreOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.exploreOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -108,7 +108,7 @@
                设计单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.designOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.designOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.designOrg"  :key="i"   @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.designOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -117,7 +117,7 @@
                监督单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.checkOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.checkOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.checkOrg"  :key="i"  @click.stop="letter(el)"  class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.checkOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -215,6 +215,9 @@ export default {
             })
         },
         letter(o) {
+           if(!o.comId) {
+              return false
+           }
            this.$router.push({path:'/letter',query:{id:o.comId,name:o.comName}})
         }
     }
