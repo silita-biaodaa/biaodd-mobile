@@ -302,27 +302,37 @@ export default {
         'v-not':not,
     },
     created(){
-      this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
-      this.data.regisAddress = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
-       if( JSON.parse(sessionStorage.getItem('address'))) {
-            if(JSON.parse(sessionStorage.getItem('address')).name ) {
-                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+      if(this.$route.query.key || this.$route.query.scom ) {
+         let data=JSON.parse(sessionStorage.getItem('companyData'))
+         this.data=data;
+         if(sessionStorage.getItem('companyScreenNum')) {
+           this.screenNum=screenNum;
+         }
+         this.add.name = data.regisAddress
+         let arr = data.regisAddress.split('||')         
+         this.screenList[0].txt = arr[0]
+      } else {
+           this.data.regisAddress = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
+           if( JSON.parse(sessionStorage.getItem('address'))) {
+                if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                     this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+                } else {
+                   this.screenList[0].txt=  '湖南省' ;
+                }
             } else {
-               this.screenList[0].txt=  '湖南省' ;
+                this.screenList[0].txt= '湖南省' ;
             }
-        } else {
-            this.screenList[0].txt= '湖南省' ;
-        }
-      // this.add = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')) :  JSON.parse(sessionStorage.getItem('address'))
-      this.add.name = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')).regisAddress :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省')
-
-      if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
-        let data=JSON.parse(sessionStorage.getItem('companyData')),
-            screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
-        data.pageNo=1;
-        this.data=data;
-        this.screenNum=screenNum;
+          this.add.name = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')).regisAddress :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省')
+          if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
+            let data=JSON.parse(sessionStorage.getItem('companyData')),
+                screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
+            data.pageNo=1;
+            this.data=data;
+            this.screenNum=screenNum;
+          }
       }
+   
+
       if(sessionStorage.getItem('permissions')){
         this.vipStr=sessionStorage.getItem('permissions');
         this.data.isVip=1;
@@ -336,6 +346,7 @@ export default {
          this.screenNum.honorCate.code= '';
          this.screenNum.isBei.code= '';
       }
+      this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
       this.ajax();
     },
     watch:{
@@ -353,8 +364,8 @@ export default {
       }
     },
     beforeDestroy(){
-      sessionStorage.removeItem('companyData')
-      sessionStorage.removeItem('companyScreenNum')
+      // sessionStorage.removeItem('companyData')
+      // sessionStorage.removeItem('companyScreenNum')
     },
 }
 </script>
