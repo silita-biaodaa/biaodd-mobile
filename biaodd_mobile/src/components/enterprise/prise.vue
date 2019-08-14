@@ -47,7 +47,7 @@
                单位名称：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.unitOrg"  :key="i" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.unitOrg.length -1" class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.unitOrg"  :key="i" class="color" @click.stop="letter(el)" >{{el.comName}}&nbsp<i v-show="i !=  detail.unitOrg.length -1" class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
