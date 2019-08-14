@@ -35,7 +35,7 @@
 
         <div  class="prise-name" v-show="detail.acreage" > 
             <div style="width:26%" >
-               建筑面积(m2)： 
+               建筑面积(㎡)： 
             </div>
             <div  style="width:73%" >
                {{detail.acreage}}
@@ -47,7 +47,7 @@
                单位名称：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.unitOrg"  :key="i" class="color" @click.stop="letter(el)" >{{el.comName}}&nbsp<i v-show="i !=  detail.unitOrg.length -1" class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.unitOrg"  :key="i"  :class="el.comId ? 'color' :''"  @click.stop="letter(el)" >{{el.comName}}&nbsp<i v-show="i !=  detail.unitOrg.length -1" class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -77,7 +77,7 @@
                建设单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.buildOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.buildOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.buildOrg"  :key="i"  @click.stop="letter(el)"  :class="el.comId ? 'color' :''"  >{{el.comName}}&nbsp<i v-show="i !=  detail.buildOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -86,7 +86,7 @@
                监理单位：
             </div>
             <div  class="prise-right" >
-                <span v-for="(el,i) in detail.superOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.superOrg.length -1"  class="color"  >,</i>&nbsp</span>
+                <span v-for="(el,i) in detail.superOrg"  :key="i"  @click.stop="letter(el)" :class="el.comId ? 'color' :''" >{{el.comName}}&nbsp<i v-show="i !=  detail.superOrg.length -1"  class="color"  >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -99,7 +99,7 @@
                勘察单位：
             </div>
             <div  class="prise-right" >
-              <span v-for="(el,i) in detail.exploreOrg"  :key="i"  @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.exploreOrg.length -1"  class="color" >,</i>&nbsp</span>
+              <span v-for="(el,i) in detail.exploreOrg"  :key="i"  @click.stop="letter(el)"  :class="el.comId ? 'color' :''"  >{{el.comName}}&nbsp<i v-show="i !=  detail.exploreOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -108,7 +108,7 @@
                设计单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.designOrg"  :key="i"   @click.stop="letter(el)" class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.designOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.designOrg"  :key="i"   @click.stop="letter(el)"  :class="el.comId ? 'color' :''"  >{{el.comName}}&nbsp<i v-show="i !=  detail.designOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -117,7 +117,7 @@
                监督单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.checkOrg"  :key="i"  @click.stop="letter(el)"  class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.checkOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.checkOrg"  :key="i"  @click.stop="letter(el)"   :class="el.comId ? 'color' :''"  >{{el.comName}}&nbsp<i v-show="i !=  detail.checkOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
@@ -126,7 +126,7 @@
                参建单位：
             </div>
             <div  class="prise-right" >
-               <span v-for="(el,i) in detail.joinOrg"  :key="i"  @click.stop="letter(el)"  class="color" >{{el.comName}}&nbsp<i v-show="i !=  detail.joinOrg.length -1"  class="color" >,</i>&nbsp</span>
+               <span v-for="(el,i) in detail.joinOrg"  :key="i"  @click.stop="letter(el)"   :class="el.comId ? 'color' :''"  >{{el.comName}}&nbsp<i v-show="i !=  detail.joinOrg.length -1"  class="color" >,</i>&nbsp</span>
             </div>
          </div>
 
