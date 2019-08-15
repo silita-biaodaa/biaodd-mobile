@@ -210,11 +210,19 @@ export default {
             this.msg = i.hint
         },
         getAddress(option){
-            this.ad
-            this.ready(option.str);
+            this.ready(option);
         },
-        ready(str=null){
-            let address=this.$refs.fixObj.addressStr.code;
+        ready(str){
+            let address = ''
+             let qyAddress = ''
+            if(str != null) {  
+                address = str.str
+                qyAddress = str.txt
+            } else {
+                address =this.$refs.fixObj.addressStr.code;
+                qyAddress=this.$refs.fixObj.addressStr.name;
+            }
+          
             //招标
             let that=this;
             this.$http({
@@ -256,7 +264,7 @@ export default {
             console.log(this.$refs.fixObj.addressStr);
             
             // let arr=this.$refs.fixObj.addressStr.name;
-            let qyAddress=this.$refs.fixObj.addressStr.name;
+           
             // if(arr.length>1){
             //     qyAddress=arr[0]
             // }

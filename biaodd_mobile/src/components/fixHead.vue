@@ -152,12 +152,12 @@ export default {
             this.address=option.txt;
             let arr=option.str.split('||');
             this.addressStr.name=option.str;
-            let str = JSON.stringify({name:arr[0]})
+            let str = JSON.stringify({code:arr[0],name:this.address})
             sessionStorage.setItem('address',str);
             if(arr.length>1){
                 sessionStorage.setItem('city',arr[1]);
             }
-            this.$emit('address',option.str);
+            this.$emit('address',option);
         },
         jump() {
             if(this.name == '登录或注册') {

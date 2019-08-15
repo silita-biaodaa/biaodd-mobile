@@ -234,7 +234,7 @@ export default {
             let str = ''
             let txt = ''
             let showstr =this.addList[this.tabNum].name;
-            if(this.$route.path == '/tender'|| this.$route.path == '/bid') {
+            if(this.$route.path == '/tender'|| this.$route.path == '/bid' || this.$route.path == '/home') {
                  str=this.addList[this.tabNum].code;
                  txt=this.addList[this.tabNum].name;
             } else {
@@ -244,7 +244,7 @@ export default {
             
             if(!this.isAll){//如果是选市级则传市级
                 let arr = []
-                 if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
+                 if(this.$route.path == '/tender' || this.$route.path == '/bid' || this.$route.path == '/home' ) {
                       arr.push(this.addList[this.tabNum].code)
                  } else {
                       arr.push(this.addList[this.tabNum].name)
@@ -254,7 +254,7 @@ export default {
                 let str1 = ''
                 for(let x of this.cityList){
                     if(x.select){
-                         if(this.$route.path == '/tender' || this.$route.path == '/bid' ) {
+                         if(this.$route.path == '/tender' || this.$route.path == '/bid' || this.$route.path == '/home' ) {
                            arr1.push(x.code)
                            
                          } else {
