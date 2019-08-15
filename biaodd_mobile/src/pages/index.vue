@@ -490,7 +490,7 @@ export default {
         font-size: 28px;
         li{
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             width: 25%;
             img{
                 max-width: 100%;
