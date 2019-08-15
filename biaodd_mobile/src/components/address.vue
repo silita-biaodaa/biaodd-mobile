@@ -97,6 +97,8 @@ export default {
             let that=this;
             let addr=this.add.name ? this.add.name : (this.add.regions ? this.add.regions : '湖南省');
             let arr=this.addList;
+            console.log(addr,8);
+            
             if(addr.indexOf('||') > -1) {//市
                 let arr1=addr.split('||');
                 let arr4 = []
@@ -140,8 +142,6 @@ export default {
                 } else {
                      that.cityList[0].select= true
                 }
-              console.log(arr4);
-              
                 //市区滚动到选中位置
                 setTimeout(function(){//定时器用于当进入时，还未渲染完
                     let first=false;//第一次进入(用来滚动到选中第一个)

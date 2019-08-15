@@ -69,7 +69,6 @@ export default {
                 },
             ],
             name:'登录或注册'
-           
         }
     },
     watch: {
@@ -99,15 +98,12 @@ export default {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {
                  this.address=  JSON.parse(sessionStorage.getItem('address')).name 
             } else {
-                this.address=   '湖南省' ;
+                this.address.name=   '湖南省' ;
             }
         } else {
-            this.address=   '湖南省' ;
+            this.address.name =   '湖南省' ;
         }
-        // if(sessionStorage.getItem('city')){
-        //     this.address=sessionStorage.getItem('city');
-        this.addressStr = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
-        // }
+        this.addressStr= JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
         this.changeN();
     },
     beforeMount() {
@@ -155,9 +151,9 @@ export default {
             this.iconName='arrow-down'
             this.address=option.txt;
             let arr=option.str.split('||');
-            this.addressStr=option.str;
-            sessionStorage.setItem('address',arr[0]);
-            // console.log(arr);
+            this.addressStr.name=option.str;
+            let str = JSON.stringify({name:arr[0]})
+            sessionStorage.setItem('address',str);
             if(arr.length>1){
                 sessionStorage.setItem('city',arr[1]);
             }
