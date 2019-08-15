@@ -196,7 +196,7 @@ export default {
 .recode {
   .recode-list {
     ul {
-      margin-bottom: 50px;
+      margin-bottom: 25px;
     }
     .active {
       background-color: #FE6603;

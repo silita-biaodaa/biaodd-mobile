@@ -175,7 +175,7 @@ export default {
         this.screenList[0].txt=option.txt;
         if(this.screenList[0].txt == '湖南省' ) {
           if(this.screenList.length == 2) {
-             this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+             this.screenList.push({txt:'备案地区'},{txt:'荣誉类别'})
           }
          
         } else {
@@ -339,7 +339,7 @@ export default {
       }
       if(this.screenList[0].txt == '湖南省') {
          if(this.screenList.length == 2) {
-             this.screenList.push({txt:'备案地区'},{txt:'荣誉级别'})
+             this.screenList.push({txt:'备案地区'},{txt:'荣誉类别'})
           }
       } else {
          this.screenList.length = 2
