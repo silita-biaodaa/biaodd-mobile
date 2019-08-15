@@ -93,14 +93,14 @@
                 <span class="tit-txt">单位名称</span>
                 <span>{{obj.unitOrg}}</span>
             </p>
-            <p>
+            <!-- <p>
                 <span class="tit-txt">建设单位</span>
                 <span>{{obj.proOrg}}</span>
             </p>
             <p>
                 <span class="tit-txt">所在省市</span>
                 <span>{{obj.city}}</span>
-            </p>
+            </p> -->
             <p>
                 <span class="tit-txt">押证时间</span>
                 <span>{{obj.date}}</span>
