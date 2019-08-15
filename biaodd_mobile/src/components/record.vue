@@ -52,11 +52,12 @@ export default {
         if(sessionStorage.getItem('companyScreenNum')) {
             let data=JSON.parse(sessionStorage.getItem('companyScreenNum'))
             if(data.isBei.code != '') {
+              this.keep[0].active = false
               for (let i of this.keep) {
-               if(data.isBei.code == i.code ) {
-                 i.active = true
-                 this.name = i.code
-               }
+                if(data.isBei.code == i.code ) {
+                  i.active = true
+                  this.name = i.code
+                }
               }
             }
         }

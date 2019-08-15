@@ -76,6 +76,9 @@ export default {
          if(sessionStorage.getItem('companyScreenNum')) {
             let data=JSON.parse(sessionStorage.getItem('companyScreenNum'))
             if(data.honorCate.code != '') {
+              if(data.honorCate.code == 'reviewFine') {
+                 this.keep[1].active = true
+              }
                let arr = data.honorCate.code.split(',')
                if(arr[0].indexOf('aqrz') > -1 ) {
                  this.keep[0].active = true
