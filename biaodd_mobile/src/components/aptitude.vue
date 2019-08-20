@@ -26,14 +26,20 @@ import { setTimeout } from 'timers';
         </div>
         <div class="fix" :class="{'isShow':isFix}">
             <div class="fix-box-con">
-                <div>
-                    <van-icon name="cross" @click="hideFix"></van-icon>
+                <div class="fix-padd" >
+                    <div>
+                        <van-icon name="cross" @click="hideFix"></van-icon>
+                    </div>
+                    <div class="nav">
+                        <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
+                    </div>
                 </div>
-                <div class="nav">
-                    <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
-                </div>
+               
                 <!-- 自处添加搜索框 -->
-                <ul>
+                 <div class="search">
+                  <van-search placeholder="请输入资质关键字" ></van-search>
+                </div>
+                <ul class="fix-padd" >
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
                 </ul>
             </div>
@@ -341,13 +347,17 @@ export default {
     transition: all .5s;
     background: #fff;
     z-index:999999;
-    padding: 35px 32px;
-    padding-right: 0;
+    // padding: 35px 32px;
+    // padding-right: 0;
     overflow-y: scroll;
     box-sizing: border-box;
     -webkit-overflow-scrolling:touch;
     .fix-box-con{
         min-height:calc(100% + 1px);
+    }
+    .fix-padd {
+       padding: 35px 32px;
+       padding-bottom: 0;
     }
     li{
         padding:30px 0;
