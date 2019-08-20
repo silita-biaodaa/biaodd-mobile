@@ -32,6 +32,7 @@ import { setTimeout } from 'timers';
                 <div class="nav">
                     <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
                 </div>
+                <!-- 自处添加搜索框 -->
                 <ul>
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
                 </ul>

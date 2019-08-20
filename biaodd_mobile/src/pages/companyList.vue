@@ -306,7 +306,8 @@ export default {
          let data=JSON.parse(sessionStorage.getItem('companyData'))
          this.data=data;
          if(sessionStorage.getItem('companyScreenNum')) {
-           this.screenNum=screenNum;
+           let screenNum = JSON.parse(sessionStorage.getItem('companyScreenNum'))
+           this.screenNum= screenNum;
          }
          this.add.name = data.regisAddress
          let arr = data.regisAddress.split('||')         

@@ -50,13 +50,13 @@
             <template v-if="type=='yj1'">
                 <div><span class="zj label">{{obj.proType}}</span></div>
                 <p>建设单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
+                <p>合同金额：<span  v-show="obj.amount" >{{obj.amount}}万元</span></p>
                 <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
             <template v-else-if="type=='yj2'">
                 <div><span class="sl label">{{obj.proType}}</span></div>
                 <p>施工单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
+                <p>合同金额：<span>{{obj.amount}}</span></p>
                 <p>完工日期：<span>{{obj.build}}</span></p>
             </template>
             <template v-else-if="type=='yj3'">
