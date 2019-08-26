@@ -6,39 +6,39 @@
         <!-- 上 -->
         <div class="content">
             <h5>{{proName}}</h5>
-            <p>
+            <p v-if="detail.recordCode" >
                 <span class="tit-txt">合同备案编号</span>
                 <span class="val-txt">{{detail.recordCode}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.contractComName" >
                 <span class="tit-txt">承包单位</span>
                 <span class="val-txt">{{detail.contractComName}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.jointComName" >
                 <span class="tit-txt">联合体承包单位</span>
                 <span class="val-txt">{{detail.jointComName}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.letContractComName" >
                 <span class="tit-txt">发包单位</span>
                 <span class="val-txt">{{detail.letContractComName}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.proWhere" >
                 <span class="tit-txt">合同类别</span>
                 <span class="val-txt">{{detail.proWhere}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.category" >
                 <span class="tit-txt">合同分类</span>
                 <span class="val-txt">{{detail.category}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.amount" >
                 <span class="tit-txt">合同金额</span>
                 <span class="val-txt">{{detail.amount}}万元</span>  
             </p>
-            <p>
+            <p  v-if="detail.buildScale" >
                 <span class="tit-txt">建设规模</span>
                 <span class="val-txt">{{detail.buildScale}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.signDate" >
                 <span class="tit-txt">合同签订日期</span>
                 <span class="val-txt">{{detail.signDate}}</span>  
             </p>

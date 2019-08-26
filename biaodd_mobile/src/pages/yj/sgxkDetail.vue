@@ -6,27 +6,27 @@
         <!-- 上 -->
         <div class="content">
             <h5>{{detail.proName}}</h5>
-            <p>
+            <p  v-if="detail.buildLicence">
                 <span class="tit-txt">施工许可证编号</span>
                 <span class="val-txt">{{detail.buildLicence}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.amount">
                 <span class="tit-txt">合同金额</span>
                 <span class="val-txt">{{detail.amount}} 万</span>  
             </p>
-            <p>
+            <p  v-if="detail.area">
                 <span class="tit-txt">面&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp积</span>
                 <span class="val-txt">{{detail.area}} ㎡</span>  
             </p>
-            <p>
+            <p  v-if="detail.licenceDate">
                 <span class="tit-txt">发证日期</span>
                 <span class="val-txt">{{detail.licenceDate}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.pmName">
                 <span class="tit-txt">项目经理</span>
                 <span class="val-txt">{{detail.pmName}}</span>  
             </p>
-            <p>
+            <p v-if="detail.pdName">
                 <span class="tit-txt">项目总监</span>
                 <span class="val-txt">{{detail.pdName}}</span>  
             </p>

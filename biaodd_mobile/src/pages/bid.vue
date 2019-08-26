@@ -14,7 +14,7 @@
     <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
     <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="data.projectType"></v-type>
     <v-assess :selectArr="screenNum.select" :souCode='souCode' @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
-    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :type="0" :arr="screenNum.arr"></v-apt>
+    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :bizType="1" :arr="screenNum.arr"></v-apt>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条招标信息</div>

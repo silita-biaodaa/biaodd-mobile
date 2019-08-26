@@ -12,7 +12,7 @@
       <i></i>
     </div>
     <v-addr @addObj="returnAddress" v-if="screenShow[0].active" :add="add" :allress='true'  :type="1"></v-addr>
-    <v-apt v-if="screenShow[1].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
+    <v-apt v-if="screenShow[1].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr" :bizType="2" ></v-apt>
     <r-ecord v-if="screenShow[2].active"  @sureFn='recSure' @recordFn="recodeFn"  ></r-ecord>
     <g-lory v-if="screenShow[3].active" @sureFn='gloSure'  @recordFn="gloryFn" ></g-lory>
     <!-- <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money> -->

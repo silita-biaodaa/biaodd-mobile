@@ -37,10 +37,15 @@ import { setTimeout } from 'timers';
                
                 <!-- 自处添加搜索框 -->
                  <div class="search">
-                  <van-search placeholder="请输入资质关键字" ></van-search>
+                  <van-search placeholder="请输入资质关键字"  v-model="rchname" ></van-search>
                 </div>
-                <ul class="fix-padd" >
+                <!-- 资质单极选择 -->
+                <ul class="fix-padd"  v-if="rchShow" >
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
+                </ul>
+                <!-- 资质搜索列表 -->
+                <ul class="fix-padd"  v-else >
+                    <li v-for="(o,i) of rcharr" :key="o.quaCode" @click="selectRch(o)">{{o.quaName}}</li>
                 </ul>
             </div>
         </div>
@@ -64,10 +69,49 @@ export default {
             storageArr:[],//存
             boxArr:[],//用于显示在筛选区
             isToast:false,
+            rchname:'',
+            rcharr:[],
+            rchShow:true,
         }
     },
     watch: {
         // 监控集合
+        rchname(val) {
+            if(val != '') {
+                this.rchShow = false
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url: '/new/common/filter/qual',
+                    data:{
+                       bizType:that.bizType,
+                       keyWord:that.rchname,
+                    }
+                }).then(function(res){    
+                    if(res.data.code ==1 ) {
+                        that.rcharr = res.data.data
+                    }
+                })
+            } else {
+                this.rchShow = true
+                this.rcharr = []
+                if(this.navTxt.length != 1) {                    
+                    for(var item of this.data){	
+                       if(item.name == this.navTxt[0] ) {
+                          for(var el of item.data){	
+                              if(el.name == this.navTxt[1] &&  this.navTxt[1] !='请选择' ) {
+                                  this.showArr =  el.data
+                              }
+                          }
+                       }
+                    }
+                } else {
+                  this.showArr=this.data;
+                }
+                
+            }
+            
+        }
     },
     props: {
         // 集成父级参数
@@ -76,6 +120,9 @@ export default {
         },
         arr:{
             default:[]
+        },
+        bizType: {
+           default:2
         }
     },
     beforeCreate() {
@@ -137,7 +184,7 @@ export default {
             }
             this.storageArr.push(obj);   // 存进去选择资质
             this.navTxt[that.num]=that.showArr[i].name;  // 对应位置展示
-            if(that.showArr[i].data==null){    // 资质选到最好一级的操作 
+            if(that.showArr[i].data==null){    // 资质选到最后一级的操作 
                 let name=[],code=[];
                 for(let x of that.storageArr){
                     name.push(x.name);
@@ -145,7 +192,7 @@ export default {
                      code.push(x.code);
                     }
                 }
-                let boxData={
+                let boxData = {
                     name:name.join('-'),
                     code:code.join('/')
                 }
@@ -170,6 +217,31 @@ export default {
             this.num++;
             this.navTxt.push('请选择')
         },
+        selectRch(el) {
+           this.storageArr = []
+           this.num = 2;
+           let name = el.quaName.split('-')
+           let code = el.quaCode.split('-')
+           for(let x in name){
+             let obj = {
+                 code:code[x],
+                 name:name[x]
+             }
+              this.storageArr.push(obj);
+           }
+           for(var item of this.data){	
+               if(item.name == name[0] ) {
+                  for(var el of item.data){	
+                      if(el.name == name[1]) {
+                          this.showArr =  el.data
+                      }
+                  }
+               }
+            }
+           this.navTxt = name
+           this.navTxt.push('请选择')
+           this.rchShow = true
+        },
         delteFn(i){
             this.boxArr.splice(i,1);
             if(this.boxArr==0){
@@ -179,6 +251,8 @@ export default {
             }
         },
         sureFn(){
+            
+            this.rchname = ''
             let that=this;
             if(that.sureTxt=='添加'){
                 that.isFix=true;
@@ -194,12 +268,14 @@ export default {
             }
         },
         addFn(){
+            this.rchname = ''
             this.isFix=true;
             this.num=0;
             this.showArr=this.data;
             this.modalHelper.afterOpen();
         },
         hideFix(){
+            this.rchname = ''
             this.isFix=false;
             this.modalHelper.beforeClose();
         },
@@ -225,6 +301,7 @@ export default {
             }
         },
         modifyFn(i){
+            this.rchname = ''
             this.isFix=true;
             this.modalHelper.afterOpen();
             //取之前的数据
