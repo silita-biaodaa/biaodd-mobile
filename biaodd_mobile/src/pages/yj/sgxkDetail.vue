@@ -36,7 +36,7 @@
             <h5>企业主体信息</h5>
             <ul>
                 <li :key="i" v-for="(el,i) in detail.companys" >
-                    <h4>{{el.comName}}</h4>
+                    <span style="width:22%;color:#999" >{{el.role}}:</span><span style="width:75%" >{{el.comName}}</span>
                 </li>
             </ul>
         </div>
@@ -168,21 +168,8 @@ p{
             padding: 28px 32px;
             background: #fff;
             border-bottom: 1PX solid #F0F0F0;
-            h4{
-                color: #4D3A3A;
-                font-size: 32px;
-                padding-bottom: 28px;
-            }
-            p{
-                margin-bottom: 22px;
-            }
-            p:last-child{
-                margin-bottom: 0
-            }
-            // .val-txt{
-            //     color: #333;
-            //     font-weight: bold;
-            // }
+            display: flex;
+            font-size: 28px;
         }
     }
 }
