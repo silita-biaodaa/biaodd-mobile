@@ -35,7 +35,6 @@ import { setTimeout } from 'timers';
                 </div>
 
                 <div class="fix-padd" >
-                   
                     <div class="nav">
                         <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
                     </div>
@@ -463,13 +462,17 @@ export default {
         margin-bottom: 20px;
         margin-top: 20px;
         span{
-            width: 33%;
+            width: 31%;
             overflow: hidden;
             text-overflow:ellipsis;
             // text-align: center;
             white-space:nowrap;
             font-size: 28px;
-            display: inline-block
+            display: inline-block;
+            margin-right: 10px;
+        }
+        :last-child {
+            margin-right: 0;
         }
         .active{
             color: #FE6603
