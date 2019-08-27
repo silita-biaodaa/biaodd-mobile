@@ -26,19 +26,23 @@ import { setTimeout } from 'timers';
         </div>
         <div class="fix" :class="{'isShow':isFix}">
             <div class="fix-box-con">
+
+                <div class="fix-paing" >
+                    <van-icon name="cross" @click="hideFix"></van-icon>
+                </div>
+                <div class="search">
+                  <van-search placeholder="请输入资质关键字"  v-model="rchname" ></van-search>
+                </div>
+
                 <div class="fix-padd" >
-                    <div>
-                        <van-icon name="cross" @click="hideFix"></van-icon>
-                    </div>
+                   
                     <div class="nav">
                         <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
                     </div>
                 </div>
                
-                <!-- 自处添加搜索框 -->
-                 <div class="search">
-                  <van-search placeholder="请输入资质关键字"  v-model="rchname" ></van-search>
-                </div>
+               
+               
                 <!-- 资质单极选择 -->
                 <ul class="fix-padd"  v-if="rchShow" >
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
@@ -138,15 +142,26 @@ export default {
                 method:'post',
                 url: '/new/common/condition',
             }).then(function(res){
-                that.data=res.data.data.newQual;
-     
-                that.showArr=res.data.data.newQual;          
+                if(that.$route.path == '/bid') {
+                   that.data=res.data.data.noticeQua;
+                   that.showArr=res.data.data.noticeQua;
+                } else {
+                  that.data=res.data.data.newQual;
+                  that.showArr=res.data.data.newQual;
+                }
             })
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
-            that.data=obj.newQual;
-            that.showArr=obj.newQual;
+            if(that.$route.path == '/bid') {
+               that.data=obj.noticeQua;
+               that.showArr=obj.noticeQua;
+            } else {
+              that.data=obj.newQual;
+              that.showArr=obj.newQual;
+            }
+            
+            
         }
         that.boxArr=that.arr;
         if(that.boxArr.length>0){
@@ -429,11 +444,14 @@ export default {
     overflow-y: scroll;
     box-sizing: border-box;
     -webkit-overflow-scrolling:touch;
+    .fix-paing {
+         padding: 35px 32px;
+    }
     .fix-box-con{
         min-height:calc(100% + 1px);
     }
     .fix-padd {
-       padding: 35px 32px;
+       padding: 20px 32px;
        padding-bottom: 0;
     }
     li{
@@ -442,13 +460,13 @@ export default {
         border-bottom: 1PX solid #f2f2f2;
     }
     .nav{
-        margin-bottom: 30px;
-        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-top: 20px;
         span{
             width: 33%;
             overflow: hidden;
             text-overflow:ellipsis;
-            text-align: center;
+            // text-align: center;
             white-space:nowrap;
             font-size: 28px;
             display: inline-block

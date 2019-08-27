@@ -24,7 +24,7 @@
             </p>
         </div>
         <!--企业主体信息 -->
-        <div class="box" v-if="detail.exploreOrg||detail.designOrg">
+        <div class="box" v-if="detail.exploreOrg">
             <h5>企业主体信息</h5>
             <ul>
                 <li>
@@ -40,7 +40,7 @@
                     </p>          
                 </li>
             </ul>
-            <div class="No-Hint"  v-if="detail.exploreOrg =='' && detail.designOrg ==''" >
+            <div class="No-Hint"  v-if="detail.exploreOrg ==''" >
                 暂无信息
             </div>
         </div>
