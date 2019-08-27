@@ -32,11 +32,11 @@
             </p>
         </div>
         <!--企业主体信息 -->
-        <div class="box" v-if="detail.companys&&detail.companys.length>0">
+        <div class="box" v-if="detail.companys.length>0">
             <h5>企业主体信息</h5>
             <ul>
-                <li :key="i">
-                    <h4>{{detail.companys.comName}}</h4>
+                <li :key="i" v-for="(el,i) in detail.companys" >
+                    <h4>{{el.comName}}</h4>
                 </li>
             </ul>
         </div>
@@ -53,6 +53,7 @@ export default {
              detail:{
              },
              id:'',
+             proId:''
             //  path:'/commerc'
         }
     },
@@ -71,13 +72,14 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.id = this.$route.query.id
+        this.proId = this.$route.query.proid
         let that=this;
         this.$http({
             method:'post',
             url: '/project/list/detail',
             data:{
-                proId:this.$route.query.proId,
-                pkid:this.id,
+                proId:that.proId,
+                pkid:that.id,
                 tabType:'build',
             }
         }).then(function(res){
