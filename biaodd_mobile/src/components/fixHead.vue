@@ -114,7 +114,11 @@ export default {
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
             if(this.nav!=0){
-                this.$refs.scroll.scrollLeft=200;
+                if(this.nav == 6 ) {
+                   this.$refs.scroll.scrollLeft= 200;
+                } else {
+                     this.$refs.scroll.scrollLeft= 80;
+                }
             }
         });
     },

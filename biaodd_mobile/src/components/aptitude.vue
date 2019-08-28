@@ -295,6 +295,12 @@ export default {
             this.modalHelper.beforeClose();
         },
         recordFn(){
+            this.navTxt = ['请选择']
+            this.storageArr = []
+            this.boxArr = []
+            this.rcharr = []
+            this.rchname = ''
+            this.sureTxt = '添加'
             this.$emit('recordFn');
         },
         navTap(i){
