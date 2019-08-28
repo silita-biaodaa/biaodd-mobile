@@ -117,7 +117,7 @@ export default {
                 if(this.nav == 6 ) {
                    this.$refs.scroll.scrollLeft= 200;
                 } else {
-                     this.$refs.scroll.scrollLeft= 80;
+                     this.$refs.scroll.scrollLeft= 70;
                 }
             }
         });
@@ -269,14 +269,14 @@ export default {
         height: 92px;
         display: flex;
         justify-content: space-between;
-        width: 145%;
+        width: 140%;
         min-width: 100%;
         flex-wrap: nowrap;
         overflow-x:scroll;
         overflow-y: hidden;
         li{
             box-sizing: border-box;
-            width: 22%;
+            width: 21%;
             text-align: center;
             padding: 20px 32px 4px;
             p{
