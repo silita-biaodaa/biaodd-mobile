@@ -262,18 +262,17 @@ export default {
     border-top: 1PX solid #f2f2f2;
     border-bottom: 1PX solid #f2f2f2;
     ul{
-        // position: absolute;
         height: 92px;
         display: flex;
         justify-content: space-between;
-        width: 128%;
+        width: 145%;
         min-width: 100%;
         flex-wrap: nowrap;
         overflow-x:scroll;
         overflow-y: hidden;
         li{
             box-sizing: border-box;
-            width: 20%;
+            width: 22%;
             text-align: center;
             padding: 20px 32px 4px;
             p{

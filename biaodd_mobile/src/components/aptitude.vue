@@ -34,13 +34,11 @@ import { setTimeout } from 'timers';
                   <van-search placeholder="请输入资质关键字"  v-model="rchname" ></van-search>
                 </div>
 
-                <div class="fix-padd" >
+                <div class="fix-padd" v-if="rchShow" >
                     <div class="nav">
                         <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
                     </div>
                 </div>
-               
-               
                
                 <!-- 资质单极选择 -->
                 <ul class="fix-padd"  v-if="rchShow" >
@@ -50,6 +48,9 @@ import { setTimeout } from 'timers';
                 <ul class="fix-padd"  v-else >
                     <li v-for="(o,i) of rcharr" :key="o.quaCode" @click="selectRch(o)">{{o.quaName}}</li>
                 </ul>
+                <div class="fix-hint" v-if="this.rcharr.length ==0 && !this.rchShow" >
+                    暂未找到该资质，请输入其他关键字
+                </div>
             </div>
         </div>
         <div class="toast" v-if="isToast">
@@ -452,6 +453,12 @@ export default {
     .fix-padd {
        padding: 20px 32px;
        padding-bottom: 0;
+    }
+    .fix-hint {
+        line-height: 150px;
+        font-size: 28px;
+        color:#999;
+        text-align: center;
     }
     li{
         padding:30px 0;
