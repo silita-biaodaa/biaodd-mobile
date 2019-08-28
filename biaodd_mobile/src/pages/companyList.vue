@@ -282,6 +282,9 @@ export default {
         this.data.keyWord=''
       },
       recordFn(){
+        for(let i in this.screenShow) {
+          this.screenShow[i].active = false
+        }
         this.data.qualCode='';
         this.isajax=false;
         this.zbList=[];
