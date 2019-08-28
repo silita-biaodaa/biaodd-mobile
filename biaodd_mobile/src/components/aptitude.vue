@@ -31,7 +31,7 @@ import { setTimeout } from 'timers';
                     <van-icon name="cross" @click="hideFix"></van-icon>
                 </div>
                 <div class="search">
-                  <van-search placeholder="请输入资质关键字"  v-model="rchname" ></van-search>
+                  <van-search placeholder="请输入关键字，查找资质"  v-model="rchname" ></van-search>
                 </div>
 
                 <div class="fix-padd" v-if="rchShow" >
