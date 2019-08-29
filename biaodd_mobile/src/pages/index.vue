@@ -25,8 +25,10 @@
         <!-- 招标 -->
         <div class="zhaob">
             <div class="title">
-                <h5>最新招标</h5>
-                <span @click="$router.push('/bid')">查看更多</span>
+                <!-- <div class="title-auto" > -->
+                   <h5 class="left" >最新招标</h5>
+                   <span class="right" @click="$router.push('/bid')">查看更多</span>
+                <!-- </div>    -->
             </div>
             <ul class="box">
                 <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
@@ -329,36 +331,36 @@ export default {
     padding-top: 112px;
     background: #f5f5f5;
     /*端午活动——邀请有礼*/
-    .fix-hb{
-        position: fixed;
-        top: 0;
-        left: 0;
-        background: rgba(0,0,0,.5);
-        width: 100%;
-        height: 100vh;
-        z-index: 9999;
-        padding-top: 50px;
-        box-sizing: border-box;
-        .yqyl{
-            width: 80%;
-            display: block;
-            margin: 0 auto 37px;
-        }
-        p{
-            width: 92px;
-            height: 92px;
-            border-radius: 50%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border:2PX solid #999999;
-            .van-icon{
-                color: #999999;
-                font-size: 80px;
-            }
-        }
-    }
+    // .fix-hb{
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     background: rgba(0,0,0,.5);
+    //     width: 100%;
+    //     height: 100vh;
+    //     z-index: 9999;
+    //     padding-top: 50px;
+    //     box-sizing: border-box;
+    //     .yqyl{
+    //         width: 80%;
+    //         display: block;
+    //         margin: 0 auto 37px;
+    //     }
+    //     p{
+    //         width: 92px;
+    //         height: 92px;
+    //         border-radius: 50%;
+    //         margin: 0 auto;
+    //         display: flex;
+    //         justify-content: center;
+    //         align-items: center;
+    //         border:2PX solid #999999;
+    //         .van-icon{
+    //             color: #999999;
+    //             font-size: 80px;
+    //         }
+    //     }
+    // }
     div{
         background: #fff
     }
@@ -491,12 +493,14 @@ export default {
     margin-bottom: 20px;
     box-sizing: border-box;
     ul{
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
         width: 100%;
         height: 100%;
         font-size: 28px;
+        overflow: hidden;
         li{
+            float: left;
             text-align: center;
             margin-bottom: 30px;
             width: 25%;
@@ -511,19 +515,24 @@ export default {
 .zhaob,.zhongb{
     margin-bottom: 20px
 }
-.title{
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 32px;
     border-bottom: 1PX solid #f2f2f2;
     height: 80px;
-    h5{
+    position: relative;
+    // .title-auto {
+    //     margin: auto ;
+    //     overflow: hidden;
+    // }
+    h5 {
         font-size: 32px;
         padding-left: 20px;
         border-left: 6px solid #FE6603;
     }
-    span{
+    span {
         font-size: 28px;
         color: #FE6603;
     }

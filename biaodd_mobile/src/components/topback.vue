@@ -129,7 +129,7 @@ export default {
                     url:'/userCenter/collectionNotice',
                     data:{
                         source:that.source,
-                        type: collect,
+                        type: this.collect,
                         noticeid:that.id,
                     }
                 }).then(function(res){
