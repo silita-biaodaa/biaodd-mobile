@@ -37,6 +37,7 @@
                     <van-icon name="arrow" />
                 </div>
             </div>
+           
             <div class="detail-cli" @click="jump" >
                 <div>
                     访问原文出处
@@ -45,10 +46,25 @@
                     <van-icon name="arrow" />
                 </div>
             </div>
+             <div :class="this.corrShow ? 'showHei' : 'hideHei'"  >
+               <div @click.stop="tocorr"  class="detail-cli"  :class="this.num == 0 ? 'current' : ''"  >
+                   <div>
+                    相关公告 ({{num}})
+                   </div>
+                   <div >
+                       <van-icon name="arrow-up" v-if="corrShow" />
+                       <van-icon name="arrow-down"  v-else />
+                       
+                      
+                   </div>
+               </div>  
+               <corr-list :corrList='corrList'  ></corr-list>
+            </div>
             <div class="detail-contant" v-html="detail.content"  >
                 
             </div>
         </div>
+       
         <!-- 评论 -->
         <v-comment :type="'zhaobiao'" @comlength="comFn" id="divId"  ></v-comment>
     </div>
@@ -68,11 +84,24 @@ export default {
             name:'招标详情',
             total:0,
             collected:false,
-            commentLength:0
-        }
+            commentLength:0,
+            corrList:[],
+            num:0,
+            corrShow:false
+         }
     },
     watch: {
         // 监控集合
+          $route: {
+            handler: function(val, oldVal){
+                this.id = this.$route.query.id
+                this.source = this.$route.query.source
+                this.gainD()
+                this.gainCorr()
+                this.corrShow = false
+          },
+            deep: true
+          }
     },
     components: {
       'top-back':topBack,
@@ -89,8 +118,7 @@ export default {
         this.id = this.$route.query.id
         this.source = this.$route.query.source
         this.gainD()
-       
-    
+        this.gainCorr()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -129,6 +157,16 @@ export default {
         comFn(e){
             this.commentLength=e
         },
+        tocorr() {
+           if(this.num ==0 ) {
+               return
+           }
+           this.corrShow = !this.corrShow
+        },
+        // closeL() {
+        //    this.corrShow = false
+        //    this.modalHelper.beforeClose(); 
+        // },
         tocomment() {
             if(this.commentLength == 0) {
                 return
@@ -174,6 +212,22 @@ export default {
                     that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
                 }
                 that.clickCount = res.data.clickCount    
+            })
+        },
+        gainCorr() {
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/newnocite/correlation/list',
+                data:{
+                    source:that.source,
+                    ntId:that.id
+                }
+            }).then(function(res){
+              if(res.data.code  ==1) {
+                  that.corrList = res.data.data
+                  that.num = that.corrList.length
+              }
             })
         }
     }
@@ -235,6 +289,15 @@ background: #F8F8F8;
       justify-content: space-between;
       border-bottom: 1PX solid #F2F2F2;
       cursor: pointer;
+   }
+   .winHei {
+       height: auto !important;
+       border-bottom: 1PX solid #F2F2F2;
+   }
+   .hideHei {
+       height: 88px;
+       border-bottom: 1PX solid #F2F2F2;
+       overflow: hidden;
    }
    .detail-contant {
      padding: 35px;

@@ -91,7 +91,6 @@ export default {
         method:'post',
         url: '/authorize/address',
     }).then(function(res){
-      console.log(res,'执行');
         if(res.data.data.region.indexOf('广西')>-1){
           sessionStorage.setItem('address','广西壮族自治区');
         }else if(res.data.data.region.indexOf('内蒙古')>-1){
@@ -122,7 +121,6 @@ export default {
         method:'post',
         url: '/new/common/condition',
     }).then(function(res){
-       console.log(res,1);
        let arr = res.data.data
        let obj = res.data.data.comQua
        that.area = res.data.data.area

@@ -20,6 +20,7 @@ import http from '@/base/http'
 
 /*全局引用会员组件*/
 import isvip from '@/components/isVip'
+import corrList from '@/components/corrList'
 import icinfo from '@/components/enterprise/icinfo'
 import icbr from '@/components/enterprise/icbr'
 import icgu from '@/components/enterprise/ingu'
@@ -53,6 +54,7 @@ Vue.component('an-share', anshare)
 Vue.component('an-vest', aninvest)
 Vue.component('an-set', anset)
 Vue.component('an-cury', ancury)
+Vue.component('corr-list', corrList)
 
 
 // function HtmlFontSize(){

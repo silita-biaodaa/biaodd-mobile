@@ -33,10 +33,22 @@
             <van-icon name="arrow" />
         </div>
       </div>
+       <div   :class="this.corrShow ? 'showHei' : 'hideHei'" >
+         <div  @click.stop="tocorr" class="win-to" :class="this.num ==0 ? 'current' : ''"  >
+            <div>
+              相关公告 ({{num}})
+            </div>
+            <div >
+                <van-icon name="arrow" />
+            </div>
+         </div> 
+         <corr-list :corrList='corrList'    ></corr-list>
+      </div>
       <div class="win-contant" v-html="detail.content"  >
 
       </div>
     </div>
+    
     <!-- 评论 -->
     <v-comment :type="'zhongbiao'" id="divId"  @comlength="comFn"></v-comment>
   </div>
@@ -56,10 +68,23 @@ export default {
             source:'',
             collected:false,
             commentLength:0,
+            num:0,
+            corrList:[],
+            corrShow:false,
         }
     },
     watch: {
         // 监控集合
+          $route: {
+            handler: function(val, oldVal){
+                this.id = this.$route.query.id
+                this.source = this.$route.query.source
+                this.gainText()
+                this.gainCorr()
+                this.corrShow = false
+          },
+            deep: true
+          }
     },
     components: {
       'top-back':topBack,
@@ -75,27 +100,8 @@ export default {
         // console.group('创建完毕状态===============》created');
         this.id = this.$route.query.id
         this.source = this.$route.query.source
-        let that=this;
-        this.$http({
-            method:'post',
-            url: '/newnocite/nociteDetails/' + that.id,
-            data:{
-                source:that.source,
-                type: "2"
-            }
-        }).then(function(res){
-           that.detail = res.data.data
-           that.collected=res.data.data.collected
-           if(that.detail.oneName&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
-                that.detail.oneName=that.getPassOnename(that.detail.oneName);
-            }
-            if(that.detail.oneOffer&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
-                that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
-            }
-           that.clickCount = res.data.clickCount
-           that.formNew()
-        })
-        
+        this.gainText()
+        this.gainCorr()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -141,6 +147,14 @@ export default {
                 }
           
         },
+       tocorr() {
+           if(this.num == 0 ) {
+               return
+           }
+           this.corrShow = !this.corrShow
+           console.log(111);
+           
+        },
         formNew() {
            setTimeout(() => {
                  if(this.$route.query.key) {
@@ -148,6 +162,44 @@ export default {
                 }
             }, 600);
          
+        },
+        gainText() {
+           let that=this;
+           this.$http({
+               method:'post',
+               url: '/newnocite/nociteDetails/' + that.id,
+               data:{
+                   source:that.source,
+                   type: "2"
+               }
+           }).then(function(res){
+              that.detail = res.data.data
+              that.collected=res.data.data.collected
+              if(that.detail.oneName&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                   that.detail.oneName=that.getPassOnename(that.detail.oneName);
+               }
+               if(that.detail.oneOffer&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                   that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
+               }
+              that.clickCount = res.data.clickCount
+              that.formNew()
+           })
+        },
+        gainCorr() {
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/newnocite/correlation/list',
+                data:{
+                    source:that.source,
+                    ntId:that.id
+                }
+            }).then(function(res){
+              if(res.data.code  ==1) {
+                  that.corrList = res.data.data
+                  that.num = that.corrList.length
+              }
+            })
         }
     }
 
@@ -195,6 +247,15 @@ background: #F8F8F8;
         margin-bottom: 10px;
       }
    }
+   .winHei {
+     height:auto !important ;
+     border-bottom: 1PX solid #f5f5f5;
+   }
+   .hideHei {
+     height: 88px;
+     overflow: hidden;
+      border-bottom: 1PX solid #f5f5f5;
+   }
    .win-to {
      height: 88px;
      display: flex;
@@ -209,6 +270,9 @@ background: #F8F8F8;
    .win-contant {
      padding: 35px;
    }
+ }
+ .current {
+   opacity: 0.3;
  }
 }
 </style>

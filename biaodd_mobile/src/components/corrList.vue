@@ -1,21 +1,22 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="dwDetail">
-        <top-back :title="'活动详情'"></top-back>
-        <div class="img-box">
-            <img src="../assets/hdxq.png"/>
-            <button class="btn" @click="jumpApp">下载APP</button>
-        </div>
-        
+    <div class="corrList">
+          <div class="corr-text all-css" v-for="(el,i) in corrList" :key="i"  @click="jumpart(el)" >
+            <div>
+              {{el.title}}
+            </div>
+            <div>
+                 <van-icon name="arrow" />
+            </div>
+          </div>
     </div>
 </template>
 <script>
-import topBack from '@/components/topback'
 export default {
-    name: 'dwDetail', // 结构名称
+    name: 'corrList', // 结构名称
     data() {
         return {
-            // 数据模型
+            // 数据模型a
         }
     },
     watch: {
@@ -23,9 +24,9 @@ export default {
     },
     props: {
         // 集成父级参数
-    },
-    components: {
-       'top-back':topBack,
+        corrList:{
+           default:[]
+        }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -56,8 +57,16 @@ export default {
     },
     methods: {
         // 方法 集合
-        jumpApp(){
-            window.location.href='https://a.app.qq.com/o/simple.jsp?pkgname=com.yaobang.biaodada';
+        // closecorr() {
+        //    this.$emit('recordFn');
+        // },
+        jumpart(el) {
+           this.$emit('recordFn');
+           if(el.type == 1) {
+             this.$router.push({path:'/article',query:{id:el.id,source:el.source}})
+           } else {
+              this.$router.push({path:'/notice',query:{id:el.id,source:el.source}})
+           }
         }
     }
 
@@ -66,33 +75,20 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
-.app-boby.dwDetail{
-    padding-bottom: 0;
-    padding-top: 90px;
+.corrList {
+     .all-css {
+        font-size: 32px;
+        color:#333;
+        padding: 0 35px; 
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1PX solid #F2F2F2;
+     }
+     .corr-text {
+       min-height: 88px;
+       line-height: 45px;
+       align-items: center;
+       padding: 10px 35px; 
+     }
 }
-.img-box{
-    // min-height: calc(100vh - 90px);
-    // background: url(../assets/hdxq.png) no-repeat;
-    // background-size: 100% 100%;
-    position: relative;
-    img{
-        width: 100%;
-        height: 100%;
-    }
-    .btn{
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 8%;
-        width: 540px;
-        background: #F9BD1C;
-        color: #fff;
-        height: 102px;
-        border-radius: 102px;
-        line-height: 102px;
-        border: 0;
-        box-shadow: 3px 4px 0 #B17A13;
-    }
-}
-
 </style>
