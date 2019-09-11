@@ -170,7 +170,7 @@ export default {
             url: '/foundation//hot/words',
             data:{
               type:'zhaobiao',
-              limit:5
+              limit:10
             }
         }).then(function(res){
            if(res.data.code == 1) {
@@ -197,16 +197,19 @@ export default {
                that.areaStr =  res.data.data.regionName.split(';')
                that.checked =  res.data.data.isPush ==1 ? true : false
                let arr = []
-               let arr1 = res.data.data.qualCode.split(',')
-               let arr2 = res.data.data.qualName.split(',')
-               for (var i = 0; i<arr1.length;i++ ) {
-                 var obj =  {}
-                 obj.name = arr2[i]
-                 obj.code = arr1[i]
-                 arr.push(obj)
+               if(res.data.data.qualCode != '') {
+                  let arr1 = res.data.data.qualCode.split(',')
+                  let arr2 = res.data.data.qualName.split(',')
+                  for (var i = 0; i<arr1.length;i++ ) {
+                    var obj =  {}
+                    obj.name = arr2[i]
+                    obj.code = arr1[i]
+                    arr.push(obj)
+                  }
+                  that.apiArr = arr
+                  sessionStorage.setItem('subapi',JSON.stringify(arr))
                }
-               that.apiArr = arr
-                sessionStorage.setItem('subapi',JSON.stringify(arr))
+            
              }
             })
         },

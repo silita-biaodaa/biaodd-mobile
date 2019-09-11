@@ -137,7 +137,7 @@ export default {
         overflow: hidden;/*超出部分隐藏*/
         text-overflow:ellipsis;/* 超出部分显示省略号 */
         white-space: nowrap;
-        max-width: 620px;
+        max-width: 80%;
       }
     }
     .scri-type {
