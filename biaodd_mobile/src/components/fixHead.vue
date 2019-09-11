@@ -98,10 +98,10 @@ export default {
             if(JSON.parse(sessionStorage.getItem('address')).name ) {
                  this.address=  JSON.parse(sessionStorage.getItem('address')).name 
             } else {
-                this.address.name=   '湖南省' ;
+                this.address = '湖南省' ;
             }
         } else {
-            this.address.name =   '湖南省' ;
+            this.address =  '湖南省' ;
         }
         this.addressStr= JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
         this.changeN();

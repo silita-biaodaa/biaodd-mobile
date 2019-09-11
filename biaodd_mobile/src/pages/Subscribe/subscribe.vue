@@ -12,13 +12,13 @@
            </div>
          <!-- </div> -->
        </div>
-        <template v-if="this.subLits.length > 0" > 
+        <template v-if="this.subLits.length > 0 || this.error == true" > 
           <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
             <sub-list v-for="(el,i) in this.subLits" :key="i" :obj='el' ></sub-list>
           </van-list>
         </template>  
-        <template v-if="this.subLits.length == 0 && this.isSub == false && this.loadIng == false">
-            <v-not :isError="isError" :hint="'Sorry，没有找到符合条件的公告信息'"  ></v-not>
+        <template v-if="this.subLits.length == 0 && this.isSub == false && this.loadIng == false && this.error == false">
+            <v-not  :hint="'Sorry，没有找到符合条件的公告信息'"  ></v-not>
         </template>
        <div class="scribe-coll" v-if="iShow"  >
          <div class="coll-img" >
@@ -53,6 +53,7 @@ export default {
             error:false,
             loadIng:true,
             isError:false,
+            error:false
         }
     },
     watch: {
@@ -140,12 +141,15 @@ export default {
         gainList()  {
            let that=this; 
            that.isScroll = false
+           that.loadIng = true
            let data=that.data;
            this.$http({
                 method:'post',
                 url: '/newnocite/subscribe/list',
                 data:data
             }).then(function(res){
+              console.log(res);
+              
                if(res.data.code == 1) {
                  that.loadIng = false 
                  that.isScroll = true
@@ -158,7 +162,12 @@ export default {
                  if(res.data.total==that.subLits.length){
                       that.finished=true;//如果返回总条数等于当前list长度
                   }
+               } else {
+                  that.loadIng = false
+                  that.error = true;
                }
+            }).catch(function(res){
+                
             })
         },
         closeImg() {
