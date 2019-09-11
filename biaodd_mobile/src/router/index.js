@@ -10,6 +10,7 @@ import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
 import logo from '@/pages/user/logo'
 import enroll from '@/pages/user/enroll'
+import binging from '@/pages/user/bing'
 import find from '@/pages/user/find'
 import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
@@ -39,6 +40,12 @@ import law from '@/pages/law/law'
 import lawtext from '@/pages/law/lawtext'
 import annals from '@/components/enterprise/annals'
 import prise from '@/components/enterprise/prise'
+
+// 订阅
+import subscribe from '@/pages/Subscribe/subscribe'
+import subset from '@/pages/Subscribe/subset'
+import subarea from '@/pages/Subscribe/subArea'
+
 
 
 
@@ -241,7 +248,27 @@ export default new Router({
       path: '/prise',
       component: prise,
       name: 'prise'
-    }                                  
+    },
+    { // 订阅
+      path: '/subscribe',
+      component: subscribe,
+      name: 'subscribe'
+    },
+    { // 订阅
+      path: '/subset',
+      component: subset,
+      name: 'subset'
+    },
+    { // 订阅
+      path: '/subarea',
+      component: subarea,
+      name: 'subarea'
+    },
+    { // 订阅
+      path: '/binging',
+      component: binging,
+      name: 'binging'
+    }                                                   
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

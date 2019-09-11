@@ -80,7 +80,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .install {
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     background-color: #F5F5F5;
     padding-top: 92px;
@@ -101,8 +101,8 @@ export default {
      }
   }
   .in-b {
-      box-sizing: border-box;
-    height:calc(100vh - 387px);
+    box-sizing: border-box;
+    height:calc(100vh - 340px);
     background-color: #fff;
     padding-top: 450px;
     .in-btn {

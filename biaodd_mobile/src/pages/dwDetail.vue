@@ -10,7 +10,6 @@
     </div>
 </template>
 <script>
-import topBack from '@/components/topback'
 export default {
     name: 'dwDetail', // 结构名称
     data() {
@@ -25,7 +24,6 @@ export default {
         // 集成父级参数
     },
     components: {
-       'top-back':topBack,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');

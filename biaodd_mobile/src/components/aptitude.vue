@@ -2,7 +2,7 @@
 import { setTimeout } from 'timers';
 <template>
     <div class="aptitude" :class="{'zIndex':isFix}">
-        <div class="box">
+        <div class="box"  v-if="this.subset !=1" >
             <template v-if="boxArr.length==0">
                 <p>暂无资质，赶紧去添加吧</p>
             </template>
@@ -20,7 +20,7 @@ import { setTimeout } from 'timers';
                 
             </template>
         </div>
-        <div class="btn">
+        <div class="btn"   v-if="this.subset !=1">
             <button class="canle" @click="recordFn">重置</button>
             <button class="sure" @click="sureFn">{{sureTxt}}</button>
         </div>
@@ -127,6 +127,9 @@ export default {
         },
         bizType: {
            default:2
+        },
+        subset:{
+           default:0  
         }
     },
     beforeCreate() {
@@ -142,7 +145,7 @@ export default {
                 method:'post',
                 url: '/new/common/condition',
             }).then(function(res){
-                if(that.$route.path == '/bid') {
+                if(that.$route.path == '/bid' || that.$route.path == '/subset') {
                    that.data=res.data.data.noticeQua;
                    that.showArr=res.data.data.noticeQua;
                 } else {
@@ -153,7 +156,7 @@ export default {
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
-            if(that.$route.path == '/bid') {
+            if(that.$route.path == '/bid' || that.$route.path == '/subset') {
                that.data=obj.noticeQua;
                that.showArr=obj.noticeQua;
             } else {
@@ -166,6 +169,13 @@ export default {
         that.boxArr=that.arr;
         if(that.boxArr.length>0){
             this.sureTxt='确定';
+        }
+        if(this.subset == 1 ) {
+            this.isFix=true;
+        }
+        if(sessionStorage.getItem('subapi')) {
+            let arr = JSON.parse(sessionStorage.getItem('subapi'))
+            this.boxArr = arr
         }
     },
     beforeMount() {
@@ -219,18 +229,24 @@ export default {
                            that.isToast=false;
                        },1500)
                        return false
-                   }
+                   } 
                 }
-                this.hideFix();
+               
                 that.storageArr=[];
                 this.boxArr.push(boxData);
                 this.navTxt=[];
                 this.sureTxt='确定';
                 this.showArr=this.data;
+                if(this.subset == 1 ) {
+                  this.$emit('setSub',{list:this.boxArr});
+                }else {
+                  this.hideFix();
+                }
             }
             this.showArr=this.showArr[i].data;
             this.num++;
             this.navTxt.push('请选择')
+            
         },
         selectRch(el) {
            this.storageArr = []
@@ -290,9 +306,14 @@ export default {
             this.modalHelper.afterOpen();
         },
         hideFix(){
-            this.rchname = ''
-            this.isFix=false;
-            this.modalHelper.beforeClose();
+            if(this.subset == 1) {
+              this.$emit('setSub',{list:this.boxArr,msg:1});
+            } else {
+              this.rchname = ''
+              this.isFix=false;
+              this.modalHelper.beforeClose();
+            }
+            
         },
         recordFn(){
             this.navTxt = ['请选择']

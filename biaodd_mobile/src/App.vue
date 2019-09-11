@@ -1,31 +1,23 @@
 <template>
   <div id="app">
-    <router-view v-if="isRouter" class="app-boby" />
+    <router-view v-if="isRouter" :class="this.showNav ? 'app-boby': ''" />
     <div class="app-bto" v-if="showNav">
-       <div class="app-nav" @click="jump" >
-         <!-- 红 -->
-         <img src="./assets/nav-icon-biaodd.png.png" alt="" v-if="fisrt" >  
-         <!-- 灰 -->
-         <img src="./assets/nav-icon-biaodada.png.png" alt="" v-else >
-         <div :class="fisrt ? 'color' : '' " >
-           标大大
-         </div>
-       </div>
-        <div class="app-nav" @click="jumpto" >
-          <!-- 灰 -->
-          <img src="./assets/nav-icon-yonghzhx.png.png" alt="" v-if="per" >
+       <div class="app-nav" @click="jump(el)" v-for="(el,i) in nav" :key="i"  >
+           <!-- 灰 -->
+          <img :src="el.rurl" alt="" v-if="el.states"   >
           <!-- 红 -->
-          <img src="./assets/nav-icon-yonghzh.png.png" alt="" v-else >
-          <div :class="!fisrt ? 'color' : '' " >
-             个人中心
+          <img :src="el.url" alt=""  v-else >  
+          <div :class="el.states ? 'color' : '' " >
+            {{el.name}}
           </div>
-         
-       </div>
+        </div>
     </div> 
+     <v-dia v-if="isload"></v-dia>
   </div>
 </template>
 
 <script>
+import dialog from '@/components/dialog'
 export default {
   // name: 'App',
   data(){
@@ -34,7 +26,38 @@ export default {
       fisrt: true,
       per:true,
       showNav:true,
-      area:[]
+      isload:false,
+      area:[],
+      nav:[
+        {
+          url: require('./assets/nav-icon-biaodada.png.png'),
+          rurl: require('./assets/nav-icon-biaodd.png.png'),
+          name:'首页',
+          path:'/',
+          states:false
+        },
+         {
+           url: require('./assets/icon-gzh.png(1).png'),
+           rurl: require('./assets/icon-gzh.png.png'),
+           name:'关注',
+           path:'/followList',
+           states:false
+        },
+        {
+           url:require('./assets/icon-zhbdy.png(1).png'),
+           rurl:  require('./assets/icon-zhbdy.png.png'),
+           name:'招标订阅',
+           path:'/subscribe',
+           states:false
+        },
+        {
+           url: require('./assets/nav-icon-yonghzhx.png.png'),
+           rurl: require('./assets/nav-icon-yonghzh.png.png'),
+           name:'个人中心',
+           path:'/centre',
+           states:false
+        }
+      ]
     }
   },
   provide(){
@@ -42,6 +65,9 @@ export default {
       reload:this.reload
     }
   },
+  components: {
+        'v-dia':dialog
+    },
   methods:{
     reload(){
       this.isRouter=false
@@ -50,22 +76,40 @@ export default {
       })
     },
     judge() {
-       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install'||  this.$route.path == '/deal' ||  this.$route.path == '/user' ||this.$route.path=='/followList'||this.$route.path=='/openingVip'||this.$route.path=='/myOrder') {
-            this.fisrt = false 
-            this.per  = false
+       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install'||  this.$route.path == '/deal' ||  this.$route.path == '/user' ||this.$route.path=='/openingVip'||this.$route.path=='/myOrder') {
+            this.nav[3].states = true 
+        } else if(this.$route.path == '/followList') {
+           this.nav[1].states = true  
+        } else if (this.$route.path == '/subscribe') {
+           this.nav[2].states = true  
         } else {
-            this.fisrt = true  
-            this.per  = true 
+          this.nav[0].states = true  
         }
-        if(this.$route.name=='payVip'||this.$route.name=='dwDetail'){
+        if(this.$route.name=='payVip'||this.$route.name=='dwDetail' || this.$route.name=='subset' ||  this.$route.name=='binging' ){
             this.showNav=false
         }
     },
-    jump() {
-      this.$router.push('/')
-    },
-     jumpto() {
-      this.$router.push('/centre')
+    jump(el) {
+      if(el.name == '首页' || el.name == '个人中心' ) {
+          for(let i of this.nav) {
+            i.states = false
+          }
+          el.states = true
+          this.$router.push(el.path)
+      } else {
+        if(sessionStorage.getItem('xtoken')) {
+            for(let i of this.nav) {
+              i.states = false
+            }
+            el.states = true
+            this.$router.push(el.path)
+        } else {
+            this.modalHelper.afterOpen();
+            this.isload = true 
+        }
+      }
+      
+     
     },
     pushAll(el) {
            for(let val of el) {
@@ -128,27 +172,28 @@ export default {
        arr.newQual = obj 
        localStorage.setItem('filter',JSON.stringify(arr));
     });
-
-    //  let that=this;
-  
-
-  
   },
   watch: {
    $route: {
       handler: function(val, oldVal){
-        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/followList'||val.path == '/myOrder'||val.path == '/payVip'||val.path == '/openingVip'||val.path == '/membership') {
-            this.fisrt = false 
-            this.per  = false
+           for(let i of this.nav) {
+              i.states = false
+            }
+        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/myOrder'||val.path == '/payVip'||val.path == '/openingVip'||val.path == '/membership') {
+            this.nav[3].states = true 
+        }  else if (val.path == '/followList')  {
+            this.nav[1].states = true 
+        } else if (val.path == '/subscribe' || val.path == '/subset'  )  {
+           this.nav[2].states = true
         } else {
-            this.fisrt = true  
-            this.per  = true 
+           this.nav[0].states = true
         }
-        if(val.name=='payVip'||val.name=='dwDetail'){
+        if(this.$route.name=='payVip'||this.$route.name=='dwDetail' || this.$route.name=='subset' ||  this.$route.name=='binging' ){
             this.showNav=false
-        }else{
-          this.showNav=true
+        } else {
+           this.showNav= true
         }
+      
        },
       deep: true
     }

@@ -36,7 +36,7 @@ import anshare from '@/components/enterprise/anshare'
 import aninvest from '@/components/enterprise/aninvest'
 import anset from '@/components/enterprise/anset'
 import ancury from '@/components/enterprise/ancury'
-
+import topBack from '@/components/topback'
 
 Vue.component('v-vip', isvip)
 Vue.component('ic-infor', icinfo)
@@ -55,6 +55,8 @@ Vue.component('an-vest', aninvest)
 Vue.component('an-set', anset)
 Vue.component('an-cury', ancury)
 Vue.component('corr-list', corrList)
+Vue.component('top-back', topBack)
+
 
 
 // function HtmlFontSize(){

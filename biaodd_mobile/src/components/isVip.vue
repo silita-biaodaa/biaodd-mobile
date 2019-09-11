@@ -119,6 +119,8 @@ export default {
         justify-content: center;
         align-items: center;
         height: 196px;
+        padding: 0 40px;
+        box-sizing: border-box;
         p{
             width: 80%;
             display: inline-block;
