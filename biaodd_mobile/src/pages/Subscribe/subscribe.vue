@@ -193,8 +193,6 @@ export default {
             }).then(function(res){
                if(res.data.code == 1) {
                  let select = []
-                 console.log(res.data.data.regionName);
-                 
                  if(res.data.data.regionName ==  null) {
                     return 
                  } else {
@@ -204,7 +202,7 @@ export default {
                      let arr =  o.split('||')
                      for (var i = 0;i < allArea.length;i++) {
                        if(allArea[i].name == arr[0]) {
-                         if(arr.length == 2) {
+                         if(arr[1] != ''  ) {
                             let arr1 = arr[1].split(',')
                               for (var k = 0;k < arr1.length;k++) {
                                  for (var j = 0;j < allArea[i].data.length;j++) {

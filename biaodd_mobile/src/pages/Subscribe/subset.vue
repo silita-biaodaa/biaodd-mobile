@@ -325,7 +325,6 @@ export default {
         },
         addArea() {
           this.iArea = true
-          this.modalHelper.afterOpen();
         },
         closeArea() {
            this.iArea = false
@@ -333,7 +332,6 @@ export default {
         aArea(el) {
           this.iArea = false
           this.Nosa = false
-          this.modalHelper.beforeClose();
           if(this.areaArr.length == 0) {
             if(el.code) {
               for (let o of el.list) { 
@@ -511,21 +509,22 @@ export default {
                   for (let j =0;j<allArea.length;j++) {
                     if(allArea[j].code == sarr[0]) {
                       first = allArea[j].name
-                    }
-                    if(sarr.length == 2 ) {
-                      let d = allArea[j].data
-                      let sarr1 = sarr[1].split(',')
-                      for (let u =0;u<sarr1.length;u++) { 
-                        for (let f =0;f<d.length;f++) { 
-                            if(d[f].code == sarr1[u]) {
-                              Aarr.push(d[f].name)
-                              break
-                            }
+                       if(sarr.length == 2 ) {
+                        let d = allArea[j].data
+                        let sarr1 = sarr[1].split(',')
+                        for (let u =0;u<sarr1.length;u++) { 
+                          for (let f =0;f<d.length;f++) { 
+                              if(d[f].code == sarr1[u]) {
+                                Aarr.push(d[f].name)
+                                break
+                              }
+                          }
                         }
+                      } else {
+                        break
                       }
-                    } else {
-                      break
                     }
+                   
                   }
                 let str = first + "||" + Aarr.join(',')
                 Aarr = []
