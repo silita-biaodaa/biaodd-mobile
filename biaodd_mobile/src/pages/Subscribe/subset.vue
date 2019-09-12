@@ -325,6 +325,7 @@ export default {
         },
         addArea() {
           this.iArea = true
+          this.modalHelper.afterOpen();
         },
         closeArea() {
            this.iArea = false
@@ -332,7 +333,7 @@ export default {
         aArea(el) {
           this.iArea = false
           this.Nosa = false
-          
+          this.modalHelper.beforeClose();
           if(this.areaArr.length == 0) {
             if(el.code) {
               for (let o of el.list) { 

@@ -135,6 +135,7 @@ export default {
                 }else{
                   that.$router.replace('home')
                 }
+                
             } else {
                 that.isShow = true;
                 that.back = res.data.msg

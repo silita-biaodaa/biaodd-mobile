@@ -6,11 +6,11 @@
            <div class="scri-read" v-show="obj.isRead == 0" >
              <div class="title-read" ></div> 
            </div>
-           <p>{{obj.title}}</p>
+           <p v-html="obj.title" ></p>
          </div>
          <!-- 正文 -->
          <div class="scri-text" >  
-           （正文：<p style="color:#999" >{{obj.content}}</p>）
+           (正文：<p style="color:#999" v-html="obj.content" ></p>)
          </div>
          <!-- x项目类型 -->
          <div class="scri-type" >
@@ -25,8 +25,8 @@
           <div class="scri-w" v-show="obj.regions" >
             <span style="color:#999">项目地区：</span>{{obj.regions}}
           </div>
-           <div class="scri-w" v-show="obj.pbMode" >
-            <span style="color:#999">评标办法：</span>{{obj.pbMode}}
+           <div class="scri-w"  >
+            <span style="color:#999">评标办法：</span>{{obj.pbMode ? obj.pbMode : '详见原文'}}
           </div>
            <div class="scri-w" v-show="obj.pubDate" >
             <span style="color:#999">发布时间：</span>{{obj.pubDate}}

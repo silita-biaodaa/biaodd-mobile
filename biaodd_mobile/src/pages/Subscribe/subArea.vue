@@ -201,6 +201,7 @@ export default {
     z-index: 99999;
     width: 100%;
     box-sizing: border-box;
+    max-height: 100vh;
     .sub-title {
        line-height: 112px;
        font-size: 36px;
@@ -217,7 +218,7 @@ export default {
             width: 320px;
             overflow-y: scroll;
             ul{
-              height: 100%;
+            //   height: 100%;
                 li{
                     background: #fff;
                     text-align: center;
