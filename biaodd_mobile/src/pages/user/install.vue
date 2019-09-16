@@ -71,6 +71,18 @@ export default {
             sessionStorage.removeItem('Bname')
             sessionStorage.removeItem('permissions')
             this.$router.push('/')
+            let code = this.getCode()
+            if(code) {
+                let that = this
+                 this.$http({
+                  method:'post',
+                  url: '/wxAuth/untieUser',
+                  data:{
+                  }
+              }).then(function(res){
+                
+              })
+            }
         }
     }
 

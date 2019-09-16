@@ -57,7 +57,8 @@ export default {
            path:'/centre',
            states:false
         }
-      ]
+      ],
+      code:''
     }
   },
   provide(){
@@ -120,7 +121,29 @@ export default {
                      }
                  }
              }
-      }
+      },
+     gainToken() {
+       let that=this;
+       this.$http({
+        method:'post',
+        url: '/wxAuth/loginUser',
+        data:{
+          code:that.code
+        }
+        }).then(function(res){
+          sessionStorage.setItem('firstLogin',res.data.data.isFirst);
+          sessionStorage.setItem('xtoken',res.data.data.xtoken)
+          sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
+          if(res.data.data.nikeName){
+            sessionStorage.setItem('Bname',res.data.data.nikeName)
+          }else{
+            sessionStorage.setItem('Bname',res.data.data.phoneNo)
+          }
+          sessionStorage.setItem('isCollected',res.data.data.isCollected)
+          sessionStorage.setItem('permissions',res.data.data.permissions);
+          sessionStorage.setItem('userid',res.data.data.pkid);
+        })
+     }, 
   },
   created () {
     if(localStorage.getItem('xtoken')){
@@ -128,6 +151,10 @@ export default {
     }
     if(localStorage.getItem('Bname')){
       localStorage.removeItem('Bname')
+    }
+    this.code = this.getCode()
+    if(this.code == '') {
+      this.gainToken()
     }
     this.judge();
      let that=this;

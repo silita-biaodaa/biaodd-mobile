@@ -166,8 +166,6 @@ export default {
                   }
               }).then(function(res){
                 if(res.data.code == 1) {
-                  console.log('1111');
-                  
                   sessionStorage.setItem('firstLogin',res.data.data.isFirst);
                   sessionStorage.setItem('xtoken',res.data.data.xtoken)
                   sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
@@ -181,8 +179,7 @@ export default {
                   sessionStorage.setItem('userid',res.data.data.pkid);
                   that.$router.push('/home')
                 } else if(res.data.code == 302 ) {
-                  // that.$router.push('/home')
-                  //  that.$router.replace('home')
+                  that.$router.push('/enroll')
                 } else {
                    that.isShow = true
                    that.hint = res.msg
