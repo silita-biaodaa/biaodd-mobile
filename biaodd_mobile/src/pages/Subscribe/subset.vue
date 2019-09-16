@@ -325,11 +325,14 @@ export default {
         },
         addArea() {
           this.iArea = true
+          this.modalHelper.afterOpen();
         },
         closeArea() {
            this.iArea = false
+           this.modalHelper.beforeClose();
         },
         aArea(el) {
+          this.modalHelper.beforeClose();
           this.iArea = false
           this.Nosa = false
           if(this.areaArr.length == 0) {

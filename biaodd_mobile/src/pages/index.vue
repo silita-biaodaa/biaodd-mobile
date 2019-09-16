@@ -173,10 +173,17 @@ export default {
          this.$http({
                 method:'POST',
                 url: '/activity/entrance',
+                data:{
+                    version:''
+                } 
             }).then(function(res){
                 if(res.data.data ) {
                     that.modalHelper.afterOpen();
-                    that.mask=true;
+                    let isCollected = sessionStorage.getItem('isCollected')
+                    if(!(!isCollected)) {
+                         that.mask=true;
+                    }
+                   
                 }
             })
 

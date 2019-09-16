@@ -195,13 +195,13 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .subArea {
-    position: fixed;
+    position: absolute;
     top: 90px;
     left: 0;
     z-index: 99999;
     width: 100%;
     box-sizing: border-box;
-    max-height: 100vh;
+    // max-height: 90vh;
     .sub-title {
        line-height: 112px;
        font-size: 36px;
@@ -212,7 +212,8 @@ export default {
     }
     .box{
         display: flex;
-        height:calc(100vh - 295px);
+        height:calc(100vh - 430px);
+        box-sizing: border-box;
         /*省级*/
         .provincial{
             width: 320px;

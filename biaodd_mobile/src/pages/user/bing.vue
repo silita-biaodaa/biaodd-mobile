@@ -24,7 +24,7 @@
            </span>
          </div>
          <div class="logo-btn en-top" @click="register"  >
-            登录
+            绑定登录
         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
@@ -48,7 +48,8 @@ export default {
             hint:'请输入正确的账号和密码',
             note:'',
             msg:'请输入正确的短信验证码',
-            ipmsg:''
+            ipmsg:'',
+            code:''
         }
     },
     watch: {
@@ -65,6 +66,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.getCod()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -115,7 +117,7 @@ export default {
                   method:'post',
                   url: '/authorize/getVerifyCode',
                   data:{
-                    type:1,
+                    type:4,
                     invitationPhone:that.username
                   }
               }).then(function(res){
@@ -156,14 +158,41 @@ export default {
              let that=this;
               this.$http({
                   method:'post',
-                  url: '/authorize/memberRegister',
+                  url: '/wxAuth/loginBindingUser',
                   data:{
-                  
+                    code:that.code,
+                    phone:that.username,
+                    verifyCode:that.note
                   }
               }).then(function(res){
-               
+                if(res.code == 1) {
+                  
+                } else {
+                   that.isShow = true
+                   that.hint = res.msg
+                    setTimeout(() => {
+                      that.isShow = false;
+                    }, 2000);
+                }
+                  console.log(res);
               })
-        }     
+        },
+        getCod() {
+            var locations = location.href + ""; 
+            if (locations.indexOf("?") == -1) {
+              return false
+            }
+            var params = locations.split("?");
+            var queryArr = params[1].split("&");
+            var queryMap = {};
+            for (var index in queryArr) {
+              var k = queryArr[index].split("=")[0];
+              var v = queryArr[index].split("=")[1];
+              var s =v.split("#");
+              queryMap[k] = s[0];
+            }
+            this.code = queryMap.code;
+          },   
             
     }
 
