@@ -94,3 +94,20 @@ Vue.prototype.formatDate = function(param, type=null) {
     }
     return b;
 }
+
+Vue.prototype.getCode = function () {
+	var locations = location.href + "";
+	if (locations.indexOf("?") == -1) {
+		return false
+	}
+	var params = locations.split("?");
+	var queryArr = params[1].split("&");
+	var queryMap = {};
+	for (var index in queryArr) {
+		var k = queryArr[index].split("=")[0];
+		var v = queryArr[index].split("=")[1];
+		var s = v.split("#");
+		queryMap[k] = s[0];
+	}
+	return queryMap.code
+}

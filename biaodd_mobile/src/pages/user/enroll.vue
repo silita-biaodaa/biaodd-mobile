@@ -169,7 +169,42 @@ export default {
               this.msg = '请设置不低于8位数得密码'
               return this.enword = true
            }
-             let that=this;
+           let code = this.getCode()
+            let that=this;
+           if(code) {
+              this.$http({
+                  method:'post',
+                  url: '/authorize/memberRegister',
+                  data:{
+                    verifyCode:that.note,
+                    phoneNo:that.username,
+                    loginPwd:sha1(that.password),
+                    channel:'1004',
+                    clientVersion:'3.0'
+                  }
+              }).then(function(res){
+                 if(res.data.code ==1 ) {
+                  sessionStorage.setItem('firstLogin',res.data.data.isFirst);
+                  sessionStorage.setItem('xtoken',res.data.data.xtoken)
+                  sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
+                  if(res.data.data.nikeName){
+                    sessionStorage.setItem('Bname',res.data.data.nikeName)
+                  }else{
+                    sessionStorage.setItem('Bname',res.data.data.phoneNo)
+                  }
+                  sessionStorage.setItem('isCollected',res.data.data.isCollected)
+                  sessionStorage.setItem('permissions',res.data.data.permissions);
+                  sessionStorage.setItem('userid',res.data.data.pkid);
+                   that.$router.push('/home')
+                 } else {
+                   that.isShow = true
+                    that.hint = res.data.msg
+                     setTimeout(() => {
+                       that.isShow = false;
+                     }, 2000);
+                 }
+              })
+           } else {
               this.$http({
                   method:'post',
                   url: '/authorize/memberRegister',
@@ -195,8 +230,9 @@ export default {
                        that.isShow = false;
                      }, 2000);
                  }
-                 
               })
+           }
+            
         }     
             
     }

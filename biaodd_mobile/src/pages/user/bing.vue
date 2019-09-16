@@ -165,8 +165,24 @@ export default {
                     verifyCode:that.note
                   }
               }).then(function(res){
-                if(res.code == 1) {
+                if(res.data.code == 1) {
+                  console.log('1111');
                   
+                  sessionStorage.setItem('firstLogin',res.data.data.isFirst);
+                  sessionStorage.setItem('xtoken',res.data.data.xtoken)
+                  sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
+                  if(res.data.data.nikeName){
+                    sessionStorage.setItem('Bname',res.data.data.nikeName)
+                  }else{
+                    sessionStorage.setItem('Bname',res.data.data.phoneNo)
+                  }
+                  sessionStorage.setItem('isCollected',res.data.data.isCollected)
+                  sessionStorage.setItem('permissions',res.data.data.permissions);
+                  sessionStorage.setItem('userid',res.data.data.pkid);
+                  that.$router.push('/home')
+                } else if(res.data.code == 302 ) {
+                  // that.$router.push('/home')
+                  //  that.$router.replace('home')
                 } else {
                    that.isShow = true
                    that.hint = res.msg
