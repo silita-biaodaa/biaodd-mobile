@@ -196,7 +196,8 @@ export default {
                   sessionStorage.setItem('isCollected',res.data.data.isCollected)
                   sessionStorage.setItem('permissions',res.data.data.permissions);
                   sessionStorage.setItem('userid',res.data.data.pkid);
-                   that.$router.push('/home')
+                  that.$router.push('/home')
+                  localStorage.setItem('isFi','1')
                  } else {
                    that.isShow = true
                     that.hint = res.data.msg
