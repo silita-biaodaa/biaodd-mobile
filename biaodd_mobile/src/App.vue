@@ -131,7 +131,7 @@ export default {
           code:that.code
         }
         }).then(function(res){
-          sessionStorage.setItem('firstLogin',res.data.data.isFirst);
+          // sessionStorage.setItem('firstLogin',res.data.data.isFirst);
           sessionStorage.setItem('xtoken',res.data.data.xtoken)
           sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
           if(res.data.data.nikeName){
@@ -142,6 +142,9 @@ export default {
           sessionStorage.setItem('isCollected',res.data.data.isCollected)
           sessionStorage.setItem('permissions',res.data.data.permissions);
           sessionStorage.setItem('userid',res.data.data.pkid);
+          if(res.data.data.isCollected && that.$route.name == 'binging' ) {
+            that.$router.push('/home')
+          } 
         })
      }, 
   },
@@ -153,7 +156,7 @@ export default {
       localStorage.removeItem('Bname')
     }
     this.code = this.getCode()
-    if(this.code == '') {
+    if(this.code != '') {
       this.gainToken()
     }
     this.judge();

@@ -10,7 +10,7 @@
          </div>
          <!-- 正文 -->
          <div class="scri-text" >  
-           (正文：<p style="color:#999" v-html="obj.content" ></p>)
+           (正文：<p  v-html="obj.content" ></p>)
          </div>
          <!-- x项目类型 -->
          <div class="scri-type" >

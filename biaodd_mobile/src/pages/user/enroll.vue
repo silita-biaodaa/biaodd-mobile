@@ -171,7 +171,7 @@ export default {
            }
            let code = this.getCode()
             let that=this;
-           if(code) {
+           if(code != '') {
               this.$http({
                   method:'post',
                   url: '/authorize/memberRegister',
