@@ -113,13 +113,12 @@ export default {
                 method:'post',
                 url: '/subscribe/gain/condition',
                 data: {
-                  pkid:null
+                  pkid: that.$route.query.id ? that.$route.query.id : null,
                 }
             }).then(function(res){
                if(res.data.code == 1) {
                  if(res.data.data.regions ==  null) {
                     console.log(res.data.data);
-                    
                      that.isSub = true
                      that.loadIng = false
                      return
@@ -133,7 +132,7 @@ export default {
                    that.modalHelper.afterOpen();
                  }
                  that.openList = true
-                   that.isSub = false
+                 that.isSub = false
                  that.isSet = true
                }
             })

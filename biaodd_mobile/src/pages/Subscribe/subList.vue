@@ -49,12 +49,15 @@ export default {
     props: {
         // 集成父级参数
         obj:{}
+        
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        
+        this.replaceT(this.obj)
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -79,6 +82,27 @@ export default {
     },
     methods: {
         // 方法 集合
+        replaceT(obj) {
+           if(obj.keywords.length == 0) {
+             return false
+           }
+           console.log(111);
+           
+           for(let i of obj.keywords) {
+              if(i.isExist == 1) {
+
+                var s = i.word;
+                var reg = new RegExp("(" + s + ")", "g");
+                var newstr = obj.title.replace(reg, "<span style='color:red' >$1</span>");
+                obj.title = newstr
+                
+                
+              }
+           }
+        },
+        quote (str) {
+          return str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+        },
         jump() {
           if(this.obj.type == 1) {
               this.$router.push({path:'/article',query:{id:this.obj.pkid,source:this.obj.source}})
