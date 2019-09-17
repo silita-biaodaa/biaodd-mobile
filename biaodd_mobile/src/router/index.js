@@ -250,7 +250,7 @@ export default new Router({
       name: 'prise'
     },
     { // 订阅
-      path: '/subscribe/:id',
+      path: '/subscribe/:id?',
       component: subscribe,
       name: 'subscribe'
     },

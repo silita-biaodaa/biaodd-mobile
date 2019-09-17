@@ -67,7 +67,6 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        
         this.gainIp()
         
     },
@@ -116,6 +115,8 @@ export default {
                   pkid: that.$route.params.id ? that.$route.params.id : null,
                 }
             }).then(function(res){
+              console.log(111);
+              
                if(res.data.code == 1) {
                  if(res.data.data.regions ==  null) {
                     console.log(res.data.data);
