@@ -67,10 +67,6 @@ export default {
             this.$router.push('/find')
         },
         quit() {
-            sessionStorage.removeItem('xtoken')
-            sessionStorage.removeItem('Bname')
-            sessionStorage.removeItem('permissions')
-            this.$router.push('/')
             let code = this.getCode()
             if(code) {
                 let that = this
@@ -83,6 +79,11 @@ export default {
                 
               })
             }
+            sessionStorage.removeItem('xtoken')
+            sessionStorage.removeItem('Bname')
+            sessionStorage.removeItem('permissions')
+            this.$router.push('/')
+           
         }
     }
 
