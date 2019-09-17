@@ -67,7 +67,10 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.gainIp()
+        setTimeout(() => {
+             this.gainIp()
+        }, 150);
+       
         
     },
     beforeMount() {

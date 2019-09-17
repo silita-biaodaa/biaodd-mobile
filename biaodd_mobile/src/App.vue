@@ -150,7 +150,6 @@ export default {
             if(that.$route.name == 'binging') {
                that.$router.push('/home')
             }
-           
           } 
           
         })
