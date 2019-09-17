@@ -26,7 +26,6 @@
          <div class="logo-btn en-top" @click="register"  >
             绑定登录
         </div>
-        <div class="logo-btn en-top"  >{{this.code}}</div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
         </div>

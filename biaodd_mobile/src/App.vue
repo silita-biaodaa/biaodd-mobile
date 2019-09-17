@@ -133,18 +133,18 @@ export default {
         }).then(function(res){
           if(res.data.data.isCollected && that.$route.name == 'binging' ) {
             that.$router.push('/home')
+            sessionStorage.setItem('xtoken',res.data.data.xtoken)
+            sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
+            if(res.data.data.nikeName){
+              sessionStorage.setItem('Bname',res.data.data.nikeName)
+            }else{
+              sessionStorage.setItem('Bname',res.data.data.phoneNo)
+            }
+            sessionStorage.setItem('isCollected',res.data.data.isCollected)
+            sessionStorage.setItem('permissions',res.data.data.permissions);
+            sessionStorage.setItem('userid',res.data.data.pkid);
           } 
-          // sessionStorage.setItem('firstLogin',res.data.data.isFirst);
-          sessionStorage.setItem('xtoken',res.data.data.xtoken)
-          sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
-          if(res.data.data.nikeName){
-            sessionStorage.setItem('Bname',res.data.data.nikeName)
-          }else{
-            sessionStorage.setItem('Bname',res.data.data.phoneNo)
-          }
-          sessionStorage.setItem('isCollected',res.data.data.isCollected)
-          sessionStorage.setItem('permissions',res.data.data.permissions);
-          sessionStorage.setItem('userid',res.data.data.pkid);
+          
           
         })
      }, 
