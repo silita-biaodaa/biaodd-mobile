@@ -197,6 +197,7 @@ export default {
                   sessionStorage.setItem('permissions',res.data.data.permissions);
                   sessionStorage.setItem('userid',res.data.data.pkid);
                   that.$router.push('/home')
+                  localStorage.removeItem('isFi')
                   localStorage.setItem('isFi','1')
                  } else {
                    that.isShow = true

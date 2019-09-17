@@ -178,11 +178,12 @@ export default {
                   sessionStorage.setItem('permissions',res.data.data.permissions);
                   sessionStorage.setItem('userid',res.data.data.pkid);
                   that.$router.push('/home')
+                  localStorage.removeItem('isFi')
                   localStorage.setItem('isFi','1')
                 } else if(res.data.code == 302 ) {
+                   localStorage.removeItem('isFi')
                    localStorage.setItem('isFi','0')
                    window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fenroll&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
-                  // that.$router.push('/enroll')
                 } else {
                    that.isShow = true
                    that.hint = res.msg
@@ -216,7 +217,7 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' scoped>
+<style  lang='less'>
 .enroll {
   max-height: 100vh;
   background: #fff;
@@ -224,6 +225,7 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: column;
+  box-sizing: border-box;
    img {
     margin: 115px 0 119px;
     width: 138px;
