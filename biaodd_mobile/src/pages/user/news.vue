@@ -123,7 +123,7 @@ export default {
            let that=this;
             this.$http({
                 method:'post',
-                url: 'message/list',
+                url: '/message/list',
                 data:that.data
             }).then(function(res){
               if(res.data.code == 1) {
@@ -184,7 +184,7 @@ export default {
          let that=this;
             this.$http({
                 method:'post',
-                url: 'message/del',
+                url: '/message/del',
                 data:{
                   ids:str
                 }
@@ -209,7 +209,7 @@ export default {
          let that=this;
             this.$http({
                 method:'post',
-                url: 'message/set/read',
+                url: '/message/set/read',
                 data:{
                   pkid:str
                 }
