@@ -40,6 +40,15 @@
            
            </div>
          </div>
+          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'subscribe' " >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="obj.msgContent"  >
+           
+           </div>
+         </div>
       </div>
       <div class="news-btn" @click.stop="jump(obj)"  >
             查看详情 >
@@ -128,9 +137,10 @@ export default {
             
           } else if(o.msgType == 'company') {
                 this.$router.push({path:'/letter',query:{id:o.replyId,source:o.regisAddress,name:o.comName}})
+          } else if(o.msgType == 'subscribe') {
+                 this.$router.push({ name:'subscribe' ,params:{ id:o.pkid} })
           } else {
               this.$router.push({path:'/openingVip'})
-
           }
            let that=this;
             this.$http({

@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="Subscribe">
-       <top-back :title="'招标订阅'" :isSet='isSet' ></top-back>
+       <top-back :title="'我的订阅'" :isSet='isSet' ></top-back>
        <div class="no-scribe" v-if="isSub"  >
          <!-- <div> -->
            <div class="scribe-hint" >
@@ -113,7 +113,7 @@ export default {
                 method:'post',
                 url: '/subscribe/gain/condition',
                 data: {
-                  pkid: that.$route.query.id ? that.$route.query.id : null,
+                  pkid: that.$route.params.id ? that.$route.params.id : null,
                 }
             }).then(function(res){
                if(res.data.code == 1) {
