@@ -69,7 +69,7 @@ export default {
         // console.group('创建完毕状态===============》created');
         setTimeout(() => {
              this.gainIp()
-        }, 500);
+        }, 1000);
        
         
     },
