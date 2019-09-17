@@ -132,7 +132,6 @@ export default {
         }
         }).then(function(res){
            if(res.data.code == 302  ) {
-             
              localStorage.setItem('isFi','0')
              window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
              return false
@@ -174,24 +173,30 @@ export default {
         method:'post',
         url: '/authorize/address',
     }).then(function(res){
+         let str = ''
         if(res.data.data.region.indexOf('广西')>-1){
-          sessionStorage.setItem('address','广西壮族自治区');
+          str = '广西壮族自治区'
+          // sessionStorage.setItem('address','广西壮族自治区');
         }else if(res.data.data.region.indexOf('内蒙古')>-1){
-          sessionStorage.setItem('address','内蒙古自治区');
+          str = '内蒙古自治区'
+          // sessionStorage.setItem('address','内蒙古自治区');
         }else if(res.data.data.region.indexOf('宁夏')>-1){
-          sessionStorage.setItem('address','宁夏回族自治区');
+          str = '宁夏回族自治区'
+          // sessionStorage.setItem('address','宁夏回族自治区');
         }else if(res.data.data.region.indexOf('新疆')>-1){
-          sessionStorage.setItem('address','新疆维吾尔自治区');
+          str = '新疆维吾尔自治区'
+          // sessionStorage.setItem('address','新疆维吾尔自治区');
         }else if(res.data.data.region.indexOf('西藏')>-1){
-          sessionStorage.setItem('address','西藏自治区');
+          str = '西藏自治区'
+          // sessionStorage.setItem('address',);
         }else{
-          let str = res.data.data.region+'省'
-          for(let x of that.area) {
+          str = res.data.data.region+'省'
+        } 
+         for(let x of that.area) {
             if( str == x.name ) {
               sessionStorage.setItem('address',JSON.stringify(x)); 
             }
           }
-        } 
         if(res.data.data.ip) {
           sessionStorage.setItem('ip',res.data.data.ip);
         }

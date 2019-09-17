@@ -219,7 +219,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less'>
 .enroll {
-  max-height: 100vh;
+  // max-height: 100vh;
   background: #fff;
   padding: 90px 92px;
   display: flex;
