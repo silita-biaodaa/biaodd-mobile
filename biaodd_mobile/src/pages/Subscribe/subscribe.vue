@@ -80,7 +80,9 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
-            this.gainArea()
+         setTimeout(() => {
+             this.gainArea()
+        }, 1000);
         });
     },
     components:{
