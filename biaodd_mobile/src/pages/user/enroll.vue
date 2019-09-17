@@ -174,13 +174,14 @@ export default {
            if(code != '') {
               this.$http({
                   method:'post',
-                  url: '/authorize/memberRegister',
+                  url: '/wxAuth/registerBindingUser',
                   data:{
                     verifyCode:that.note,
                     phoneNo:that.username,
                     loginPwd:sha1(that.password),
-                    channel:'1004',
-                    clientVersion:'3.0'
+                    code:code
+                    // channel:'1004',
+                    // clientVersion:'3.0'
                   }
               }).then(function(res){
                  if(res.data.code ==1 ) {

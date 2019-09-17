@@ -131,11 +131,17 @@ export default {
           code:that.code
         }
         }).then(function(res){
-           if(res.code == 404) {
+          console.log(res);
+           if(res.code == 302   ) {
              localStorage.setItem('isFi','0')
              window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
              return false
            }
+          //  if(res.code == 302) {
+          //     localStorage.setItem('isFi','0')
+          //     window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fenroll&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+          //     return false
+          //  }
           if(res.data.data.isCollected && that.$route.name == 'binging' ) {
             that.$router.push('/home')
             sessionStorage.setItem('xtoken',res.data.data.xtoken)
