@@ -133,7 +133,7 @@ export default {
             }).then(function(res){
                if(res.data.code == 1) {
                  if(res.data.data.regions ==  null) {
-                    console.log(res.data.data);
+                    // console.log(res.data.data);
                      that.isSub = true
                      that.loadIng = false
                      return
@@ -163,7 +163,7 @@ export default {
                 url: '/newnocite/subscribe/list',
                 data:data
             }).then(function(res){
-              console.log(res);
+              // console.log(res);
               
                if(res.data.code == 1) {
                  that.loadIng = false 
@@ -217,7 +217,8 @@ export default {
                      let arr =  o.split('||')
                      for (var i = 0;i < allArea.length;i++) {
                        if(allArea[i].name == arr[0]) {
-                         if(arr[1] != null ) {
+                         
+                         if( arr[1] != null ) {
                             let arr1 = []
                             arr1 = arr[1].split(',')
                               for (var k = 0;k < arr1.length;k++) {
@@ -237,8 +238,7 @@ export default {
                    }
                    setTimeout(() => {
                      localStorage.setItem('subarea',JSON.stringify(select))
-                     that.toOk = true
-                   }, 1000);
+                   }, 1500);
                     
                  }
                }

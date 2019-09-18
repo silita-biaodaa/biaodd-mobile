@@ -370,11 +370,14 @@ export default {
                   } 
                   // arr1 之前已经保存code 里面得数据
                    if(el.del == 1 ) { 
+                     if(arr1.length == 0) {
+                       return false
+                     }
                       this.array_diff(this.areaArr,arr1)
                       this.areaCode.splice(this.areaCode.indexOf(i),1)
                       this.areaCode.push(el.source)
                       for (let o of el.list) { 
-                       this.areaArr.push(o)
+                        this.areaArr.push(o)
                       }
                    } else {
                       // arr2 重新选择之后得code
@@ -488,7 +491,12 @@ export default {
                    for (var s = 0; s < ar1.length; s++) {
                      if(ar1[s] == el.code) {
                        ar1.splice(s,1)
-                       let st2 = ar[0] + "||" + ar1.join(',')
+                      //  if(ar1.length >= 0) {
+                         let st2 = ar[0] + "||" + ar1.join(',')
+                      //  } else {
+                        //  let st2 = ar[0]
+                      //  }
+                       
                         this.areaCode.splice(o,1)
                         this.areaCode.push(st2)
                         this.bination()
@@ -496,7 +504,6 @@ export default {
                      }
                    }
                 }
-                
              }
                
            }
@@ -529,7 +536,13 @@ export default {
                     }
                    
                   }
-                let str = first + "||" + Aarr.join(',')
+                  let str = ''
+                  if(Aarr.length == 0 ) {
+                    str = first
+                  } else {
+                       str = first + "||" + Aarr.join(',')
+                  }
+               
                 Aarr = []
                 this.areaStr.push(str)
               }
