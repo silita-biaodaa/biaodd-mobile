@@ -138,7 +138,7 @@ export default {
           } else if(o.msgType == 'company') {
                 this.$router.push({path:'/letter',query:{id:o.replyId,source:o.regisAddress,name:o.comName}})
           } else if(o.msgType == 'subscribe') {
-                 this.$router.push({ name:'subscribe' ,params:{ id:o.pkid} })
+                 this.$router.push({ name:'subscribe' ,params:{ id:o.replyId} })
           } else {
               this.$router.push({path:'/openingVip'})
           }
