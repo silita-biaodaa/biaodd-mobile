@@ -45,7 +45,7 @@
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>
            </div>
-           <div class="news-name" v-html="obj.msgContent"  >
+           <div class="news-name" v-html="newText"  >
            
            </div>
          </div>
@@ -53,6 +53,7 @@
       <div class="news-btn" @click.stop="jump(obj)"  >
             查看详情 >
        </div>
+       
     </div>
 </template>
 <script>
@@ -62,6 +63,7 @@ export default {
         return {
             // 数据模型
              control:false,
+             newText:''
              
         }
     },
@@ -102,7 +104,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.all = this.isall
+       this.newText = this.obj.msgContent.replace(/\n/g,"<br/>")
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
