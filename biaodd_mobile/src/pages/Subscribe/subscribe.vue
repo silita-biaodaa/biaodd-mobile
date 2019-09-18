@@ -54,7 +54,7 @@ export default {
             loadIng:true,
             isError:false,
             error:false,
-            toOk:false
+            // toOk:true
         }
     },
     watch: {
@@ -143,7 +143,8 @@ export default {
                  that.data.pageSize = 5
                  that.gainList()
                  let isCollected = sessionStorage.getItem('isCollected') == 'false' ? false :true;
-                 if(that.$route.query.form == 1 && !isCollected ) {
+                 let first = localStorage.getItem('isfirst') ? localStorage.getItem('isfirst') : 0
+                 if(that.$route.query.form == 1 && !isCollected  && first ==0 ) {
                    that.iShow = true
                    that.modalHelper.afterOpen();
                  }
@@ -187,6 +188,8 @@ export default {
         },
         closeImg() {
           this.iShow = false
+          localStorage.setItem('isfirst','1')
+          // this.toOk = false
           this.modalHelper.beforeClose();
         },
         onLoad(){//下滚加载
