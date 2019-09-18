@@ -4,7 +4,6 @@
         <top-back :title="'活动详情'"></top-back>
         <div class="img-box">
             <img src="../assets/hdxq.png"/>
-            <img src="../assets/pic-erwm.png.png" alt="" class="code-dw" >
             <button class="btn" @click="jumpApp">下载APP</button>
         </div>
         
@@ -93,14 +92,6 @@ export default {
         border: 0;
         box-shadow: 3px 4px 0 #B17A13;
     }
-    // .code-dw {
-    //     position: absolute;
-    //     left: 50%;
-    //     transform: translateX(-50%);
-    //     width: 226px;
-    //     height: 226px;
-    //     bottom: 23%;
-    // }
 }
 
 </style>
