@@ -93,14 +93,14 @@ export default {
         border: 0;
         box-shadow: 3px 4px 0 #B17A13;
     }
-    .code-dw {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 226px;
-        height: 226px;
-        bottom: 23%;
-    }
+    // .code-dw {
+    //     position: absolute;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     width: 226px;
+    //     height: 226px;
+    //     bottom: 23%;
+    // }
 }
 
 </style>
