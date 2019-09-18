@@ -177,7 +177,7 @@ export default {
                   sessionStorage.setItem('isCollected',res.data.data.isCollected)
                   sessionStorage.setItem('permissions',res.data.data.permissions);
                   sessionStorage.setItem('userid',res.data.data.pkid);
-                  that.$router.push('/home')
+                  that.$router.push('/subscribe')
                   localStorage.removeItem('isFi')
                   localStorage.setItem('isFi','1')
                 } else if(res.data.code == 302 ) {
@@ -217,7 +217,7 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less'>
+<style  lang='less' scoped>
 .enroll {
   // max-height: 100vh;
   background: #fff;

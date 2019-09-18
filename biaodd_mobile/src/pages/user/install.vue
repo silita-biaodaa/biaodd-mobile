@@ -89,8 +89,7 @@ export default {
             localStorage.setItem('isFi','1')
             setTimeout(() => {
                sessionStorage.removeItem('xtoken')
-
-            }, 200);
+            }, 100);
         }
     }
 

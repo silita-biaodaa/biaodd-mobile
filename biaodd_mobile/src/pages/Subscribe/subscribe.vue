@@ -109,23 +109,19 @@ export default {
             this.isvip=true;
             this.modalHelper.afterOpen();
           } else {
-            // if(this.toOk) {
                 this.$router.push('/subset')
-            // }
-           
           }
         },
         gainIp() {
           let that=this; 
+          let pkid = that.$route.params.id ? that.$route.params.id : null;
            this.$http({
                 method:'post',
                 url: '/subscribe/gain/condition',
                 data: {
-                  pkid: that.$route.params.id ? that.$route.params.id : null,
+                  pkid: pkid,
                 }
             }).then(function(res){
-              console.log(111);
-              
                if(res.data.code == 1) {
                  if(res.data.data.regions ==  null) {
                     console.log(res.data.data);

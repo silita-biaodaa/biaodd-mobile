@@ -31,7 +31,7 @@
          点击注册即表示同意<span class="color" @click="deal" >《标大大用户协议》</span>
        </div>
          <div class="logo-btn en-top" @click="register"  >
-          注册{{code}}
+          注册
         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
@@ -57,7 +57,7 @@ export default {
             note:'',
             msg:'请输入正确的短信验证码',
             ipmsg:'',
-            code
+            code:''
         }
     },
     watch: {
@@ -142,7 +142,8 @@ export default {
                    var myVar = setInterval(() =>{
                       if(that.Message == 0) {
                         that.Message = '重新发送'
-                        return clearInterval(myVar);
+                        clearInterval(myVar);
+                        return false
                       } else {
                         that.Message =  that.Message - 1
                       }
@@ -172,8 +173,8 @@ export default {
               return this.enword = true
            }
          
+           if(this.code != '') {
             let that=this;
-           if(code != '') {
               this.$http({
                   method:'post',
                   url: '/wxAuth/registerBindingUser',
@@ -208,6 +209,7 @@ export default {
                  }
               })
            } else {
+              let that=this;
               this.$http({
                   method:'post',
                   url: '/authorize/memberRegister',
@@ -219,6 +221,7 @@ export default {
                     clientVersion:'3.0'
                   }
               }).then(function(res){
+                  console.log(res);
                  if(res.data.code ==1 ) {
                     that.isShow = true
                     that.hint = res.data.msg
