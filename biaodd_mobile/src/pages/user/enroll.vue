@@ -180,7 +180,7 @@ export default {
                   url: '/wxAuth/registerBindingUser',
                   data:{
                     verifyCode:that.note,
-                    phoneNo:that.username,
+                    phone:that.username,
                     loginPwd:sha1(that.password),
                     code:that.code
                   }
