@@ -142,7 +142,7 @@ export default {
                  that.data.pageNo = 1
                  that.data.pageSize = 5
                  that.gainList()
-                 let isCollected = !sessionStorage.getItem('isCollected')
+                 let isCollected = sessionStorage.getItem('isCollected')
                  if(that.$route.query.form == 1 && !isCollected ) {
                    that.iShow = true
                    that.modalHelper.afterOpen();
