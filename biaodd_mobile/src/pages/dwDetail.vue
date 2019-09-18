@@ -4,7 +4,7 @@
         <top-back :title="'活动详情'"></top-back>
         <div class="img-box">
             <img src="../assets/hdxq.png"/>
-            <button class="btn" @click="jumpApp">下载APP</button>
+            <button class="btn" @click="jumpApp"></button>
         </div>
         
     </div>
@@ -73,9 +73,10 @@ export default {
     // background: url(../assets/hdxq.png) no-repeat;
     // background-size: 100% 100%;
     position: relative;
+    margin-top: 90px;
     img{
         width: 100%;
-        height: 100%;
+        height:calc(100vh - 90px);
     }
     .btn{
         position: absolute;
@@ -83,13 +84,12 @@ export default {
         transform: translateX(-50%);
         bottom: 8%;
         width: 540px;
-        background: #F9BD1C;
+        opacity: 0;
         color: #fff;
         height: 102px;
         border-radius: 102px;
         line-height: 102px;
         border: 0;
-        box-shadow: 3px 4px 0 #B17A13;
     }
 }
 

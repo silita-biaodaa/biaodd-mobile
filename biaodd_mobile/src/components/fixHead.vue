@@ -104,7 +104,10 @@ export default {
             this.address =  '湖南省' ;
         }
         this.addressStr= JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
-        this.changeN();
+        setTimeout(() => {
+             this.changeN();
+        }, 500);
+       
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

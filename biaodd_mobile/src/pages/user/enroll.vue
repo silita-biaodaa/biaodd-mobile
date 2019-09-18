@@ -185,6 +185,8 @@ export default {
                     code:that.code
                   }
               }).then(function(res){
+                console.log(res);
+                console.log(res.data.msg);
                  if(res.data.code ==1 ) {
                   sessionStorage.setItem('firstLogin',res.data.data.isFirst);
                   sessionStorage.setItem('xtoken',res.data.data.xtoken)
@@ -221,7 +223,7 @@ export default {
                     clientVersion:'3.0'
                   }
               }).then(function(res){
-                  console.log(res);
+                 console.log(res);
                  if(res.data.code ==1 ) {
                     that.isShow = true
                     that.hint = res.data.msg
