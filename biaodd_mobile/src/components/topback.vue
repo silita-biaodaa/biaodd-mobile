@@ -178,6 +178,7 @@ export default {
             this.$router.go(-1)
         },
         toSub() {
+            localStorage.removeItem('isfirst')
             this.$router.push('/subset')
         }
     }
