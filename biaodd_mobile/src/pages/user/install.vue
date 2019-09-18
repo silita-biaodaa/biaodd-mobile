@@ -87,10 +87,7 @@ export default {
             sessionStorage.removeItem('Bname')
             sessionStorage.removeItem('permissions')
             sessionStorage.removeItem('xtoken')
-            // localStorage.removeItem('isFi')
-            localStorage.setItem('isFi','0')
-            
-           
+            localStorage.setItem('isFi','1')
         }
     }
 

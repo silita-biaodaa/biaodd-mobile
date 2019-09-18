@@ -53,7 +53,8 @@ export default {
             error:false,
             loadIng:true,
             isError:false,
-            error:false
+            error:false,
+            toOk:false
         }
     },
     watch: {
@@ -108,7 +109,10 @@ export default {
             this.isvip=true;
             this.modalHelper.afterOpen();
           } else {
-             this.$router.push('/subset')
+            if(this.toOk) {
+                this.$router.push('/subset')
+            }
+           
           }
         },
         gainIp() {
@@ -226,6 +230,7 @@ export default {
                    }
                    setTimeout(() => {
                      localStorage.setItem('subarea',JSON.stringify(select))
+                     that.toOk = true
                    }, 1000);
                     
                  }
