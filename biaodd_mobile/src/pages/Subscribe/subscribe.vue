@@ -77,6 +77,15 @@ export default {
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
     },
+    // beforeRouteUpdate (to, from, next) {
+    //   console.log(to);
+    //   console.log(from);
+    //   // console.log(next());
+    //     // 在当前路由改变，但是该组件被复用时调用
+    //     // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    //     // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    //     // 可以访问组件实例 `this`
+    // },
     mounted() {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
@@ -133,7 +142,8 @@ export default {
                  that.data.pageNo = 1
                  that.data.pageSize = 5
                  that.gainList()
-                 if(that.$route.query.form == 1) {
+                 let isCollected = !sessionStorage.getItem('isCollected')
+                 if(that.$route.query.form == 1 && !isCollected ) {
                    that.iShow = true
                    that.modalHelper.afterOpen();
                  }

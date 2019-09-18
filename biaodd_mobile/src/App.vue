@@ -81,7 +81,7 @@ export default {
             this.nav[3].states = true 
         } else if(this.$route.path == '/followList') {
            this.nav[1].states = true  
-        } else if (this.$route.path == '/subscribe') {
+        } else if (this.$route.path == '/subscribe' || this.$route .name =='subscribe' ) {
            this.nav[2].states = true  
         } else {
           this.nav[0].states = true  
@@ -148,9 +148,9 @@ export default {
             sessionStorage.setItem('isCollected',res.data.data.isCollected)
             sessionStorage.setItem('permissions',res.data.data.permissions);
             sessionStorage.setItem('userid',res.data.data.pkid);
-            if(that.$route.name == 'binging') {
-               that.$router.push('/home')
-            }
+            // if(that.$route.name == 'binging') {
+            //    that.$router.push('/home')
+            // }
           } 
           
         })
@@ -233,7 +233,7 @@ export default {
             this.nav[3].states = true 
         }  else if (val.path == '/followList')  {
             this.nav[1].states = true 
-        } else if (val.path == '/subscribe' || val.path == '/subset'  )  {
+        } else if (val.path == '/subscribe' || val.path == '/subset' || val.name =='subscribe' )  {
            this.nav[2].states = true
         } else {
            this.nav[0].states = true
@@ -264,6 +264,9 @@ export default {
  right: 0;
  bottom: 0;
 } */
+font{
+  color: red;
+}
 .app-boby {
  padding-bottom: 101px;
 }

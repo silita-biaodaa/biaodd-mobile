@@ -24,7 +24,7 @@
            </span>
          </div>
          <div class="logo-btn en-top" @click="register"  >
-            绑定登录{{code}}
+            绑定登录
         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
@@ -187,11 +187,13 @@ export default {
                 } else {
                    that.isShow = true
                    that.hint = res.msg
+                   console.log(res);
+                   
                     setTimeout(() => {
                       that.isShow = false;
                     }, 2000);
                 }
-                  console.log(res);
+                  // console.log(res);
               })
         },
         getCod() {
