@@ -24,7 +24,7 @@
            </span>
          </div>
          <div class="logo-btn en-top" @click="register"  >
-            绑定登录
+            绑定登录{{code}}
         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}

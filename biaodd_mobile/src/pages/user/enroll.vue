@@ -31,7 +31,7 @@
          点击注册即表示同意<span class="color" @click="deal" >《标大大用户协议》</span>
        </div>
          <div class="logo-btn en-top" @click="register"  >
-          注册
+          注册{{code}}
         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
@@ -56,7 +56,8 @@ export default {
             hint:'请输入正确的账号和密码',
             note:'',
             msg:'请输入正确的短信验证码',
-            ipmsg:''
+            ipmsg:'',
+            code
         }
     },
     watch: {
@@ -73,6 +74,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+          this.code = this.getCode()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -169,7 +171,7 @@ export default {
               this.msg = '请设置不低于8位数得密码'
               return this.enword = true
            }
-           let code = this.getCode()
+         
             let that=this;
            if(code != '') {
               this.$http({
@@ -179,9 +181,7 @@ export default {
                     verifyCode:that.note,
                     phoneNo:that.username,
                     loginPwd:sha1(that.password),
-                    code:code
-                    // channel:'1004',
-                    // clientVersion:'3.0'
+                    code:that.code
                   }
               }).then(function(res){
                  if(res.data.code ==1 ) {

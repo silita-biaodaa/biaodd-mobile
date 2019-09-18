@@ -86,8 +86,11 @@ export default {
             localStorage.removeItem('isFi')
             sessionStorage.removeItem('Bname')
             sessionStorage.removeItem('permissions')
-            sessionStorage.removeItem('xtoken')
             localStorage.setItem('isFi','1')
+            setTimeout(() => {
+               sessionStorage.removeItem('xtoken')
+
+            }, 200);
         }
     }
 
