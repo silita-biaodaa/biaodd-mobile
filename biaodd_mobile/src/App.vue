@@ -168,8 +168,10 @@ export default {
     // console.log(this.code);
     // console.log(isF);
     
-    if(this.code != '' && (this.$route.path != '/binging' || this.$route.path != '/enroll') ) {
-      this.gainToken()
+    if(this.code != '') {
+      if(this.$route.path != '/binging' && this.$route.path != '/enroll' ) {
+        this.gainToken()
+      }
     }
     this.judge();
      let that=this;
