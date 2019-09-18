@@ -133,7 +133,7 @@ export default {
         }).then(function(res){
            console.log(res,111);
           if(res.data.code == 302  ) {
-            localStorage.setItem('isFi','0')
+            // localStorage.setItem('isFi','0')
             window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
             return false
           }
@@ -163,12 +163,12 @@ export default {
     // if(localStorage.getItem('Bname')){
     //   localStorage.removeItem('Bname')
     // }
-    let isF = localStorage.getItem('isFi') ? localStorage.getItem('isFi') : '1' 
+    // let isF = localStorage.getItem('isFi') ? localStorage.getItem('isFi') : '1' 
     this.code = this.getCode()
-    console.log(this.code);
-    console.log(isF);
+    // console.log(this.code);
+    // console.log(isF);
     
-    if(this.code != '' && isF == 1 ) {
+    if(this.code != '' && (this.$route.path != '/binging' || this.$route.path != '/enroll') ) {
       this.gainToken()
     }
     this.judge();

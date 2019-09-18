@@ -83,10 +83,10 @@ export default {
             } else {
                 this.$router.push('/')
             }
-            localStorage.removeItem('isFi')
+            // localStorage.removeItem('isFi')
             sessionStorage.removeItem('Bname')
             sessionStorage.removeItem('permissions')
-            localStorage.setItem('isFi','1')
+            // localStorage.setItem('isFi','1')
             setTimeout(() => {
                sessionStorage.removeItem('xtoken')
             }, 100);

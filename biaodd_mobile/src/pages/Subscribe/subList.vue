@@ -21,7 +21,6 @@
              {{obj.noticeType}}
            </div>
          </div>
-
           <div class="scri-w" v-show="obj.regions" >
             <span style="color:#999">项目地区：</span>{{obj.regions}}
           </div>
