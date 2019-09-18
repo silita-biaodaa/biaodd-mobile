@@ -217,8 +217,9 @@ export default {
                      let arr =  o.split('||')
                      for (var i = 0;i < allArea.length;i++) {
                        if(allArea[i].name == arr[0]) {
-                         if(arr[1] != ''  ) {
-                            let arr1 = arr[1].split(',')
+                         if(arr[1] != null ) {
+                            let arr1 = []
+                            arr1 = arr[1].split(',')
                               for (var k = 0;k < arr1.length;k++) {
                                  for (var j = 0;j < allArea[i].data.length;j++) {
                                      if(arr1[k] == allArea[i].data[j].name ) {
