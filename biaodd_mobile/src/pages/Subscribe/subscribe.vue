@@ -109,9 +109,9 @@ export default {
             this.isvip=true;
             this.modalHelper.afterOpen();
           } else {
-            if(this.toOk) {
+            // if(this.toOk) {
                 this.$router.push('/subset')
-            }
+            // }
            
           }
         },
