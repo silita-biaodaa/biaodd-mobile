@@ -264,8 +264,8 @@ export default {
  right: 0;
  bottom: 0;
 } */
-font{
-  color: red;
+.subList font {
+  color:red;
 }
 .app-boby {
  padding-bottom: 101px;

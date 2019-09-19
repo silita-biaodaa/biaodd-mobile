@@ -129,6 +129,9 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .subList {
+  // font{
+  //   color: red !important ;
+  // }
   .scri-list {
     background-color: #fff;
     padding: 40px 32px;

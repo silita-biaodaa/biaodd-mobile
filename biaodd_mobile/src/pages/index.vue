@@ -169,23 +169,26 @@ export default {
                 localStorage.setItem('filter',JSON.stringify(obj));
             })
         }
-        let that = this 
-         this.$http({
-                method:'POST',
-                url: '/activity/entrance',
-                data:{
-                    version:''
-                } 
-            }).then(function(res){
-                if(res.data.data ) {
-                    that.modalHelper.afterOpen();
-                    let isCollected = sessionStorage.getItem('isCollected')
-                    if(!(!isCollected)) {
-                         that.mask=true;
-                    }
-                   
-                }
-            })
+        setTimeout(() => {
+             let that = this 
+            this.$http({
+                   method:'POST',
+                   url: '/activity/entrance',
+                   data:{
+                       version:''
+                   } 
+               }).then(function(res){
+                   if(res.data.data ) {
+                       that.modalHelper.afterOpen();
+                       let isCollected = sessionStorage.getItem('isCollected')
+                       if(!(!isCollected)) {
+                            that.mask=true;
+                       }
+                      
+                   }
+               })
+        }, 600);
+       
 
         
     },
