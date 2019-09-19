@@ -10,6 +10,7 @@
            
            </div>
          </div>
+         <!-- 评论 -->
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'reply' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.reNikename}}<span style="color:#ccc" >回复了你:</span></h6>
@@ -22,6 +23,7 @@
              {{obj.relatedType ? '招标公共': '中标公共'}}:{{obj.noticeTitle}}
            </div>
          </div>
+         <!-- 企业 -->
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'company' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
@@ -31,6 +33,7 @@
            
            </div>
          </div>
+         <!-- 会员 -->
           <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'vip' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
@@ -40,7 +43,8 @@
            
            </div>
          </div>
-          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'subscribe' " >
+         <!-- 订阅 -->
+        <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'subscribe' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>
@@ -49,8 +53,19 @@
            
            </div>
          </div>
+         <!-- 关注赠送会员 -->
+         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'system' "  style="paddingBottom:10px;" >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="newText"  >
+           
+           </div>
+         </div>
+
       </div>
-      <div class="news-btn" @click.stop="jump(obj)"  >
+      <div class="news-btn" @click.stop="jump(obj)"  v-if="obj.msgType != 'system'"  >
             查看详情 >
        </div>
        
@@ -81,7 +96,6 @@ export default {
         },
         isk(val) {
           if(val) {
-             console.log(val);
             this.control = false
           }
         }

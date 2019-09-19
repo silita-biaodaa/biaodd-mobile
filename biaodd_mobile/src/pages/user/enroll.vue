@@ -200,6 +200,15 @@ export default {
                   sessionStorage.setItem('permissions',res.data.data.permissions);
                   sessionStorage.setItem('userid',res.data.data.pkid);
                   that.$router.push('/home')
+                  this.$http({
+                      method:'post',
+                      url: '/foundation/version',
+                      data:{
+                        loginChannel:''
+                      }
+                  }).then(function(res){
+
+                  })
                   // localStorage.removeItem('isFi')
                   // localStorage.setItem('isFi','1')
                  } else {

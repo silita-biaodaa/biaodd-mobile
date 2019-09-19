@@ -148,6 +148,15 @@ export default {
             sessionStorage.setItem('isCollected',res.data.data.isCollected)
             sessionStorage.setItem('permissions',res.data.data.permissions);
             sessionStorage.setItem('userid',res.data.data.pkid);
+            this.$http({
+                      method:'post',
+                      url: '/foundation/version',
+                      data:{
+                        loginChannel:''
+                      }
+                  }).then(function(res){
+
+                  })
             // if(that.$route.name == 'binging') {
             //    that.$router.push('/home')
             // }

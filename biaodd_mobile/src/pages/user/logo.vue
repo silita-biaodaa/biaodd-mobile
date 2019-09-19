@@ -135,7 +135,15 @@ export default {
                 }else{
                   that.$router.replace('home')
                 }
-                
+                  this.$http({
+                      method:'post',
+                      url: '/foundation/version',
+                      data:{
+                        loginChannel:''
+                      }
+                  }).then(function(res){
+
+                  })
             } else {
                 that.isShow = true;
                 that.back = res.data.msg
