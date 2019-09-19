@@ -180,10 +180,10 @@ export default {
                }).then(function(res){
                    if(res.data.data ) {
                        that.modalHelper.afterOpen();
-                       let isCollected = sessionStorage.getItem('isCollected')
-                       if(!(!isCollected)) {
+                    //    let isCollected = sessionStorage.getItem('isCollected')
+                    //    if(!(!isCollected)) {
                             that.mask=true;
-                       }
+                    //    }
                       
                    }
                })
