@@ -131,10 +131,11 @@ export default {
           code:that.code
         }
         }).then(function(res){
-           console.log(res,111);
           if(res.data.code == 302  ) {
-            // localStorage.setItem('isFi','0')
-            window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+            // 预发布地址
+            window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+            // 线上地址
+            // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
             return false
           }
           if(res.data.data.isCollected ) {
@@ -157,9 +158,7 @@ export default {
                   }).then(function(res){
 
                   })
-            // if(that.$route.name == 'binging') {
-            //    that.$router.push('/home')
-            // }
+          
           } 
           
         })
@@ -172,16 +171,14 @@ export default {
     // if(localStorage.getItem('Bname')){
     //   localStorage.removeItem('Bname')
     // }
-    // let isF = localStorage.getItem('isFi') ? localStorage.getItem('isFi') : '1' 
-    this.code = this.getCode()
-    // console.log(this.code);
-    // console.log(isF);
+
+    // this.code = this.getCode()
+    // if(this.code != '') {
+      // if(this.$route.path != '/binging' && this.$route.path != '/enroll' ) {
+        // this.gainToken()
+      // }
+    // }
     
-    if(this.code != '') {
-      if(this.$route.path != '/binging' && this.$route.path != '/enroll' ) {
-        this.gainToken()
-      }
-    }
     this.judge();
      let that=this;
        this.$http({

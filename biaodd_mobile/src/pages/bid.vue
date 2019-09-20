@@ -113,7 +113,6 @@ export default {
             url: '/newnocite/zhaobiao/list',
             data:that.data
         }).then(function(res){
-            console.log(res);
             
             that.loading = false;
             that.total=res.data.total;

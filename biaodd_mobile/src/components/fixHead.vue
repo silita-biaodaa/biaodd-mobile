@@ -104,9 +104,9 @@ export default {
             this.address =  '湖南省' ;
         }
         this.addressStr= JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
-        setTimeout(() => {
+        // setTimeout(() => {
              this.changeN();
-        }, 500);
+        // }, 500);
        
     },
     beforeMount() {

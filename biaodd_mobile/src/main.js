@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 // import 'lib-flexible'
 import axios from 'axios'
+Vue.prototype.$http = axios
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
@@ -90,6 +91,7 @@ function setHtmlFontSize(){
   // }
 };
 let that=Vue;
+
 router.beforeEach(function(to, from, next){
   if(to.name=='logo'){
     sessionStorage.setItem('path',from.fullPath);
@@ -101,6 +103,7 @@ router.beforeEach(function(to, from, next){
     sessionStorage.removeItem('peoploDetail');
     sessionStorage.removeItem('letterStr');
   }
+  
   next()
   
 })
@@ -110,5 +113,59 @@ new Vue({
   el: '#app',
   router,
   components: { App },
+  data:{
+    code:''
+  },
+  created () {
+      this.code = this.getCode()
+       if(this.code != '') {
+        if(this.$route.path != '/binging' && this.$route.path != '/enroll' ) {
+          this.gainToken()
+        }
+      }
+  },
+  methods: {
+    gainToken() {
+      let that = this;
+      this.$http({
+        method: 'post',
+        url: '/wxAuth/loginUser',
+        data: {
+          code: that.code
+        }
+      }).then(function (res) {
+        if (res.data.code == 302) {
+          // 预发布地址
+          window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+          // 线上地址
+          // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+          return false
+        }
+        if (res.data.data.isCollected) {
+          sessionStorage.setItem('xtoken', res.data.data.xtoken)
+          sessionStorage.setItem('phoneNo', res.data.data.phoneNo);
+          if (res.data.data.nikeName) {
+            sessionStorage.setItem('Bname', res.data.data.nikeName)
+          } else {
+            sessionStorage.setItem('Bname', res.data.data.phoneNo)
+          }
+          sessionStorage.setItem('isCollected', res.data.data.isCollected)
+          sessionStorage.setItem('permissions', res.data.data.permissions);
+          sessionStorage.setItem('userid', res.data.data.pkid);
+          this.$http({
+            method: 'post',
+            url: '/foundation/version',
+            data: {
+              loginChannel: ''
+            }
+          }).then(function (res) {
+
+          })
+
+        }
+
+      })
+    }, 
+  },
   template: '<App/>'
 })
