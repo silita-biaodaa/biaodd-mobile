@@ -134,6 +134,8 @@ new Vue({
           code: that.code
         }
       }).then(function (res) {
+        console.log(res);
+        
         if (res.data.code == 302) {
           // 预发布地址
           window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
