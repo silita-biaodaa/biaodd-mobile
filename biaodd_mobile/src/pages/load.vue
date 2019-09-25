@@ -108,13 +108,15 @@ export default {
                 } else {
                     console.log('进来');
                     
-                    that.$router.push({path:that.path})
+                    that.$router.replace({name:that.path})
                 }
               } 
             })
         }, 
         jump() {
-            this.$router.push({path:this.path})
+            console.log(1111);
+            
+            this.$router.replace({name:this.path})
         }
         
     }
