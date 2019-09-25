@@ -5,6 +5,9 @@
       <div class="load-text"  >
           正在加载中...
       </div>
+      <div @click="jump" >
+          111111111111111111
+      </div>
     </div>
 </template>
 <script>
@@ -14,7 +17,7 @@ export default {
         return {
             // 数据模型a
             code:'',
-            path:'',
+            path:'home',
             id:''
 
         }
@@ -31,7 +34,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
          this.code = this.getCode()
-         this.path = this.$route.params.path
+        //  this.path = this.$route.params.path
          this.id = this.$route.params.id ? this.$route.params.id :''
          if(this.code != '') {
              this.gainToken()
@@ -78,6 +81,8 @@ export default {
                 // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
                 return false
               }
+              console.log(res.data.data.isCollected);
+              
               if(res.data.data.isCollected ) {
                 sessionStorage.setItem('xtoken',res.data.data.xtoken)
                 sessionStorage.setItem('phoneNo',res.data.data.phoneNo);
@@ -97,15 +102,20 @@ export default {
                 //           }
                 //       }).then(function(res){
                 //       })
-              console.log(that.path);
+               console.log(that.path);
                if(that.path == 'subscribe') {
                     that.$router.push({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
+                    console.log('进来');
+                    
                     that.$router.push({path:that.path})
                 }
               } 
             })
         }, 
+        jump() {
+            this.$router.push({path:this.path})
+        }
         
     }
 
