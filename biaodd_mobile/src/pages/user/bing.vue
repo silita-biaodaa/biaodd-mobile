@@ -26,6 +26,9 @@
          <div class="logo-btn en-top" @click="register"  >
             绑定登录
         </div>
+         <div class="logo-btn" @click="jump"  >
+            注册
+         </div>
          <div class="toast"  v-if="isShow" >
            {{hint}}
         </div>
@@ -224,6 +227,9 @@ export default {
             }
             this.code = queryMap.code;
           },   
+          jump() {
+            this.$router.push({path:'/enroll'})
+          }
             
     }
 

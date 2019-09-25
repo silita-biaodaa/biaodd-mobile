@@ -106,17 +106,13 @@ export default {
                if(that.id != '') {
                     that.$router.replace({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
-                    console.log('进来');
-                    
                     that.$router.replace({name:that.path})
                 }
               } 
             })
         }, 
         // jump() {
-        //     console.log(1111);
-            
-        //     this.$router.replace({name:this.path})
+        //   this.$router.replace({ name:'subscribe' ,params:{ id:this.id}})
         // }
         
     }
