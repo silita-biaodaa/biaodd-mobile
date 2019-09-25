@@ -163,8 +163,10 @@ export default {
   created () {
     this.code = this.getCode()
      if(this.code != '') {
-        if(this.$route.path != '/binging' || this.$route.path != '/enroll' ) {
-            this.gainToken()
+        if(this.$route.path == '/binging' || this.$route.path == '/enroll' ) {
+          return false
+        } else {
+          this.gainToken()
         }
       }
     this.judge();

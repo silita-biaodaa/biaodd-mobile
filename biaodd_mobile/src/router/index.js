@@ -46,7 +46,7 @@ import subscribe from '@/pages/Subscribe/subscribe'
 import subset from '@/pages/Subscribe/subset'
 import subarea from '@/pages/Subscribe/subArea'
 
-import load from '@/pages/load'
+// import load from '@/pages/load'
 
 
 
@@ -270,11 +270,11 @@ export default new Router({
       component: binging,
       name: 'binging'
     },
-    { // 订阅
-      path: '/load/:path?/:id?',
-      component: load,
-      name: 'load'
-    }                                                         
+    // { // 订阅
+    //   path: '/load/:path?/:id?',
+    //   component: load,
+    //   name: 'load'
+    // }                                                         
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;
