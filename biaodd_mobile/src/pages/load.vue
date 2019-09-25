@@ -103,7 +103,7 @@ export default {
                 //       }).then(function(res){
                 //       })
                console.log(that.path);
-               if(that.path == 'subscribe') {
+               if(that.id != '') {
                     that.$router.replace({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
                     console.log('进来');
