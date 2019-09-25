@@ -89,14 +89,14 @@ export default {
                 sessionStorage.setItem('isCollected',res.data.data.isCollected)
                 sessionStorage.setItem('permissions',res.data.data.permissions);
                 sessionStorage.setItem('userid',res.data.data.pkid);         
-                this.$http({
-                          method:'post',
-                          url: '/foundation/version',
-                          data:{
-                            loginChannel:''
-                          }
-                      }).then(function(res){
-                      })
+                // this.$http({
+                //           method:'post',
+                //           url: '/foundation/version',
+                //           data:{
+                //             loginChannel:''
+                //           }
+                //       }).then(function(res){
+                //       })
               console.log(that.path);
                if(that.path == 'subscribe') {
                     that.$router.push({ name:'subscribe' ,params:{ id:that.id}})
