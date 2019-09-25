@@ -5,9 +5,9 @@
       <div class="load-text"  >
           正在加载中...
       </div>
-      <div @click="jump" >
+      <!-- <div @click="jump" >
           111111111111111111
-      </div>
+      </div> -->
     </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
         return {
             // 数据模型a
             code:'',
-            path:'home',
+            path:'',
             id:''
 
         }
@@ -34,7 +34,7 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
          this.code = this.getCode()
-        //  this.path = this.$route.params.path
+         this.path = this.$route.params.path
          this.id = this.$route.params.id ? this.$route.params.id :''
          if(this.code != '') {
              this.gainToken()
@@ -104,7 +104,7 @@ export default {
                 //       })
                console.log(that.path);
                if(that.path == 'subscribe') {
-                    that.$router.push({ name:'subscribe' ,params:{ id:that.id}})
+                    that.$router.replace({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
                     console.log('进来');
                     
@@ -113,11 +113,11 @@ export default {
               } 
             })
         }, 
-        jump() {
-            console.log(1111);
+        // jump() {
+        //     console.log(1111);
             
-            this.$router.replace({name:this.path})
-        }
+        //     this.$router.replace({name:this.path})
+        // }
         
     }
 
