@@ -14,7 +14,7 @@ export default {
         return {
             // 数据模型a
             code:'',
-            path:'home',
+            path:'',
             id:''
 
         }
@@ -97,14 +97,16 @@ export default {
                           }
                       }).then(function(res){
                       })
+              console.log(that.path);
                if(that.path == 'subscribe') {
                     that.$router.push({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
-                    that.$router.push({path:this.path})
+                    that.$router.push({path:that.path})
                 }
               } 
             })
         }, 
+        
     }
 
 }

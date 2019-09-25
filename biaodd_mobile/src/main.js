@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 // import 'lib-flexible'
 import axios from 'axios'
-Vue.prototype.$http = axios
+// Vue.prototype.$http = axios
 
 import Vant from 'vant';
 import 'vant/lib/index.css';
