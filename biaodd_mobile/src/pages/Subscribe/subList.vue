@@ -24,8 +24,11 @@
           <div class="scri-w" v-show="obj.regions" >
             <span style="color:#999">项目地区：</span>{{obj.regions}}
           </div>
-           <div class="scri-w"  >
+          <div class="scri-w"  >
             <span style="color:#999">评标办法：</span>{{obj.pbMode ? obj.pbMode : '详见原文'}}
+          </div>
+          <div class="scri-w"  >
+            <span style="color:#999">资质要求：</span>{{obj.quaName ? obj.quaName : '详见原文'}}
           </div>
            <div class="scri-w" v-show="obj.pubDate" >
             <span style="color:#999">发布时间：</span>{{obj.pubDate}}
