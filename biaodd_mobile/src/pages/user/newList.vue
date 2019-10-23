@@ -54,7 +54,7 @@
            </div>
          </div>
          <!-- 关注赠送会员 -->
-         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'system' "  style="paddingBottom:10px;" >
+         <div class="news-text" :class="condition ? 'con' : 'conf'" v-else style="paddingBottom:10px;" >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>
@@ -65,7 +65,7 @@
          </div>
 
       </div>
-      <div class="news-btn" @click.stop="jump(obj)"  v-if="obj.msgType != 'system'"  >
+      <div class="news-btn" @click.stop="jump(obj)"   >
             查看详情 >
        </div>
        
@@ -155,6 +155,10 @@ export default {
                 this.$router.push({path:'/letter',query:{id:o.replyId,source:o.regisAddress,name:o.comName}})
           } else if(o.msgType == 'subscribe') {
                  this.$router.push({ name:'subscribe' ,params:{ id:o.replyId} })
+          } else if(o.msgType == 'system') {
+              localStorage.setItem('sendNew',JSON.stringify(o))
+              this.$router.push({ path:'/newtext',})
+                //  this.$router.push({ name:'subscribe' ,params:{ id:o.replyId} })
           } else {
               this.$router.push({path:'/openingVip'})
           }

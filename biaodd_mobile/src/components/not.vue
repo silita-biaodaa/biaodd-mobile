@@ -4,7 +4,7 @@
       
       <div v-if="!isError"  class="noo-img" >
         <img src="../assets/nolist.png" alt="">
-        <div class="not-f" >
+        <div class="not-f" :class="this.index >= 0 ? 'not-t' :''"  @click="jump" >
           {{msg}}
         </div>
       </div>
@@ -35,7 +35,10 @@ export default {
         },
         hint:{
             default:''
-        }
+        },
+        index:{
+            default:-1
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -71,6 +74,15 @@ export default {
         clickTap(){
             this.reload();
         },
+        jump() {
+            if(this.index == 0) {
+                this.$router.push('/bid')
+            } else if(this.index == 1) {
+                 this.$router.push('/tender')
+            } else {
+                 this.$router.push('/company')
+            }
+        }
         // hint() {
         //    if(this.$route.fullPath == '/bid' || this.$route.fullPath == '/tender'  ) {
         //         this.msg = 'Sorry，没有找到符合条件的公告信息'
@@ -81,11 +93,10 @@ export default {
         //    } else if(this.$route.fullPath == '/ryList') {
         //         this.msg = 'Sorry，没有找到符合条件的人员信息'
         //    }
-            
         // }
     }
-
 }
+
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
@@ -107,6 +118,11 @@ export default {
    font-size: 28px;
    color:#666;
    text-align: center;
+//    text-decoration:underline;
+ }
+ .not-t {
+    text-decoration:underline;
+    color: #fe6603;
  }
  .error{
      img{

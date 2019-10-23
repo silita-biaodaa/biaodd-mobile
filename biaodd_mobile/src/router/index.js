@@ -19,6 +19,8 @@ import followList from '@/pages/user/followList'
 import openingVip from '@/pages/user/openingVip'
 import membership from '@/pages/user/membership'
 import news from '@/pages/user/news'
+import newtext from '@/pages/user/newtext'
+
 import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
 import yjList from '@/pages/yjList'
@@ -46,7 +48,7 @@ import subscribe from '@/pages/Subscribe/subscribe'
 import subset from '@/pages/Subscribe/subset'
 import subarea from '@/pages/Subscribe/subArea'
 
-// import load from '@/pages/load'
+import load from '@/pages/load'
 
 
 
@@ -270,11 +272,16 @@ export default new Router({
       component: binging,
       name: 'binging'
     },
-    // { // 订阅
-    //   path: '/load/:path?/:id?',
-    //   component: load,
-    //   name: 'load'
-    // }                                                         
+    { // 订阅
+      path: '/newtext',
+      component: newtext,
+      name: 'newtext'
+    },
+    { // 订阅
+      path: '/load/:path?/:id?',
+      component: load,
+      name: 'load'
+    }                                                         
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

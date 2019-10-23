@@ -17,7 +17,7 @@
           <template v-if="zbList.length>0">
       <!-- <van-pull-refresh v-model="loading" @refresh="onRefresh"> -->
               <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-                  <new-list v-for="(el,i) in zbList" :key="i" :obj='el' :condition='condition' :isall='isall' :isk='isk'  @pushid ='oparid' ></new-list>
+                  <new-list v-for="(el,i) in zbList" :key="i" :obj='el' :condition='condition' :isall='isall' :isk='isk' :index='i'  @pushid ='oparid' ></new-list>
               </van-list>
             <!-- </van-pull-refresh>   -->
           </template>
