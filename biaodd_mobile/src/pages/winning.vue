@@ -33,6 +33,7 @@
             <van-icon name="arrow" />
         </div>
       </div>
+      <!-- 相关公告 -->
        <div   :class="this.corrShow ? 'showHei' : 'hideHei'" >
          <div  @click.stop="tocorr" class="win-to" :class="this.num ==0 ? 'current' : ''"  >
             <div>
@@ -42,13 +43,14 @@
                 <van-icon name="arrow" />
             </div>
          </div> 
-         <corr-list :corrList='corrList'    ></corr-list>
+         <!-- <corr-list :corrList='corrList'    ></corr-list> -->
       </div>
       <div class="win-contant" v-html="detail.content"  >
 
       </div>
     </div>
-    
+    <!-- 相关公告组件 -->
+    <re-levant  v-if="rele" @closeLe='closeRele' ></re-levant>
     <!-- 评论 -->
     <v-comment :type="'zhongbiao'" id="divId"  @comlength="comFn"></v-comment>
   </div>
@@ -71,6 +73,7 @@ export default {
             num:0,
             corrList:[],
             corrShow:false,
+            rele:false
         }
     },
     watch: {
@@ -81,6 +84,7 @@ export default {
                 this.source = this.$route.query.source
                 this.gainText()
                 this.gainCorr()
+                this.closeRele()
                 this.corrShow = false
           },
             deep: true
@@ -151,9 +155,12 @@ export default {
            if(this.num == 0 ) {
                return
            }
-           this.corrShow = !this.corrShow
-           console.log(111);
-           
+           this.rele = true
+           this.modalHelper.afterOpen();
+        },
+        closeRele() {
+           this.rele = false
+           this.modalHelper.beforeClose();
         },
         formNew() {
            setTimeout(() => {

@@ -52,19 +52,18 @@
                     相关公告 ({{num}})
                    </div>
                    <div >
-                       <van-icon name="arrow-up" v-if="corrShow" />
-                       <van-icon name="arrow-down"  v-else />
-                       
+   
+                        <van-icon name="arrow" />
                       
                    </div>
                </div>  
-               <corr-list :corrList='corrList'  ></corr-list>
+               <!-- <corr-list :corrList='corrList'  ></corr-list> -->
             </div>
             <div class="detail-contant" v-html="detail.content"  >
                 
             </div>
         </div>
-       
+       <re-levant  v-if="rele" @closeLe='closeRele' ></re-levant>
         <!-- 评论 -->
         <v-comment :type="'zhaobiao'" @comlength="comFn" id="divId"  ></v-comment>
     </div>
@@ -87,7 +86,8 @@ export default {
             commentLength:0,
             corrList:[],
             num:0,
-            corrShow:false
+            corrShow:false,
+            rele:false
          }
     },
     watch: {
@@ -98,6 +98,7 @@ export default {
                 this.source = this.$route.query.source
                 this.gainD()
                 this.gainCorr()
+                this.closeRele()
                 this.corrShow = false
           },
             deep: true
@@ -161,12 +162,13 @@ export default {
            if(this.num ==0 ) {
                return
            }
-           this.corrShow = !this.corrShow
+           this.rele = true
+           this.modalHelper.afterOpen();
         },
-        // closeL() {
-        //    this.corrShow = false
-        //    this.modalHelper.beforeClose(); 
-        // },
+        closeRele() {
+           this.rele = false
+           this.modalHelper.beforeClose();
+        },
         tocomment() {
             if(this.commentLength == 0) {
                 return

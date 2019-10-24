@@ -4,15 +4,22 @@
       
       <div v-if="!isError"  class="noo-img" >
         <img src="../assets/nolist.png" alt="">
-        <div class="not-f" :class="this.index >= 0 ? 'not-t' :''"  @click="jump" >
+        <div class="not-f"   >
           {{msg}}
         </div>
+        
+        <div  class="not-btn" v-if="index != -1" @click.stop="jump"  >
+            关注
+        </div>
+
       </div>
+      
         <div class="error" v-else>
             <img src="../assets/load-error.png" alt="">
             <div class="not-f" >加载失败</div>
             <div class="not-f" @click="clickTap" style="color:#FE6603">点击重新加载</div>
         </div>
+
     </div>
 </template>
 <script>
@@ -129,6 +136,17 @@ export default {
          width: 239px;
          margin-top: 150px;
      }
+ }
+ .not-btn {
+     margin-top: 100px;
+     width: 140%;
+     height: 88px;
+     border-radius:44px;
+     line-height: 88px;
+     text-align: center;
+     font-size:32px;
+     color:rgba(255,255,255,1);
+     background-color: #FE6603;
  }
 }
 </style>

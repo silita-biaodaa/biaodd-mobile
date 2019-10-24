@@ -21,7 +21,7 @@
                 </template>
             </template>
             <template v-else>
-                <v-not :isError="isError"  :hint="'暂无关注的' + msg "  :index="navNum"  ></v-not>
+                <v-not :isError="isError"  :hint="'暂无关注的' + msg  + '信息'"  :index="navNum"  ></v-not>
             </template>
         </template>
         <template v-else>
