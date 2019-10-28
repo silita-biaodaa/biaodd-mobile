@@ -190,8 +190,8 @@ export default {
         } else {
             this.screenList[0].txt= '湖南省' ;
         }
-        if(sessionStorage.getItem('permissions')){
-            this.vipStr=sessionStorage.getItem('permissions');
+        if(sessionStorage.getItem('isVip')){
+            this.vipStr=sessionStorage.getItem('isVip');
         }
         // this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  JSON.parse(sessionStorage.getItem('address'))
         this.add = (sessionStorage.getItem('ryData')) ? JSON.parse(sessionStorage.getItem('ryData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})

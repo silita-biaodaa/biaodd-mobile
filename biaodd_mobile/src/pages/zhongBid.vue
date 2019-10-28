@@ -150,7 +150,7 @@ export default {
         this.ajax();
       },
       showMask(i){//
-        if(this.vipStr.indexOf('bidFilter')==-1&&i!=0){
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
@@ -233,8 +233,8 @@ export default {
               this.add.name = '湖南省'
           }
        }
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+      if(sessionStorage.getItem('isVip')){
+         this.vipStr=sessionStorage.getItem('isVip');
       }
       if(sessionStorage.getItem('zhongbidData') || sessionStorage.getItem('zhongbidScreenData')){
         let data=JSON.parse(sessionStorage.getItem('zhongbidData')),

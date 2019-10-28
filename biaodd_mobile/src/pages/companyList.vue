@@ -191,7 +191,7 @@ export default {
       },
       showMask(i){//
 
-        if(this.vipStr.indexOf('comFilter')==-1&&i!=0){
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
@@ -337,8 +337,8 @@ export default {
       }
    
 
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+      if(sessionStorage.getItem('isVip')){
+        this.vipStr=sessionStorage.getItem('isVip');
         this.data.isVip=1;
       }
       if(this.screenList[0].txt == '湖南省') {

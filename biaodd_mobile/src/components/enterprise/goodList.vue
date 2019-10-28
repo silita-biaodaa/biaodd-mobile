@@ -16,10 +16,10 @@
       <template v-if="type == 'road'" >
             <div class="glory-list" >
               <div class="glory-title" >
-                安全认证 —省级优秀（湖南省）
+                {{obj.level}} —{{obj.years}}年度
               </div>
               <p>
-                评价省份：<span>2010-11-11</span>
+                评价省份：<span>{{obj.issueProvince}}</span>
               </p>
             </div>
       </template>
@@ -27,13 +27,13 @@
       <template v-if="type == 'water'" >
             <div class="glory-list" >
               <div class="glory-title" >
-                安全认证 —省级优秀（湖南省）
+                {{obj.level}} —{{obj.years}}年度
               </div>
               <p>
-                评价类型：<span>2010-11-11</span>
+                评价类型：<span>{{obj.creditType}}</span>
               </p>
               <p>
-                有效期至：<span>2010-11-11</span>
+                有效期至：<span>{{obj.valied}}</span>
               </p>
             </div>
       </template>

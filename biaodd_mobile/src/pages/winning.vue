@@ -182,10 +182,10 @@ export default {
            }).then(function(res){
               that.detail = res.data.data
               that.collected=res.data.data.collected
-              if(that.detail.oneName&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+              if(that.detail.oneName&&sessionStorage.getItem('isVip') == 'false'){
                    that.detail.oneName=that.getPassOnename(that.detail.oneName);
                }
-               if(that.detail.oneOffer&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+               if(that.detail.oneOffer&& sessionStorage.getItem('isVip') == 'false'){
                    that.detail.oneOffer=that.getPassOneoffer(that.detail.oneOffer);
                }
               that.clickCount = res.data.clickCount

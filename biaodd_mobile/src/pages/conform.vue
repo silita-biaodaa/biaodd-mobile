@@ -55,7 +55,7 @@ export default {
         // console.group('创建完毕状态===============》created');
          this.id = this.$route.query.id
          this.source = this.$route.query.source
-         let vip = sessionStorage.getItem('permissions') ? 1 : 0;
+         let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0;
          let that=this;
             this.$http({
                 method:'post',
@@ -100,7 +100,7 @@ export default {
         // 方法 集合
         onLoad() {
             this.continue = true 
-             let vip = sessionStorage.getItem('permissions') ? 1 : 0;
+             let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0;
               setTimeout(() => {
                   this.current = this.current + 1
                    let that=this;

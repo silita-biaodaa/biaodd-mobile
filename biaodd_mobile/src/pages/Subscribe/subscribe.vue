@@ -114,7 +114,7 @@ export default {
     methods: {
         // 方法 集合
         jump() {
-          if(sessionStorage.getItem('permissions') == 'null') {
+          if(sessionStorage.getItem('isVip') == 'false') {
             this.isvip=true;
             this.modalHelper.afterOpen();
           } else {

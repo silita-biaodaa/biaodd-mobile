@@ -124,7 +124,7 @@ export default {
         // 时间转换
         jumpDetail(){
             if(this.type=='yj1'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -133,7 +133,7 @@ export default {
                 sessionStorage.setItem('letterStr','zj');
                 this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
             }else if(this.type=='yj2'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -142,7 +142,7 @@ export default {
                 sessionStorage.setItem('letterStr','sl');
                 this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='yj3'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -159,7 +159,7 @@ export default {
             }
         },
         jumpgo(){
-            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+            if(!this.judgeVip()){
                 this.isvip=true;
                 this.modalHelper.afterOpen();
                 return false

@@ -70,7 +70,7 @@ export default {
         // 方法 集合
       topush(o) {
           if(sessionStorage.getItem('xtoken')) {
-             if(sessionStorage.getItem('permissions')) {
+             if(sessionStorage.getItem('isVip') == 'true') {
                this.$router.push({path:'/lawtext',query:{id:o.id}})
              } else {
                this.isvip1= true

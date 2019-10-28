@@ -291,7 +291,7 @@ export default {
             // if(arr.length>1){
             //     qyAddress=arr[0]
             // }
-           let vip = sessionStorage.getItem('permissions') ? 1 : 0
+           let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0
             this.$http({
                 method:'post',
                 url: '/company/host',

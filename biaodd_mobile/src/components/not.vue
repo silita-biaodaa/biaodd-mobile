@@ -9,7 +9,7 @@
         </div>
         
         <div  class="not-btn" v-if="index != -1" @click.stop="jump"  >
-            关注
+            去关注
         </div>
 
       </div>
@@ -147,6 +147,6 @@ export default {
      font-size:32px;
      color:rgba(255,255,255,1);
      background-color: #FE6603;
- }
+     }
 }
 </style>

@@ -103,7 +103,7 @@ export default {
                  this.modalHelper.afterOpen();
                  return false
               }
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false

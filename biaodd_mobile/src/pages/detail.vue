@@ -194,7 +194,10 @@ export default {
         },
         gainD() {
             let that=this;
-            let str=sessionStorage.getItem('permissions');
+
+            // let str=sessionStorage.getItem('permissions');
+            let str=sessionStorage.getItem('isVip');
+
             this.$http({
                 method:'post',
                 url: '/newnocite/nociteDetails/' + that.id,
@@ -207,10 +210,10 @@ export default {
                 that.collected=res.data.data.collected
                 that.detail = res.data.data  
                 that.detail.projDq = that.detail.projDq.substring(0,2)
-                if(that.detail.zzRank&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                if(that.detail.zzRank&&sessionStorage.getItem('isVip') == 'false'){
                     that.detail.zzRank=that.getPassCertificate(that.detail.zzRank);
                 }
-                if(that.detail.pbMode&&(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '')){
+                if(that.detail.pbMode&&sessionStorage.getItem('isVip') == 'false'){
                     that.detail.pbMode=that.getPassPbMode(that.detail.pbMode);
                 }
                 that.clickCount = res.data.clickCount    

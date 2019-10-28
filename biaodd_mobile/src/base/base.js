@@ -111,3 +111,12 @@ Vue.prototype.getCode = function () {
 	}
 	return queryMap.code
 }
+
+Vue.prototype.judgeVip = function () {
+	var Jvip = sessionStorage.getItem('isVip')
+	if (Jvip == 'true') {
+		return true
+	} else {
+		return false
+	}
+}

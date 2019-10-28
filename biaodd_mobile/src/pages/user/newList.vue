@@ -54,7 +54,7 @@
            </div>
          </div>
          <!-- 关注赠送会员 -->
-         <div class="news-text" :class="condition ? 'con' : 'conf'" v-else style="paddingBottom:10px;" >
+         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'system' " style="paddingBottom:10px;" >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
              <p style="color:#ccc" >{{obj.pushd}}</p>

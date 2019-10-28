@@ -100,8 +100,8 @@ export default {
     created() {
         // console.group('创建完毕状态===============》created');
         this.isajax = false
-        if(sessionStorage.getItem('permissions')){
-          this.vipStr=sessionStorage.getItem('permissions');
+        if(sessionStorage.getItem('isVip')){
+          this.vipStr=sessionStorage.getItem('isVip');
         }
         this.id = this.$route.query.id
         let that=this;

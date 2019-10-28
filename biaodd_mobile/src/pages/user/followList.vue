@@ -167,7 +167,7 @@ export default {
             })
         },
         qyAjax(){
-            let vip = sessionStorage.getItem('permissions') ? 1 : 0
+            let vip = sessionStorage.getItem('isVip')  == 'true' ? 1 : 0
             let that=this;
             this.$http({
                 method:'post',

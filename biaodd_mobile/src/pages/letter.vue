@@ -136,8 +136,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if(sessionStorage.getItem('permissions')){
-          this.vipStr=sessionStorage.getItem('permissions');
+        if(sessionStorage.getItem('isVip')){
+          this.vipStr=sessionStorage.getItem('isVip');
         }
         if(sessionStorage.getItem('peoploDetail')){
           this.navNum=3
@@ -160,7 +160,7 @@ export default {
                 if(that.detail.phone) {
                    arr = that.detail.phone.split(';');
                    that.phoneArr=arr;
-                   if(that.vipStr.indexOf('comPhone')==-1){
+                   if(that.vipStr == 'false'){
                      that.detail.phone =that.resetPhone(arr[0]) 
                    }else{
                      that.detail.phone=arr[0]
@@ -200,7 +200,7 @@ export default {
     methods: {
         // 方法 集合
         more(){
-          if(this.vipStr.indexOf('comPhone')==-1){
+          if(this.vipStr=='false'){
             this.isvip=true;
             this.modalHelper.afterOpen();
           }else{
@@ -219,7 +219,7 @@ export default {
           }
         },
         jump(i){
-          if(i==1&&this.vipStr.indexOf('comLaw')==-1){
+          if(i==1&&this.vipStr=='false'){
             this.isvip1=true
             return false
           }

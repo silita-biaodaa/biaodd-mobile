@@ -205,11 +205,14 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if(sessionStorage.getItem('permissions')){
-          let vipstr=sessionStorage.getItem('permissions');
-          if(vipstr.indexOf('comPhone')!=-1){
+        // if(sessionStorage.getItem('permissions')){
+        //   let vipstr=sessionStorage.getItem('permissions');
+        //   if(vipstr.indexOf('comPhone')!=-1){
+        //     this.isVip=true;
+        //   }
+        // }
+        if(!this.judgeVip()){
             this.isVip=true;
-          }
         }
          this.id = this.$route.query.id
          let that=this;
@@ -232,33 +235,33 @@ export default {
                 that.isajax=true;
                 that.isError=true;
             })
-          let vip = sessionStorage.getItem('permissions') ? 1 : 0
-           this.$http({
-                method:'post',
-                url: '/company/branchCompany',
-                data:{
-                   comId:that.id,
-                   isVip:vip
-                }
-            }).then(function(res){
-                that.lists = res.data.data  
-                that.total = that.lists.length
-                if(that.lists.length > 2) {
-                  that.lists.length = 2
-                }
-                var arr = []
-                that.lists.forEach(el => {
-                    if(el.phone) {
-                       arr = el.phone.split(';')
-                       el.phone = arr[0]
-                       arr.length =0
-                    }
-                })
+          let vip = this.judgeVip() ? 1 : 0
+          //  this.$http({
+          //       method:'post',
+          //       url: '/company/branchCompany',
+          //       data:{
+          //          comId:that.id,
+          //          isVip:vip
+          //       }
+          //   }).then(function(res){
+          //       that.lists = res.data.data  
+          //       that.total = that.lists.length
+          //       if(that.lists.length > 2) {
+          //         that.lists.length = 2
+          //       }
+          //       var arr = []
+          //       that.lists.forEach(el => {
+          //           if(el.phone) {
+          //              arr = el.phone.split(';')
+          //              el.phone = arr[0]
+          //              arr.length =0
+          //           }
+          //       })
                
-             }).catch(function(res){
-                that.isajax=true;
-                that.isError=true;
-            })   
+          //    }).catch(function(res){
+          //       that.isajax=true;
+          //       that.isError=true;
+          //   })   
             this.gainG()
             this.gainM()
             this.gainAl()
@@ -392,7 +395,7 @@ export default {
           this.$router.push({path:'/annals',query:{id:o.comId,year:o.years}})
       },
       update() {
-        if( !sessionStorage.getItem('permissions')) {
+        if( !this.judgeVip()) {
            return  this.isvip1 = true
         }
         let that=this;

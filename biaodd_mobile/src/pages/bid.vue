@@ -181,7 +181,7 @@ export default {
         this.ajax();
       },
       showMask(i){// 
-        if(this.vipStr.indexOf('tenderFilter')==-1&&i!=0){
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
@@ -260,8 +260,8 @@ export default {
           }
        }
       
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+      if(sessionStorage.getItem('isVip')){
+        this.vipStr=sessionStorage.getItem('isVip');
       }
       if(sessionStorage.getItem('bidData')){//刷新保存筛选
         let data=JSON.parse(sessionStorage.getItem('bidData'))

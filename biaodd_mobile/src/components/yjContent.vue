@@ -87,7 +87,7 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+            if(!this.judgeVip()){
                 this.modalHelper.afterOpen();
                 this.isvip=true;
                 return false

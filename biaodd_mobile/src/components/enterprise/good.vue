@@ -42,33 +42,33 @@
             </div>
       </div>
 
-      <!-- <div class="tab-an" :class="road ? 'tab-hide' : 'tab-show' " @click="road = !road"  >
+      <div class="tab-an" :class="road ? 'tab-hide' : 'tab-show' " @click="road = !road"  >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-gongl.png.png"  class="good-road" alt="">
-                 公路信用等级 (0)
+                 公路信用等级 ({{highway.length}})
               </div>
               <div>
                    <van-icon name="arrow-down"  v-if="road" />
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-            <good-List :type="'road'" ></good-List>
-      </div> -->
+            <good-List :type="'road'" v-for="(el,i) in highway" :key="i" :obj='el' ></good-List>
+      </div>
 
-      <!-- <div class="tab-an" :class="water ? 'tab-hide' : 'tab-show' " @click="water = !water"  >
+      <div class="tab-an" :class="water ? 'tab-hide' : 'tab-show' " @click="water = !water"  >
            <div class="tab-list" >
               <div class="tab-name" >
                  <img src="../../assets/icon-shuil.png.png"  class="good-water" alt="">
-                 水利信用等级 (0)
+                 水利信用等级 ({{shuili.length}})
               </div>
               <div>
                    <van-icon name="arrow-down"  v-if="water" />
                    <van-icon name="arrow-up" v-else />
               </div>
             </div>
-              <good-List :type="'water'" ></good-List>
-      </div> -->
+              <good-List :type="'water'" v-for="(el,i) in shuili" :key="i" :obj='el' ></good-List>
+      </div>
 
         <div class="tab-an" :class="bad ? 'tab-hide' : 'tab-show' " @click="bad = !bad"  >
             <div class="tab-list" >
@@ -94,7 +94,7 @@ export default {
         return {
             // 数据模型
            glory:true,
-           winning:false,
+           winning:true,
            road:true,
            water:true,
            bad:true,
@@ -105,7 +105,9 @@ export default {
            under:0,
            unders:[],
            win:0,
-           wins:[]
+           wins:[],
+           shuili:[],
+           highway:[]
         }
     },
     watch: {
@@ -165,11 +167,18 @@ export default {
                 that.award = res.data.data.companyAwards.length
                 that.unders = res.data.data.under
                 that.under = res.data.data.under.length
+                that.shuili = res.data.data.shuili
+                that.highway = res.data.data.highway
                 for(let i of res.data.data.projectAwards) {
                   i.show = true
                 }
                 that.wins = res.data.data.projectAwards
                 that.win = res.data.data.projectAwards.length
+                if(that.win >= 1) {
+                  that.winning = false
+                } else {
+                  that.winning = true
+                }
               }
             })
         }

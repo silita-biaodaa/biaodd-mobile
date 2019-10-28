@@ -148,7 +148,7 @@ export default {
         },
         navTap(i){
             if(i == 4) {
-              if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+              if(sessionStorage.getItem('isVip') == 'false'){
                 this.isvip=true;
                 this.modalHelper.afterOpen();
                 return false
