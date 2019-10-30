@@ -38,6 +38,7 @@ export default {
             cityList:[],
             isAll:false,
             isToast:false,
+            name:''
             // cityNum:0,
         }
     },
@@ -237,9 +238,11 @@ export default {
             if(this.$route.path == '/tender'|| this.$route.path == '/bid' || this.$route.path == '/home') {
                  str=this.addList[this.tabNum].code;
                  txt=this.addList[this.tabNum].name;
+                //  name = this.addList[this.tabNum].shortName;
             } else {
                  str=this.addList[this.tabNum].name;
                  txt=this.addList[this.tabNum].name;
+                //  name = this.addList[this.tabNum].shortName;
             }
             
             if(!this.isAll){//如果是选市级则传市级
@@ -271,7 +274,7 @@ export default {
                 txt=showstr;//用作显示
             }
             this.$parent.mask=false;
-            this.$emit('addObj',{str:str,txt:txt});
+            this.$emit('addObj',{str:str,txt:txt,name:this.name});
         },
         citYtap(i){
             let list=this.cityList;
@@ -319,6 +322,7 @@ export default {
                 x.select = false
                 arr2.push(x);
             }
+            this.name = this.addList[i].shortName
             let arr1=[{
                 name:'全部',
                 code:'',

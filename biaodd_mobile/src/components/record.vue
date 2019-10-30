@@ -21,17 +21,17 @@ export default {
             keep:[
               {
                 name:'湘内企业',
-                code:'hunan',
+                code:'in',
                 active:true,
               },
               {
                 name:'入湘企业',
-                code:'enterCompany',
+                code:'enter',
                 active:false,
               },
               {
                 name:'湘内企业+入湘企业',
-                code:'enterHunan',
+                code:'all_in',
                 active:false,
               }
             ],
@@ -43,12 +43,25 @@ export default {
     },
     props: {
         // 集成父级参数
+         obj:{
+            default:''
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
+        this.keep[0].name = this.obj + '内企业' 
+        this.keep[1].name = '入' + this.obj + '企业' 
+        this.keep[2].name = this.obj + '内企业+入'  + this.obj + '企业'
+        if(this.obj == '湘') {
+          this.keep.push({  
+                name:'长沙市公共资源交易中心',
+                code:'changsha',
+                active:false,
+                })
+        }
         if(sessionStorage.getItem('companyScreenNum')) {
             let data=JSON.parse(sessionStorage.getItem('companyScreenNum'))
             if(data.isBei.code != '') {

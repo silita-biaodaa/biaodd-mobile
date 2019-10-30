@@ -13,7 +13,7 @@
     </div>
     <v-addr @addObj="returnAddress" v-if="screenShow[0].active" :add="add" :allress='true'  :type="1"></v-addr>
     <v-apt v-if="screenShow[1].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr" :bizType="2" ></v-apt>
-    <r-ecord v-if="screenShow[2].active"  @sureFn='recSure' @recordFn="recodeFn"  ></r-ecord>
+    <r-ecord v-if="screenShow[2].active"  @sureFn='recSure' @recordFn="recodeFn" :obj='shortName' ></r-ecord>
     <g-lory v-if="screenShow[3].active" @sureFn='gloSure'  @recordFn="gloryFn" ></g-lory>
     <!-- <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money> -->
   </div>
@@ -76,7 +76,10 @@ export default {
           },{
             txt:'资质要求',
             active:false
-          },
+          },{
+             txt:'备案地区',
+             active:false
+          }
         ],
         screenShow:[
           {
@@ -102,14 +105,16 @@ export default {
           },
           honorCate:{
             code:''
-          }
+          },
+          shortName:''
         },
         isajax:false,//是否加载完
         isError:false,//是否加载失败
         finished:false,//是否加载完
         error:false,
         vipStr:'',
-        add:{}
+        add:{},
+        shortName:'湘'
       }
     },
     methods: {
@@ -173,13 +178,16 @@ export default {
         this.zbList=[];
         this.screenShow[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.shortName = option.name
+        this.screenNum.shortName = option.name
+        console.log(option);
         if(this.screenList[0].txt == '湖南省' ) {
-          if(this.screenList.length == 2) {
-             this.screenList.push({txt:'备案地区'},{txt:'荣誉类别'})
+          if(this.screenList.length == 3) {
+             this.screenList.push({txt:'荣誉类别'})
           }
          
         } else {
-           this.screenList.length = 2
+           this.screenList.length = 3
            this.screenNum.honorCate.code= '';
            this.screenNum.isBei.code= '';
         }
@@ -305,6 +313,7 @@ export default {
         'v-not':not,
     },
     created(){
+       
       if(this.$route.query.key || this.$route.query.scom ) {
          let data=JSON.parse(sessionStorage.getItem('companyData'))
          this.data=data;
@@ -315,11 +324,21 @@ export default {
          this.add.name = data.regisAddress
          let arr = data.regisAddress.split('||')         
          this.screenList[0].txt = arr[0]
+          if(this.screenList[0].txt == '湖南省' ) {
+            if(this.screenList.length == 3) {
+               this.screenList.push({txt:'荣誉类别'})
+            }
+           
+          } else {
+             this.screenList.length = 3
+             this.screenNum.honorCate.code= '';
+             this.screenNum.isBei.code= '';
+          }
       } else {
            this.data.regisAddress = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
            if( JSON.parse(sessionStorage.getItem('address'))) {
                 if(JSON.parse(sessionStorage.getItem('address')).name ) {
-                     this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+                    this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
                 } else {
                    this.screenList[0].txt=  '湖南省' ;
                 }
@@ -329,7 +348,18 @@ export default {
           this.add.name = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')).regisAddress :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省')
           if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
             let data=JSON.parse(sessionStorage.getItem('companyData')),
-                screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
+            screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
+             this.screenList[0].txt = data.regisAddress
+              if(this.screenList[0].txt == '湖南省' ) {
+                if(this.screenList.length == 3) {
+                   this.screenList.push({txt:'荣誉类别'})
+                }
+               
+              } else {
+                 this.screenList.length = 3
+                 this.screenNum.honorCate.code= '';
+                 this.screenNum.isBei.code= '';
+              }
             data.pageNo=1;
             this.data=data;
             this.screenNum=screenNum;
@@ -342,11 +372,11 @@ export default {
         this.data.isVip=1;
       }
       if(this.screenList[0].txt == '湖南省') {
-         if(this.screenList.length == 2) {
-             this.screenList.push({txt:'备案地区'},{txt:'荣誉类别'})
+         if(this.screenList.length == 3) {
+             this.screenList.push({txt:'荣誉类别'})
           }
       } else {
-         this.screenList.length = 2
+         this.screenList.length = 3
          this.screenNum.honorCate.code= '';
          this.screenNum.isBei.code= '';
       }
