@@ -12,6 +12,7 @@
         </template>
         <v-popup :mask="mask"></v-popup>
         <p v-if="isSet" class="top-sub" @click="toSub"  >设置</p>
+        <v-vip :mask="isvip" :txt="'筛选功能请开通会员'"></v-vip>
    </div>
 </template>
 <script>
@@ -23,6 +24,7 @@ export default {
         return {
             // 数据模型
             mask:false,
+            isvip:false
             // follow:true,//是否关注
         }
     },
@@ -178,6 +180,11 @@ export default {
             this.$router.go(-1)
         },
         toSub() {
+            if ( sessionStorage.getItem('isVip') == 'false') {
+                this.modalHelper.afterOpen();
+                this.isvip = true
+                return false
+            }
             localStorage.removeItem('isfirst')
             this.$router.push('/subset')
         }

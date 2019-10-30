@@ -64,7 +64,7 @@ export default {
           keyWord: "",
           isVip:0,
           qualCode:'',
-          isBei:'',
+          joinRegion:'',
           honorCate:''
           // rangeType: "and"
         },
@@ -234,7 +234,7 @@ export default {
         this.screenShow[2].active=false;
         let str=option.str;
         this.screenNum.isBei.code= str;
-        this.data.isBei=str;
+        this.data.joinRegion=str;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -259,7 +259,7 @@ export default {
         this.isajax=false;
         this.screenShow[2].active=false;
         this.screenNum.isBei.code= '';
-        this.data.isBei='';
+        this.data.joinRegion='';
         this.data.pageNo=1;
         this.ajax();
       },
