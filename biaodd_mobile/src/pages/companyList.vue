@@ -128,6 +128,12 @@ export default {
       ajax(){
         this.isScroll=false;
         let that=this;
+          if(sessionStorage.getItem('isVip') == 'true' ){
+            
+          that.data.isVip=1;
+        } else {
+           that.data.isVip=0;
+        }
         if(that.data.regisAddress == '全部') {
           that.data.regisAddress = ''
         }
@@ -366,11 +372,9 @@ export default {
           }
       }
    
-
-      if(sessionStorage.getItem('isVip')){
-        this.vipStr=sessionStorage.getItem('isVip');
-        this.data.isVip=1;
-      }
+      // console.log(sessionStorage.getItem('isVip') == 'true');
+       this.vipStr=sessionStorage.getItem('isVip');
+       this.shortName = JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName ? JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName : '湘'
       if(this.screenList[0].txt == '湖南省') {
          if(this.screenList.length == 3) {
              this.screenList.push({txt:'荣誉类别'})
