@@ -60,6 +60,14 @@ export default {
         // console.group('创建完毕状态===============》created');
         
         this.replaceT(this.obj)
+        if( !this.judgeVip()  ) {
+            if(this.obj.quaName){
+                this.obj.quaName=this.getPassCertificate(this.obj.quaName)
+            }
+            if( this.obj.pbMode) {
+                this.obj.pbMode=this.getPassPbMode(this.obj.pbMode)
+            } 
+        }
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');

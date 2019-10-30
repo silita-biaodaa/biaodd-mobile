@@ -12,7 +12,7 @@
         </template>
         <v-popup :mask="mask"></v-popup>
         <p v-if="isSet" class="top-sub" @click="toSub"  >设置</p>
-        <v-vip :mask="isvip" :txt="'筛选功能请开通会员'"></v-vip>
+        <v-vip :mask="isvip" :txt="'我的订阅需要会员权限'"></v-vip>
    </div>
 </template>
 <script>
