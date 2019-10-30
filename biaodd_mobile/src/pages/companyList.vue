@@ -374,7 +374,9 @@ export default {
    
       // console.log(sessionStorage.getItem('isVip') == 'true');
        this.vipStr=sessionStorage.getItem('isVip');
-       this.shortName = JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName ? JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName : '湘'
+       if(sessionStorage.getItem('companyScreenNum')) {
+        this.shortName = JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName ? JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName : '湘'
+       }
       if(this.screenList[0].txt == '湖南省') {
          if(this.screenList.length == 3) {
              this.screenList.push({txt:'荣誉类别'})
