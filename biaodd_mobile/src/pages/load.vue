@@ -5,9 +5,6 @@
       <div class="load-text"  >
           正在加载中...
       </div>
-      <!-- <div @click="jump" >
-          111111111111111111
-      </div> -->
     </div>
 </template>
 <script>
@@ -76,9 +73,9 @@ export default {
             }).then(function(res){
               if(res.data.code == 302  ) {
                 // 预发布地址
-                window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+                // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
                 // 线上地址
-                // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+                window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
                 return false
               }
               console.log(res.data.data.isCollected);
@@ -102,7 +99,7 @@ export default {
                 //           }
                 //       }).then(function(res){
                 //       })
-               console.log(that.path);
+            //    console.log(that.path);
                if(that.id != '') {
                     that.$router.replace({ name:'subscribe' ,params:{ id:that.id}})
                 } else {
