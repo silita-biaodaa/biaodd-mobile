@@ -160,7 +160,10 @@ export default {
         if(this.$route.path == '/binging' || this.$route.path == '/enroll' ) {
           return false
         } else {
-          this.gainToken()
+          setTimeout(() => {
+            this.gainToken()
+          }, 2000);
+            
         }
       }
     this.judge();
