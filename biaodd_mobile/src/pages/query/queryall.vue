@@ -2,13 +2,25 @@
 <template>
     <div class="queryall">
       <top-back :title="title"  ></top-back>
-      <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
-            <v-qy v-for="(o,i) of list" :key="i" :obj="o" :title='title' :orderNo='$route.query.id' ></v-qy>
-      </van-list>
+       <template v-if="isajax">
+            <template v-if="isError">
+              <v-not :isError="isError"></v-not>
+            </template>
+            <template v-else>
+                <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
+                      <v-qy v-for="(o,i) of list" :key="i" :obj="o" :title='title' :orderNo='$route.query.id' ></v-qy>
+                </van-list>
+            </template>  
+         </template>
+         <template v-else>
+           <van-loading size="50px"></van-loading>
+         </template>
+
     </div>
 </template>
 <script>
 import qy from '@/components/qy'
+import not from '@/components/not'
 export default {
     name: 'queryall', // 结构名称
     data() {
@@ -25,7 +37,9 @@ export default {
                pageSize:10,
                orderNo:''
             },
-            list:[]
+            list:[],
+            isajax:true,//是否加载完
+            isError:false,//是否加载失败
         }
     },
     watch: {
@@ -54,6 +68,7 @@ export default {
     },
      components:{
         'v-qy':qy,
+         'v-not':not
     },
     beforeUpdate() {
         // console.group('更新前状态  ===============》beforeUpdate');
@@ -80,6 +95,7 @@ export default {
             //招标
             this.isScroll=false;
             let that=this;
+             that.isajax = false
             this.$http({
                 method:'post',
                 url: '/gonglu/list',
@@ -99,7 +115,10 @@ export default {
                     } else {
                         that.isScroll=true;
                     }
-                   
+                  that.isajax = true
+                } else {
+                    that.isajax = true
+                    that.isError  = true
                 }
             })
         },

@@ -7,38 +7,28 @@
           <van-icon name="arrow-left" class="head-left" @click="$router.go(-1)" />
           公路信息查询详情
         </div>
-        <div class="head-name " >
-          <div class="head-color head-over " >湖南耀邦建设有限公司</div>
+         <div class="head-name " >
+          <div class="head-color head-over " >{{obj.comName}}</div>
         </div>
         <div class="head-text" style="marginTop:15px;" >
            <span class="head-color" >统一社会信用代码:</span>
-           <span  class="head-color">&nbsp91430000320669897C</span>
+           <span  class="head-color">&nbsp{{obj.creditCode}}</span>
         </div>
         <div class="head-text head-color" >
            <span  class="head-color">法定代表:</span>
-           <span  class="head-color">&nbsp陈波</span>
+           <span  class="head-color">&nbsp{{obj.legalPerson}}</span>
         </div>
         <div class="head-text head-color" >
            <span  class="head-color">企业电话:</span>
-           <span  class="head-color">&nbsp0731-88999988</span>
+           <span  class="head-color">&nbsp{{phone}}</span>
         </div>
         <div class="head-text head-color" >
            <span  class="head-color">企业地址:</span>
-           <span  class="head-color">&nbsp湖南省长沙市岳麓区望岳街道杜鹃路768号</span>
+           <span  class="head-color">&nbsp{{obj.comAddress}}</span>
         </div>
       </div>
 
        <div class="letter-de">
-        <!-- <div class="letter-nav">
-          <div>
-              <span :class="o.show ? 'active' : ''" v-for="(o,i) of navList" :key="i" @click="changce(o)"  >{{o.name}} <span :class="o.show ? 'active' : ''"  v-if="o.name != '/'"  style="paddingRight:0;" >({{o.number}})</span></span>
-          </div>
-        </div>
-        <div>
-          <q-zz  v-if="this.navList[0].show" ></q-zz>
-          <q-people  v-if="this.navList[2].show"></q-people>
-          <q-credit v-if="this.navList[4].show" ></q-credit>
-        </div> -->
           <van-tabs swipe-threshold="2" >
             <van-tab v-for="(el,i) in navList" :title="el.name + '(' + el.number +')'" :key="i">
                 <q-zz  v-if="el.name.indexOf('资质') >= 0 "  ></q-zz>
@@ -49,7 +39,7 @@
           </van-tabs>
 
       </div>
-
+     <v-load v-if="isload"></v-load>
     </div>
 </template>
 <script>
@@ -57,6 +47,7 @@ import queryzz from '@/pages/query/queryzz'
 import querypeople from '@/pages/query/querypeople'
 import credit from '@/pages/query/credit'
 import querypro from '@/pages/query/querypro'
+import loading from '@/components/loading'
 export default {
     name: 'query', // 结构名称
     data() {
@@ -73,6 +64,8 @@ export default {
              obj:{
 
              },
+             phone:'',
+             isload:true
         }
     },
     watch: {
@@ -86,6 +79,7 @@ export default {
        'q-people':querypeople,
        'q-credit':credit,
         'q-pro':querypro,
+        'v-load':loading,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -128,6 +122,10 @@ export default {
             }).then(function(res){
                 if(res.data.code==1){
                    that.obj = res.data.data
+                   if(that.obj.phone) {
+                      that.phone = that.obj.phone.split(';')[0]
+                   }
+                  
                    if( that.obj.projectCount > 0) {
                      that.navList.push({
                         name:'符合要求项目',
@@ -156,9 +154,13 @@ export default {
                         show:false
                      })
                    }
-                
+                   that.isload = false
+                } else {
+                   that.isload= true
                 }
-            })
+            }).catch(function(req) {
+                that.isload=true
+             })
         }
     }
 

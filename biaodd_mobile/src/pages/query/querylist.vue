@@ -22,7 +22,8 @@
         <div class="query-text" v-if="this.type == 4 "  >
           <p class="p-five">{{obj.level}}-{{obj.years}}年度</p>
           <p class="p-three" >评价类型：{{obj.creditType}}</p>
-          <p>有效期至：{{obj.valied}}</p>
+          <p v-if="ishow" >评价省份：{{obj.issueProvince}}</p>
+           <p v-if="!ishow" >有效期至：{{obj.valied}}</p>
        </div>
         <div class="query-text" v-if="this.type == 5 " >
           <p class="p-one">{{obj.proName}}</p>
@@ -44,6 +45,7 @@ export default {
     data() {
         return {
             // 数据模型
+            ishow:true
         }
     },
     watch: {
@@ -65,6 +67,11 @@ export default {
         // console.group('创建完毕状态===============》created');
         if(this.type == 5 ) {
             this.obj.time =  this.formatDate(this.obj.buildEnd)
+        }
+        if(this.$route.path == '/wayquery') {
+            this.ishow = true
+        } else {
+            this.ishow = false
         }
     },
     beforeMount() {

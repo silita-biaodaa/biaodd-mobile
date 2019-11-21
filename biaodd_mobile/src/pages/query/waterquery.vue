@@ -20,7 +20,7 @@
         </div>
         <div class="head-text head-color" >
            <span  class="head-color">企业电话:</span>
-           <span  class="head-color">&nbsp{{obj.legalPerson}}</span>
+           <span  class="head-color">&nbsp{{phone}}</span>
         </div>
         <div class="head-text head-color" >
            <span  class="head-color">企业地址:</span>
@@ -38,7 +38,7 @@
             </van-tab>
           </van-tabs>
       </div>
-
+      <v-load v-if="isload"></v-load>
     </div>
 </template>
 <script>
@@ -46,30 +46,13 @@ import queryzz from '@/pages/query/queryzz'
 import querypeople from '@/pages/query/querypeople'
 import credit from '@/pages/query/credit'
 import querypro from '@/pages/query/querypro'
-
+import loading from '@/components/loading'
 export default {
     name: 'query', // 结构名称
     data() {
         return {  
             // 数据模型
              navList:[
-              //  {
-              //    name:'符合要求资质',
-              //    number:10,
-              //    show:true
-              //  },
-             
-              //  {
-              //    name:'符合要求人员',
-              //    number:9,
-              //    show:false
-              //  },
-               
-              //  {
-              //    name:'信用等级',
-              //    number:8,
-              //    show:false
-              //  },
              ],
              data:{
                comId:'',
@@ -79,10 +62,8 @@ export default {
              obj:{
 
              },
-             projectCount:false, // 项目
-             creditCount:false, // 信用
-             qualCount:false, // 资质
-             personCount:false // 人员
+             phone:'',
+             isload:true
         }
     },
     watch: {
@@ -96,6 +77,7 @@ export default {
        'q-people':querypeople,
        'q-credit':credit,
        'q-pro':querypro,
+        'v-load':loading,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -129,25 +111,6 @@ export default {
     },
     methods: {
         // 方法 集合
-        changce(el) {
-          for (const o of this.navList) {
-              o.show = false
-          }
-          this.projectCount = false
-          this.creditCount = false
-          this.qualCount = false
-          this.personCount = false
-          if(el.name.indexOf('项目') >= 0) {
-              this.projectCount = true
-           } else if(el.name.indexOf('信用') >= 0) {
-             this.creditCount = true
-           } else if(el.name.indexOf('资质') >= 0) {
-             this.qualCount = true
-           } else {
-             this.personCount = true
-           }
-          el.show = true
-        },
         gainList() {
             let that=this;
             this.$http({
@@ -157,6 +120,9 @@ export default {
             }).then(function(res){
                 if(res.data.code==1){
                    that.obj = res.data.data
+                   if(that.obj.phone) {
+                      that.phone = that.obj.phone.split(';')[0]
+                   }
                    if( that.obj.projectCount > 0) {
                      that.navList.push({
                         name:'符合要求项目',
@@ -185,18 +151,13 @@ export default {
                         show:false
                      })
                    }
-                   that.navList[0].show = true
-                   if(that.navList[0].name.indexOf('项目') >= 0) {
-                     that.projectCount = true
-                   } else if(that.navList[0].name.indexOf('信用') >= 0) {
-                     that.creditCount = true
-                   } else if(that.navList[0].name.indexOf('资质') >= 0) {
-                     that.qualCount = true
-                   } else {
-                     that.personCount = true
-                   }
-                }
-            })
+                    that.isload = false
+                  } else {
+                     that.isload= true
+                  }
+              }).catch(function(req) {
+                  that.isload=true
+              })
         }
     }
 
