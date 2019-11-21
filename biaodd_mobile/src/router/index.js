@@ -50,7 +50,11 @@ import subarea from '@/pages/Subscribe/subArea'
 
 import load from '@/pages/load'
 
-
+// 公路 水利，住建
+import loadQuery from '@/pages/query/loadquery'
+import wayquery from '@/pages/query/wayquery'
+import waterquery from '@/pages/query/waterquery'
+import queryall from '@/pages/query/queryall'
 
 
 
@@ -281,7 +285,28 @@ export default new Router({
       path: '/load/:path?/:id?',
       component: load,
       name: 'load'
-    }                                                         
+    },
+    { // 住建 wayquery
+      path: '/loadquery',
+      component: loadQuery,
+      name: 'loadquery'
+    },
+    { // 住建 wayquery
+      path: '/wayquery',
+      component: wayquery,
+      name: 'wayquery'
+    },
+    { // 住建 wayquery
+      path: '/waterquery',
+      component: waterquery,
+      name: 'waterquery'
+    },
+    { // 住建 wayquery
+      path: '/queryall',
+      component: queryall,
+      name: 'queryall'
+    }         
+                                                      
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

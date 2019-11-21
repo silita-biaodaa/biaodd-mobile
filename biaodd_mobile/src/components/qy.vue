@@ -47,6 +47,12 @@ export default {
         obj:{},
         follow:{
             default:false
+        },
+        title:{
+             default:''
+        },
+        orderNo:{
+            default:''
         }
     },
     beforeCreate() {
@@ -84,13 +90,22 @@ export default {
     methods: {
         // 方法 集合.
          topush(o) {
-             if(sessionStorage.getItem('xtoken')) {
-                this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
-            } else {
-                this.modalHelper.afterOpen();
-                this.isload = true 
-            }
-            
+             if(this.title == '') {
+                if(sessionStorage.getItem('xtoken')) {
+                    this.$router.push({path:'/letter',query:{id:o.comId,source:o.regisAddress,name:o.comName}})
+                } else {
+                    this.modalHelper.afterOpen();
+                    this.isload = true 
+                }
+             } else {
+                 if(this.title.indexOf('公路') >= 0 ) {
+                      this.$router.push({path:'/wayquery',query:{id:o.comId,orderNo:this.orderNo}})
+                 } else if(this.title.indexOf('水利') >= 0 ) {
+                      this.$router.push({path:'/waterquery',query:{id:o.comId,orderNo:this.orderNo}})
+                 } else {
+                      this.$router.push({path:'/loadquery',query:{id:o.comId,orderNo:this.orderNo}})
+                 }
+             }
         },
         noFollow(){
             this.$emit('nofollow',{id:this.obj.comId})

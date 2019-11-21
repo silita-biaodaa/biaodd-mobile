@@ -488,3 +488,14 @@ body .van-icon-arrow{
          background-color: #fff;
          text-align: center;         
      }
+     .letter-de .van-tabs--line .van-tabs__wrap {
+     height: 96px !important;
+    } 
+     .letter-de .van-tab {
+         line-height: 96px;
+         font-size: 32px;
+     }
+     .letter-de .van-tabs--line {
+         height: 96px;
+         padding-top:96px;
+     }
