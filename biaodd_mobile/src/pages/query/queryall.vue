@@ -89,12 +89,13 @@ export default {
               return false
           }
           this.data.pageNo++;
-          this.ajax();
+          this.ajax1();
       },
         ajax(){
             //招标
-            this.isScroll=false;
+            
             let that=this;
+            that.isScroll=false;
              that.isajax = false
             this.$http({
                 method:'post',
@@ -103,8 +104,8 @@ export default {
             }).then(function(res){
                 
                 if(res.data.code==1){
-
-                    if(that.list.length==0||that.data.pageNo==1){
+                    that.isajax = true
+                    if( that.list.length == 0|| that.data.pageNo == 1){
                         that.list=res.data.data;
                     }else{
                         that.list=that.list.concat(res.data.data)
@@ -115,7 +116,37 @@ export default {
                     } else {
                         that.isScroll=true;
                     }
-                  that.isajax = true
+                  
+                } else {
+                    that.isajax = true
+                    that.isError  = true
+                }
+            })
+        },
+          ajax1(){
+            //招标
+            let that=this;
+            that.isScroll=false;
+            this.$http({
+                method:'post',
+                url: '/gonglu/list',
+                data:that.data
+            }).then(function(res){
+                
+                if(res.data.code==1){
+                    // that.isajax = true
+                    if( that.list.length == 0|| that.data.pageNo == 1){
+                        that.list=res.data.data;
+                    }else{
+                        that.list=that.list.concat(res.data.data)
+                    }
+                    if(res.data.total==that.list.length||that.list.length<that.data.pageSize){
+                        that.finished=true;//如果返回总条数等于当前list长度
+                        that.isScroll=false;
+                    } else {
+                        that.isScroll=true;
+                    }
+                  
                 } else {
                     that.isajax = true
                     that.isError  = true
