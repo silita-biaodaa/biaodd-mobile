@@ -28,7 +28,7 @@ export default {
               comId:'',
               type:'project',
               pageNo:1,
-              pageSize:50,
+              pageSize:2000,
               orderNo:''
             },
             list:[]

@@ -95,7 +95,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .queryzz {
-   padding: 20px 33px 0;
+   padding: 20px 33px 120px 33px;
    background-color: #fff;
    min-height: calc(100vh - 650px);
 }
