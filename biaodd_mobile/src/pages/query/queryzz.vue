@@ -11,7 +11,7 @@
                       {{el.name}}
                   </div>
               </div>
-              <q-list :type="'1'" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
+              <q-list :type="1" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
             </template>  
          </template>
          <template v-else>

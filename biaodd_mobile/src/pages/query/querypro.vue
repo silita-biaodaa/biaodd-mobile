@@ -6,7 +6,7 @@
               <v-not :isError="isError"></v-not>
             </template>
             <template v-else>
-              <q-list :type="'5'" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
+              <q-list :type="5" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
             </template>  
          </template>
          <template v-else>

@@ -6,7 +6,7 @@
               <v-not :isError="isError"></v-not>
             </template>
             <template v-else>
-              <q-list :type="'3'" ></q-list>
+              <q-list :type="3" ></q-list>
              
             </template>  
          </template>

@@ -29,7 +29,7 @@
       </div>
 
        <div class="letter-de">
-          <van-tabs swipe-threshold="2" >
+          <van-tabs :swipe-threshold="2" >
             <van-tab v-for="(el,i) in navList" :title="el.name + '(' + el.number +')'" :key="i">
                 <q-zz  v-if="el.name.indexOf('资质') >= 0 "  ></q-zz>
                 <q-people  v-if="el.name.indexOf('人员') >= 0"></q-people>
