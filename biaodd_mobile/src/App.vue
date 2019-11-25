@@ -113,10 +113,13 @@ export default {
     pushAll(el) {
            for(let val of el) {
                  for(let vals of val.data) {
+                   if(vals.data != null) {
                      if(vals.data.length == 0 ) {
                          vals.data.push({name:'全部',code:'0'})
                          continue
                      }
+                   }
+                     
                  }
              }
       },

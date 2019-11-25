@@ -56,6 +56,7 @@ export default {
         this.title = this.$route.query.name == '水利专查' ? '水利综合查询专项' : (this.$route.query.name == '公路专查' ?  '公路综合查询专项' : '住建综合查询专项')
         this.data.orderNo = this.$route.query.id 
         this.ajax()
+        this.gainList()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -91,18 +92,31 @@ export default {
           this.data.pageNo++;
           this.ajax1();
       },
+       gainList() {
+            let that=this;
+            this.$http({
+                method:'post',
+                url: '/gonglu/zhauncha/detail/company',
+                data:{
+                   comId: "a93e8cbf2eb4084d77598629c603c829",
+                   orderNo: "201911210321294995MCK8A",
+                   type: "detail" 
+                }
+            }).then(function(res){
+               console.log(res);
+               
+            })
+        },
         ajax(){
             //招标
-            
             let that=this;
             that.isScroll=false;
-             that.isajax = false
+            that.isajax = false
             this.$http({
                 method:'post',
                 url: '/gonglu/list',
                 data:that.data
             }).then(function(res){
-                
                 if(res.data.code==1){
                     that.isajax = true
                     if( that.list.length == 0|| that.data.pageNo == 1){
