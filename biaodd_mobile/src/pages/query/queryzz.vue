@@ -139,7 +139,7 @@ export default {
        display: flex;
        flex-wrap: wrap; 
        .zz-btn {
-           width:212px;
+           width:205px;
            height:56px;
            background:rgba(255,255,255,1);
            border:1PX solid #ccc;

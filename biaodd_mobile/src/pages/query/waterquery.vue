@@ -123,6 +123,20 @@ export default {
                    if(that.obj.phone) {
                       that.phone = that.obj.phone.split(';')[0]
                    }
+                    if( that.obj.qualCount > 0) {
+                     that.navList.push({
+                        name:'符合要求资质',
+                        number:that.obj.qualCount,
+                        show:false
+                     })
+                   }
+                    if( that.obj.personCount > 0) {
+                     that.navList.push({
+                        name:'符合要求人员',
+                        number:that.obj.personCount,
+                        show:false
+                     })
+                   }
                    if( that.obj.projectCount > 0) {
                      that.navList.push({
                         name:'符合要求项目',
@@ -134,20 +148,6 @@ export default {
                      that.navList.push({
                         name:'信用等级',
                         number:that.obj.creditCount,
-                        show:false
-                     })
-                   }
-                   if( that.obj.qualCount > 0) {
-                     that.navList.push({
-                        name:'符合要求资质',
-                        number:that.obj.qualCount,
-                        show:false
-                     })
-                   }
-                    if( that.obj.personCount > 0) {
-                     that.navList.push({
-                        name:'符合要求人员',
-                        number:that.obj.personCount,
                         show:false
                      })
                    }

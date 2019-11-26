@@ -6,7 +6,7 @@
               <v-not :isError="isError"></v-not>
             </template>
             <template v-else>
-              <q-list :type="5" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
+              <q-list :type="type" v-for="(el,i) in list" :key="i" :obj='el' ></q-list>
             </template>  
          </template>
          <template v-else>
@@ -31,7 +31,8 @@ export default {
               pageSize:2000,
               orderNo:''
             },
-            list:[]
+            list:[],
+            type:5
         }
     },
     watch: {
@@ -48,6 +49,11 @@ export default {
         this.data.orderNo = this.$route.query.orderNo
         this.data.comId = this.$route.query.id
         this.gainList()
+        if(this.$route.path == '/loadquery') {
+            this.type = 7
+        } else {
+            this.type = 5
+        }
     },
     components: {
        'q-list':querylist,

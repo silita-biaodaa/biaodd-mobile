@@ -1,12 +1,14 @@
 <!-- 模型： DOM 结构 -->
 <template>
     <div class="querylist">
+        <!-- 符合资质列表 -->
        <div class="query-text" v-if="this.type == 1 " >
           <p class="p-one">{{obj.qualName}}</p>
           <p class="p-two" >{{obj.certNo}}</p>
-          <p class="p-three" >{{obj.certOrg}}</p>
+          <p class="p-three" >发证机关：{{obj.certOrg}}</p>
           <p>有效日期：{{obj.validDate}}</p>
        </div>
+
        <div class="query-text"  v-if="this.type == 2 " >
           <p class="p-five">建筑装修装饰工程专业承包一级</p>
           <p class="p-three" >证书数量：4</p>
@@ -25,11 +27,19 @@
           <p v-if="ishow" >评价省份：{{obj.issueProvince}}</p>
            <p v-if="!ishow" >有效期至：{{obj.valied}}</p>
        </div>
+       <!-- 公路专查符合要求项目 -->
         <div class="query-text" v-if="this.type == 5 " >
           <p class="p-one">{{obj.proName}}</p>
-          <p class="p-three" >合同金额：{{obj.amount}}万元</p>
-          <p>交工日期：{{obj.time}}</p>
+          <p class="p-three" >项目金额：{{obj.amount}}万元</p>
+          <p class="p-three" >竣工时间：{{obj.time}}</p>
           <p>主要工程量：{{obj.remark}}</p>
+       </div>
+         <!-- 住建专查符合要求项目 -->
+        <div class="query-text" v-if="this.type == 7 " >
+          <p class="p-one">{{obj.proName}}</p>
+          <p class="p-three p-yellow" >{{obj.type}}</p>
+          <p class="p-three" >项目金额：{{obj.amount}}万元</p>
+          <p >竣工时间：{{obj.time}}</p>
        </div>
         <div class="query-text" v-if="this.type == 6 " >
           <p class="p-one">{{obj.name}}</p>
