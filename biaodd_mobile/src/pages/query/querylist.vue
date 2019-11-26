@@ -27,21 +27,21 @@
           <p v-if="ishow" >评价省份：{{obj.issueProvince}}</p>
            <p v-if="!ishow" >有效期至：{{obj.valied}}</p>
        </div>
-       <!-- 公路专查符合要求项目 -->
-        <div class="query-text" v-if="this.type == 5 " >
+       <!-- 公路, 水利 专查符合要求项目 -->
+        <div class="query-text" v-if="this.type == 5 " @click="jumpwater"  >
           <p class="p-one">{{obj.proName}}</p>
           <p class="p-three" >项目金额：{{obj.amount}}万元</p>
           <p class="p-three" >竣工时间：{{obj.time}}</p>
           <p>主要工程量：{{obj.remark}}</p>
        </div>
          <!-- 住建专查符合要求项目 -->
-        <div class="query-text" v-if="this.type == 7 " >
+        <div class="query-text" v-if="this.type == 7 " @click="jumpload" >
           <p class="p-one">{{obj.proName}}</p>
           <p class="p-three p-yellow" >{{obj.type}}</p>
           <p class="p-three" >项目金额：{{obj.amount}}万元</p>
           <p >竣工时间：{{obj.time}}</p>
        </div>
-        <div class="query-text" v-if="this.type == 6 " >
+        <div class="query-text" v-if="this.type == 6 " @click="jump" >
           <p class="p-one">{{obj.name}}</p>
           <p class="p-three" >证书数量：{{obj.num}}</p>
           <p>身份证号：{{obj.idCard}}</p>
@@ -107,6 +107,20 @@ export default {
     },
     methods: {
         // 方法 集合
+        jump() {
+            sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
+            this.$router.push({path:'/peopleDetail'})
+        },
+        jumpload() {
+            this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
+        },
+        jumpwater() {
+            if(this.$route.path == '/wayquery') {
+                  this.$router.push({path:'/jtDetail',query:{id:this.obj.proId}})
+            } else {
+                 this.$router.push({path:'/slDetail',query:{id:this.obj.proId}})
+            }
+        }
     }
 
 }

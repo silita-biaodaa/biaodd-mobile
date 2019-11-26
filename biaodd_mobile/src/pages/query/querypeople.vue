@@ -87,16 +87,31 @@ export default {
                 if(res.data.code==1){
                   for (var i of res.data.data.persons.list) {
                       var arr = []
+                    //   var str = ''
                       for (var o of i.categorys) {
-                          arr.push(o.cateKey)
+                          var str = o.cateList.join(',')
+                          var str1 = ''
+                          if(str == '') {
+                              str1 =  o.cateKey 
+                          } else {
+                             str1 =  o.cateKey + '-' + str
+                          }
+                          arr.push(str1)
                       }
-                      var str = arr.join(',')
+                   var str2 = arr.join(',')
                       arr =[]
                       that.list.push({
                           name:i.name,
-                          num:i.categorys.length,
+                          num:i.num,
                           idCard:i.idCard,
-                          type:str
+                          type:str2,
+                          certNo:i.certNo,
+                          comId:i.comId,
+                          comName:i.comName,
+                          innerid:i.innerid,
+                          sealNo:i.sealNo,
+                          tabCode:i.tabCode,
+                          sex:i.sex,
                       })
                   }
                   that.isajax = true

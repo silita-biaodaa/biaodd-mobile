@@ -266,7 +266,7 @@ export default {
                     }else{
                         that.list=that.list.concat(res.data.data)
                     }
-                    if(res.data.total==that.list.length||that.list.length<that.data.pageSize){
+                    if(res.data.total==that.list.length){
                         that.finished=true;//如果返回总条数等于当前list长度
                         that.isScroll=false;
                     } else {
