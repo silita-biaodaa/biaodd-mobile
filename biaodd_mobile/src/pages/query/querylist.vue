@@ -30,7 +30,7 @@
        <!-- 公路, 水利 专查符合要求项目 -->
         <div class="query-text" v-if="this.type == 5 " @click="jumpwater"  >
           <p class="p-one">{{obj.proName}}</p>
-          <p class="p-three" >项目金额：{{obj.amount}}万元</p>
+          <p class="p-three" >项目金额：{{obj.amount}}<span v-if="obj.amount" >万元</span></p>
           <p class="p-three" >竣工时间：{{obj.time}}</p>
           <p>主要工程量：{{obj.remark}}</p>
        </div>
@@ -38,7 +38,7 @@
         <div class="query-text" v-if="this.type == 7 " @click="jumpload" >
           <p class="p-one">{{obj.proName}}</p>
           <p class="p-three p-yellow" >{{obj.type}}</p>
-          <p class="p-three" >项目金额：{{obj.amount}}万元</p>
+          <p class="p-three" >项目金额：{{obj.amount}}<span v-if="obj.amount" >万元</span></p>
           <p >竣工时间：{{obj.time}}</p>
        </div>
         <div class="query-text" v-if="this.type == 6 " @click="jump" >
@@ -116,6 +116,9 @@ export default {
     methods: {
         // 方法 集合
         jump() {
+            if(this.obj.innerid == null) {
+                this.obj.innerid = ''
+            }
             sessionStorage.setItem('peoploDetail',JSON.stringify(this.obj))
             this.$router.push({path:'/peopleDetail'})
         },
