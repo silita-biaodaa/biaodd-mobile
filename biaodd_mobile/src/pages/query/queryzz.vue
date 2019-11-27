@@ -6,7 +6,7 @@
               <v-not :isError="isError"></v-not>
             </template>
             <template v-else>
-              <div class="zz-list"  >
+              <div class="zz-list" v-if="zzlist.length >=3"  >
                   <div  class="zz-btn" v-for="(el,i) in zzlist" :key="i" :class="el.show ? 'active' : ''" @click="chanceZZ(el)" >
                       {{el.name}}
                   </div>

@@ -75,7 +75,15 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if(this.type == 5 ) {
+        if(this.type == 5 || this.type == 7 ) {
+            if(this.obj.buildEnd) {
+                this.obj.time =  this.formatDate(this.obj.buildEnd)
+            } else {
+                this.obj.time = ''
+            }
+            
+        }
+      if(this.type == 5 ) {
             this.obj.time =  this.formatDate(this.obj.buildEnd)
         }
         if(this.$route.path == '/wayquery') {

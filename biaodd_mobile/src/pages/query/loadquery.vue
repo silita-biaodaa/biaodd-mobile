@@ -20,7 +20,7 @@
             </div>
             <div class="head-text head-color" >
                <span  class="head-color">企业电话:</span>
-               <span  class="head-color">&nbsp{{obj.legalPerson}}</span>
+               <span  class="head-color">&nbsp{{phone}}</span>
             </div>
             <div class="head-text head-color" >
                <span  class="head-color">企业地址:</span>
@@ -73,7 +73,8 @@ export default {
              obj:{
 
              },
-             isload:true
+             isload:true,
+             phone:''
         }
     },
     watch: {
