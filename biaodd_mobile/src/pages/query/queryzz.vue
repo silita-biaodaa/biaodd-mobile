@@ -6,7 +6,7 @@
               <v-not :isError="isError"></v-not>
             </template>
             <template v-else>
-              <div class="zz-list" v-if="zzlist.length >=3"  >
+              <div class="zz-list"   >
                   <div  class="zz-btn" v-for="(el,i) in zzlist" :key="i" :class="el.show ? 'active' : ''" @click="chanceZZ(el)" >
                       {{el.name}}
                   </div>
@@ -105,6 +105,10 @@ export default {
                       })
                       that.allList=that.allList.concat(i.list)
                   }
+                  if(that.zzlist.length == 2) {
+                       that.zzlist.splice(0,1);
+                       that.zzlist[0].show = true
+                  } 
                 }
                 that.list = that.allList
             })
@@ -147,6 +151,11 @@ export default {
            color: #333333;
            line-height: 56px;
            text-align: center;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           box-sizing: border-box;
+           padding: 0 5px;
            margin: 0 15px 24px 0;
        }
        :nth-child(3n) {
