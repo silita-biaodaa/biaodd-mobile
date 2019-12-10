@@ -54,7 +54,7 @@ export default {
             // 数据模型
              navList:[
              ],
-             data:{
+             data:{ 
                comId:'',
                type:'detail',
                orderNo:''
@@ -125,7 +125,7 @@ export default {
                    }
                     if( that.obj.qualCount > 0) {
                      that.navList.push({
-                        name:'符合要求资质',
+                        name:'企业资质',
                         number:that.obj.qualCount,
                         show:false
                      })
