@@ -245,7 +245,7 @@ export default {
                     if(that.navNum==0){
                         that.navArr[0]='已支付订单('+res.data.total+')'
                     }else{
-                        that.navArr[1]='未支付订单('+res.data.total+')'
+                        that.navArr[1]='未支付订单('+(res.data.total ?  res.data.total : '0')+')'
                     }
                     
                     for(let x of res.data.data){
