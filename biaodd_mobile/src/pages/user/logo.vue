@@ -98,7 +98,7 @@ export default {
               this.msg = '请输入手机号'
               return this.enname = true
             }
-            if(!(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test(this.username.trim()))) {
+            if(!(/^((13[0-9])|(15[^4])|(166)|(17[0-8])|(18[0-9])|(19[8-9])|(147,145))\d{8}$/.test(this.username.trim()))) {
                this.msg = '请输入正确的手机号'
                return this.enname = true
             }

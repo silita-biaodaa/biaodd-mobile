@@ -69,8 +69,10 @@ export default {
     pushAll(el) {
            for(let val of el) {
                  for(let vals of val.data) {
-                     if(vals.data.length == 0 ) {
-                         vals.data.push({name:'全部',code:''})
+                     if(vals.data==undefined||vals.data.length == 0 ) {
+                          let arr=[];
+                          arr.push({name:'全部',code:''});
+                         vals.data=JSON.parse(JSON.stringify(arr));
                          continue
                      }
                  }
