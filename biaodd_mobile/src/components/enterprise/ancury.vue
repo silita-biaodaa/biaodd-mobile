@@ -23,18 +23,18 @@
        <div class="aninfo-line" >
           <div style="width:48%" >
             <div class="info-title" >
-             营业总收入
-            </div>
-            <div class="info-main" >
-              企业选择不公示
-            </div>
-          </div>
-          <div style="width:48%" >
-            <div class="info-title" >
              职工基本医疗保险
             </div>
             <div class="info-main" >
               {{obj.socialSecurity[0].so310 ?obj.socialSecurity[0].so310 + '人' : '' }}
+            </div>
+          </div>
+          <div style="width:48%" >
+            <div class="info-title" >
+             工伤保险
+            </div>
+            <div class="info-main" >
+              {{obj.socialSecurity[0].so410 ?obj.socialSecurity[0].so410 + '人' : '' }}
             </div>
           </div>
        </div>
@@ -42,20 +42,20 @@
        <div class="aninfo-line" >
           <div style="width:48%" >
             <div class="info-title" >
-             工伤保险
+             生育保险
             </div>
             <div class="info-main" >
-             {{obj.socialSecurity[0].so410 ?obj.socialSecurity[0].so410 + '人' : '' }}
+             {{obj.socialSecurity[0].so510 ?obj.socialSecurity[0].so510 + '人' : '' }}
             </div>
           </div>
-          <div style="width:48%" >
+          <!-- <div style="width:48%" >
             <div class="info-title" >
               生育保险
             </div>
             <div class="info-main" >
               {{obj.socialSecurity[0].so510 ?obj.socialSecurity[0].so510 + '人' : '' }}
             </div>
-          </div>
+          </div> -->
        </div>
 
        <div class="cury-title" >

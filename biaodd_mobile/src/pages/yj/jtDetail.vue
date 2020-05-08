@@ -6,47 +6,47 @@
         <!-- 上 -->
         <div class="content">
             <h5>{{detail.proName}}</h5>
-            <p>
+            <p v-if="detail.comName" >
                 <span class="tit-txt">施工单位</span>
                 <span class="val-txt">{{detail.comName}}</span>  
             </p>
-            <p>
+            <p v-if="detail.build">
                 <span class="tit-txt">建设状态</span>
                 <span class="val-txt">{{detail.build}}</span>  
             </p>
-            <p>
+            <p v-if="detail.section">
                 <span class="tit-txt">标段名称</span>
                 <span class="val-txt">{{detail.section}}</span>  
             </p>
-            <p>
+            <p v-if="detail.technicalGrade">
                 <span class="tit-txt">技术等级</span>
                 <span class="val-txt">{{detail.technicalGrade}}</span>  
             </p>
-            <p>
+            <p v-if="detail.proWhere">
                 <span class="tit-txt">所在省份</span>
                 <span class="val-txt">{{detail.proWhere}}</span>  
             </p>
-            <p>
+            <p v-if="detail.contractAmount">
                 <span class="tit-txt">合同价格</span>
                 <span class="val-txt">{{detail.contractAmount}}万元</span>  
             </p>
-            <p>
+            <p v-if="detail.clearingAmount">
                 <span class="tit-txt">结算价格</span>
                 <span class="val-txt">{{detail.clearingAmount}}万元</span>  
             </p>
-            <p>
+            <p v-if="detail.begined">
                 <span class="tit-txt">开工日期</span>
                 <span class="val-txt">{{detail.begined}}</span>  
             </p>
-            <p>
+            <p v-if="detail.ended">
                 <span class="tit-txt">交工日期</span>
                 <span class="val-txt">{{detail.ended}}</span>  
             </p>
-            <p>
+            <p v-if="detail.stakeBegin">
                 <span class="tit-txt">开始桩号</span>
                 <span class="val-txt">{{detail.stakeBegin}}</span>  
             </p>
-            <p>
+            <p v-if="detail.stakeEnd">
                 <span class="tit-txt">结束桩号</span>
                 <span class="val-txt">{{detail.stakeEnd}}</span>  
             </p>
@@ -121,8 +121,8 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        if(sessionStorage.getItem('permissions')){
-          this.vipStr=sessionStorage.getItem('permissions');
+        if(sessionStorage.getItem('isVip')){
+          this.vipStr=sessionStorage.getItem('isVip');
         }
         this.id = this.$route.query.id
         let that=this;

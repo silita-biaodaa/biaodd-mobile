@@ -7,9 +7,11 @@
                  v-model="loading"
                  :finished="finished"
                  finished-text="没有更多了"
+                 :error.sync="error"
+                 error-text="请求失败，点击重新加载"
                  @load="onLoad"
-                  :offset="100"
-                   :immediate-check="false"
+                :offset="100"
+                :immediate-check="false"
               >
                 <com-pany v-for="(el,i) in list" :key="i" :obj='el'></com-pany>
               </van-list>
@@ -31,7 +33,9 @@ export default {
            finished:false,
            current:1,
            total:0,
-           source:''
+           source:'',
+           error:false,
+           continue:false
         }
     },
     watch: {
@@ -51,11 +55,11 @@ export default {
         // console.group('创建完毕状态===============》created');
          this.id = this.$route.query.id
          this.source = this.$route.query.source
-         let vip = sessionStorage.getItem('permissions') ? 1 : 0;
+         let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0;
          let that=this;
             this.$http({
                 method:'post',
-                url: '/notice/queryCompanyList/' + that.id,
+                url: '/company/qual/list/' + that.id,
                 data:{
                     source:that.source,
                     pageNo:that.current,
@@ -63,6 +67,10 @@ export default {
                     isVip:vip
                 }
             }).then(function(res){
+                for(let x of res.data.data) {
+                    let arr =  x.phone.split(';')
+                    x.phone = arr[0]
+                }
                 that.list = res.data.data
                 that.total = res.data.total
             })
@@ -91,25 +99,35 @@ export default {
     methods: {
         // 方法 集合
         onLoad() {
+            this.continue = true 
+             let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0;
               setTimeout(() => {
                   this.current = this.current + 1
                    let that=this;
                     this.$http({
                     method:'post',
-                    url: '/notice/queryCompanyList/' + that.id,
+                    url: '/company/qual/list/' + that.id,
                     data:{
                         source:that.source,
                         pageNo:that.current,
-                        pageSize:5
+                        pageSize:5,
+                        isVip:vip
                     }
                     }).then(function(res){
-                        console.log(res.data)
-                       res.data.data.forEach( el => {
-                           that.list.push(el)
-                       })
+                        if(res.data.code == 1 ) {
+                             for(let x of res.data.data) {
+                                 let arr =  x.phone.split(';')
+                                 x.phone = arr[0]
+                             }
+                            res.data.data.forEach( el => {
+                              that.list.push(el)
+                           })
+                           
+                        } else {
+                            that.error = true
+                        }   
                     })
-                  // 加载状态结束
-                  that.loading = false;
+                    that.loading = false;
 
                   // 数据全部加载完成
                   if (that.list.length >= that.total) {

@@ -11,7 +11,7 @@
             <template v-if="type=='project'">
                 <div><span class="zj label">{{obj.proType}}</span></div>
                 <p>建设单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}</span></p>
+                <p>投资总额：<span>{{obj.amount}}</span></p>
                 <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
             <template v-else-if="type=='shuili'">
@@ -87,7 +87,7 @@ export default {
              this.obj.opendate = this.obj.opendate +  '日'             
         },
         topush(o) {
-            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+            if(!this.judgeVip()){
                 this.modalHelper.afterOpen();
                 this.isvip=true;
                 return false

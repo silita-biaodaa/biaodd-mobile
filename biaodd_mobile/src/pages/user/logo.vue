@@ -126,8 +126,8 @@ export default {
                 }else{
                   sessionStorage.setItem('Bname',res.data.data.phoneNo)
                 }
-                
-                sessionStorage.setItem('permissions',res.data.data.permissions);
+                sessionStorage.setItem('isCollected',res.data.data.isCollected)
+                sessionStorage.setItem('isVip',res.data.data.isVip);
                 sessionStorage.setItem('userid',res.data.data.pkid);
                 if(sessionStorage.getItem('path')&&sessionStorage.getItem('path')!=null&&sessionStorage.getItem('path')!='enroll'&&sessionStorage.getItem('path')!='find'){
                   let uri=sessionStorage.getItem('path');
@@ -135,6 +135,15 @@ export default {
                 }else{
                   that.$router.replace('home')
                 }
+                  this.$http({
+                      method:'post',
+                      url: '/foundation/version',
+                      data:{
+                        loginChannel:''
+                      }
+                  }).then(function(res){
+
+                  })
             } else {
                 that.isShow = true;
                 that.back = res.data.msg

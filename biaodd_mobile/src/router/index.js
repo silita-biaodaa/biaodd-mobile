@@ -10,6 +10,7 @@ import Letter from '@/pages/letter'
 import companyList from '@/pages/companyList'
 import logo from '@/pages/user/logo'
 import enroll from '@/pages/user/enroll'
+import binging from '@/pages/user/bing'
 import find from '@/pages/user/find'
 import centre from '@/pages/user/centre'
 import install from '@/pages/user/install'
@@ -18,6 +19,8 @@ import followList from '@/pages/user/followList'
 import openingVip from '@/pages/user/openingVip'
 import membership from '@/pages/user/membership'
 import news from '@/pages/user/news'
+import newtext from '@/pages/user/newtext'
+
 import myOrder from '@/pages/user/myOrder'
 import payVip from '@/pages/user/payVip'
 import yjList from '@/pages/yjList'
@@ -38,7 +41,20 @@ import history from '@/pages/history/history'
 import law from '@/pages/law/law'
 import lawtext from '@/pages/law/lawtext'
 import annals from '@/components/enterprise/annals'
+import prise from '@/components/enterprise/prise'
 
+// 订阅
+import subscribe from '@/pages/Subscribe/subscribe'
+import subset from '@/pages/Subscribe/subset'
+import subarea from '@/pages/Subscribe/subArea'
+
+import load from '@/pages/load'
+
+// 公路 水利，住建
+import loadQuery from '@/pages/query/loadquery'
+import wayquery from '@/pages/query/wayquery'
+import waterquery from '@/pages/query/waterquery'
+import queryall from '@/pages/query/queryall'
 
 
 
@@ -234,7 +250,63 @@ export default new Router({
       path: '/annals',
       component: annals,
       name: 'annals'
-    }                          
+    },
+    { // 获奖详情
+      path: '/prise',
+      component: prise,
+      name: 'prise'
+    },
+    { // 订阅
+      path: '/subscribe/:id?',
+      component: subscribe,
+      name: 'subscribe'
+    },
+    { // 订阅
+      path: '/subset',
+      component: subset,
+      name: 'subset'
+    },
+    { // 订阅
+      path: '/subarea',
+      component: subarea,
+      name: 'subarea'
+    },
+    { // 订阅
+      path: '/binging',
+      component: binging,
+      name: 'binging'
+    },
+    { // 订阅
+      path: '/newtext',
+      component: newtext,
+      name: 'newtext'
+    },
+    { // 订阅
+      path: '/load/:path?/:id?',
+      component: load,
+      name: 'load'
+    },
+    { // 住建 wayquery
+      path: '/loadquery',
+      component: loadQuery,
+      name: 'loadquery'
+    },
+    { // 住建 wayquery
+      path: '/wayquery',
+      component: wayquery,
+      name: 'wayquery'
+    },
+    { // 住建 wayquery
+      path: '/waterquery',
+      component: waterquery,
+      name: 'waterquery'
+    },
+    { // 住建 wayquery
+      path: '/queryall',
+      component: queryall,
+      name: 'queryall'
+    }         
+                                                      
   ],
   scrollBehavior (to, from, savedPosition) {
 		let u = navigator.userAgent;

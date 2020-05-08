@@ -16,7 +16,7 @@
                 <div class="fix-line">
 
                 </div>
-                 <p class="fix-logo color" @click="jump" >
+                 <p class="fix-logo color" @click.stop="jump" >
                     {{name}}
                 </p>
             </div>
@@ -69,7 +69,6 @@ export default {
                 },
             ],
             name:'登录或注册'
-           
         }
     },
     watch: {
@@ -95,12 +94,20 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.address=sessionStorage.getItem('address');
-        // if(sessionStorage.getItem('city')){
-        //     this.address=sessionStorage.getItem('city');
-        this.addressStr=sessionStorage.getItem('address');
-        // }
-        this.changeN();
+        if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.address=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+                this.address = '湖南省' ;
+            }
+        } else {
+            this.address =  '湖南省' ;
+        }
+        this.addressStr= JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'} ;
+        // setTimeout(() => {
+             this.changeN();
+        // }, 500);
+       
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -110,7 +117,11 @@ export default {
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
             if(this.nav!=0){
-                this.$refs.scroll.scrollLeft=200;
+                if(this.nav == 6 ) {
+                   this.$refs.scroll.scrollLeft= 200;
+                } else {
+                     this.$refs.scroll.scrollLeft= 70;
+                }
             }
         });
     },
@@ -147,13 +158,13 @@ export default {
             this.iconName='arrow-down'
             this.address=option.txt;
             let arr=option.str.split('||');
-            this.addressStr=option.str;
-            sessionStorage.setItem('address',arr[0]);
-            // console.log(arr);
+            this.addressStr.name=option.str;
+            let str = JSON.stringify({code:arr[0],name:this.address})
+            sessionStorage.setItem('address',str);
             if(arr.length>1){
                 sessionStorage.setItem('city',arr[1]);
             }
-            this.$emit('address',option.str);
+            this.$emit('address',option);
         },
         jump() {
             if(this.name == '登录或注册') {
@@ -258,18 +269,17 @@ export default {
     border-top: 1PX solid #f2f2f2;
     border-bottom: 1PX solid #f2f2f2;
     ul{
-        // position: absolute;
         height: 92px;
         display: flex;
         justify-content: space-between;
-        width: 128%;
+        width: 140%;
         min-width: 100%;
         flex-wrap: nowrap;
         overflow-x:scroll;
         overflow-y: hidden;
         li{
             box-sizing: border-box;
-            width: 20%;
+            width: 21%;
             text-align: center;
             padding: 20px 32px 4px;
             p{

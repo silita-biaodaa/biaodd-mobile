@@ -184,48 +184,48 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style  lang='less' scoped>
+<style  lang='less' >
 .annals {
     min-height: 100vh;
     background-color: #F8F8F8;
     padding: 130px 29px 110px;
     box-sizing: border-box;
-    .tab-an {
-      box-shadow:0px 6px 6px 0px rgba(0, 0, 0, 0.03);
-      border-radius:8px;
-      margin-bottom: 20px;
-      padding: 0 14px 20px;
-      box-sizing: border-box;
-      background-color: #fff;
-    }
-    .tab-hide {
-      height: 120px;
-      overflow: hidden;
-    }
-    .tab-show {
-      width: auto;
-    }
+    // .tab-an {
+    //   box-shadow:0px 6px 6px 0px rgba(0, 0, 0, 0.03);
+    //   border-radius:8px;
+    //   margin-bottom: 20px;
+    //   padding: 0 14px 20px;
+    //   box-sizing: border-box;
+    //   background-color: #fff;
+    // }
+    // .tab-hide {
+    //   height: 120px;
+    //   overflow: hidden;
+    // }
+    // .tab-show {
+    //   width: auto;
+    // }
     .tab-list {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 120px;
-      border-bottom: 1PX solid #F2F2F2;
-      img {
-        width: 35px;
-        height: 40px;
-        margin-right: 20px;
-      }
-      .tab-name {
-        font-size: 32px;
-        color: #333;
-        display: flex;
-        align-items: center;
-      }
-      i {
-        font-size: 40px;
-        color: #666;
-      }
+      // display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      // height: 120px;
+      // border-bottom: 1PX solid #F2F2F2;
+      // img {
+      //   width: 35px;
+      //   height: 40px;
+      //   margin-right: 20px;
+      // }
+      // .tab-name {
+      //   font-size: 32px;
+      //   color: #333;
+      //   display: flex;
+      //   align-items: center;
+      // }
+      // i {
+      //   font-size: 40px;
+      //   color: #666;
+      // }
       .site-img {
         width: 40px;
       }

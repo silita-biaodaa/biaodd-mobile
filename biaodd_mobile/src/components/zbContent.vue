@@ -8,10 +8,18 @@
                 </p>
                 <p class="tit">{{obj.title}}</p>
             </div>
+            <div class="zb-type" >
+                 <div class="type-list"  :class="1%2 == 1 ? 'odd': 'even'" v-show="obj.projectType"  >
+                   {{obj.projectType}}
+                 </div>
+                 <div class="type-list"  :class="2%2 == 1 ? 'odd': 'even'" v-show="obj.noticeType"  >
+                      {{obj.noticeType}}
+                 </div>
+            </div>
             <div class="center">资质要求：{{obj.certificate ? obj.certificate : '详见原文'}}</div>
             <div class="bottom">
                 <p>评标办法：{{obj.pbMode ? obj.pbMode : '详见原文'}}</p>
-                <p>发布时间：{{obj.opendate||obj.openDate ? obj.opendate||obj.openDate : '详见原文'}}</p>
+                <p>发布时间：{{obj.openDate ? obj.openDate : '详见原文'}}</p>
             </div>
         </div>
         
@@ -50,7 +58,7 @@ export default {
     created() {
         // this.conver()
         // console.group('创建完毕状态===============》created');
-        if( sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == '' || sessionStorage.getItem('permissions').indexOf('bidFilter') == -1  ) {
+        if( !this.judgeVip()  ) {
             if(this.obj.certificate){
                 this.obj.certificate=this.getPassCertificate(this.obj.certificate)
             }
@@ -110,5 +118,21 @@ export default {
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style scoped lang="less">
-
+.zb-type {
+ display: flex;
+  .type-list {
+    padding: 0 14px;
+    line-height: 40px;
+    font-size: 20px;
+    margin: 0 16px 19px 0; 
+  }
+  .odd {
+    background-color:rgba(253,239,227,1);
+    color: #EF873A;
+  }
+  .even {
+    background-color:rgba(227,230,253,1);
+    color: #3A76F0;
+  }
+}
 </style>

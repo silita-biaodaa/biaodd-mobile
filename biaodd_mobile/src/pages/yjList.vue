@@ -12,7 +12,7 @@
             <i></i>
         </div>
         <!--地区 -->
-        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.area"  :allress='true'  :type="2"></v-addr>
+        <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"  :allress='true'  :type="2"></v-addr>
         <!-- 项目类别 -->
         <div class="tabType condition-box" v-if="screenList[1].active">
              <div class="yj-chce" >
@@ -160,6 +160,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',//会员权限
+        add:{}
       }
     },
     methods: {
@@ -223,6 +224,8 @@ export default {
             this.zbList=[];
             this.screenList[0].active=false;
             this.screenList[0].txt=option.txt;
+            this.add = {}
+            this.add.regions = option.str
             this.data.area=option.str;
             this.data.pageNo=1;
             this.ajax();
@@ -359,11 +362,23 @@ export default {
     created(){
         this.gainid()
     //   this.data.proName = this.$route.query.scom ? this.$route.query.scom  : this.$route.query.key ? this.$route.query.key : '' ;
-      this.data.area = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+      this.data.area = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
+    //   this.screenList[0].txt=JSON.parse(sessionStorage.getItem('address')).name;
+      if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=  '湖南省' ;
+            }
+        } else {
+            this.screenList[0].txt= '湖南省' ;
+        }
+      if(sessionStorage.getItem('isVip')){
+        this.vipStr=sessionStorage.getItem('isVip');
       }
+    //   this.add = (sessionStorage.getItem('yjData')) ? JSON.parse(sessionStorage.getItem('yjData')) :  JSON.parse(sessionStorage.getItem('address'))
+      this.add = (sessionStorage.getItem('yjData')) ? JSON.parse(sessionStorage.getItem('yjData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+      
       if(sessionStorage.getItem('yjData')&&sessionStorage.getItem('yjScreenData')){//刷新保存筛选
         let data=JSON.parse(sessionStorage.getItem('yjData')),
             screenData=JSON.parse(sessionStorage.getItem('yjScreenData'));

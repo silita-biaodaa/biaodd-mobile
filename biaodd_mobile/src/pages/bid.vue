@@ -11,10 +11,10 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
-    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="screenNum.typeNum"></v-type>
-    <v-assess :selectArr="screenNum.select" @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
-    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :type="0" :arr="screenNum.arr"></v-apt>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
+    <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active" :num="data.projectType"></v-type>
+    <v-assess :selectArr="screenNum.select" :souCode='souCode' @sureFn='assessSure' @canleFn="typeCanle" v-if="screenList[2].active"></v-assess>
+    <v-apt v-if="screenList[3].active" @sureFn='aptSure' @recordFn="recordFn" :bizType="1" :arr="screenNum.arr"></v-apt>
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}条招标信息</div>
@@ -56,14 +56,14 @@ export default {
         loading:false,//是否加载完，false为加载完
         data:{
           pageNo:1,
-          pageSize:'10',
-          regions:'湖南',
-          type: "0",
-          projectType:'',
-          title: "",
-          pbModes:'',
-          zzType:'',
-          com_name:''
+          pageSize:'10', 
+          regions:'hunan',  // 地区
+          type: "1",  // 类型
+          projectType:'', // 类型
+          title: "",  // 标题
+          pbModes:'', // 评标办法
+          zzType:'', // 资质
+          comName:'' // 企业名称
         },
         total:0,
         title:'',
@@ -92,10 +92,12 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{},
+        souCode:''
       }
     },
     methods: {
-      onRefresh(){//下拉刷新
+      onRefresh(){   //下拉刷新
         this.zbList=[];
         setTimeout(() => {
           this.data.pageNo=1;
@@ -108,9 +110,10 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/newnocite/zhaobiao/list',
             data:that.data
         }).then(function(res){
+            
             that.loading = false;
             that.total=res.data.total;
             if(that.zbList.length==0||that.data.pageNo==1){
@@ -142,11 +145,20 @@ export default {
           this.$router.push({ path:'/history', query:{path:'/bid',lo:'bidL'}});
       },
       returnAddress(option){//选择地址
+        if( this.screenList[0] != option.txt) {
+          this.data.pbModes = ''
+          sessionStorage.setItem('assess','1')
+        } 
         this.isajax=false;
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.add = {}
+        this.add.regions = option.str
+        sessionStorage.setItem('bidArea',JSON.stringify(option))
         this.data.regions=option.str;
+        let str = this.data.regions.split('||')
+        this.souCode = str[0]
         this.data.pageNo=1;
         this.ajax();
       },
@@ -155,7 +167,7 @@ export default {
         this.zbList=[];
         this.screenList[1].active=false;
         this.data.projectType=option.str;
-        this.screenNum.typeNum=option.index;
+        // this.screenNum.typeNum=option.index;
         this.data.pageNo=1;
         this.ajax();
       },
@@ -169,7 +181,7 @@ export default {
         this.ajax();
       },
       showMask(i){// 
-        if(this.vipStr.indexOf('tenderFilter')==-1&&i!=0){
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
@@ -210,10 +222,12 @@ export default {
       gaiaSea() {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
+           this.data.comName = ''
         } else {
-            this.data.com_name = this.$route.query.scom
+            this.data.comName = this.$route.query.scom
+            this.data.title = ''
         }
-        this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
+        this.title = this.$route.query.key ? this.$route.query.key : (this.$route.query.scom ? this.$route.query.scom : '' )         
       }
     },
     components:{
@@ -227,19 +241,46 @@ export default {
         'v-not':not
     },
     created(){
-      this.gaiaSea()
-      this.data.regions = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+      
+      this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
+      this.add = (sessionStorage.getItem('bidData')) ? JSON.parse(sessionStorage.getItem('bidData')) :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')) : {name:'湖南省'})
+       if(sessionStorage.getItem('bidArea')) {
+         
+         this.screenList[0].txt = JSON.parse(sessionStorage.getItem('bidArea')).txt
+         this.add.name =  JSON.parse(sessionStorage.getItem('bidArea')).str
+       } else {
+          if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=   '湖南省' ;
+            }
+          } else {
+              this.screenList[0].txt=   '湖南省' ;
+          }
+       }
+      
+      if(sessionStorage.getItem('isVip')){
+        this.vipStr=sessionStorage.getItem('isVip');
       }
-      if(sessionStorage.getItem('bidData')&&sessionStorage.getItem('bidScreenNum')){//刷新保存筛选
-        let data=JSON.parse(sessionStorage.getItem('bidData')),
-            screenNum=JSON.parse(sessionStorage.getItem('bidScreenNum'));
-        data.pageNo=1;
+      if(sessionStorage.getItem('bidData')){//刷新保存筛选
+        let data=JSON.parse(sessionStorage.getItem('bidData'))
+        data.pageNo=1
         this.data=data;
-        this.screenNum=screenNum;
+          if(this.$route.query.key) {
+             this.data.title = this.$route.query.key
+          } else {
+              this.data.comName = this.$route.query.scom
+          }
       }
+      this.screenNum = sessionStorage.getItem('bidScreenNum') ? JSON.parse(sessionStorage.getItem('bidScreenNum')) : {typeNum:0,select:[],arr:[]}
+      if(this.data.regions.indexOf('||')> -1) {
+        let arr7 = this.data.regions.split('||')
+        this.souCode = arr7[0]
+      } else {
+        this.souCode = this.data.regions
+      }
+      this.gaiaSea()
       this.ajax();
     },
     watch:{
@@ -254,11 +295,11 @@ export default {
         handler(val,old){
           sessionStorage.setItem('bidScreenNum',JSON.stringify(val));
         }
-      }
+      },
     },
     beforeDestroy(){
-      sessionStorage.removeItem('bidData')
-      sessionStorage.removeItem('bidScreenNum')
+      // sessionStorage.removeItem('bidData')
+      // sessionStorage.removeItem('bidScreenNum')
     },
 }
 </script>

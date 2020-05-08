@@ -167,7 +167,7 @@ export default {
                     that.isShow = true
                     sessionStorage.setItem('xtoken',res.data.data.xtoken)
                     sessionStorage.setItem('Bname',res.data.data.nikeName)
-                    sessionStorage.setItem('permissions',res.data.data.permissions);
+                    sessionStorage.setItem('isVip',res.data.data.isVip);
                     setTimeout(() => {
                         that.isShow = false;
                     },1500);

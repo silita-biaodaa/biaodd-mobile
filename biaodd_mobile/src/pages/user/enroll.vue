@@ -56,7 +56,8 @@ export default {
             hint:'请输入正确的账号和密码',
             note:'',
             msg:'请输入正确的短信验证码',
-            ipmsg:''
+            ipmsg:'',
+            code:''
         }
     },
     watch: {
@@ -73,6 +74,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
+          this.code = this.getCode()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -140,7 +142,8 @@ export default {
                    var myVar = setInterval(() =>{
                       if(that.Message == 0) {
                         that.Message = '重新发送'
-                        return clearInterval(myVar);
+                        clearInterval(myVar);
+                        return false
                       } else {
                         that.Message =  that.Message - 1
                       }
@@ -169,7 +172,9 @@ export default {
               this.msg = '请设置不低于8位数得密码'
               return this.enword = true
            }
-             let that=this;
+         
+           if(this.code != '') {
+            let that=this;
               this.$http({
                   method:'post',
                   url: '/authorize/memberRegister',
@@ -181,6 +186,7 @@ export default {
                     clientVersion:'3.0'
                   }
               }).then(function(res){
+                 console.log(res);
                  if(res.data.code ==1 ) {
                     that.isShow = true
                     that.hint = res.data.msg
@@ -195,8 +201,9 @@ export default {
                        that.isShow = false;
                      }, 2000);
                  }
-                 
               })
+           }
+            
         }     
             
     }

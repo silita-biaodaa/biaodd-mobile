@@ -11,7 +11,7 @@
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regions"></v-addr>
+    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="add"></v-addr>
     <!-- <v-type @sureFn='typeSure' @canleFn="typeCanle" v-if="screenList[1].active"></v-type> -->
     <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenData"></v-money>
   </div>
@@ -55,14 +55,13 @@ export default {
         data:{
           pageNo:1,
           pageSize:'10',
-          regions:'湖南',
+          regions:'hunan',
           type: "2",
           projectType:'',
           title: "",
           projSumStart:'',//中标开始金额
           projSumEnd:'',//中标结束金额
-          sumType:"zhongbiao",
-          com_name:''
+          comName:''
         },
         title:'',
         total:0,
@@ -87,6 +86,7 @@ export default {
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{}
       }
     },
     methods: {
@@ -102,12 +102,12 @@ export default {
         let that=this;
         this.$http({
             method:'post',
-            url: '/notice/queryList',
+            url: '/newnocite/zhongbiao/list',
             data:that.data
         }).then(function(res){
             that.loading = false;
-            that.data.projSumStart='';
-            that.data.projSumEnd='';
+            // that.data.projSumStart='';
+            // that.data.projSumEnd='';
             that.total=res.data.total;
             if(that.zbList==0||that.data.pageNo==1){
               that.zbList=res.data.data;
@@ -142,12 +142,15 @@ export default {
         this.zbList=[];
         this.screenList[0].active=false;
         this.screenList[0].txt=option.txt;
-        this.data.regions=option.str;
+        this.add = {}
+        this.add.regions = option.str
+        sessionStorage.setItem('tenArea',JSON.stringify(option))
+        this.data.regions = option.str;
         this.data.pageNo=1;
         this.ajax();
       },
       showMask(i){//
-        if(this.vipStr.indexOf('bidFilter')==-1&&i!=0){
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
@@ -178,6 +181,7 @@ export default {
               this.data.projSumStart='5000';
               this.data.projSumEnd='10000';
           }else if(option.num==4){
+              this.data.projSumEnd='';
               this.data.projSumStart='10000';
           }else{
               this.data.projSumStart=option.projSumStart;
@@ -191,8 +195,10 @@ export default {
       gaiaSea() {
         if(this.$route.query.key) {
            this.data.title = this.$route.query.key
+           this.data.comName = ''
         } else {
-            this.data.com_name = this.$route.query.scom
+            this.data.comName  = this.$route.query.scom
+            this.data.title = ''
         }
         this.title = this.$route.query.key ? this.$route.query.key : this.$route.query.scom
       }
@@ -207,20 +213,42 @@ export default {
         'v-not':not
     },
     created(){
-      this.gaiaSea()
-      this.data.regions = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
-
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
+     
+      this.data.regions = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).code : 'hunan';
+       if(sessionStorage.getItem('tenArea')) {
+         this.screenList[0].txt = JSON.parse(sessionStorage.getItem('tenArea')).txt
+         this.add.name =  JSON.parse(sessionStorage.getItem('tenArea')).str
+        //  this.screenList[0].txt = sessionStorage.getItem('tenArea')
+        //  this.add.name = this.screenList[0].txt
+       } else {
+          if( JSON.parse(sessionStorage.getItem('address'))) {
+            if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                 this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+                  this.add.name = JSON.parse(sessionStorage.getItem('address')).name 
+            } else {
+               this.screenList[0].txt=   '湖南省' ;
+            }
+          } else {
+              this.screenList[0].txt=   '湖南省' ;
+              this.add.name = '湖南省'
+          }
+       }
+      if(sessionStorage.getItem('isVip')){
+         this.vipStr=sessionStorage.getItem('isVip');
       }
-      if(sessionStorage.getItem('zhongbidData')&&sessionStorage.getItem('zhongbidScreenData')){
+      if(sessionStorage.getItem('zhongbidData') || sessionStorage.getItem('zhongbidScreenData')){
         let data=JSON.parse(sessionStorage.getItem('zhongbidData')),
-            screenData=JSON.parse(sessionStorage.getItem('zhongbidScreenData'));
+            screenData= sessionStorage.getItem('zhongbidScreenData') ? JSON.parse(sessionStorage.getItem('zhongbidScreenData')) : {num:0, projSumStart:'',projSumEnd:''}
         data.pageNo=1;
         this.data=data;
         this.screenData=screenData;
+         if(this.$route.query.key) {
+             this.data.title = this.$route.query.key
+          } else {
+              this.data.comName = this.$route.query.scom
+          }
       }
+      this.gaiaSea()
       this.ajax();
     },
     watch:{
@@ -238,8 +266,8 @@ export default {
       }
     },
     beforeDestroy(){
-      sessionStorage.removeItem('zhongbidData')
-      sessionStorage.removeItem('zhongbidScreenData')
+      // sessionStorage.removeItem('zhongbidData')
+      // sessionStorage.removeItem('zhongbidScreenData')
     },
 }
 </script>

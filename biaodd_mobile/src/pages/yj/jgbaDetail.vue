@@ -6,31 +6,31 @@
         <!-- 上 -->
         <div class="content">
             <h5>{{proName}}</h5>
-            <p>
+            <p v-if="detail.code" >
                 <span class="tit-txt">竣工备案编号</span>
                 <span class="val-txt">{{detail.code}}</span>  
             </p>
-            <p>
+            <p  v-if="detail.cost">
                 <span class="tit-txt">实际造价</span>
                 <span class="val-txt">{{detail.cost}}万元</span>  
             </p>
-            <p>
+            <p  v-if="detail.area">
                 <span class="tit-txt">实际面积</span>
                 <span class="val-txt">{{detail.area}}㎡</span>  
             </p>
-            <p>
+            <p v-if="detail.struct">
                 <span class="tit-txt">结构体系</span>
                 <span class="val-txt">{{detail.struct}}</span>  
             </p>
-            <p>
+            <p v-if="detail.buildScale">
                 <span class="tit-txt">实际建设规模</span>
                 <span class="val-txt">{{detail.buildScale}}</span>  
             </p>
-            <p>
+            <p v-if="detail.buildStart">
                 <span class="tit-txt">实际开工日期</span>
                 <span class="val-txt">{{detail.buildStart}}</span>  
             </p>
-            <p>
+            <p v-if="detail.buildEnd">
                 <span class="tit-txt">实际竣工验收日期</span>
                 <span class="val-txt">{{detail.buildEnd}}</span>  
             </p>

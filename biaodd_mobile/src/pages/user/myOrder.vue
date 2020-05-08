@@ -14,7 +14,8 @@
                 <van-list finished-text="没有更多了"  @load="onLoad" :error.sync="error" error-text="请求失败，点击重新加载" :offset="200" :finished="finished" :immediate-check="false">
                     <ul class="list">
                         <li v-for="(o,i) of list" :key="i">
-                            <template v-if="!o.report">
+                            <div v-if="o.report == null ">
+                            <!-- <template v-if="o.report == null "> -->
                                 <h5>
                                     <span class="title">VIP会员服务</span>
                                     <template  v-if="isPayed">
@@ -38,14 +39,77 @@
                                         <button @click="payBtn(i)">立即支付</button>
                                     </template>
                                 </div>
+                           </div> 
+                            <template v-else >
+                                <div v-if="o.report.repTitle == '公路专查' || o.report.repTitle =='住建专查' || o.report.repTitle =='水利专查' " >
+                                   <h5>
+                                       <span class="title">{{o.report.repTitle == '公路专查' ? '公路' : (o.report.repTitle == '住建专查' ? '住建' : '水利')}}系统专查·综合查询</span>
+                                       <template >
+                                           <span class="status">已支付</span>
+                                       </template>
+                                   </h5>
+                                   <div class="box">
+                                       <p>订单编号：{{o.orderNo}}</p>
+                                       <p>报告格式：EXCEL</p>
+                                       <p>购买时间：{{o.time}}</p>
+                                       <span>￥{{o.money}}</span>
+                                   </div>
+                                   <div class="bom-box">
+                                       <template >
+                                           <button  @click="Toquery(o)" >查看详情</button>
+                                       </template>
+                                     
+                                   </div>
+                               </div>
+                               <div  v-else >
+                                  <h5>
+                                     <span class="title">{{o.report.repTitle}}</span>
+                                     <template  v-if="isPayed">
+                                         <span class="status">已支付</span>
+                                     </template>
+                                     <template v-else                                            >
+                                         <span class="status">未支付</span>
+                                     </template>
+                                 </h5>
+                                 <div class="box">
+                                     <p>订单编号：{{o.orderNo}}</p>
+                                     <p>接收邮箱：{{o.report.email}}</p>
+                                     <p>报告格式：{{o.report.pattern}}</p>
+                                     <p>购买时间：{{o.time}}</p>
+                                     <span>￥{{o.money}}</span>
+                                 </div>
+                               </div>
+                               
                             </template>
-                            <template v-else>
+                            <!-- <template v-if="o.report[0].repTitle == '公路专查' || o.report[0].repTitle =='住建专查' || o.report[0].repTitle =='水利专查'"> -->
+                              <!-- <div v-if="o.report.repTitle == '公路专查' || o.report.repTitle =='住建专查' || o.report.repTitle =='水利专查' " >
+                                <h5>
+                                    <span class="title">{{o.report.repTitle == '公路专查' ? '公路' : (o.report.repTitle == '住建专查' ? '住建' : '水利')}}系统专查·综合查询</span>
+                                    <template >
+                                        <span class="status">已支付</span>
+                                    </template>
+                                </h5>
+                                <div class="box">
+                                    <p>订单编号：{{o.orderNo}}</p>
+                                    <p>报告格式：EXCEL</p>
+                                    <p>购买时间：{{o.time}}</p>
+                                    <span>￥{{o.money}}</span>
+                                </div>
+                                <div class="bom-box">
+                                    <template >
+                                        <button >查看详情</button>
+                                    </template>
+                                  
+                                </div>
+                              </div> -->
+                                 <!-- <template > -->
+                               <!-- <div v-else  >     
                                 <h5>
                                     <span class="title">{{o.report.repTitle}}</span>
                                     <template  v-if="isPayed">
                                         <span class="status">已支付</span>
                                     </template>
-                                    <template v-else>
+                                    <template >
                                         <span class="status">未支付</span>
                                     </template>
                                 </h5>
@@ -56,7 +120,9 @@
                                     <p>购买时间：{{o.time}}</p>
                                     <span>￥{{o.money}}</span>
                                 </div>
-                            </template>
+                              </div>    -->
+                            <!-- </template> -->
+                            <!-- </template> -->
                         </li>
                     </ul>
                 </van-list>
@@ -179,7 +245,7 @@ export default {
                     if(that.navNum==0){
                         that.navArr[0]='已支付订单('+res.data.total+')'
                     }else{
-                        that.navArr[1]='未支付订单('+res.data.total+')'
+                        that.navArr[1]='未支付订单('+(res.data.total ?  res.data.total : '0')+')'
                     }
                     
                     for(let x of res.data.data){
@@ -200,10 +266,13 @@ export default {
                     }else{
                         that.list=that.list.concat(res.data.data)
                     }
-                    if(res.data.total==that.list.length||that.list.length<that.data.pageSize){
+                    if(res.data.total==that.list.length){
                         that.finished=true;//如果返回总条数等于当前list长度
+                        that.isScroll=false;
+                    } else {
+                        that.isScroll=true;
                     }
-                    that.isScroll=true;
+                   
                 }
             }).catch(function(res){
                 that.isajax=true;
@@ -276,6 +345,15 @@ export default {
                 path:'/payVip',
                 query:{
                     code:this.list[i].stdCode
+                }
+            });
+        },
+        Toquery(el) {
+             this.$router.push({
+                path:'/queryall',
+                query:{
+                    id:el.orderNo,
+                    name:el.report.repTitle
                 }
             });
         }

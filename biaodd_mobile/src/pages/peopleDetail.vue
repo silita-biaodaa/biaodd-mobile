@@ -43,7 +43,7 @@ export default {
         return {
             // 数据模型
             obj:null,
-            navList:['注册证书','个人业绩','不良记录','变更记录','押证详情'],
+            navList:['证书信息','个人业绩','不良记录','变更记录','押证详情'],
             navNum:0,
             list:[],
             isajax:false,//是否在加载过程中
@@ -84,6 +84,7 @@ export default {
             name:obj.name,
             tabCode:obj.tabCode,
             tabType:'registerCert',
+            comName:obj.comName
         }
         if(this.$route.query.type=='yz'){
             this.navNum=4;
@@ -147,7 +148,7 @@ export default {
         },
         navTap(i){
             if(i == 4) {
-              if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+              if(sessionStorage.getItem('isVip') == 'false'){
                 this.isvip=true;
                 this.modalHelper.afterOpen();
                 return false
@@ -163,7 +164,10 @@ export default {
                 idCard:this.obj.idCard,
                 sex:this.obj.sex,
                 name:this.obj.name,
+                sealNo:this.obj.sealNo,
+                certNo:this.obj.certNo,
                 tabCode:this.obj.tabCode,
+                comName:this.obj.comName,
                 tabType:'',
             }
            
@@ -171,6 +175,7 @@ export default {
                 this.data.tabType='registerCert'
             }else if(i==1){
                 this.data.tabType='personProject'
+                this.data.innerid = this.obj.innerid
             }else if(i==2){
                 this.data.tabType='badRecord'
             }else if(i==3){

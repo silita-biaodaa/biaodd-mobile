@@ -21,7 +21,7 @@
                 </template>
             </template>
             <template v-else>
-                <v-not :isError="isError"  :hint="'暂无关注的' + msg"  ></v-not>
+                <v-not :isError="isError"  :hint="'暂无关注的' + msg  + '信息'"  :index="navNum"  ></v-not>
             </template>
         </template>
         <template v-else>
@@ -136,7 +136,7 @@ export default {
                 method:'post',
                 url:'/userCenter/listCollectionNotice',
                 data:{
-                    type:'0',
+                    type:'1',
                     pageNo:1,
                     pageSize:1000
                 }
@@ -167,7 +167,7 @@ export default {
             })
         },
         qyAjax(){
-            let vip = sessionStorage.getItem('permissions') ? 1 : 0
+            let vip = sessionStorage.getItem('isVip')  == 'true' ? 1 : 0
             let that=this;
             this.$http({
                 method:'post',

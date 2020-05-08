@@ -1,54 +1,113 @@
 <!-- 模型： DOM 结构 -->
 <template>
-    <div class="good">
-      <template v-if="isajax1&&isajax2">
-        <template v-if="goodList.length>0||blList.length>0">
-          <div class="bear"  :class="{'active':isGood==true}" v-if="goodList.length>0">
-            <div class="good-top"  @click="jumpGood" >
-              获奖信息
-              <van-icon :name="goodArrow"/>
+<div class="good" >
+     <div class="tab-an" :class="glory ? 'tab-hide' : 'tab-show' " @click="glory = !glory"  >
+           <div class="tab-list" >
+              <div class="tab-name" >
+                 <img src="../../assets/icon-rongy.png.png" class="good-glory" alt="">
+                 企业荣誉 ({{award}})
+              </div>
+              <div>
+                   <van-icon name="arrow-down"  v-if="glory" />
+                   <van-icon name="arrow-up" v-else />
+              </div>
             </div>
-            <div class="good-list">
-              <v-con :type="'gb'"  v-for="(el,i) in goodList" :key="i" :obj='el'></v-con>
-            </div>         
-          </div>
-          <div class="bear" :class="{'active':isDad==true}" v-if="blList.length>0">
-            <div class="good-top" @click="jumpDad" >
-              不良记录
-              <van-icon :name="dadArrow"/>
+            <!--  列表 -->
+            <good-List :type="'glory'" v-for="(el,i) in awards" :key="i" :obj='el' ></good-List>
+
+      </div>
+
+       <div class="tab-an" :class="winning ? 'tab-hide' : 'tab-show' " @click="winning = !winning"  >
+           <div class="tab-list" >
+              <div class="tab-name" >
+                 <img src="../../assets/icon-gongch.png.png"  class="good-winning" alt="">
+                 工程获奖 ({{win}})
+              </div>
+              <div>
+                   <van-icon name="arrow-down"  v-if="winning" />
+                   <van-icon name="arrow-up" v-else />
+              </div>
             </div>
-            <div class="good-list">
-              <v-con :type="'bl'"  v-for="(el,i) in blList" :key="i" :obj='el'></v-con>
-            </div>         
-          </div>
-        </template>
-        <template v-else>
-          <n-not :isError="isError" :hint="'Sorry，暂未查询到该公司的诚信信息'" ></n-not>
-        </template>
-      </template>
-      <template v-else>
-        <van-loading size="50px"></van-loading>
-      </template>
-    </div>
+            <div class="tab-an" :class="el.show ? 'win-hide' : 'tab-show' " @click.stop="el.show = !el.show" style="box-shadow:none;"  v-for="(el,i) in wins" :key="i" >
+                <div class="tab-list" style="border:none;"  >
+                   <div class="tab-name"  style="width:90%"  >
+                      <div class="tab-long" >{{el.awards}}</div>({{el.values.length}})
+                   </div>
+                   <div>
+                        <van-icon name="arrow-down"  v-if="el.show" />
+                        <van-icon name="arrow-up" v-else />
+                   </div>
+                 </div>
+                 <good-List :type="'win'"  v-for="(el,i) in el.values" :key="i" :obj='el'  ></good-List>
+            </div>
+      </div>
+
+      <div class="tab-an" :class="road ? 'tab-hide' : 'tab-show' " @click="road = !road"  >
+           <div class="tab-list" >
+              <div class="tab-name" >
+                 <img src="../../assets/icon-gongl.png.png"  class="good-road" alt="">
+                 公路信用等级 ({{highway.length}})
+              </div>
+              <div>
+                   <van-icon name="arrow-down"  v-if="road" />
+                   <van-icon name="arrow-up" v-else />
+              </div>
+            </div>
+            <good-List :type="'road'" v-for="(el,i) in highway" :key="i" :obj='el' ></good-List>
+      </div>
+
+      <div class="tab-an" :class="water ? 'tab-hide' : 'tab-show' " @click="water = !water"  >
+           <div class="tab-list" >
+              <div class="tab-name" >
+                 <img src="../../assets/icon-shuil.png.png"  class="good-water" alt="">
+                 水利信用等级 ({{shuili.length}})
+              </div>
+              <div>
+                   <van-icon name="arrow-down"  v-if="water" />
+                   <van-icon name="arrow-up" v-else />
+              </div>
+            </div>
+              <good-List :type="'water'" v-for="(el,i) in shuili" :key="i" :obj='el' ></good-List>
+      </div>
+
+        <div class="tab-an" :class="bad ? 'tab-hide' : 'tab-show' " @click="bad = !bad"  >
+            <div class="tab-list" >
+              <div class="tab-name" >
+                 <img src="../../assets/icon-bul.png.png"  class="good-bad" alt="">
+                 不良记录 ({{under}})
+              </div>
+              <div>
+                   <van-icon name="arrow-down"  v-if="bad" />
+                   <van-icon name="arrow-up" v-else />
+              </div>
+            </div>
+             <good-List :type="'bad'" v-for="(el,i) in unders" :key="i" :obj='el' ></good-List>
+        </div>
+
+</div>
 </template>
 <script>
-import listCon from '@/components/enterprise/listCon'
-import notList from '@/components/not'
+import goodList from '@/components/enterprise/goodList'
 export default {
     name: 'good', // 结构名称
     data() {
         return {
             // 数据模型
-            id:'',
-            goodList:[],
-            blList:[],
-            isajax1:false,//获奖是否加载完
-            isajax2:false,//不良是否加载完
-            isError:false,//是否加载失败
-            isDad:false,
-            isGood:false,
-            dadArrow:'arrow-up',
-            goodArrow:'arrow-up',
+           glory:true,
+           winning:true,
+           road:true,
+           water:true,
+           bad:true,
+           id:'',
+           source:'',
+           award:0,
+           awards:[],
+           under:0,
+           unders:[],
+           win:0,
+           wins:[],
+           shuili:[],
+           highway:[]
         }
     },
     watch: {
@@ -58,17 +117,16 @@ export default {
         // 集成父级参数
     },
     components: {
-       'v-con':listCon,
-       'n-not':notList
+      'good-List':goodList,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.id = this.$route.query.id
-        this.ajax()
-        this.gainBl()
+         this.id = this.$route.query.id
+        //  this.source = this.$route.query.source
+         this.gainList()
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -93,77 +151,36 @@ export default {
     },
     methods: {
         // 方法 集合
-        ajax(){
-            let that=this;
-            this.$http({
-                method:'post',
-                url: '/company/reputation/' + that.id ,
-                // data:that.data
-            }).then(function(res){
-                if(res.data.data.allNum > 0 ) {
-                  res.data.data.reputation.forEach(el => {
-                    el.list.forEach(el => {
-                      el.list.forEach(el => {
-                         that.goodList.push(el)
-                      })
-                    })
-                  })
-                  // that.goodList.length = 3
-                } else {
-                  that.goodList.length = 0
-                }
-                that.isajax1=true
-                
-            }).catch(function(res){
-                that.isajax1=true;
-                that.isError=true;
-            })
-        },
-        gainBl() {
+        gainList() {
            let that=this;
             this.$http({
                 method:'post',
-                url: '/reputation/undesirable',
+                url: 'reputation/new/company' ,
                 data:{
-                  comId:that.id
+                   comId:that.id,
+                  //  source:that.source,
+                   reqType:'WAP'
                 }
             }).then(function(res){
-              //  console.log(res.data.data.undesirable.list,1)
-               if(res.data.data.undesirable) {
-                 if(res.data.data.undesirable.length>0){
-                   that.blList = res.data.data.undesirable
-                 }
-                 
-               }
-               that.isajax2=true
-            }).catch(function(res){
-                that.isajax2=true;
-                that.isError=true;
+              if(res.data.code == 1) {
+                that.awards = res.data.data.companyAwards
+                that.award = res.data.data.companyAwards.length
+                that.unders = res.data.data.under
+                that.under = res.data.data.under.length
+                that.shuili = res.data.data.shuili
+                that.highway = res.data.data.highway
+                for(let i of res.data.data.projectAwards) {
+                  i.show = true
+                }
+                that.wins = res.data.data.projectAwards
+                that.win = res.data.data.projectAwards.length
+                if(that.win >= 1) {
+                  that.winning = false
+                } else {
+                  that.winning = true
+                }
+              }
             })
-        },
-        jumpGood() {
-          let that=this
-          if(that.goodList.length == 0) {
-            return
-          }
-          this.isGood=!this.isGood;
-          if(this.goodArrow=='arrow-up'){
-            this.goodArrow='arrow'
-          }else{
-            this.goodArrow='arrow-up'
-          }
-          
-        },
-        jumpDad() {
-          if(this.blList.length == 0) {
-            return
-          }
-          this.isDad=!this.isDad;
-          if(this.dadArrow=='arrow-up'){
-            this.dadArrow='arrow'
-          }else{
-            this.dadArrow='arrow-up'
-          }
         }
     }
 
@@ -171,39 +188,39 @@ export default {
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
-<style scoped lang='less'>
+<style  lang='less'>
 .good {
-  .bear {
-    background-color: #f5f5f5;
+  padding: 15px 30px;
+  background-color: #F8F8F8;
+  box-sizing: border-box;
+   .tab-list  img {
+     width: 41px;
+   }  
+  .good-glory {
+    height: 48px;
+  }
+  .good-winning {
+    height: 39px;
+  }
+  .good-road {
+    height: 34px;
+  }
+  .good-water {
+    width: 36px;
+    height: 36px;
+  }
+  .win-hide {
+    height: 80px;
     overflow: hidden;
-    height: 100%;
-    // transition: height .5s;    
-    .good-top {
-      padding: 0 35px;
-      font-size: 32px;
-      color:#333;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 87px;
-      background-color: #fff;
-      font-weight: 550;
-      box-sizing: border-box;
-      margin-bottom: 17px;
-      i {
-        font-size: 42px;
-      }
-    }
-    .good-list {
-      padding: 0 33px 10px;
-    }
-    .gpp {
-      padding-bottom: 100px;
-    }
   }
-  .active{
-    height: 87px;
+  .tab-long {
+    overflow: hidden;/*超出部分隐藏*/
+    white-space: nowrap;/*不换行*/
+    text-overflow:ellipsis;/*超出部分文字以...显示*/
+    max-width: 90%;
   }
+  
+ 
 }
 
 </style>

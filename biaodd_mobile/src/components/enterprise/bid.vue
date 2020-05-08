@@ -38,11 +38,8 @@ export default {
             data:{
                 pageNo:1,
                 pageSize:10,  //每页条数
-                type:2,
-                regions:'湖南省',  //省份吧
-                com_name:'湖南省第五工程有限公司',  //公司名
+                comName:'湖南省第五工程有限公司',  //公司名
                 title:'',
-                sumType:'zhongbiao'
             },
             isScroll:true,
             isajax:false,//是否在加载过程中
@@ -67,8 +64,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        this.data.com_name = this.$route.query.name;
-        this.data.regions=this.$route.query.source;
+        this.data.comName = this.$route.query.name;
         this.ajax();
     },
     beforeMount() {
@@ -98,7 +94,7 @@ export default {
             this.isajax=false;
             this.bidList=[];
             this.showLoad=true;
-            this.data.title=option;
+            this.data.title = option;
             this.ajax();
         },
         onLoad(){
@@ -120,7 +116,7 @@ export default {
             let that=this;
             this.$http({
                 method:'post',
-                url: '/notice/queryList',
+                url: '/newnocite/company/zhongbiao/list',
                 data:that.data
             }).then(function(res){
                 that.showLoad=false;

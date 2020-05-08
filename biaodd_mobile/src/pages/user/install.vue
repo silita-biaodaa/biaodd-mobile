@@ -67,10 +67,29 @@ export default {
             this.$router.push('/find')
         },
         quit() {
-            sessionStorage.removeItem('xtoken')
+            let code = this.getCode()
+            if(code) {
+                let that = this
+                 this.$http({
+                  method:'post',
+                  url: '/wxAuth/untieUser',
+                  data:{
+                  }
+              }).then(function(res){
+                
+              })
+            //   window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+                 window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+            } else {
+                this.$router.push('/')
+            }
+            // localStorage.removeItem('isFi')
             sessionStorage.removeItem('Bname')
-            sessionStorage.removeItem('permissions')
-            this.$router.push('/')
+            sessionStorage.removeItem('isVip')
+            // localStorage.setItem('isFi','1')
+            setTimeout(() => {
+               sessionStorage.removeItem('xtoken')
+            }, 100);
         }
     }
 
@@ -80,7 +99,7 @@ export default {
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
 <style  lang='less' scoped>
 .install {
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     background-color: #F5F5F5;
     padding-top: 92px;
@@ -101,8 +120,8 @@ export default {
      }
   }
   .in-b {
-      box-sizing: border-box;
-    height:calc(100vh - 387px);
+    box-sizing: border-box;
+    height:calc(100vh - 340px);
     background-color: #fff;
     padding-top: 450px;
     .in-btn {

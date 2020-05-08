@@ -123,12 +123,12 @@
         <div class="aninfo-line" >
           <div style="width:48%" >
             <div class="info-main" >
-              &nbsp
+              否
             </div>
           </div>
           <div style="width:48%" >
             <div class="info-main" >
-              {{obj.website == null ? '有' : '无'}}
+              {{obj.website == null ? '否' : '是'}}
             </div>
           </div>
        </div>
@@ -148,7 +148,7 @@
        <div class="aninfo-line"  >
           <div style="width:48%" >
             <div class="info-main" >
-              否
+              {{obj.invest == null ? '否' : '是'}}
             </div>
           </div>
           <div style="width:48%" >

@@ -25,8 +25,10 @@
         <!-- 招标 -->
         <div class="zhaob">
             <div class="title">
-                <h5>最新招标</h5>
-                <span @click="$router.push('/bid')">查看更多</span>
+                <!-- <div class="title-auto" > -->
+                   <h5 class="left" >最新招标</h5>
+                   <span class="right" @click="$router.push('/bid')">查看更多</span>
+                <!-- </div>    -->
             </div>
             <ul class="box">
                 <v-zb v-for="(o,i) of zbList" :key="i" :obj="o"></v-zb>
@@ -53,12 +55,18 @@
             </ul>
         </div>
         <!-- 邀请游礼浮层 -->
-        <!-- <div class="fix-hb" v-if="mask">
-            <img src="../assets/yqyl.png" class="yqyl" @click.stop="dwJump"/>
-            <p @click="dwCross">
+        <div class="fix-hb" v-if="mask">
+            <div class="fix-center" >
+                <img src="../assets/pic-tanch.png.png" class="img-fix" />
+                <img src="../assets/icon-ann.png.png" class="fix-img" @click.stop="dwJump"  alt="">
+                 <div class="fix-cannal" @click.stop="dwCross" >
+                 </div>
+            </div>
+
+            <!-- <p >
                 <van-icon name="cross"/>
-            </p>
-        </div> -->
+            </p> -->
+        </div>
     </div>
 </template>
 <script>
@@ -67,7 +75,7 @@ import zhongbCon from '@/components/zhongbCon'
 import qy from '@/components/qy'
 import fixHead from '@/components/fixHead'
 export default {
-    name: 'index', // 结构名称
+    // name: 'index', // 结构名称
     data() {
         return {
             // 数据模型
@@ -118,7 +126,7 @@ export default {
             tabNum:0,
             isScroll:false,
             topath:'/bid',
-            // mask:false,
+            mask:false,
             local:'bidL'
         }
     },
@@ -161,10 +169,27 @@ export default {
                 localStorage.setItem('filter',JSON.stringify(obj));
             })
         }
-        // if(!sessionStorage.getItem('isfirst')){
-        //     this.modalHelper.afterOpen();
-        //     this.mask=true;
-        // }
+        setTimeout(() => {
+             let that = this 
+            this.$http({
+                   method:'POST',
+                   url: '/activity/entrance',
+                   data:{
+                       version:''
+                   } 
+               }).then(function(res){
+                   if(res.data.data ) {
+                       that.modalHelper.afterOpen();
+                    //    let isCollected = sessionStorage.getItem('isCollected')
+                    //    if(!(!isCollected)) {
+                            that.mask=true;
+                    //    }
+                      
+                   }
+               })
+        }, 600);
+       
+
         
     },
     beforeMount() {
@@ -193,16 +218,14 @@ export default {
     methods: {
         // 方法 集合
         //端午活动
-        // dwCross(){
-        //     this.modalHelper.beforeClose();
-        //     this.mask=false;
-        //     sessionStorage.setItem('isfirst',1);
-        // },
-        // dwJump(){
-        //     this.modalHelper.beforeClose();
-        //     this.$router.push('/dwDetail');
-        //     sessionStorage.setItem('isfirst',1);
-        // },
+        dwCross(){
+            this.modalHelper.beforeClose();
+            this.mask=false;
+        },
+        dwJump(){
+            this.modalHelper.beforeClose();
+            this.$router.push('/dwDetail');
+        },
         tabChange(i){
             this.tabNum=i.i
             this.topath = i.to
@@ -210,21 +233,34 @@ export default {
             this.msg = i.hint
         },
         getAddress(option){
-            this.ad
-            this.ready(option.str);
+            this.ready(option);
         },
-        ready(str=null){
-            let address=this.$refs.fixObj.addressStr;
+        ready(str){
+            let address = ''
+             let qyAddress = ''
+            if(str != null) {  
+                address = str.str
+                qyAddress = str.txt
+            } else {
+                address =this.$refs.fixObj.addressStr.code;
+                qyAddress=this.$refs.fixObj.addressStr.name;
+            }
+          
             //招标
             let that=this;
             this.$http({
                 method:'post',
-                url: '/notice/queryList',
+                url: '/newnocite/zhaobiao/list',
                 data:{
                     pageNo:1,
                     pageSize:3,
                     regions:address,
-                    type: "0"
+                    type: "1",
+                    title:'',
+                    projectType:'',
+                    pbModes:'',
+                    rangeType:'',
+                    zzType:''
                 }
             }).then(function(res){
                 that.zbList=res.data.data;
@@ -232,23 +268,30 @@ export default {
             //中标
             this.$http({
                 method:'post',
-                url: '/notice/queryList',
+                url: '/newnocite/zhongbiao/list',
                 data:{
                     pageNo:1,
                     pageSize:3,
                     regions:address,
-                    type: "2"
+                    type: "2",
+                    title:'',
+                    projectType:'',
+                    pbModes:'',
+                    rangeType:'',
+                    zzType:''
                 }
             }).then(function(res){
                 that.zhongbList=res.data.data;
             })
             //企业
-            let arr=address.split('||');
-            let qyAddress=address;
-            if(arr.length>1){
-                qyAddress=arr[0]
-            }
-           let vip = sessionStorage.getItem('permissions') ? 1 : 0
+            console.log(this.$refs.fixObj.addressStr);
+            
+            // let arr=this.$refs.fixObj.addressStr.name;
+           
+            // if(arr.length>1){
+            //     qyAddress=arr[0]
+            // }
+           let vip = sessionStorage.getItem('isVip') == 'true' ? 1 : 0
             this.$http({
                 method:'post',
                 url: '/company/host',
@@ -317,26 +360,33 @@ export default {
         width: 100%;
         height: 100vh;
         z-index: 9999;
-        padding-top: 50px;
         box-sizing: border-box;
-        .yqyl{
-            width: 80%;
-            display: block;
-            margin: 0 auto 37px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .fix-center {
+           background:rgba(255,255,255,0);
+           position: relative;
         }
-        p{
-            width: 92px;
-            height: 92px;
-            border-radius: 50%;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border:2PX solid #999999;
-            .van-icon{
-                color: #999999;
-                font-size: 80px;
-            }
+        .fix-cannal {
+            position: absolute;
+            width: 61px;
+            height: 61px;
+            background: url(../assets/icon-cuo.png@2x.png) no-repeat ;
+            background-size: 100%; 
+            bottom: -15%;
+            left: 50%;
+            transform: translateX(-60%);
+        }
+        .fix-img {
+          width: 362px;
+          position: absolute;
+          bottom: 10%;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+        .img-fix {
+            width: 660px;
         }
     }
     div{
@@ -347,55 +397,6 @@ export default {
             width: 100%;
         }
     }
-    // .advert{
-    //     padding:40px;
-    //     margin-bottom: 20px;
-    //     // background: -webkit-linear-gradient(left top,rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Safari 5.1 - 6.0 */
-    //     // background: -o-linear-gradient(bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Opera 11.1 - 12.0 */
-    //     // background: -moz-linear-gradient(bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* Firefox 3.6 - 15 */
-    //     // background: linear-gradient(to bottom right, rgba(254,102,3,1) ,rgba(254,102,3,.1)); /* 标准的语法 */
-    //     background: -webkit-linear-gradient(left top,#ffa805,#fe7105,#ffa805); /* Safari 5.1 - 6.0 */
-    //     background: -o-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Opera 11.1 - 12.0 */
-    //     background: -moz-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Firefox 3.6 - 15 */
-    //     background: linear-gradient(to bottom right,#ffa805,#fe7105,#ffa805); /* 标准的语法 */
-    //     p{
-    //         -webkit-text-stroke:1px #fff;
-    //         color: transparent;
-    //         // color: #fff;
-    //         font-size: 28px;
-    //         // background-image: -webkit-gradient(linear, left 0, right 0, from(#fff), to(rgba(254,102,3,.1)));
-    //         // -webkit-background-clip: text; /*必需加前缀 -webkit- 才支持这个text值 */
-    //         // -webkit-text-fill-color: transparent; /*text-fill-color会覆盖color所定义的字体颜色： */
-    //     }
-    //     .test{
-    //         -webkit-text-stroke:0;
-    //         color: #fff;
-    //         // background-image:-webkit-linear-gradient(left top,#f9ce37,#fae593);
-    //         // background-image: linear-gradient(to bottom right,#f9ce37,#fae593);
-    //         background: -webkit-linear-gradient(left top,#ffa805,#fe7105,#ffa805); /* Safari 5.1 - 6.0 */
-    //     background: -o-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Opera 11.1 - 12.0 */
-    //     background: -moz-linear-gradient(bottom right,#ffa805,#fe7105,#ffa805); /* Firefox 3.6 - 15 */
-    //     background: linear-gradient(to bottom right,#ffa805,#fe7105,#ffa805);
-    //         -webkit-background-clip:text;
-    //         -webkit-text-fill-color: transparent;
-    //         font-size: 64px;
-    //         text-shadow: -10px 10px 10px #333;
-    //     }
-    //     h6{
-    //         text-align: center;
-    //         width: 230px;
-    //         height: 70px;
-    //         border-radius: 50px;
-    //         line-height: 70px;
-    //         box-shadow: 0 -10px 10px #333;
-    //         margin: 30px auto 0;
-    //         background: transparent;
-    //         background: -webkit-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Safari 5.1 - 6.0 */
-    //         background: -o-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Opera 11.1 - 12.0 */
-    //         background: -moz-linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* Firefox 3.6 - 15 */
-    //         background: linear-gradient(rgba(255,255,255,.4),rgba(255,255,255,0)); /* 标准的语法 */ 
-    //     }
-    // }
     .banner{
         box-sizing: border-box;
         padding: 174px 32px 0;
@@ -471,14 +472,16 @@ export default {
     margin-bottom: 20px;
     box-sizing: border-box;
     ul{
-        display: flex;
-        flex-wrap: wrap;
+        // display: flex;
+        // flex-wrap: wrap;
         width: 100%;
         height: 100%;
         font-size: 28px;
+        overflow: hidden;
         li{
+            float: left;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             width: 25%;
             img{
                 max-width: 100%;
@@ -491,19 +494,24 @@ export default {
 .zhaob,.zhongb{
     margin-bottom: 20px
 }
-.title{
+.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 32px;
     border-bottom: 1PX solid #f2f2f2;
     height: 80px;
-    h5{
+    position: relative;
+    // .title-auto {
+    //     margin: auto ;
+    //     overflow: hidden;
+    // }
+    h5 {
         font-size: 32px;
         padding-left: 20px;
         border-left: 6px solid #FE6603;
     }
-    span{
+    span {
         font-size: 28px;
         color: #FE6603;
     }

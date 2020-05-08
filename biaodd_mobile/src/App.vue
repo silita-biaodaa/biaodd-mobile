@@ -1,190 +1,335 @@
 <template>
-  <div id="app">
-    <router-view v-if="isRouter" class="app-boby" />
-    <div class="app-bto" v-if="showNav">
-       <div class="app-nav" @click="jump" >
-         <!-- 红 -->
-         <img src="./assets/nav-icon-biaodd.png.png" alt="" v-if="fisrt" >  
-         <!-- 灰 -->
-         <img src="./assets/nav-icon-biaodada.png.png" alt="" v-else >
-         <div :class="fisrt ? 'color' : '' " >
-           标大大
-         </div>
-       </div>
-        <div class="app-nav" @click="jumpto" >
-          <!-- 灰 -->
-          <img src="./assets/nav-icon-yonghzhx.png.png" alt="" v-if="per" >
-          <!-- 红 -->
-          <img src="./assets/nav-icon-yonghzh.png.png" alt="" v-else >
-          <div :class="!fisrt ? 'color' : '' " >
-             个人中心
-          </div>
-         
-       </div>
-    </div> 
-  </div>
+    <div id="app">
+        <router-view v-if="isRouter" :class="this.showNav ? 'app-boby': ''" />
+        <div class="app-bto" v-if="showNav">
+            <div class="app-nav" @click="jump(el)" v-for="(el,i) in nav" :key="i">
+                <!-- 灰 -->
+                <img :src="el.rurl" alt v-if="el.states" />
+                <!-- 红 -->
+                <img :src="el.url" alt v-else />
+                <div :class="el.states ? 'color' : '' ">{{el.name}}</div>
+            </div>
+        </div>
+        <v-dia v-if="isload"></v-dia>
+    </div>
 </template>
 
 <script>
+import dialog from "@/components/dialog";
 export default {
-  name: 'App',
-  data(){
-    return{
-      isRouter:true,
-      fisrt: true,
-      per:true,
-      showNav:true,
-    }
-  },
-  provide(){
-    return{
-      reload:this.reload
-    }
-  },
-  methods:{
-    reload(){
-      this.isRouter=false
-      this.$nextTick(function(){
-        this.isRouter=true
-      })
+    // name: 'App',
+    data() {
+        return {
+            isRouter: true,
+            fisrt: true,
+            per: true,
+            showNav: true,
+            isload: false,
+            area: [],
+            nav: [
+                {
+                    url: require("./assets/nav-icon-biaodada.png.png"),
+                    rurl: require("./assets/nav-icon-biaodd.png.png"),
+                    name: "首页",
+                    path: "/",
+                    states: false
+                },
+                {
+                    url: require("./assets/icon-gzh.png(1).png"),
+                    rurl: require("./assets/icon-gzh.png.png"),
+                    name: "关注",
+                    path: "/followList",
+                    states: false
+                },
+                {
+                    url: require("./assets/icon-zhbdy.png(1).png"),
+                    rurl: require("./assets/icon-zhbdy.png.png"),
+                    name: "招标订阅",
+                    path: "/subscribe",
+                    states: false
+                },
+                {
+                    url: require("./assets/nav-icon-yonghzhx.png.png"),
+                    rurl: require("./assets/nav-icon-yonghzh.png.png"),
+                    name: "个人中心",
+                    path: "/centre",
+                    states: false
+                }
+            ],
+            code: ""
+        };
     },
-    judge() {
-       if(this.$route.path == '/centre' ||  this.$route.path == '/logo'||  this.$route.path == '/find'||  this.$route.path == '/enroll'||  this.$route.path == '/install'||  this.$route.path == '/deal' ||  this.$route.path == '/user' ||this.$route.path=='/followList'||this.$route.path=='/openingVip'||this.$route.path=='/myOrder') {
-            this.fisrt = false 
-            this.per  = false
-        } else {
-            this.fisrt = true  
-            this.per  = true 
+    provide() {
+        return {
+            reload: this.reload
+        };
+    },
+    components: {
+        "v-dia": dialog
+    },
+    methods: {
+        reload() {
+            this.isRouter = false;
+            this.$nextTick(function() {
+                this.isRouter = true;
+            });
+        },
+        judge() {
+            if (
+                this.$route.path == "/centre" ||
+                this.$route.path == "/logo" ||
+                this.$route.path == "/find" ||
+                this.$route.path == "/enroll" ||
+                this.$route.path == "/install" ||
+                this.$route.path == "/deal" ||
+                this.$route.path == "/user" ||
+                this.$route.path == "/openingVip" ||
+                this.$route.path == "/myOrder"
+            ) {
+                this.nav[3].states = true;
+            } else if (this.$route.path == "/followList") {
+                this.nav[1].states = true;
+            } else if (
+                this.$route.path == "/subscribe" ||
+                this.$route.name == "subscribe"
+            ) {
+                this.nav[2].states = true;
+            } else {
+                this.nav[0].states = true;
+            }
+            if (
+                this.$route.name == "payVip" ||
+                this.$route.name == "dwDetail" ||
+                this.$route.name == "subset" ||
+                this.$route.name == "binging" ||
+                this.$route.name == "load"
+            ) {
+                this.showNav = false;
+            }
+        },
+        jump(el) {
+            if (el.name == "首页" || el.name == "个人中心") {
+                for (let i of this.nav) {
+                    i.states = false;
+                }
+                el.states = true;
+                this.$router.push(el.path);
+            } else {
+                if (sessionStorage.getItem("xtoken")) {
+                    for (let i of this.nav) {
+                        i.states = false;
+                    }
+                    el.states = true;
+                    this.$router.push(el.path);
+                } else {
+                    this.modalHelper.afterOpen();
+                    this.isload = true;
+                }
+            }
+        },
+        pushAll(el) {
+            for (let val of el) {
+                for (let vals of val.data) {
+                    if (vals.data == undefined || vals.data.length == 0) {
+                        let arr = [];
+                        arr.push({ name: "全部", code: "" });
+                        vals.data = JSON.parse(JSON.stringify(arr));
+                        if (vals.data != null) {
+                            if (vals.data.length == 0) {
+                                vals.data.push({ name: "全部", code: "0" });
+                                continue;
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        gainToken() {
+            let that = this;
+            this.$http({
+                method: "post",
+                url: "/wxAuth/loginUser",
+                data: {
+                    code: that.code
+                }
+            }).then(function(res) {
+                if (res.data.code == 404) {
+                    return false;
+                }
+                if (res.data.code == 302) {
+                    // 预发布地址
+                    // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx94304dddc9d055d2&redirect_uri=http%3A%2F%2Fpre-mobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect'
+                    // 线上地址
+                    window.location.href =
+                        "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx393124fdad606b1d&redirect_uri=http%3A%2F%2Fmobile.biaodaa.com%2F%23%2Fbinging&response_type=code&scope=snsapi_base&state=CD-IMIS&connect_redirect=1#wechat_redirect";
+                    return false;
+                }
+                if (res.data.data.isCollected) {
+                    sessionStorage.setItem("xtoken", res.data.data.xtoken);
+                    sessionStorage.setItem("phoneNo", res.data.data.phoneNo);
+                    if (res.data.data.nikeName) {
+                        sessionStorage.setItem("Bname", res.data.data.nikeName);
+                    } else {
+                        sessionStorage.setItem("Bname", res.data.data.phoneNo);
+                    }
+                    sessionStorage.setItem(
+                        "isCollected",
+                        res.data.data.isCollected
+                    );
+                    sessionStorage.setItem("isVip", res.data.data.isVip);
+                    sessionStorage.setItem("userid", res.data.data.pkid);
+                }
+            });
         }
-        if(this.$route.name=='payVip'||this.$route.name=='dwDetail'){
-            this.showNav=false
-        }
     },
-    jump() {
-      this.$router.push('/')
-    },
-     jumpto() {
-      this.$router.push('/centre')
-    },
-    pushAll(el) {
-           for(let val of el) {
-                 for(let vals of val.data) {
-                     if(vals.data==undefined||vals.data.length == 0 ) {
-                          let arr=[];
-                          arr.push({name:'全部',code:''});
-                         vals.data=JSON.parse(JSON.stringify(arr));
-                         continue
-                     }
-                 }
-             }
-      }
-  },
-  created () {
-    if(localStorage.getItem('xtoken')){
-      localStorage.removeItem('xtoken')
-    }
-    if(localStorage.getItem('Bname')){
-      localStorage.removeItem('Bname')
-    }
-    this.judge();
-   
-    this.$http({
-        method:'post',
-        url: '/authorize/address',
-    }).then(function(res){
-        if(res.data.data.region.indexOf('广西')>-1){
-          sessionStorage.setItem('address','广西壮族自治区');
-        }else if(res.data.data.region.indexOf('内蒙古')>-1){
-          sessionStorage.setItem('address','内蒙古自治区');
-        }else if(res.data.data.region.indexOf('宁夏')>-1){
-          sessionStorage.setItem('address','宁夏回族自治区');
-        }else if(res.data.data.region.indexOf('新疆')>-1){
-          sessionStorage.setItem('address','新疆维吾尔自治区');
-        }else if(res.data.data.region.indexOf('西藏')>-1){
-          sessionStorage.setItem('address','西藏自治区');
-        }else{
-          sessionStorage.setItem('address',res.data.data.region+'省');
-        } 
-        // if(res.data.data.region=='湖南'){
-        //   sessionStorage.setItem('city',res.data.data.city);
-        // }
-        sessionStorage.setItem('ip',res.data.data.ip);
-    }).catch(function(res){
-        
-    })
 
-    let that=this;
-    //筛选条件存于本地
-    this.$http({
-        method:'post',
-        url: '/new/common/condition',
-    }).then(function(res){
-       console.log(res,1);
-       let arr = res.data.data
-       let obj = res.data.data.comQua
-       that.pushAll(obj)   
-       arr.newQual = obj 
-       localStorage.setItem('filter',JSON.stringify(arr));
-    })
-  },
-  watch: {
-   $route: {
-      handler: function(val, oldVal){
-        if(val.path == '/centre' ||  val.path == '/logo'||  val.path == '/find'||  val.path == '/enroll'||  val.path == '/install' ||  val.path == '/deal' ||  this.$route.path == '/user'||val.path == '/followList'||val.path == '/myOrder'||val.path == '/payVip'||val.path == '/openingVip'||val.path == '/membership') {
-            this.fisrt = false 
-            this.per  = false
-        } else {
-            this.fisrt = true  
-            this.per  = true 
+    created() {
+        this.code = this.getCode();
+        if (this.code != "") {
+            if (
+                this.$route.path == "/binging" ||
+                this.$route.path == "/enroll"
+            ) {
+                return false;
+            } else {
+                setTimeout(() => {
+                    this.gainToken();
+                }, 2000);
+            }
         }
-        if(val.name=='payVip'||val.name=='dwDetail'){
-            this.showNav=false
-        }else{
-          this.showNav=true
+        this.judge();
+        let that = this;
+        this.$http({
+            method: "post",
+            url: "/authorize/address"
+        })
+            .then(function(res) {
+                let str = "";
+                if (res.data.data.region.indexOf("广西") > -1) {
+                    str = "广西壮族自治区";
+                    // sessionStorage.setItem('address','广西壮族自治区');
+                } else if (res.data.data.region.indexOf("内蒙古") > -1) {
+                    str = "内蒙古自治区";
+                    // sessionStorage.setItem('address','内蒙古自治区');
+                } else if (res.data.data.region.indexOf("宁夏") > -1) {
+                    str = "宁夏回族自治区";
+                    // sessionStorage.setItem('address','宁夏回族自治区');
+                } else if (res.data.data.region.indexOf("新疆") > -1) {
+                    str = "新疆维吾尔自治区";
+                    // sessionStorage.setItem('address','新疆维吾尔自治区');
+                } else if (res.data.data.region.indexOf("西藏") > -1) {
+                    str = "西藏自治区";
+                    // sessionStorage.setItem('address',);
+                } else {
+                    str = res.data.data.region + "省";
+                }
+                for (let x of that.area) {
+                    if (str == x.name) {
+                        sessionStorage.setItem("address", JSON.stringify(x));
+                    }
+                }
+                if (res.data.data.ip) {
+                    sessionStorage.setItem("ip", res.data.data.ip);
+                }
+            })
+            .catch(function(res) {});
+        //筛选条件存于本地
+        this.$http({
+            method: "post",
+            url: "/new/common/condition"
+        }).then(function(res) {
+            let arr = res.data.data;
+            let obj = res.data.data.comQua;
+            that.area = res.data.data.area;
+            that.pushAll(obj);
+            arr.newQual = obj;
+            localStorage.setItem("filter", JSON.stringify(arr));
+        });
+    },
+    watch: {
+        $route: {
+            handler: function(val, oldVal) {
+                for (let i of this.nav) {
+                    i.states = false;
+                }
+                if (
+                    val.path == "/centre" ||
+                    val.path == "/logo" ||
+                    val.path == "/find" ||
+                    val.path == "/enroll" ||
+                    val.path == "/install" ||
+                    val.path == "/deal" ||
+                    this.$route.path == "/user" ||
+                    val.path == "/myOrder" ||
+                    val.path == "/payVip" ||
+                    val.path == "/openingVip" ||
+                    val.path == "/membership"
+                ) {
+                    this.nav[3].states = true;
+                } else if (val.path == "/followList") {
+                    this.nav[1].states = true;
+                } else if (
+                    val.path == "/subscribe" ||
+                    val.path == "/subset" ||
+                    val.name == "subscribe"
+                ) {
+                    this.nav[2].states = true;
+                } else {
+                    this.nav[0].states = true;
+                }
+                if (
+                    this.$route.name == "payVip" ||
+                    this.$route.name == "dwDetail" ||
+                    this.$route.name == "subset" ||
+                    this.$route.name == "binging" ||
+                    this.$route.name == "load" ||
+                    this.$route.name == "enroll"
+                ) {
+                    this.showNav = false;
+                } else {
+                    this.showNav = true;
+                }
+            },
+            deep: true
         }
-       },
-      deep: true
+    },
+    beforeDestroy() {
+        // console.group('销毁前状态  ===============》beforeDestroy');
     }
-  }
-}
+};
 </script>
 
 <style>
-@import './base/base.css';
-/* #app {
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
-} */
+@import "./base/base.css";
+.subList font {
+    color: red;
+}
 .app-boby {
- padding-bottom: 101px;
+    padding-bottom: 101px;
 }
 .app-bto {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 101px;
-  display: flex;
-  z-index: 999;
-  justify-content: space-between;
-  border-top: 1px solid #F2F2F2;
-  background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    display: flex;
+    z-index: 999;
+    justify-content: space-between;
+    border-top: 1px solid #f2f2f2;
+    background-color: #fff;
 }
 .app-nav {
-  width: 35%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding-top: 6px;
-   box-sizing: border-box
+    width: 35%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 6px;
+    box-sizing: border-box;
 }
 .app-nav img {
-  width: 47px;
-  height: 43px;
-  margin-bottom: 5px;
+    width: 47px;
+    height: 43px;
+    margin-bottom: 5px;
 }
-
 </style>

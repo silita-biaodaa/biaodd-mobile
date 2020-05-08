@@ -391,3 +391,111 @@ body .van-icon-arrow{
    .bor-col {
     border: none;
   }
+
+  .ba-title {
+      height: 88px;
+      font-size: 28px;
+      color:#333;
+      padding: 0 35px;
+      border-bottom: 1PX solid #f2f2f2;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+   .tab-an {
+      box-shadow:0px 6px 6px 0px rgba(0, 0, 0, 0.03);
+      border-radius:8px;
+      margin-bottom: 20px;
+      padding: 0 14px 20px;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+    .tab-hide {
+      height: 120px;
+      overflow: hidden;
+    }
+    .tab-show {
+      height: auto;
+    }
+    .tab-list {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 120px;
+      border-bottom: 1PX solid #F2F2F2;
+    }  
+     .tab-list  img {
+        width: 35px;
+        height: 40px;
+        margin-right: 20px;
+    }
+    .tab-list  .tab-name {
+        font-size: 32px;
+        color: #333;
+        display: flex;
+        align-items: center;
+     }
+     .tab-list  i {
+        font-size: 40px;
+        color: #666;
+    }
+    .pop-box {
+        position: absolute;
+        background: #f5f5f5;
+        bottom:0;
+        transform: translateY(100%);
+        left: 0;
+        z-index: 9;
+        width: 100%;
+        padding:50px 0 0;
+        box-sizing: border-box;
+    }
+    .recode .recode-list {
+       height: 545px;
+       box-sizing: border-box;
+       padding: 0 30px;
+    }
+    .recode .recode-btn {
+        display: flex;
+    } 
+    .recode .recode-btn button {
+        width: 50%;
+        height: 84px;
+        background: #FE6603;
+        color: #fff;
+        border: none; 
+    }
+    .recode-list ul {
+       display: flex;
+       flex-wrap:wrap; 
+    }
+     .recode-list ul li {
+        line-height: 76px;
+        color:#999;
+        font-size:28px;
+        background-color: #fff;
+        padding: 0 20px;
+        border: 1px solid #CCBEBE;
+        border-radius:10px;
+        margin-right: 30px;
+        margin-bottom: 50px;
+     } 
+     .No-Hint {
+         line-height: 150px;
+         font-size: 24px;
+         color: #999;
+         background-color: #fff;
+         text-align: center;         
+     }
+     .letter-de .van-tabs--line .van-tabs__wrap {
+     height: 96px !important;
+    } 
+     .letter-de .van-tab {
+         line-height: 96px;
+         font-size: 32px;
+     }
+     .letter-de .van-tabs--line {
+         height: 96px;
+         padding-top:96px;
+     }

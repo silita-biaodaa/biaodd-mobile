@@ -72,6 +72,7 @@ export default {
         },
         jump() {
           this.modalHelper.beforeClose();
+          this.$parent.isload = false
           this.$router.push('/logo')
         }
     }

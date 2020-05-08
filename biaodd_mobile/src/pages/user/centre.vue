@@ -47,13 +47,13 @@
           <van-icon name="arrow" class="nav-i"  />
         </div>
         <!-- 我的关注 -->
-        <div class="attention" @click="$router.push('/followList')" v-if="isLogin">
+        <!-- <div class="attention" @click="$router.push('/followList')" v-if="isLogin">
           <div class="flex-box">
             <img src="../../assets/icon-guanzhu.png.png" alt="">
             <span>我的关注</span>  
           </div> 
           <van-icon name="arrow" class="nav-i"  />
-        </div>
+        </div> -->
         <!-- 我的订单 -->
         <div class="attention" @click="$router.push('/myOrder')" v-if="isLogin">
           <div class="flex-box">

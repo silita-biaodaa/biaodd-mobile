@@ -2,7 +2,7 @@
 import { setTimeout } from 'timers';
 <template>
     <div class="aptitude" :class="{'zIndex':isFix}">
-        <div class="box">
+        <div class="box"  v-if="this.subset !=1" >
             <template v-if="boxArr.length==0">
                 <p>暂无资质，赶紧去添加吧</p>
             </template>
@@ -20,21 +20,37 @@ import { setTimeout } from 'timers';
                 
             </template>
         </div>
-        <div class="btn">
+        <div class="btn"   v-if="this.subset !=1">
             <button class="canle" @click="recordFn">重置</button>
             <button class="sure" @click="sureFn">{{sureTxt}}</button>
         </div>
         <div class="fix" :class="{'isShow':isFix}">
             <div class="fix-box-con">
-                <div>
+
+                <div class="fix-paing" >
                     <van-icon name="cross" @click="hideFix"></van-icon>
                 </div>
-                <div class="nav">
-                    <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
+                <div class="search">
+                  <van-search placeholder="请输入关键字，查找资质"  v-model="rchname" ></van-search>
                 </div>
-                <ul>
+
+                <div class="fix-padd" v-if="rchShow" >
+                    <div class="nav">
+                        <span v-for="(o,i) of navTxt" :class="num==i?'active':''" :key="i" @click="navTap(i)">{{o}}</span>
+                    </div>
+                </div>
+               
+                <!-- 资质单极选择 -->
+                <ul class="fix-padd"  v-if="rchShow" >
                     <li v-for="(o,i) of showArr" :key="o.code" @click="selectFn(i)">{{o.name}}</li>
                 </ul>
+                <!-- 资质搜索列表 -->
+                <ul class="fix-padd"  v-else >
+                    <li v-for="(o,i) of rcharr" :key="o.quaCode" @click="selectRch(o)">{{o.quaName}}</li>
+                </ul>
+                <div class="fix-hint" v-if="this.rcharr.length ==0 && !this.rchShow" >
+                    暂未找到该资质，请输入其他关键字
+                </div>
             </div>
         </div>
         <div class="toast" v-if="isToast">
@@ -57,10 +73,49 @@ export default {
             storageArr:[],//存
             boxArr:[],//用于显示在筛选区
             isToast:false,
+            rchname:'',
+            rcharr:[],
+            rchShow:true,
         }
     },
     watch: {
         // 监控集合
+        rchname(val) {
+            if(val != '') {
+                this.rchShow = false
+                let that=this;
+                this.$http({
+                    method:'post',
+                    url: '/new/common/filter/qual',
+                    data:{
+                       bizType:that.bizType,
+                       keyWord:that.rchname,
+                    }
+                }).then(function(res){    
+                    if(res.data.code ==1 ) {
+                        that.rcharr = res.data.data
+                    }
+                })
+            } else {
+                this.rchShow = true
+                this.rcharr = []
+                if(this.navTxt.length != 1) {                    
+                    for(var item of this.data){	
+                       if(item.name == this.navTxt[0] ) {
+                          for(var el of item.data){	
+                              if(el.name == this.navTxt[1] &&  this.navTxt[1] !='请选择' ) {
+                                  this.showArr =  el.data
+                              }
+                          }
+                       }
+                    }
+                } else {
+                  this.showArr=this.data;
+                }
+                
+            }
+            
+        }
     },
     props: {
         // 集成父级参数
@@ -69,6 +124,12 @@ export default {
         },
         arr:{
             default:[]
+        },
+        bizType: {
+           default:2
+        },
+        subset:{
+           default:0  
         }
     },
     beforeCreate() {
@@ -81,22 +142,40 @@ export default {
         if(!localStorage.getItem('filter')){
             //资质
             this.$http({
-                method:'get',
-                url: '/company/filter',
+                method:'post',
+                url: '/new/common/condition',
             }).then(function(res){
-                that.data=res.data.data.companyQual;
-     
-                that.showArr=res.data.data.newQual;          
+                if(that.$route.path == '/bid' || that.$route.path == '/subset') {
+                   that.data=res.data.data.noticeQua;
+                   that.showArr=res.data.data.noticeQua;
+                } else {
+                  that.data=res.data.data.newQual;
+                  that.showArr=res.data.data.newQual;
+                }
             })
         }else{
             let obj=localStorage.getItem('filter');
             obj=JSON.parse(obj);
-            that.data=obj.companyQual;
-            that.showArr=obj.newQual;
+            if(that.$route.path == '/bid' || that.$route.path == '/subset') {
+               that.data=obj.noticeQua;
+               that.showArr=obj.noticeQua;
+            } else {
+              that.data=obj.newQual;
+              that.showArr=obj.newQual;
+            }
+            
+            
         }
         that.boxArr=that.arr;
         if(that.boxArr.length>0){
             this.sureTxt='确定';
+        }
+        if(this.subset == 1 ) {
+            this.isFix=true;
+        }
+        if(sessionStorage.getItem('subapi')) {
+            let arr = JSON.parse(sessionStorage.getItem('subapi'))
+            this.boxArr = arr
         }
     },
     beforeMount() {
@@ -124,42 +203,75 @@ export default {
         // 方法 集合
         selectFn(i){
             let that=this;
-            let obj={
+            let obj={   
                 code:that.showArr[i].code,
                 name:that.showArr[i].name,
             }
-            this.storageArr.push(obj);
-            this.navTxt[that.num]=that.showArr[i].name;
-            if(that.showArr[i].list==null){
+            this.storageArr.push(obj);   // 存进去选择资质
+            this.navTxt[that.num]=that.showArr[i].name;  // 对应位置展示
+            if(that.showArr[i].data==null){    // 资质选到最后一级的操作 
                 let name=[],code=[];
                 for(let x of that.storageArr){
                     name.push(x.name);
-                    code.push(x.code);
-                }
-                let boxData={
-                    name:name.join('-'),
-                    code:code.join('||')
-                }
-                for(let x of this.boxArr){
-                    if(x.code==boxData.code){
-                        that.storageArr.length=2;
-                        that.isToast=true;
-                        setTimeout(function(){
-                            that.isToast=false;
-                        },1500)
-                        return false
+                    if(that.storageArr[0].code != x.code) {
+                     code.push(x.code);
                     }
                 }
-                this.hideFix();
+                let boxData = {
+                    name:name.join('-'),
+                    code:code.join('/')
+                }
+                for(let x of this.boxArr){
+                   if(x.code==boxData.code){
+                       that.storageArr.length=2;
+                       that.isToast=true;
+                       setTimeout(function(){
+                           that.isToast=false;
+                       },1500)
+                       return false
+                   } 
+                }
+               
                 that.storageArr=[];
                 this.boxArr.push(boxData);
                 this.navTxt=[];
                 this.sureTxt='确定';
                 this.showArr=this.data;
+                if(this.subset == 1 ) {
+                  this.$emit('setSub',{list:this.boxArr});
+                }else {
+                  this.hideFix();
+                }
             }
-            this.showArr=this.showArr[i].list;
+            this.showArr=this.showArr[i].data;
             this.num++;
             this.navTxt.push('请选择')
+            
+        },
+        selectRch(el) {
+           this.storageArr = []
+           this.num = 2;
+           let name = el.quaName.split('-')
+           let code = el.quaCode.split('-')
+           for(let x in name){
+             let obj = {
+                 code:code[x],
+                 name:name[x]
+             }
+              this.storageArr.push(obj);
+           }
+           for(var item of this.data){	
+               if(item.name == name[0] ) {
+                  for(var el of item.data){	
+                      if(el.name == name[1]) {
+                          this.showArr =  el.data
+                      }
+                  }
+               }
+            }
+           this.navTxt = name
+           this.navTxt.push('请选择')
+           this.rchShow = true
         },
         delteFn(i){
             this.boxArr.splice(i,1);
@@ -170,6 +282,8 @@ export default {
             }
         },
         sureFn(){
+            
+            this.rchname = ''
             let that=this;
             if(that.sureTxt=='添加'){
                 that.isFix=true;
@@ -178,24 +292,36 @@ export default {
                 let arr=that.boxArr;
                 let str='';
                 for(let x of arr){
-                    str=str+x.code+'||'
+                    str=str+x.code+','
                 }
-                str=str.substring(0,str.length-2);
+                str=str.substring(0,str.length-1);
                 this.$emit('sureFn',{str:str,list:this.boxArr});
             }
-            
         },
         addFn(){
+            this.rchname = ''
             this.isFix=true;
             this.num=0;
             this.showArr=this.data;
             this.modalHelper.afterOpen();
         },
         hideFix(){
-            this.isFix=false;
-            this.modalHelper.beforeClose();
+            if(this.subset == 1) {
+              this.$emit('setSub',{list:this.boxArr,msg:1});
+            } else {
+              this.rchname = ''
+              this.isFix=false;
+              this.modalHelper.beforeClose();
+            }
+            
         },
         recordFn(){
+            this.navTxt = ['请选择']
+            this.storageArr = []
+            this.boxArr = []
+            this.rcharr = []
+            this.rchname = ''
+            this.sureTxt = '添加'
             this.$emit('recordFn');
         },
         navTap(i){
@@ -206,8 +332,8 @@ export default {
                 this.storageArr=[];
             }else if(i==1){
                 for(let x in this.data){
-                    if(this.data[x].name==this.navTxt[0]){
-                        this.showArr=this.data[x].list
+                    if(this.data[x].name == this.navTxt[0]){
+                        this.showArr = this.data[x].data
                         break
                     }
                 }
@@ -217,28 +343,30 @@ export default {
             }
         },
         modifyFn(i){
+            this.rchname = ''
             this.isFix=true;
             this.modalHelper.afterOpen();
             //取之前的数据
             let arrName=this.boxArr[i].name.split('-');
-            let arrCode=this.boxArr[i].code.split('||');
+            let arrCode=this.boxArr[i].code.split('/');
             //删除之前的那行
             this.boxArr.splice(i,1);
             this.navTxt=arrName;
             this.navTxt[2]='请选择';
             this.num=2;
             for(let x of this.data){
-                if(x.code==arrCode[0]){
-                    for(let y of x.list){
-                        if(y.code==arrCode[1]){
-                            this.showArr=y.list
+                if(x.name == arrName[0]){
+                    for(let y of x.data){
+                        if(y.code == arrCode[0]){
+                            this.showArr = y.data
                             break
                         }
                     }
                     break
                 }
             }
-            for(let x=0;x<arrCode.length-1;x++){
+            arrCode.unshift('0000')
+           for(let x=0;x<arrName.length-1;x++){
                 let data={
                     code:arrCode[x],
                     name:arrName[x]
@@ -272,40 +400,40 @@ export default {
         width: 100%;
         text-align: center;
         p{
-            color: #999999;
-            padding-top: 176px
+          color: #999999;
+          padding-top: 176px
         }
         .content-box{
-            .tit{
-                padding: 0 32px;
-                height: 72px;
-                line-height: 72px;
-                text-align: left;
-                color: #999;
-                font-size: 24px
-            }
-            ul{
-                margin-bottom: 112px;
-            }
-            li{
-                padding: 0 32px;
-                background: #fff;
-                height: 88px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                span{
-                    display: inline-block;
-                    max-width: 650px;
-                    overflow: hidden;
-                    text-overflow:ellipsis;
-                    white-space:nowrap;
-                }
-            }
-            .addBtn{
-                text-align: center;
-                color: #FE6603
-            }
+          .tit{
+              padding: 0 32px;
+              height: 72px;
+              line-height: 72px;
+              text-align: left;
+              color: #999;
+              font-size: 24px
+          }
+          ul{
+              margin-bottom: 112px;
+          }
+          li{
+              padding: 0 32px;
+              background: #fff;
+              height: 88px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              span{
+                  display: inline-block;
+                  max-width: 650px;
+                  overflow: hidden;
+                  text-overflow:ellipsis;
+                  white-space:nowrap;
+              }
+          }
+          .addBtn{
+              text-align: center;
+              color: #FE6603
+          }
         }
     }
     .btn{
@@ -338,13 +466,26 @@ export default {
     transition: all .5s;
     background: #fff;
     z-index:999999;
-    padding: 35px 32px;
-    padding-right: 0;
+    // padding: 35px 32px;
+    // padding-right: 0;
     overflow-y: scroll;
     box-sizing: border-box;
     -webkit-overflow-scrolling:touch;
+    .fix-paing {
+         padding: 35px 32px;
+    }
     .fix-box-con{
         min-height:calc(100% + 1px);
+    }
+    .fix-padd {
+       padding: 20px 32px;
+       padding-bottom: 0;
+    }
+    .fix-hint {
+        line-height: 150px;
+        font-size: 28px;
+        color:#999;
+        text-align: center;
     }
     li{
         padding:30px 0;
@@ -352,16 +493,20 @@ export default {
         border-bottom: 1PX solid #f2f2f2;
     }
     .nav{
-        margin-bottom: 30px;
-        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-top: 20px;
         span{
-            width: 33%;
+            width: 31%;
             overflow: hidden;
             text-overflow:ellipsis;
-            text-align: center;
+            // text-align: center;
             white-space:nowrap;
             font-size: 28px;
-            display: inline-block
+            display: inline-block;
+            margin-right: 10px;
+        }
+        :last-child {
+            margin-right: 0;
         }
         .active{
             color: #FE6603

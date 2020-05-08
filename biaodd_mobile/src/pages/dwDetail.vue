@@ -10,7 +10,6 @@
     </div>
 </template>
 <script>
-import topBack from '@/components/topback'
 export default {
     name: 'dwDetail', // 结构名称
     data() {
@@ -25,7 +24,6 @@ export default {
         // 集成父级参数
     },
     components: {
-       'top-back':topBack,
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -68,22 +66,23 @@ export default {
 <style  lang='less' scoped>
 .app-boby.dwDetail{
     padding-bottom: 0;
-    // padding-top: 90px;
+    padding-top: 90px;
 }
 .img-box{
     // min-height: calc(100vh - 90px);
     // background: url(../assets/hdxq.png) no-repeat;
     // background-size: 100% 100%;
     position: relative;
+    margin-top: 90px;
     img{
         width: 100%;
-        height: 100%;
+        height:calc(100vh - 90px);
     }
     .btn{
-        position: absolute;
+         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 16%;
+        bottom: 8%;
         width: 540px;
         background: #F9BD1C;
         color: #fff;

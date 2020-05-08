@@ -46,7 +46,7 @@
                  <div class="left bas-first">
                     登记机关
                  </div>
-                 <div class="left ">
+                 <div class="left" style="width:65%" >
                      {{detail.regisAuthority}}
                  </div>
              </div>
@@ -54,7 +54,7 @@
                  <div class="left bas-first">
                     企业地址
                  </div>
-                 <div class="left ">
+                 <div class="left" style="width:65%">
                      {{detail.comAddress}}
                  </div>
              </div>

@@ -12,17 +12,22 @@
                 <div class="under" v-if="obj.isUnder" @click.stop="jumpgo">押证</div>
             </div>
             <template>
-                <p>
+                <p v-show="obj.comName" >
                     <span class="left-txt">注册单位</span>
                     <span>：{{obj.comName}}</span></p>
                 <p>
                     <span class="left-txt">注册类别</span>
                     <span>：{{obj.category}}</span>
                 </p>
-                <p>
+                <p v-show="obj.certNo" >
+                    <span class="left-txt">证书编号</span>
+                    <span>：{{obj.certNo}}</span>
+                </p>
+                <p v-show="obj.major" >
                     <span class="left-txt">专&nbsp&nbsp&nbsp业</span>
                     <span>：</span>
-                    <span>{{obj.major}}</span></p>
+                    <span>{{obj.major}}</span>
+                </p>
             </template>
         </div>
         <v-vip :mask="isvip" :txt="'开通会员才可查看人员详情'"></v-vip>
@@ -98,7 +103,7 @@ export default {
                  this.modalHelper.afterOpen();
                  return false
               }
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false

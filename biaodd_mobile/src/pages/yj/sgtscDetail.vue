@@ -24,22 +24,25 @@
             </p>
         </div>
         <!--企业主体信息 -->
-        <div class="box" v-if="detail.exploreOrg||detail.designOrg">
+        <div class="box" v-if="detail.exploreOrg">
             <h5>企业主体信息</h5>
             <ul>
                 <li>
-                    <p>
+                    <p v-show="detail.exploreOrg" >
                         <span class="tit-txt">勘察单位</span>
                         <i>：</i>
                         <span class="val-txt">{{detail.exploreOrg}}</span>
                     </p>
-                    <p>
+                    <p v-show="detail.designOrg" >
                         <span class="tit-txt">设计单位</span>
                         <i>：</i>
                         <span class="val-txt">{{detail.designOrg}}</span>
                     </p>          
                 </li>
             </ul>
+            <div class="No-Hint"  v-if="detail.exploreOrg ==''" >
+                暂无信息
+            </div>
         </div>
         <!-- 主要参与人员 -->
         <div class="box" v-if="detail.personList&&detail.personList.length>0">

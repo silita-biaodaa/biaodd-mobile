@@ -19,39 +19,9 @@ export default {
         return {
             // 数据模型
             assessList:[
-                {
-                    name:'全部',
-                    class:false,
-                },{
-                    name:'经评审最低报价法',
-                    class:false,
-                },{
-                    name:'综合评估法Ⅰ',
-                    class:false,
-                },{
-                    name:'合理低价法',
-                    class:false,
-                },{
-                    name:'固定标价评分法',
-                    class:false,
-                },{
-                    name:'综合评估法Ⅱ',
-                    class:false,
-                },{
-                    name:'技术评分最低标价法',
-                    class:false,
-                },{
-                    name:'其他',
-                    class:false,
-                },{
-                    name:'百分制综合评分法',
-                    class:false,
-                },{
-                    name:'合理定价抽取法',
-                    class:false,
-                }
             ],
             selectPush:[],
+            source:''
         }
     },
     watch: {
@@ -60,45 +30,63 @@ export default {
     props: {
         // 集成父级参数
         selectArr:{
-
+            default:[]
+        },
+        souCode: {
+           default:''
         }
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
     },
     created() {
-        // console.group('创建完毕状态===============》created');
-        // console.log(this.selectArr);
-        if(this.selectArr.length>0){
-            for(let x of this.assessList){
-                for(let y of this.selectArr){
-                    if(x.name==y){
-                        x.class=true
+        let that=this;
+        if(!localStorage.getItem('filter')){
+            this.$http({
+                method:'post',
+                url: '/new/common/condition',
+            }).then(function(res){
+                for(let item of res.data.data.pbMode) {
+                    if(item.provice == that.souCode) {
+                        that.assessList = item.list
                     }
                 }
+                that.assessList.unshift({name:'全部',code:''})
+                for (let x of that.assessList) {
+                   that.$set(that.assessList,x.class,false) 
+                }
+            })
+        }else{
+            let obj=localStorage.getItem('filter');
+            let obj1 =JSON.parse(obj);
+            let arr1 = obj1.pbMode
+            for(let item of arr1) {
+                if(item.provice == that.souCode) {
+                    that.assessList = item.list
+                }
             }
-            for(let y of this.selectArr){
-                this.selectPush.push(y);
+            that.assessList.unshift({name:'全部',code:''})
+            for (let x in that.assessList) {
+                that.assessList[x].class = false
             }
         }
-        // //条件
-        // let that=this;
-        // if(!localStorage.getItem('filter')){
-        //     this.$http({
-        //         method:'get',
-        //         url: '/company/filter',
-        //     }).then(function(res){
-        //         for(let x of res.data.data.pbMode){
-        //             x.class=false
-        //         }
-        //         that.assessList=res.data.data.pbMode;
-        //     })
-        // }else{
-        //     let obj=localStorage.getItem('filter');
-        //     obj=JSON.parse(obj);
-        //     that.data=obj.companyQual;
-        //     that.showArr=obj.companyQual;
-        // }
+        let str = sessionStorage.getItem('assess') ? sessionStorage.getItem('assess') : '0'
+        if(that.selectArr.length>0 && str != 1 ){
+          for(let x of that.assessList){
+              for(let y of that.selectArr){
+                  if(x.name == y.name){
+                      x.class=true
+                  }
+              }
+          }
+          for(let y of that.selectArr){
+              that.selectPush.push(y);
+          }
+        } else {
+            that.assessList[0].class = true
+        }
+       
+
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -107,6 +95,7 @@ export default {
         // console.group('挂载结束状态===============》mounted');
         this.$nextTick(function() {
             // console.log('执行完后，执行===============》mounted');
+          
         });
     },
     beforeUpdate() {
@@ -117,6 +106,7 @@ export default {
     },
     beforeDestroy() {
         // console.group('销毁前状态  ===============》beforeDestroy');
+         sessionStorage.removeItem('assess')
     },
     destroyed() {
         // console.group('销毁完成状态===============》destroyed');
@@ -124,33 +114,41 @@ export default {
     methods: {
         // 方法 集合
         tapFn(i){
+            
             let that=this;
+            let list = that.assessList
             if(i==0){
-                for(let x of that.assessList){
+                for(let x of list){
                     x.class=false
                 }
-                that.assessList[i].class=true;
+                list[i].class=true;
                 that.selectPush=[];
+                that.$set(that.assessList,0,list[0])
                 return false
             }else{
-                that.assessList[0].class=false;
+                list[0].class=false;
+               
             }
 
-            if(!that.assessList[i].class){
-                that.selectPush.push(that.assessList[i].name);
-                that.assessList[i].class=true;
+            if(!list[i].class){
+                that.selectPush.push(list[i]);
+                list[i].class=true;
             }else{
                 for(let x in that.selectPush){
-                    if(that.selectPush[x]==that.assessList[i].name){
+                    if(that.selectPush[x].name == list[i].name){
                         that.selectPush.splice(x,1)
                     }
                 }
-                that.assessList[i].class=false;
+                list[i].class=false;
             }
-            
+            that.$set(that.assessList,i,list[i])
         },
         sureFn(){
-            let str=this.selectPush.join('||');
+            let arr1 = []
+            for (let item of this.selectPush) {
+                arr1.push(item.code)
+            }
+            let str = arr1.join('||')
             this.$parent.mask=false;
             this.$emit('sureFn',{str:str,select:this.selectPush});
         },

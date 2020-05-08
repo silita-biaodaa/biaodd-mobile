@@ -1,7 +1,7 @@
 <!-- 模型： DOM 结构 -->
 <template>
   <div class="top-nav">
-        <van-icon name="arrow-left" class="top-left" @click="$router.go(-1)" />
+        <van-icon name="arrow-left" class="top-left" @click="toBack" />
         {{title}}
         <template v-if="isFollow">
             <van-icon name="like" @click="followFn" v-if="follow"/>
@@ -11,6 +11,8 @@
             <p @click="mask=true">开发票</p>
         </template>
         <v-popup :mask="mask"></v-popup>
+        <p v-if="isSet" class="top-sub" @click="toSub"  >设置</p>
+        <v-vip :mask="isvip" :txt="'我的订阅需要会员权限'"></v-vip>
    </div>
 </template>
 <script>
@@ -22,6 +24,7 @@ export default {
         return {
             // 数据模型
             mask:false,
+            isvip:false
             // follow:true,//是否关注
         }
     },
@@ -37,6 +40,9 @@ export default {
         isFollow:{
             default:false
         },
+        isSet:{
+            default:false
+        },
         type:{
             default:''
         },
@@ -47,7 +53,11 @@ export default {
         },
         source:{
             default:''
-        }
+        },
+        collect:{
+            default:''
+        },
+
     },
     components: {
        'v-popup':popup,
@@ -125,7 +135,7 @@ export default {
                     url:'/userCenter/collectionNotice',
                     data:{
                         source:that.source,
-                        type: "0",
+                        type: this.collect,
                         noticeid:that.id,
                     }
                 }).then(function(res){
@@ -161,6 +171,22 @@ export default {
                     }
                 })
             }
+        },
+        toBack() {
+            if(this.title == '项目地区' ) {
+                 this.$emit('topArea',{})
+                return
+            }
+            this.$router.go(-1)
+        },
+        toSub() {
+            if ( sessionStorage.getItem('isVip') == 'false') {
+                this.modalHelper.afterOpen();
+                this.isvip = true
+                return false
+            }
+            localStorage.removeItem('isfirst')
+            this.$router.push('/subset')
         }
     }
 
@@ -204,6 +230,9 @@ export default {
         top: 50%;
         transform: translateY(-50%);
         font-size: 40px;
+    }
+    .top-sub {
+        font-size: 30px;
     }
 }
 </style>

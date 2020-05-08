@@ -4,15 +4,22 @@
       
       <div v-if="!isError"  class="noo-img" >
         <img src="../assets/nolist.png" alt="">
-        <div class="not-f" >
+        <div class="not-f"   >
           {{msg}}
         </div>
+        
+        <div  class="not-btn" v-if="index != -1" @click.stop="jump"  >
+            去关注
+        </div>
+
       </div>
+      
         <div class="error" v-else>
             <img src="../assets/load-error.png" alt="">
             <div class="not-f" >加载失败</div>
             <div class="not-f" @click="clickTap" style="color:#FE6603">点击重新加载</div>
         </div>
+
     </div>
 </template>
 <script>
@@ -35,7 +42,10 @@ export default {
         },
         hint:{
             default:''
-        }
+        },
+        index:{
+            default:-1
+        },
     },
     beforeCreate() {
         // console.group('创建前状态  ===============》beforeCreate');
@@ -71,6 +81,15 @@ export default {
         clickTap(){
             this.reload();
         },
+        jump() {
+            if(this.index == 0) {
+                this.$router.push('/bid')
+            } else if(this.index == 1) {
+                 this.$router.push('/tender')
+            } else {
+                 this.$router.push('/company')
+            }
+        }
         // hint() {
         //    if(this.$route.fullPath == '/bid' || this.$route.fullPath == '/tender'  ) {
         //         this.msg = 'Sorry，没有找到符合条件的公告信息'
@@ -81,11 +100,10 @@ export default {
         //    } else if(this.$route.fullPath == '/ryList') {
         //         this.msg = 'Sorry，没有找到符合条件的人员信息'
         //    }
-            
         // }
     }
-
 }
+
 
 </script>
 <!-- 增加 "scoped" 属性 限制 CSS 属于当前部分 -->
@@ -107,6 +125,11 @@ export default {
    font-size: 28px;
    color:#666;
    text-align: center;
+//    text-decoration:underline;
+ }
+ .not-t {
+    text-decoration:underline;
+    color: #fe6603;
  }
  .error{
      img{
@@ -114,5 +137,16 @@ export default {
          margin-top: 150px;
      }
  }
+ .not-btn {
+     margin-top: 100px;
+     width: 140%;
+     height: 88px;
+     border-radius:44px;
+     line-height: 88px;
+     text-align: center;
+     font-size:32px;
+     color:rgba(255,255,255,1);
+     background-color: #FE6603;
+     }
 }
 </style>

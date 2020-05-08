@@ -13,22 +13,22 @@
             <h5>{{obj.qualName}}</h5>
             <p>发证机关：<span>{{obj.certOrg}}</span></p>
             <p>资质证书号：<span>{{obj.certNo}}</span></p>
-            <p>有效日期：<span>{{obj.certDate}}</span></p>
+            <p>有效日期：<span>{{obj.validDate}}</span></p>
         </template>
         <!-- 人员 -->
         <template v-else-if="type=='ry'">
             <h5>{{obj.name}}</h5>
             <div class="yzBtn" v-if="obj.isUnder" @click.stop="jumpgo">押证</div>
             <p>注册类别：<span>{{obj.category}}</span></p>
-            <p>专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
-            <p>有效日期：<span>{{obj.validDate}}</span></p>
+            <p v-show="obj.certNo" >注册类别：<span>{{obj.certNo}}</span></p>
+            <p v-show="obj.major" >专&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业：<span>{{obj.major}}</span></p>
         </template>
         <!-- 中标 -->
         <template v-else-if="type=='zb'">
             <h5>{{obj.title}}</h5>
             <p>第一候选人：<span>{{obj.oneName}}</span></p>
             <p>中标金额：<span>{{obj.oneOffer}}万元</span></p>
-            <p>发布日期：<span>{{obj.opendate}}</span></p>
+            <p>发布日期：<span>{{obj.openDate}}</span></p>
         </template>
         <!-- 获奖 -->
         <template v-else-if="type=='gb'">
@@ -50,13 +50,13 @@
             <template v-if="type=='yj1'">
                 <div><span class="zj label">{{obj.proType}}</span></div>
                 <p>建设单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
+                <p>合同金额：<span  v-show="obj.amount" >{{obj.amount}}万元</span></p>
                 <p>竣工日期：<span>{{obj.buildEnd}}</span></p>
             </template>
             <template v-else-if="type=='yj2'">
                 <div><span class="sl label">{{obj.proType}}</span></div>
                 <p>施工单位：<span>{{obj.proOrg}}</span></p>
-                <p>合同金额：<span>{{obj.amount}}万元</span></p>
+                <p>合同金额：<span>{{obj.amount}}</span></p>
                 <p>完工日期：<span>{{obj.build}}</span></p>
             </template>
             <template v-else-if="type=='yj3'">
@@ -124,7 +124,7 @@ export default {
         // 时间转换
         jumpDetail(){
             if(this.type=='yj1'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -133,7 +133,7 @@ export default {
                 sessionStorage.setItem('letterStr','zj');
                 this.$router.push({path:'/zjDetail',query:{id:this.obj.proId}})
             }else if(this.type=='yj2'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -142,7 +142,7 @@ export default {
                 sessionStorage.setItem('letterStr','sl');
                 this.$router.push({path:'/slDetail',query:{id:this.obj.pkid}})
             }else if(this.type=='yj3'){
-                if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+                if(!this.judgeVip()){
                     this.isvip=true;
                     this.modalHelper.afterOpen();
                     return false
@@ -159,7 +159,7 @@ export default {
             }
         },
         jumpgo(){
-            if(sessionStorage.getItem('permissions') == null || sessionStorage.getItem('permissions') == ''){
+            if(!this.judgeVip()){
                 this.isvip=true;
                 this.modalHelper.afterOpen();
                 return false

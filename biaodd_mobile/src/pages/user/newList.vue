@@ -10,6 +10,7 @@
            
            </div>
          </div>
+         <!-- 评论 -->
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'reply' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.reNikename}}<span style="color:#ccc" >回复了你:</span></h6>
@@ -22,6 +23,7 @@
              {{obj.relatedType ? '招标公共': '中标公共'}}:{{obj.noticeTitle}}
            </div>
          </div>
+         <!-- 企业 -->
          <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'company' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
@@ -31,6 +33,7 @@
            
            </div>
          </div>
+         <!-- 会员 -->
           <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'vip' " >
            <div  class="news-title"  >
              <h6 class="new-over" >{{obj.msgTitle}}</h6>
@@ -40,10 +43,32 @@
            
            </div>
          </div>
+         <!-- 订阅 -->
+        <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'subscribe' " >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="newText"  >
+           
+           </div>
+         </div>
+         <!-- 关注赠送会员 -->
+         <div class="news-text" :class="condition ? 'con' : 'conf'"  v-if="obj.msgType == 'system' " style="paddingBottom:10px;" >
+           <div  class="news-title"  >
+             <h6 class="new-over" >{{obj.msgTitle}}</h6>
+             <p style="color:#ccc" >{{obj.pushd}}</p>
+           </div>
+           <div class="news-name" v-html="newText"  >
+           
+           </div>
+         </div>
+
       </div>
-      <div class="news-btn" @click.stop="jump(obj)"  >
+      <div class="news-btn" @click.stop="jump(obj)"   >
             查看详情 >
        </div>
+       
     </div>
 </template>
 <script>
@@ -53,6 +78,7 @@ export default {
         return {
             // 数据模型
              control:false,
+             newText:''
              
         }
     },
@@ -70,7 +96,6 @@ export default {
         },
         isk(val) {
           if(val) {
-             console.log(val);
             this.control = false
           }
         }
@@ -93,7 +118,7 @@ export default {
     },
     created() {
         // console.group('创建完毕状态===============》created');
-        // this.all = this.isall
+       this.newText = this.obj.msgContent.replace(/\n/g,"<br/>")
     },
     beforeMount() {
         // console.group('挂载前状态  ===============》beforeMount');
@@ -128,9 +153,14 @@ export default {
             
           } else if(o.msgType == 'company') {
                 this.$router.push({path:'/letter',query:{id:o.replyId,source:o.regisAddress,name:o.comName}})
+          } else if(o.msgType == 'subscribe') {
+                 this.$router.push({ name:'subscribe' ,params:{ id:o.replyId} })
+          } else if(o.msgType == 'system') {
+              localStorage.setItem('sendNew',JSON.stringify(o))
+              this.$router.push({ path:'/newtext',})
+                //  this.$router.push({ name:'subscribe' ,params:{ id:o.replyId} })
           } else {
               this.$router.push({path:'/openingVip'})
-
           }
            let that=this;
             this.$http({

@@ -7,13 +7,15 @@
   </div>
   <!-- 筛选 -->
   <div class="screen-box">
-    <div class="condition" :class="{'active':o.active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">
+    <div class="condition" :class="{'active':screenShow[i].active}" v-for="(o,i) of screenList" :key="i" @click="showMask(i)">
       <span>{{o.txt}}</span>
       <i></i>
     </div>
-    <v-addr @addObj="returnAddress" v-if="screenList[0].active" :add="data.regisAddress" :allress='true'  :type="1"></v-addr>
-    <v-apt v-if="screenList[2].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr"></v-apt>
-    <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money>
+    <v-addr @addObj="returnAddress" v-if="screenShow[0].active" :add="add" :allress='true'  :type="1"></v-addr>
+    <v-apt v-if="screenShow[1].active" @sureFn='aptSure'  @recordFn="recordFn" :arr="screenNum.arr" :bizType="2" ></v-apt>
+    <r-ecord v-if="screenShow[2].active"  @sureFn='recSure' @recordFn="recodeFn" :obj='shortName' ></r-ecord>
+    <g-lory v-if="screenShow[3].active" @sureFn='gloSure'  @recordFn="gloryFn" ></g-lory>
+    <!-- <v-money @sureFn='moneySure' @canleFn="typeCanle" v-if="screenList[1].active" :data="screenNum.data"></v-money> -->
   </div>
   <!-- 总条数 -->
   <div class="total">为您搜索到{{total}}家企业信息</div>
@@ -43,7 +45,8 @@ import fixHead from '@/components/fixHead'
 import search from '@/components/search'
 import addr from '@/components/address'
 import aptitude from '@/components/aptitude'
-import money from '@/components/money'
+import record from '@/components/record'
+import glory from '@/components/glory'
 import not from '@/components/not'
 export default {
     data () {
@@ -61,6 +64,8 @@ export default {
           keyWord: "",
           isVip:0,
           qualCode:'',
+          joinRegion:'',
+          honorCate:''
           // rangeType: "and"
         },
         total:0,
@@ -69,26 +74,47 @@ export default {
             txt:'地区',
             active:false,
           },{
-            txt:'注册资金',
-            active:false
-          },{
             txt:'资质要求',
             active:false
-          },
+          },{
+             txt:'备案地区',
+             active:false
+          }
         ],
+        screenShow:[
+          {
+           active:false,
+        },{
+           active:false,
+        },{
+           active:false,
+        },{
+           active:false,
+        }],
+        ecord:false,
+        lory:false,
         screenNum:{
           arr:[],
           data:{
             num:0,
             projSumStart:'',
             projSumEnd:''
-          }
+          },
+          isBei:{
+            code:''
+          },
+          honorCate:{
+            code:''
+          },
+          shortName:''
         },
         isajax:false,//是否加载完
         isError:false,//是否加载失败
         finished:false,//是否加载完
         error:false,
         vipStr:'',
+        add:{},
+        shortName:'湘'
       }
     },
     methods: {
@@ -102,6 +128,12 @@ export default {
       ajax(){
         this.isScroll=false;
         let that=this;
+          if(sessionStorage.getItem('isVip') == 'true' ){
+            
+          that.data.isVip=1;
+        } else {
+           that.data.isVip=0;
+        }
         if(that.data.regisAddress == '全部') {
           that.data.regisAddress = ''
         }
@@ -150,69 +182,123 @@ export default {
       returnAddress(option){//选择地址
         this.isajax=false;
         this.zbList=[];
-        this.screenList[0].active=false;
+        this.screenShow[0].active=false;
         this.screenList[0].txt=option.txt;
+        this.shortName = option.name
+        this.screenNum.shortName = option.name
+        console.log(option);
+        if(this.screenList[0].txt == '湖南省' ) {
+          if(this.screenList.length == 3) {
+             this.screenList.push({txt:'荣誉类别'})
+          }
+         
+        } else {
+           this.screenList.length = 3
+           this.screenNum.honorCate.code= '';
+           this.screenNum.isBei.code= '';
+        }
+        this.add = {}
+        this.add.regions = option.str
         this.data.regisAddress=option.str;
         this.data.pageNo=1;
         this.ajax();
       },
       showMask(i){//
-        if(this.vipStr.indexOf('comFilter')==-1&&i!=0){
+
+        if(this.vipStr == 'false'&&i!=0){
           this.isvip=true;
           this.modalHelper.afterOpen();
           return false
         } 
-        if(this.screenList[i].active){
-          this.screenList[i].active=false
-        }else{
-          for(let x of this.screenList){
-            x.active=false
+ 
+          if(this.screenShow[i].active){
+              this.screenShow[i].active=false
+          }else{
+            for(let x of this.screenShow){
+              x.active=false
+            }
+            this.screenShow[i].active=true;
           }
-          this.screenList[i].active=true;
-        }
+        
       },
-      typeCanle(){
-        this.screenList[1].active=false;
-        this.screenList[2].active=false;
-      },
+      // typeCanle(){
+      //   this.screenList[1].active=false;
+      //   this.screenList[2].active=false;
+      // },
       aptSure(option){
         this.isajax=false;
-        // console.log(option);
         this.zbList=[];
-        this.screenList[2].active=false;
+        this.screenShow[1].active=false;
         let str=option.str;
         this.data.qualCode=str;
         this.screenNum.arr=option.list;
         this.data.pageNo=1;
         this.ajax();
       },
-      moneySure(option){
+      recSure(option) {
         this.isajax=false;
-        this.zbList=[];
-        if(option.num==1){
-            this.data.minCapital='500';
-            this.data.maxCapital='1000';
-        }else if(option.num==2){
-            this.data.minCapital='1000';
-            this.data.maxCapital='5000';
-        }else if(option.num==3){
-            this.data.minCapital='5000';
-            this.data.maxCapital='10000';
-        }else if(option.num==4){
-            this.data.minCapital='10000';
-        }else{
-            this.data.minCapital=option.projSumStart;
-            this.data.maxCapital=option.projSumEnd;
-        }
-        this.screenNum.data=option;
-        this.screenList[1].active=false;
+        this.screenShow[2].active=false;
+        let str=option.str;
+        this.screenNum.isBei.code= str;
+        this.data.joinRegion=str;
         this.data.pageNo=1;
         this.ajax();
       },
+      gloSure(option) {
+        this.isajax=false;
+        this.screenShow[3].active=false;
+        let str=option.str;
+        this.screenNum.honorCate.code= str;
+        this.data.honorCate=str;
+        this.data.pageNo=1;
+        this.ajax();
+      },
+      gloryFn() {
+        this.isajax=false;
+        this.screenShow[3].active=false;
+        this.screenNum.honorCate.code= '';
+        this.data.honorCate='';
+        this.data.pageNo=1;
+        this.ajax();
+      },
+      recodeFn() {
+        this.isajax=false;
+        this.screenShow[2].active=false;
+        this.screenNum.isBei.code= '';
+        this.data.joinRegion='';
+        this.data.pageNo=1;
+        this.ajax();
+      },
+      // moneySure(option){
+      //   this.isajax=false;
+      //   this.zbList=[];
+      //   if(option.num==1){
+      //       this.data.minCapital='500';
+      //       this.data.maxCapital='1000';
+      //   }else if(option.num==2){
+      //       this.data.minCapital='1000';
+      //       this.data.maxCapital='5000';
+      //   }else if(option.num==3){
+      //       this.data.minCapital='5000';
+      //       this.data.maxCapital='10000';
+      //   }else if(option.num==4){
+      //       this.data.minCapital='10000';
+      //   }else{
+      //       this.data.minCapital=option.projSumStart;
+      //       this.data.maxCapital=option.projSumEnd;
+      //   }
+      //   this.screenNum.data=option;
+      //   this.screenList[1].active=false;
+      //   this.data.pageNo=1;
+      //   this.ajax();
+      // },
       clearFn(){
         this.data.keyWord=''
       },
       recordFn(){
+        for(let i in this.screenShow) {
+          this.screenShow[i].active = false
+        }
         this.data.qualCode='';
         this.isajax=false;
         this.zbList=[];
@@ -228,25 +314,79 @@ export default {
         'v-search':search,
         'v-addr':addr,
         'v-apt':aptitude,
-        'v-money':money,
+        'r-ecord':record,
+        'g-lory':glory,
         'v-not':not,
     },
     created(){
-      this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
-      this.data.regisAddress = sessionStorage.getItem('address');
-      this.screenList[0].txt=sessionStorage.getItem('address');
-      if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
-        let data=JSON.parse(sessionStorage.getItem('companyData')),
+       
+      if(this.$route.query.key || this.$route.query.scom ) {
+         let data=JSON.parse(sessionStorage.getItem('companyData'))
+         this.data=data;
+         if(sessionStorage.getItem('companyScreenNum')) {
+           let screenNum = JSON.parse(sessionStorage.getItem('companyScreenNum'))
+           this.screenNum= screenNum;
+         }
+         this.add.name = data.regisAddress
+         let arr = data.regisAddress.split('||')         
+         this.screenList[0].txt = arr[0]
+          if(this.screenList[0].txt == '湖南省' ) {
+            if(this.screenList.length == 3) {
+               this.screenList.push({txt:'荣誉类别'})
+            }
+           
+          } else {
+             this.screenList.length = 3
+             this.screenNum.honorCate.code= '';
+             this.screenNum.isBei.code= '';
+          }
+      } else {
+           this.data.regisAddress = JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省';
+           if( JSON.parse(sessionStorage.getItem('address'))) {
+                if(JSON.parse(sessionStorage.getItem('address')).name ) {
+                    this.screenList[0].txt=  JSON.parse(sessionStorage.getItem('address')).name 
+                } else {
+                   this.screenList[0].txt=  '湖南省' ;
+                }
+            } else {
+                this.screenList[0].txt= '湖南省' ;
+            }
+          this.add.name = (sessionStorage.getItem('companyData')) ? JSON.parse(sessionStorage.getItem('companyData')).regisAddress :  (JSON.parse(sessionStorage.getItem('address')) ? JSON.parse(sessionStorage.getItem('address')).name : '湖南省')
+          if(sessionStorage.getItem('companyData')&&sessionStorage.getItem('companyScreenNum')){//刷新保存筛选
+            let data=JSON.parse(sessionStorage.getItem('companyData')),
             screenNum=JSON.parse(sessionStorage.getItem('companyScreenNum'));
-        data.pageNo=1;
-        this.data=data;
-        this.screenNum=screenNum;
+             this.screenList[0].txt = data.regisAddress
+              if(this.screenList[0].txt == '湖南省' ) {
+                if(this.screenList.length == 3) {
+                   this.screenList.push({txt:'荣誉类别'})
+                }
+               
+              } else {
+                 this.screenList.length = 3
+                 this.screenNum.honorCate.code= '';
+                 this.screenNum.isBei.code= '';
+              }
+            data.pageNo=1;
+            this.data=data;
+            this.screenNum=screenNum;
+          }
       }
-      if(sessionStorage.getItem('permissions')){
-        this.vipStr=sessionStorage.getItem('permissions');
-        this.data.isVip=1;
+   
+      // console.log(sessionStorage.getItem('isVip') == 'true');
+       this.vipStr=sessionStorage.getItem('isVip');
+       if(sessionStorage.getItem('companyScreenNum')) {
+        this.shortName = JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName ? JSON.parse(sessionStorage.getItem('companyScreenNum')).shortName : '湘'
+       }
+      if(this.screenList[0].txt == '湖南省') {
+         if(this.screenList.length == 3) {
+             this.screenList.push({txt:'荣誉类别'})
+          }
+      } else {
+         this.screenList.length = 3
+         this.screenNum.honorCate.code= '';
+         this.screenNum.isBei.code= '';
       }
-      
+      this.data.keyWord = this.$route.query.key ?  this.$route.query.key :  this.$route.query.scom ? this.$route.query.scom : '';
       this.ajax();
     },
     watch:{
@@ -264,8 +404,8 @@ export default {
       }
     },
     beforeDestroy(){
-      sessionStorage.removeItem('companyData')
-      sessionStorage.removeItem('companyScreenNum')
+      // sessionStorage.removeItem('companyData')
+      // sessionStorage.removeItem('companyScreenNum')
     },
 }
 </script>
